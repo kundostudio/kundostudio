@@ -79,7 +79,7 @@ const Blueprint = forwardRef<HTMLDivElement, {}>((props, ref) => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <HackerText className={cn(styles.block, styles.text)}>runreal</HackerText>
+        <HackerText className={cn(styles.block, styles.text)}>meow</HackerText>
         <div className={styles.block}>
           <HackerText className={styles.text} letters="01">
             [01]
@@ -131,7 +131,7 @@ const Blueprint = forwardRef<HTMLDivElement, {}>((props, ref) => {
           </HackerText>
         </div>
         <div className={styles.block}>
-          <HackerText className={styles.text}>runreal</HackerText>
+          <HackerText className={styles.text}>meow</HackerText>
         </div>
         <div className={styles.block}>
           <HackerText className={styles.text} letters="01">

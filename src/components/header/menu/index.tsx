@@ -62,7 +62,7 @@ export function Menu({ isOpen }: Props) {
             </ul>
           </nav>
           <span className={cn(styles.copyright, itemsOpen > 0 ? styles.addBorder : "")}>
-            © 2024 runreal
+            © 2024 meow
           </span>
         </motion.div>
       )}
