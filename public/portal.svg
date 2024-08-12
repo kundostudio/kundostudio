@@ -1,0 +1,25 @@
+<svg width="1497" height="412" viewBox="0 0 1497 412" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1.5" y="0.5" width="1495" height="411" stroke="currentColor" stroke-linejoin="round"/>
+<rect x="194.855" y="53.5466" width="1108.28" height="304.91" stroke="currentColor" stroke-linejoin="round"/>
+<rect x="387.266" y="106.677" width="723.467" height="198.23" stroke="currentColor" stroke-linejoin="round"/>
+<rect x="537.467" y="147.995" width="423.073" height="116.014" stroke="currentColor" stroke-linejoin="round"/>
+<rect x="594.045" y="163.366" width="309.904" height="85.2671" stroke="currentColor" stroke-linejoin="round"/>
+<line y1="-0.5" x2="1546.52" y2="-0.5" transform="matrix(0.964263 0.264949 -0.849825 0.527064 1 1.96034)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="1546.52" y2="-0.5" transform="matrix(0.964262 -0.264949 0.849825 0.527064 5.74805 411.71)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="460.719" y2="-0.5" transform="matrix(-0.894471 -0.447127 0.802196 -0.597061 749.604 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="460.719" y2="-0.5" transform="matrix(0.894471 -0.447127 -0.802196 -0.597061 749.604 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="266.753" y2="-0.5" transform="matrix(-0.635319 -0.77225 0.956211 -0.292678 749.604 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="265.404" y2="-0.5" transform="matrix(0.633953 -0.773372 0.956505 0.291715 749.604 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line x1="749.104" y1="206.001" x2="749.104" y2="0.744751" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="460.719" y2="-0.5" transform="matrix(-0.894471 0.447127 0.802196 0.597061 749.602 206)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="460.719" y2="-0.5" transform="matrix(0.894471 0.447127 -0.802196 0.597061 749.602 206)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="266.179" y2="-0.5" transform="matrix(-0.636688 0.771121 -0.955914 -0.293647 749.602 206)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="265.98" y2="-0.5" transform="matrix(0.632581 0.774494 -0.956799 0.290751 749.602 206)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="205.256" y2="-0.5" transform="matrix(-7.16627e-08 1 1 2.66622e-08 749.602 206)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line x1="748.391" y1="206.499" x2="2.22162" y2="206.498" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="754.402" y2="-0.5" transform="matrix(-0.990703 -0.136039 0.346247 -0.938143 748.389 205.629)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="754.402" y2="-0.5" transform="matrix(-0.990703 0.136039 0.346247 0.938143 748.391 205.999)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line x1="1495.78" y1="206.501" x2="749.608" y2="206.501" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="754.402" y2="-0.5" transform="matrix(0.990703 -0.136039 -0.346247 -0.938143 748.393 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+<line y1="-0.5" x2="754.402" y2="-0.5" transform="matrix(0.990703 0.136039 -0.346247 0.938143 748.393 206.001)" stroke="currentColor" stroke-linejoin="round" stroke-dasharray="2 2"/>
+</svg>

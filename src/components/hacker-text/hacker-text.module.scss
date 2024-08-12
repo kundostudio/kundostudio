@@ -1,0 +1,19 @@
+.wrapper {
+  text-align: left;
+
+  .text {
+    position: relative;
+    display: inline-block;
+
+    .animatedText {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .spacerText {
+      visibility: hidden;
+    }
+  }
+}
+

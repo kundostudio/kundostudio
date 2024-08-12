@@ -1,0 +1,31 @@
+.wrapper {
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+
+  .portalWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 8px rgba(var(--current-color), 0.6);
+
+    .bigMeow {
+      position: absolute;
+      width: 18%;
+      z-index: 2;
+    }
+
+    .bigMeowBackground {
+      position: absolute;
+      width: 20%;
+    }
+  }
+
+  .titleWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
