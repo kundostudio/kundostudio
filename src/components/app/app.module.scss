@@ -7,6 +7,15 @@
   padding-top: 3rem;
 }
 
+.canvas {
+  position: fixed !important;
+  z-index: 99;
+  top: 3%;
+  left: 1%;
+  width: 98% !important;
+  height: 84% !important;
+}
+
 .content {
   --padding-vertical: 12px;
   --padding-horizontal: 1rem;

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { DM_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
 import "~/styles/global.scss";
-import { App } from "../src/components/app";
+// import { App } from "../src/components/app";
+
+const App = dynamic(() => import("~/components/app").then((mod) => mod.App), {
+  ssr: false,
+});
 
 const dm_mono = DM_Mono({
   subsets: ["latin"],

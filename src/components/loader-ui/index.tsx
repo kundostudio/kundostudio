@@ -314,7 +314,6 @@ export function LoaderUI({ loaded = false }: { loaded?: boolean }) {
         {stage === 0 && (
           <div className={styles.blurprintBackgroud}>
             <DotsBackground />
-            {!isMobile && <BottomLigth className={styles.bottomLigth} />}
           </div>
         )}
       </AnimatePresence>
