@@ -12,6 +12,8 @@
 
   &:hover,
   &:focus {
+    background: rgba(var(--current-color), 0.1);
+
     .corner:nth-of-type(2) {
       top: 0;
       left: 0;

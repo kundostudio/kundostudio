@@ -7,9 +7,10 @@ export class RetroEffectImpl extends Effect {
   constructor() {
     const uniforms = new Map([
       ["colorNum", new THREE.Uniform(64.0)],
-      ["pixelSize", new THREE.Uniform(2.0)],
+      ["pixelSize", new THREE.Uniform(1.0)],
       ["blending", new THREE.Uniform(true)],
-      ["curve", new THREE.Uniform(0.25)],
+      ["maskIntensity", new THREE.Uniform(0.6)],
+      ["curve", new THREE.Uniform(0.15)],
     ]);
 
     super("RetroEffect", fragmentShader, {
@@ -49,5 +50,13 @@ export class RetroEffectImpl extends Effect {
 
   get pixelSize() {
     return this.uniforms.get("pixelSize").value;
+  }
+
+  set maskIntensity(value) {
+    this.uniforms.get("maskIntensity").value = value;
+  }
+
+  get maskIntensity() {
+    return this.uniforms.get("maskIntensity").value;
   }
 }
