@@ -4,6 +4,7 @@ uniform float colorNum;
 uniform float pixelSize;
 uniform bool blending;
 uniform float curve;
+uniform float maskIntensity;
 
 float random(vec2 c) {
   return fract(sin(dot(c.xy, vec2(12.9898, 78.233))) * 43758.5453);
@@ -52,11 +53,10 @@ vec3 dither(vec2 uv, vec3 color) {
 }
 
 const float MASK_BORDER = .9;
-const float MASK_INTENSITY = 0.6;
-const float SPREAD = 0.;
+const float SPREAD = 0.1;
 
 void mainUv(inout vec2 uv) {
-  float shake = (noise(vec2(uv.y) * sin(time * 400.0) * 100.0) - 0.5) * 0.0025;
+  // float shake = (noise(vec2(uv.y) * sin(time * 400.0) * 100.0) - 0.5) * 0.0025;
   // uv.x += shake * 1.5;
 }
 
@@ -70,35 +70,23 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
   vec2 pixel = uv * resolution;
   vec2 coord = pixel / pixelSize;
   vec2 subcoord = coord * vec2(3,1);
-  vec2 cellOffset = vec2(0, mod(floor(coord.x), 3.0) * 0.5);
 
   float ind = mod(floor(subcoord.x), 3.0);
   vec3 maskColor = vec3(ind == 0.0, ind == 1.0, ind == 2.0) * 2.0;
 
-  vec2 cellUV = fract(subcoord + cellOffset) * 2.0 - 1.0;
+  vec2 cellUV = fract(subcoord) * 2.0 - 1.0;
   vec2 border = 1.0 - cellUV * cellUV * MASK_BORDER;
   maskColor.rgb *= border.x * border.y;
 
-  vec2 rgbCellUV = floor(coord+cellOffset) * pixelSize / resolution;
+  vec2 rgbCellUV = floor(coord) * pixelSize / resolution;
 
   vec4 color = vec4(1.0);
   color.r = texture2D(inputBuffer, rgbCellUV + SPREAD).r;
   color.g = texture2D(inputBuffer, rgbCellUV).g;
   color.b = texture2D(inputBuffer, rgbCellUV - SPREAD).b;
   
-  color.rgb = dither(rgbCellUV, color.rgb);
-
-  if(blending) {
-    color.rgb *= 1.0 + (maskColor - 1.0) * MASK_INTENSITY;
-  } else {
-    color.rgb *= maskColor;
-  }
-
-  float lines = sin(uv.y * 2150.0 + time * 100.0);
+  float lines = sin(uv.y * 2050.0 + time * 200.0); // float lines = sin(uv.y * 2050.0 + time * 2.0);
   color *= lines + 1.0;
-
-  vec2 edge = smoothstep(0., 0.02, curveUV)*(1.-smoothstep(1.-0.02, 1., curveUV));
-  color.rgb *= edge.x * edge.y;
 
   outputColor = color;
 }

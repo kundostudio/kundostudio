@@ -9,6 +9,7 @@ export function Canvas({ children }: React.PropsWithChildren) {
       gl={{
         powerPreference: "high-performance",
         alpha: true,
+        localClippingEnabled: true,
       }}
       eventPrefix="offset"
       eventSource={document.body}
