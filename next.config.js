@@ -62,7 +62,7 @@ const nextConfig = {
                     "removeElementsByAttr",
                     "removeStyleElement",
                     "removeScriptElement",
-                    "prefixIds",
+                    // "prefixIds",
                     {
                       name: "convertPathData",
                       params: {
