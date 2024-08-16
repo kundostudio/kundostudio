@@ -1,6 +1,5 @@
 .wrapper {
   height: 100%;
-  padding: 24px;
   display: flex;
   flex-direction: column;
 
@@ -9,17 +8,9 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 8px rgba(var(--current-color), 0.6);
-
-    .bigMeow {
-      position: absolute;
-      width: 18%;
-      z-index: 2;
-    }
-
-    .bigMeowBackground {
-      position: absolute;
-      width: 20%;
-    }
+    border: 1px solid rgba(var(--current-color), 1);
+    height: 70%;
+    margin: 24px;
   }
 
   .titleWrapper {
@@ -27,5 +18,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .title {
+      text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
+    }
   }
 }

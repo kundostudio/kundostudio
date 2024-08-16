@@ -19,7 +19,9 @@
   --secondary-color: rgb(var(--cyber));
   --background-color: rgb(var(--background));
 
+  --console-margin-offset: 0.5rem;
   --header-height: 48px;
+  --variations-height: 40px;
   --footer-height: 72px;
 
   @include mobile {
@@ -58,6 +60,8 @@ html {
   text-align: center;
   background-color: var(--background-color);
   color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
 }
 
 html,
