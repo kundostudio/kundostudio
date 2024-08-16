@@ -1,0 +1,37 @@
+.variations {
+  height: var(--variations-height);
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent 100%);
+  background-color: rgba(var(--current-color), 0.02);
+
+  .variation {
+    padding-left: 2rem;
+    font-family: var(--font-dm-mono);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.12em;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: "-";
+      position: absolute;
+      left: 1rem;
+      transform: translateX(-50%);
+    }
+
+    .variationName {
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+    .variationIndicator {
+      font-size: 0.6em;
+      padding: 0 2px;
+    }
+    .variationValue {
+      opacity: 1;
+    }
+  }
+}
