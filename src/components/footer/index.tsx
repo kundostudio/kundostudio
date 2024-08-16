@@ -28,7 +28,9 @@ export function Footer() {
           {"//"}
         </Typography.Span>
         <div className="flex items-center gap-2">
-          <Typography.Span className="opacity-40 tracking-[0.08em]">wallets:</Typography.Span>
+          <Typography.Span className="opacity-40 tracking-[0.08em] mobile:before:content-['//'] mobile:before:pr-2">
+            wallets:
+          </Typography.Span>
           <Typography.Span className="tracking-[0.08em]">21,369</Typography.Span>
         </div>
       </div>

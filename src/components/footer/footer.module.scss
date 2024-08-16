@@ -26,6 +26,7 @@
       left: 0;
       right: 0;
       margin: auto;
+      justify-content: center;
     }
 
     @include desktop {
@@ -44,6 +45,11 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 0;
+    }
+
+    @include desktop {
+      flex-direction: row;
+      gap: 8px;
     }
 
     .separator {
