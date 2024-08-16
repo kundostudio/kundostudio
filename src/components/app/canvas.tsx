@@ -1,3 +1,4 @@
+import { View } from "@react-three/drei";
 import { Canvas as R3FCanvas } from "@react-three/fiber";
 
 import styles from "./app.module.scss";
@@ -15,6 +16,7 @@ export function Canvas({ children }: React.PropsWithChildren) {
       eventSource={document.body}
       shadows
     >
+      <View.Port />
       {children}
     </R3FCanvas>
   );

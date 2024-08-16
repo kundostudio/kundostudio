@@ -5,7 +5,6 @@ import { useThree } from "@react-three/fiber";
 
 export function Scene({ texture }) {
   const { width, height } = useThree((state) => state.viewport);
-  console.log("render");
   return (
     <>
       {texture && (
