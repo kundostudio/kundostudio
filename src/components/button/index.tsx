@@ -10,6 +10,7 @@ type CommonProps = {
   size?: "small" | "large";
   variant?: "default" | "highlight";
   href?: string;
+  disabled?: boolean;
 };
 
 type ButtonProps = CommonProps & JSX.IntrinsicElements["button"];
@@ -17,8 +18,43 @@ type AnchorProps = CommonProps & LinkRestProps;
 
 type Props = ButtonProps | AnchorProps;
 
+function Content({ children }: { children: React.ReactNode }) {
+  if (typeof children === "string") {
+    return (
+      <>
+        <Typography.Span className={styles.text}>{children}</Typography.Span>
+        <span className={styles.corner} />
+        <span className={styles.corner} />
+        <span className={styles.corner} />
+        <span className={styles.corner} />
+      </>
+    );
+  }
+  return (
+    <>
+      {children}
+      <span className={styles.corner} />
+      <span className={styles.corner} />
+      <span className={styles.corner} />
+      <span className={styles.corner} />
+    </>
+  );
+}
+
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
-  ({ children, size = "small", variant = "default", className, href, onClick, ...props }, ref) => {
+  (
+    {
+      children,
+      size = "small",
+      variant = "default",
+      className,
+      href,
+      disabled = false,
+      onClick,
+      ...props
+    },
+    ref
+  ) => {
     const sizeStyle = size === "small" ? styles.small : styles.large;
     const variantStyle = variant === "highlight" ? styles.highlight : "";
 
@@ -29,14 +65,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
           ref={ref as any}
           className={cn(styles.button, sizeStyle, variantStyle, className)}
           href={href as any}
+          {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
           {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
           {...(props as AnchorProps)}
         >
-          <Typography.Span className={styles.text}>{children}</Typography.Span>
-          <span className={styles.corner} />
-          <span className={styles.corner} />
-          <span className={styles.corner} />
-          <span className={styles.corner} />
+          <Content>{children}</Content>
         </Link>
       );
     }
@@ -46,13 +79,10 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         ref={ref as any}
         className={cn(styles.button, sizeStyle, variantStyle, className)}
         onClick={onClick as ButtonProps["onClick"]}
+        {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
         {...(props as ButtonProps)}
       >
-        <Typography.Span className={styles.text}>{children}</Typography.Span>
-        <span className={styles.corner} />
-        <span className={styles.corner} />
-        <span className={styles.corner} />
-        <span className={styles.corner} />
+        <Content>{children}</Content>
       </button>
     );
   }

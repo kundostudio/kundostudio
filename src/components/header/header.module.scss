@@ -43,14 +43,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
   position: relative;
+  padding: 8px 14px;
   background: repeating-linear-gradient(
     -45deg,
     rgba(var(--current-color), 0.05),
     rgba(var(--current-color), 0.05) 6px,
-    transparent 6px,
-    transparent 12px
+    rgb(var(--background), 0.8) 6px,
+    rgb(var(--background), 0.8) 12px
   );
 
   @include tablet {

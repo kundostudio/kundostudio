@@ -8,34 +8,40 @@
   align-items: center;
   justify-content: center;
   pointer-events: all;
-  padding: 8px;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background: rgba(var(--current-color), 0.1);
 
-    .corner:nth-of-type(2) {
-      top: 0;
-      left: 0;
-      transform: translate(-2.5px, -2.5px);
+    .corner {
+      width: 10px;
+      height: 10px;
+      filter: drop-shadow(0 0 8px rgba(var(--current-color), 0.6));
     }
 
-    .corner:nth-of-type(3) {
-      top: 0;
-      right: 0;
-      transform: translate(2.5px, -2.5px) rotate(90deg);
-    }
+    &:not(:focus) {
+      .corner:nth-of-type(2) {
+        top: 0;
+        left: 0;
+        transform: translate(-3.5px, -3.5px);
+      }
 
-    .corner:nth-of-type(4) {
-      bottom: 0;
-      left: 0;
-      transform: translate(-2.5px, 2.5px) rotate(-90deg);
-    }
+      .corner:nth-of-type(3) {
+        top: 0;
+        right: 0;
+        transform: translate(3.5px, -3.5px) rotate(90deg);
+      }
 
-    .corner:nth-of-type(5) {
-      bottom: 0;
-      right: 0;
-      transform: translate(2.5px, 2.5px) rotate(180deg);
+      .corner:nth-of-type(4) {
+        bottom: 0;
+        left: 0;
+        transform: translate(-3.5px, 3.5px) rotate(-90deg);
+      }
+
+      .corner:nth-of-type(5) {
+        bottom: 0;
+        right: 0;
+        transform: translate(3.5px, 3.5px) rotate(180deg);
+      }
     }
   }
 
@@ -65,11 +71,52 @@
     }
   }
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: var(--primary-color);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+  }
+
+  &:focus-visible::before {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-width: 1px;
+    opacity: 1;
+  }
+
+  &[disabled] {
+    pointer-events: none;
+
+    .corner {
+      opacity: 0.2;
+    }
+
+    .text {
+      opacity: 0.15;
+    }
+  }
+
   &.highlight {
     flex-shrink: 0;
     min-width: fit-content;
-    background: rgba(var(--current-color), 0.15);
-    padding: 12px;
+    background: rgba(var(--current-color), 0.1);
+
+    &:hover,
+    &:focus {
+      background: rgba(var(--current-color), 0.15);
+    }
 
     .corner {
       display: inline-block;
@@ -80,6 +127,7 @@
       list-style: 1;
       letter-spacing: 0em;
       font-family: var(--font-youth);
+      padding: 12px;
     }
   }
 
@@ -90,6 +138,7 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     filter: drop-shadow(0 0 8px rgba(var(--current-color), 0.6));
+    padding: 8px;
   }
 
   .corner {
