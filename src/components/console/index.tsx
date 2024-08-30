@@ -7,7 +7,9 @@ import ConsoleBottomDesktop from "~/public/console/console-bottom-1440.svg";
 import ConsoleBottomDesktopXL from "~/public/console/console-bottom-1728.svg";
 import ConsoleBottomMobileXL from "~/public/console/console-bottom-640.svg";
 import ConsoleBottomTablet from "~/public/console/console-bottom-768.svg";
-import ConsoleTop from "~/public/console/console-top.svg";
+import ConsoleTopLaptop from "~/public/console/console-top-1024.svg";
+import ConsoleTopDesktop from "~/public/console/console-top-1440.svg";
+import ConsoleTopDesktopXL from "~/public/console/console-top-1728.svg";
 import FullLogo from "~/public/logo-full-shadows.svg";
 
 import styles from "./console.module.scss";
@@ -26,6 +28,15 @@ const neue = localFont({
 export function Console({ children }) {
   const viewport = useViewport();
 
+  const ConsoleTop = {
+    desktopXL: ConsoleTopDesktopXL,
+    desktop: ConsoleTopDesktop,
+    laptop: ConsoleTopLaptop,
+    // tablet: ConsoleTopTablet,
+    // mobileXL: ConsoleTopMobileXL,
+    none: null,
+  }[viewport ?? "none"];
+
   const ConsoleBottom = {
     desktopXL: ConsoleBottomDesktopXL,
     desktop: ConsoleBottomDesktop,
@@ -35,7 +46,7 @@ export function Console({ children }) {
     none: null,
   }[viewport ?? "none"];
 
-  if (!ConsoleBottom) return null;
+  if (!ConsoleTop || !ConsoleBottom) return null;
 
   return (
     <div className={styles.wrapper}>
@@ -55,10 +66,12 @@ export function Console({ children }) {
         <div className={styles.borderRight} />
       </div>
       <ConsoleBottom className={styles.consoleBottom} />
-      <Marquee className={styles.mindsEnteringNewWorlds} repeat={2} duration={10} offset={0}>
-        <span className={neue.className}>minds entering other worlds</span>
-      </Marquee>
-      <FullLogo className={styles.logo} />
+      <div>
+        <Marquee className={styles.mindsEnteringNewWorlds} repeat={2} duration={10} offset={0}>
+          <span className={neue.className}>minds entering other worlds</span>
+        </Marquee>
+        <FullLogo className={styles.logo} />
+      </div>
     </div>
   );
 }
