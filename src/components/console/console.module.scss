@@ -47,6 +47,10 @@
       bottom: 67px;
     }
 
+    @include laptop {
+      bottom: 75px;
+    }
+
     &::after {
       content: "";
       position: absolute;
@@ -115,9 +119,31 @@
       border-radius: 6px;
 
       @include mobile {
+        left: 15px;
+        right: 15px;
+        bottom: 7.81vw;
+      }
+
+      @include tablet {
+        bottom: 6.51vw;
+      }
+
+      @include laptop {
         left: 23px;
         right: 23px;
-        bottom: 10%;
+        bottom: 5.96vw;
+      }
+
+      @include desktop {
+        left: 44px;
+        right: 44px;
+        bottom: 5.25vw;
+      }
+
+      @include desktopXL {
+        left: 44px;
+        right: 44px;
+        bottom: 4.35vw;
       }
 
       &::after {
@@ -315,13 +341,35 @@
   gap: 16px;
 
   @include mobile {
-    width: 55%;
+    width: 57%;
+    bottom: calc(0px + 1vw);
+    padding-left: 22px;
+  }
+
+  @include tablet {
+    padding-left: calc(2% + 8px);
+    padding-right: 2.5%;
+    bottom: calc(0px + 0.7vw);
+  }
+
+  @include laptop {
+    width: 64%;
+    bottom: calc(-5px + 1.3vw);
+  }
+
+  @include desktop {
+    width: 75.5%;
+  }
+
+  @include desktopXL {
+    bottom: calc(-5px + 1.3vw);
+    width: 80%;
   }
 
   .mindsEnteringNewWorlds {
-    height: 32px;
+    height: 31px;
     width: 183px;
-    bottom: 8.5vmax;
+    bottom: 0px;
     left: 22.5vw;
     border-radius: 4px;
     mask-image: linear-gradient(
@@ -332,14 +380,21 @@
       rgba(0, 0, 0, 0) 100%
     );
 
-    @include desktop {
-      bottom: 6.5vmax;
-      left: 16.5vw;
+    @include mobile {
+      height: 32px;
+      width: 141px;
     }
 
-    @include desktopXL {
-      bottom: 5.2vmax;
-      left: 14.3vw;
+    @include tablet {
+      width: 200px;
+    }
+
+    @include laptop {
+      width: 261px;
+    }
+
+    @include desktop {
+      width: 325px;
     }
 
     &::before {
@@ -359,12 +414,37 @@
 
     span {
       display: inline-block;
-      font-size: 22px;
-      line-height: 36px;
+      font-size: 16px;
+      line-height: 17.408px;
       text-transform: uppercase;
       margin-right: 0.7ch;
       letter-spacing: 0.16em;
       text-shadow: rgba(var(--current-color), 0.9) 0 0 4px;
+
+      @include laptop {
+        font-size: 22px;
+        line-height: 32.686px;
+      }
+    }
+
+    span::before {
+      content: "";
+      margin-bottom: -0.081em;
+      display: table;
+
+      @include laptop {
+        margin-bottom: -0.2799em;
+      }
+    }
+
+    span::after {
+      content: "";
+      margin-top: -0.294em;
+      display: table;
+
+      @include laptop {
+        margin-top: -0.4929em;
+      }
     }
   }
 
@@ -387,6 +467,7 @@
     }
 
     @include desktop {
+      height: 34px;
       bottom: 6.5vmax;
       right: 16vw;
     }
@@ -443,6 +524,15 @@
   display: flex;
   gap: 5px;
 
+  @include mobile {
+    left: 24px;
+    bottom: 84px;
+  }
+
+  @include laptop {
+    bottom: 89px;
+  }
+
   .speakerButton {
     position: relative;
     z-index: 1;
@@ -470,6 +560,11 @@
   height: 58px;
   width: 100%;
   background-color: #262626;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 
   &::before,
   &::after {
@@ -480,24 +575,42 @@
     height: 1px;
     background-color: rgba(0, 0, 0, 0.4);
     box-shadow: 0px 1px 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  &::before {
+    top: calc(calc(194px - 58px) / -2);
 
     @include mobile {
       display: none;
     }
   }
 
-  &::before {
-    top: calc(calc(194px - 58px) / -2);
-  }
-
   &::after {
-    top: 0;
+    top: -1px;
   }
 
   @include mobile {
-    width: auto;
-    left: 151px;
-    right: 151px;
+    height: 59px;
+    width: 52.8%;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  @include tablet {
+    width: 51.3%;
+  }
+
+  @include laptop {
+    width: 54.7%;
+  }
+
+  @include desktop {
+    width: 67.8%;
+  }
+
+  @include desktopXL {
+    width: 73.15%;
   }
 
   .mainCircle {
@@ -513,12 +626,77 @@
       position: absolute;
       left: 18px;
       bottom: 18px;
+
+      @include mobile {
+        left: 24px;
+        bottom: 24px;
+      }
     }
 
     &.circleRight {
       position: absolute;
       right: 18px;
       bottom: 18px;
+
+      @include mobile {
+        right: 24px;
+        bottom: 24px;
+      }
+    }
+  }
+
+  .circles {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+
+    @include mobile {
+      width: 95%;
+    }
+
+    @include tablet {
+      width: 80%;
+    }
+
+    .circle {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background-color: black;
+      box-shadow:
+        inset 0px 1px 2px 0 rgba(255, 255, 255, 0.2),
+        0 1px 1px 0 rgba(255, 255, 255, 0.2);
+
+      &:nth-of-type(-n + 2),
+      &:nth-last-of-type(-n + 2) {
+        background-color: rgba(#313131, 0.3);
+        box-shadow:
+          inset 0px 1px 2px 0 rgba(0, 0, 0, 1),
+          inset 0 -1px 2px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      @include mobile {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    &:last-of-type {
+      .circle {
+        &:first-of-type,
+        &:last-of-type {
+          opacity: 0;
+        }
+        &:nth-of-type(-n + 3),
+        &:nth-last-of-type(-n + 3) {
+          background-color: rgba(#313131, 0.3);
+          box-shadow:
+            inset 0px 1px 2px 0 rgba(0, 0, 0, 1),
+            inset 0 -1px 2px 0 rgba(255, 255, 255, 0.2);
+        }
+      }
     }
   }
 }
@@ -537,6 +715,25 @@
     height: 80px;
     width: 80px;
   }
+
+  @include tablet {
+    left: 8%;
+    bottom: calc(10px + 0.65vw);
+    height: auto;
+    width: calc(50px + 3.9%);
+    aspect-ratio: 1;
+  }
+
+  @include laptop {
+    left: 74px;
+  }
+
+  @include desktop {
+    left: 72px;
+    bottom: calc(-2.5px + 1.3vw);
+    height: 104px;
+    width: 104px;
+  }
 }
 
 .buttons {
@@ -552,15 +749,37 @@
   display: flex;
   gap: 8px;
   box-shadow:
-    inset 0 2px 1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(0, 0, 0, 0.5),
     0 1px 2px 0 rgba(255, 255, 255, 0.25);
 
   @include mobile {
-    bottom: 14px;
+    bottom: 13px;
     right: 24px;
     height: 80px;
     width: 115px;
     padding: 12px 13px;
+  }
+
+  @include tablet {
+    height: auto;
+    width: calc(69px + 6%);
+    aspect-ratio: 1.43;
+    right: 33px;
+    bottom: 1.3vw;
+  }
+
+  @include laptop {
+    height: calc(52px + 3.9vw);
+    width: 144px;
+    right: 51px;
+  }
+
+  @include desktop {
+    height: 104px;
+  }
+
+  @include desktopXL {
+    bottom: 16px;
   }
 
   .button {
@@ -575,8 +794,8 @@
     text-transform: uppercase;
     background: radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
     box-shadow:
-      0 4px 4px 0 rgba(0, 0, 0, 0.6),
-      inset 0 2px 1px 0 rgba(255, 255, 255, 0.4),
+      0 3px 4px 0 rgba(0, 0, 0, 0.6),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
       inset 0 -2px 1px 0 rgba(0, 0, 0, 0.5);
 
     &:first-of-type {

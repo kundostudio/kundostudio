@@ -9,18 +9,7 @@
     align-items: center;
     box-shadow: 0 0 8px rgba(var(--current-color), 0.6);
     border: 1px solid rgba(var(--current-color), 1);
-    height: 70%;
+    height: 100%;
     margin: 24px;
-  }
-
-  .titleWrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .title {
-      text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
-    }
   }
 }

@@ -10,6 +10,7 @@
   .inner {
     display: flex;
     white-space: nowrap;
+    align-items: center;
     animation: marquee var(--duration) linear infinite;
     animation-play-state: var(--animation-status);
   }

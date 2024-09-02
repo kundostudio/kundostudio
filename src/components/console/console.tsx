@@ -1,6 +1,7 @@
-import { useMediaQuery } from "@studio-freight/hamo";
+import { useMediaQuery, useRect } from "@studio-freight/hamo";
 import localFont from "next/font/local";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { Marquee } from "~/components/marquee";
 import { useViewport } from "~/hooks/useViewport";
@@ -71,10 +72,37 @@ function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
 }
 
 function Speaker({ className }: React.HTMLProps<HTMLDivElement>) {
+  const [circlesAmout, setCirclesAmout] = useState(0);
+  const [setRef, rect] = useRect({
+    callback: (rect) => setCirclesAmout(Math.floor(rect.width / (circleWidth + gap))),
+  });
+  const isUpperMobile = useMediaQuery("(min-width: 640px)");
+
+  const circleWidth = isUpperMobile ? 10 : 8;
+  const gap = 4;
+
+  useEffect(() => {
+    if (!rect) return;
+
+    const rowWidth = rect.width;
+    const amout = Math.floor(rowWidth / (circleWidth + gap));
+    setCirclesAmout(amout);
+  }, [rect, setCirclesAmout, circleWidth]);
+
   return (
     <div className={cn(styles.speaker, className)}>
       <div className={cn(styles.mainCircle, styles.circleLeft)} />
       <div className={cn(styles.mainCircle, styles.circleRight)} />
+      <div className={styles.circles}>
+        {Array.from({ length: circlesAmout }, (_, i) => (
+          <div key={i} className={styles.circle} />
+        ))}
+      </div>
+      <div ref={setRef} className={styles.circles}>
+        {Array.from({ length: circlesAmout }, (_, i) => (
+          <div key={i} className={styles.circle} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -145,7 +173,7 @@ export function Console({ children, className }) {
       <Buttons />
 
       {/* texture */}
-      <Image src={texture} alt="texture" className={styles.texture} />
+      <Image src={texture} alt="texture" priority className={styles.texture} />
     </div>
   );
 }
