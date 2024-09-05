@@ -1,34 +1,44 @@
-import { AnimatePresence, motion } from "framer-motion";
+"use client";
+
+import { AnimatePresence, motion, MotionProps } from "framer-motion";
+import NextLink, { type LinkProps } from "next/link";
 import { useState } from "react";
+
+import { cn } from "~/lib/utils";
 
 import styles from "./link.module.scss";
 
-export function Link({ children, href }: React.HTMLProps<HTMLAnchorElement>) {
+type Props = React.HTMLProps<HTMLAnchorElement> & LinkProps<{}> & MotionProps;
+
+export function Link({ children, href, layoutId, ...props }: Props) {
   const [isActive, setIsActive] = useState(false);
+  const isExternal = href?.toString().startsWith("http");
+  const Component = isExternal ? "a" : NextLink;
 
   return (
-    <a
+    <Component
       href={href}
-      className={`${styles.link} ${isActive ? styles.active : ""}`}
+      className={cn(styles.link, isActive && styles.active)}
       onMouseEnter={() => setIsActive(true)}
       onMouseLeave={() => setIsActive(false)}
       onFocus={() => setIsActive(true)}
       onBlur={() => setIsActive(false)}
+      {...(isExternal && { target: "_blank", rel: "noreferrer" })}
+      {...props}
     >
       {children}
-      <div className={styles.underlineWrapper}>
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              className={styles.underline}
-              initial={{ x: "-100%" }}
-              animate={{ x: "0%" }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.1, ease: "easeOut" }}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    </a>
+      <AnimatePresence mode="wait">
+        {isActive && (
+          <motion.div
+            layoutId={layoutId}
+            className={styles.border}
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.9 }}
+            transition={{ duration: 0.1 }}
+          />
+        )}
+      </AnimatePresence>
+    </Component>
   );
 }
