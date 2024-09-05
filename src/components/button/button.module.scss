@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: all;
+  max-width: min(100%, 250px);
 
   &:hover {
     background: rgba(var(--current-color), 0.1);
