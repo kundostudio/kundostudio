@@ -36,6 +36,26 @@ const youth = localFont({
 export const metadata: Metadata = {
   title: "MEOW",
   description: "a hyper-fast blockchain",
+  openGraph: {
+    images: [
+      {
+        url: "https://meow.kundo.studio/opengraph-image.png",
+        width: 1200,
+        height: 630,
+      },
+      {
+        url: "https://meow.kundo.studio/twitter-image.png",
+        width: 1500,
+        height: 500,
+      },
+    ],
+  },
+  twitter: {
+    title: "MEOW",
+    description: "a hyper-fast blockchain",
+    card: "summary_large_image",
+    images: ["https://meow.kundo.studio/twitter-image.png"],
+  },
 };
 
 export default function RootLayout({
