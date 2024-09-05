@@ -1,5 +1,4 @@
 .h1 {
-  color: var(--primary-color);
   font-family: var(--font-youth);
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -9,22 +8,29 @@
 }
 
 .h2 {
-  color: var(--white-color);
-  font-family: var(--font-inter);
-  font-weight: 500;
-  line-height: 61.6px;
-  letter-spacing: -0.01em;
-  text-shadow: rgba(var(--gray-50), 0.3) 0 0 8px;
+  font-family: var(--font-youth);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
   text-align: left;
   line-height: 1.1;
-  font-size: 32px;
+  font-size: 18px;
+  text-transform: uppercase;
 
-  @include mobile {
-    font-size: 46px;
+  @include tablet {
+    font-size: 20px;
+  }
+
+  @include laptop {
+    font-size: 24px;
   }
 
   @include desktop {
-    font-size: 56px;
+    font-size: 30px;
+  }
+
+  @include desktopXL {
+    font-size: 32px;
   }
 }
 
