@@ -6,6 +6,8 @@ import Telegram from "~/public/social/telegram.svg";
 import W from "~/public/social/w.svg";
 import X from "~/public/social/x.svg";
 
+import { Link } from "../link";
+
 import styles from "./footer.module.scss";
 
 export function Footer() {
@@ -35,11 +37,21 @@ export function Footer() {
         </div>
       </div>
       <span className={styles.social}>
-        <O className="w-[15.77px] h-auto" />
-        <X className="w-[15.77px] h-auto" />
-        <Telegram className="w-[15.77px] h-auto" />
-        <M className="w-[15.77px] h-auto" />
-        <W className="w-[15.77px] h-auto" />
+        <Link href="#">
+          <O className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <X className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <Telegram className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <M className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <W className="w-[15.77px] h-auto" />
+        </Link>
       </span>
     </footer>
   );

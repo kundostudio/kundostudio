@@ -62,11 +62,11 @@
   .social {
     display: none;
     position: absolute;
-    right: 10px;
+    right: 4px;
 
     @include mobile {
       display: flex;
-      gap: 16px;
+      gap: 4px;
 
       svg {
         filter: drop-shadow(0 0 3.95px rgba(var(--current-color), 0.6));
