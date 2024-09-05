@@ -31,17 +31,8 @@ export function Header() {
           </span>
         </Button>
         <nav className={styles.nav}>
-          <Button href="/chain" className={styles.button}>
-            chain
-          </Button>
-          <Button href="/airdrop" className={styles.button} disabled>
-            airdrop
-          </Button>
-          <Button href="/leaderboard" className={styles.button}>
+          <Button variant="highlight" href="/leaderboard" className={styles.button}>
             leaderboard
-          </Button>
-          <Button href="/join" variant="highlight" className={styles.button}>
-            join airdrop
           </Button>
         </nav>
       </motion.header>
