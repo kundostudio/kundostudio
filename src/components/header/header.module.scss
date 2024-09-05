@@ -21,6 +21,31 @@
   .button {
     flex: 1;
     height: 100%;
+
+    &.homeMobileXS {
+      flex: 0;
+    }
+  }
+
+  .mobileHome {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo {
+      height: 24px;
+      padding: 0 1rem;
+      position: relative;
+      filter: drop-shadow(0px 0px 6.62px rgba(var(--current-color), 0.6));
+    }
+
+    .logoBackground {
+      height: 24px;
+      padding: 0 1rem;
+      position: absolute;
+    }
   }
 }
 
@@ -45,14 +70,18 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 8px 14px;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(var(--current-color), 0.05),
-    rgba(var(--current-color), 0.05) 6px,
-    rgb(var(--background), 0.8) 6px,
-    rgb(var(--background), 0.8) 12px
-  );
+  background: none;
+
+  @include mobile {
+    padding: 8px 14px;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(var(--current-color), 0.05),
+      rgba(var(--current-color), 0.05) 6px,
+      rgb(var(--background), 0.8) 6px,
+      rgb(var(--background), 0.8) 12px
+    );
+  }
 
   @include tablet {
     width: 139px;

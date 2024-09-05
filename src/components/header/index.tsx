@@ -6,8 +6,11 @@ import { useState } from "react";
 
 import { Button } from "~/components/button";
 import { useStore } from "~/lib/store";
+import BackgroundLogo from "~/public/big-meow-background.svg";
 import FullLogo from "~/public/logo-full.svg";
 import SmallLogo from "~/public/logo.svg";
+
+import { Link } from "../link";
 
 import styles from "./header.module.scss";
 import { Menu } from "./menu";
@@ -18,25 +21,37 @@ export function Header() {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  if (isMobileXS) {
+    return (
+      <>
+        <motion.header className={styles.header}>
+          <Link href="/" className={styles.mobileHome}>
+            <BackgroundLogo className={styles.logoBackground} />
+            <SmallLogo className={styles.logo} />
+          </Link>
+          <nav className={styles.nav}>
+            <Button variant="highlight" href="/leaderboard" className={styles.button}>
+              leaderboard
+            </Button>
+          </nav>
+        </motion.header>
+        {isMobileXS && <Menu isOpen={isMenuOpen} />}
+      </>
+    );
+  }
+
   return (
-    <>
-      <motion.header className={styles.header}>
-        <Button href="/" variant="highlight" className={styles.button}>
-          <span className={styles.linkLogo}>
-            {isMobile ? (
-              <SmallLogo className={styles.logo} />
-            ) : (
-              <FullLogo className={styles.logo} />
-            )}
-          </span>
+    <motion.header className={styles.header}>
+      <Button href="/" variant="highlight" className={styles.button}>
+        <span className={styles.linkLogo}>
+          {isMobile ? <SmallLogo className={styles.logo} /> : <FullLogo className={styles.logo} />}
+        </span>
+      </Button>
+      <nav className={styles.nav}>
+        <Button variant="highlight" href="/leaderboard" className={styles.button}>
+          leaderboard
         </Button>
-        <nav className={styles.nav}>
-          <Button variant="highlight" href="/leaderboard" className={styles.button}>
-            leaderboard
-          </Button>
-        </nav>
-      </motion.header>
-      {isMobileXS && <Menu isOpen={isMenuOpen} />}
-    </>
+      </nav>
+    </motion.header>
   );
 }
