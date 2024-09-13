@@ -16,6 +16,7 @@
     "@react-three/uikit": "^0.4.1",
     "@studio-freight/hamo": "^0.6.28",
     "@studio-freight/lenis": "^1.0.42",
+    "@tanstack/react-table": "^8.20.5",
     "@vercel/analytics": "^1.2.2",
     "clsx": "^2.1.0",
     "d3-ease": "^3.0.1",

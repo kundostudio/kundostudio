@@ -4,12 +4,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
 import { Console } from "~/components/console/console";
-import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
+import { Line } from "~/components/Line";
 import { Variations } from "~/components/variations";
 import { useKeyPress } from "~/hooks/useKeyPress";
 import { useStore } from "~/lib/store";
-import { cn } from "~/lib/utils";
 
 import styles from "./app.module.scss";
 const Canvas = dynamic(() => import("./canvas").then((mod) => mod.Canvas), {
@@ -63,20 +62,18 @@ export function App({ children }: Props) {
           {/* <PostProcessing /> */}
         </Canvas>
 
-        <div className={cn(styles.lineVertical, styles.verticalLeftLine)} />
-        <div className={cn(styles.lineHorizontal, styles.headerTopLine)} />
+        <Line direction="vertical" className={styles.verticalLeftLine} />
+        <Line direction="horizontal" className={styles.headerTopLine} />
         <Header />
-        <div className={cn(styles.lineHorizontal, styles.headerBottomLine)} />
+        <Line direction="horizontal" className={styles.headerBottomLine} />
 
-        <div className={cn(styles.lineHorizontal, styles.variationsTopLine)} />
+        <Line direction="horizontal" className={styles.variationsTopLine} />
         <Variations className={styles.variations} />
-        <div className={cn(styles.lineHorizontal, styles.variationsBottomLine)} />
+        <Line direction="horizontal" className={styles.variationsBottomLine} />
 
         {children}
-        <div className={cn(styles.lineHorizontal, styles.footerTopLine)} />
-        <Footer />
-        <div className={cn(styles.lineHorizontal, styles.footerBottomLine)} />
-        <div className={cn(styles.lineVertical, styles.verticalRightLine)} />
+        <Line direction="horizontal" className={styles.footerBottomLine} />
+        <Line direction="vertical" className={styles.verticalRightLine} />
       </div>
     </Console>
   );

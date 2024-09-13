@@ -155,7 +155,10 @@ export function Console({ children, className }) {
       <div className={styles.screenWrapper}>
         <div className={styles.screenBlackFill} />
         <Screen className={styles.screen} />
+
+        {/* content */}
         <div className={styles.content}>{children}</div>
+
         <div className={styles.screenBottomAddons}>
           <Marquee className={styles.mindsEnteringNewWorlds} repeat={2} duration={10} offset={0}>
             <span className={neue.className}>minds entering other worlds</span>

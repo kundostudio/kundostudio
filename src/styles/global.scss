@@ -21,12 +21,22 @@
 
   --console-margin-offset: 0.5rem;
   --header-height: 48px;
-  --variations-height: 40px;
+  --variations-height: 32px;
   --footer-height: 72px;
+  --padding-vertical: 12px;
+  --padding-horizontal: 1rem;
 
   @include mobile {
     --header-height: 40px;
     --footer-height: 38px;
+    --variations-height: 24px;
+    --padding-vertical: 1rem;
+    --padding-horizontal: 1.5rem;
+  }
+
+  @include laptop {
+    --variations-height: 40px;
+    --padding-vertical: 1.5rem;
   }
 
   @include desktop {
