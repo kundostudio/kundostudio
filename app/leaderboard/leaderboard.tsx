@@ -7,9 +7,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Medal } from "~/components/medal";
 import { formatNumber } from "~/lib/utils";
+import { LeaderboardPosition } from "~/types";
 
-import type { LeaderboardPosition } from "./data";
 import { LEADERBOARD_POSITIONS } from "./data";
 import styles from "./leaderboard.module.scss";
 
@@ -33,7 +34,13 @@ const columns = [
   }),
   columnHelper.accessor("multipliers", {
     header: () => <span>multipliers</span>,
-    cell: (info) => null,
+    cell: (info) => (
+      <div className={styles.multipliers}>
+        {info.getValue().map((value, i) => (
+          <Medal key={i} type={value} className={styles.medal} />
+        ))}
+      </div>
+    ),
   }),
   columnHelper.accessor("meowAmount", {
     header: () => <span>meow</span>,
@@ -64,7 +71,7 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
       </thead>
       <tbody className={styles.leaderboardBody}>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <tr key={row.id} className={styles.row}>
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} className={styles.rowItem}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -1,0 +1,89 @@
+// .stereo {
+//   --color-1: #ededed;
+//   --color-2: #c9d494;
+//   --color-3: #89a110;
+//   --color-4: #d4fe00;
+//   --color-5: #333d00;
+// }
+
+// .grid {
+//   --color-1: #ececec;
+//   --color-2: #bbbbbb;
+//   --color-3: #616161;
+//   --color-4: #969696;
+//   --color-5: rgba(0, 0, 0, 0.7);
+// }
+
+// .horizon {
+//   --color-1: #ededed;
+//   --color-2: #94c9d4;
+//   --color-3: #1089a1;
+//   --color-4: #00d4fe;
+//   --color-5: #00333d;
+// }
+
+// .wave {
+//   --color-1: #ededed;
+//   --color-2: #ae94d4;
+//   --color-3: #4a10a1;
+//   --color-4: #6600fe;
+//   --color-5: #18003d;
+// }
+
+.medalWrapper {
+  isolation: isolate;
+  position: relative;
+  display: grid;
+  place-items: center;
+  // outline: 1px solid red;
+
+  &.wrapperBase {
+    width: pxClamp(20, 36, 36);
+  }
+
+  &.wrapperWWW {
+    isolation: isolate;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: pxClamp(21.9, 38, 38);
+  }
+}
+
+.medalBackground {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+// .logoMeow {
+//   width: pxClamp(9.41, 30, 30);
+//   height: pxClamp(8.47, 30, 30);
+// }
+
+// .logoFive {
+//   width: pxClamp(7, 11, 11);
+//   height: pxClamp(8, 13, 13);
+// }
+
+// .logoTen {
+//   width: pxClamp(11, 18, 18);
+//   height: pxClamp(8, 13, 13);
+// }
+
+// .logoA {
+//   width: pxClamp(9, 14, 14);
+//   height: pxClamp(9, 14, 14);
+// }
+
+// .logoX {
+//   width: pxClamp(9.38, 14.12, 14.12);
+//   height: pxClamp(9.38, 14.12, 14.12);
+// }
+
+// .logoWWW {
+//   width: pxClamp(17.6, 26.5, 26.5);
+//   height: pxClamp(7.19, 10.83, 10.83);
+// }

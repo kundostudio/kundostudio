@@ -1,12 +1,4 @@
-export type Multiplier = "MEOW" | "FIVE" | "TEN" | "A" | "X" | "WWW";
-
-export type LeaderboardPosition = {
-  rank: number;
-  name: string;
-  invitedBy: string;
-  multipliers: Multiplier[];
-  meowAmount: number;
-};
+import { LeaderboardPosition } from "~/types";
 
 export const LEADERBOARD_POSITIONS: LeaderboardPosition[] = [
   {
@@ -20,7 +12,7 @@ export const LEADERBOARD_POSITIONS: LeaderboardPosition[] = [
     rank: 2,
     name: "Nebulakat",
     invitedBy: "Warp Whisker",
-    multipliers: ["MEOW", "FIVE", "TEN", "WWW"],
+    multipliers: ["MEOW", "FIVE", "TEN", "WWW", "A"],
     meowAmount: 123456789,
   },
   {

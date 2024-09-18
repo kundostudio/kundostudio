@@ -13,7 +13,23 @@
   }
 
   .title {
-    padding: 1rem 40px;
+    padding: 16px 32px 12px;
+
+    @include mobile {
+      padding: 8px 36px 8px;
+    }
+
+    @include tablet {
+      padding: 8px 40px 8px;
+    }
+
+    @include laptop {
+      padding: 10px 48px 10px;
+    }
+
+    @include desktop {
+      padding: 12px 64px 12px;
+    }
   }
 
   .lineHorizontal {
@@ -78,24 +94,86 @@
       letter-spacing: 0.08em;
       text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
 
+      @include tablet {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+      }
+
+      @include laptop {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      @include desktop {
+        font-size: 12px;
+      }
+
       &:last-of-type {
         text-align: right;
+      }
+    }
+
+    tr:first-of-type {
+      .rowItem {
+        padding-top: 1rem;
+
+        @include laptop {
+          padding-top: 1.5rem;
+        }
+
+        @include desktop {
+          padding-top: 2rem;
+        }
       }
     }
 
     .rowItem {
       width: auto;
       min-width: auto;
-      padding: 0.5rem 1rem;
+      padding: 4px 1rem;
       text-align: left;
       font-size: 11px;
       line-height: 24px;
       letter-spacing: 0.08em;
       text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
       white-space: nowrap;
+      vertical-align: middle;
+      position: relative;
+
+      @include tablet {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+
+      @include laptop {
+        font-size: 14px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      @include desktop {
+        font-size: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
 
       &:last-of-type {
         text-align: right;
+      }
+
+      .multipliers {
+        display: flex;
+        align-items: center;
+        gap: 1px;
+      }
+
+      &:has(.multipliers) {
+        padding-top: 0;
+        padding-bottom: 0;
       }
     }
   }

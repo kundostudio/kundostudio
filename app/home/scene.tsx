@@ -1,6 +1,6 @@
 import { Center, Environment, Float, PerspectiveCamera, Svg } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 import { useStore } from "~/lib/store";
@@ -13,7 +13,9 @@ export function HomeScene() {
   const logoRef = useRef(null!);
   const boxRef = useRef<THREE.Mesh>(null!);
 
-  const primaryColor = useStore((s) => s.primaryColor);
+  const theme = useStore((s) => s.theme);
+  const primaryColor = useMemo(() => `rgb(${theme.color})`, [theme]);
+
   const { width, height } = useThree((s) => s.viewport);
 
   const svgMaterial = new THREE.MeshStandardMaterial({
