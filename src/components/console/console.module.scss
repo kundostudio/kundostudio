@@ -106,7 +106,7 @@
     .screen {
       width: 100%;
       height: auto;
-      filter: drop-shadow(0px 1px 2px rgba(255, 255, 255, 0.25));
+      filter: drop-shadow(0px 2px 2px rgba(255, 255, 255, 0.25));
     }
 
     .content {
@@ -210,7 +210,7 @@
 
   @include mobile {
     top: 12px;
-    left: 33px;
+    left: 32px;
   }
 
   &::before {
