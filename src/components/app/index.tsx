@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 
-import { Console } from "~/components/console/console";
+import { Console } from "~/components/console";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
 import { Variations } from "~/components/variations";
