@@ -2,10 +2,10 @@
 
 import { useMediaQuery } from "@studio-freight/hamo";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "~/components/button";
-import { useStore } from "~/lib/store";
 import BackgroundLogo from "~/public/big-meow-background.svg";
 import FullLogo from "~/public/logo-full.svg";
 import SmallLogo from "~/public/logo.svg";
@@ -14,12 +14,17 @@ import { Link } from "../link";
 
 import styles from "./header.module.scss";
 import { Menu } from "./menu";
+import { MenuTrigger } from "./menu/trigger";
 
 export function Header() {
-  const appReady = useStore((s) => s.appReady);
   const isMobileXS = useMediaQuery("(max-width: 640px)");
   const isMobile = useMediaQuery("(max-width: 767px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   if (isMobileXS) {
     return (
@@ -29,13 +34,13 @@ export function Header() {
             <BackgroundLogo className={styles.logoBackground} />
             <SmallLogo className={styles.logo} />
           </Link>
-          <nav className={styles.nav}>
-            <Button variant="highlight" href="/leaderboard" className={styles.button}>
-              leaderboard
-            </Button>
-          </nav>
+          <MenuTrigger
+            isOpen={isMenuOpen}
+            className={styles.menuTrigger}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          />
         </motion.header>
-        {isMobileXS && <Menu isOpen={isMenuOpen} />}
+        <Menu isOpen={isMenuOpen} />
       </>
     );
   }

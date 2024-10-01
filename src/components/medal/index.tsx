@@ -1,4 +1,5 @@
-import { Suspense, lazy, useMemo } from "react";
+import { motion, MotionProps } from "framer-motion";
+import { lazy, Suspense, useMemo } from "react";
 
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
@@ -8,9 +9,10 @@ import styles from "./medal.module.scss";
 
 type Props = {
   type: Multiplier;
-} & React.HTMLProps<HTMLDivElement>;
+} & React.HTMLProps<HTMLDivElement> &
+  MotionProps;
 
-export function Medal({ type, className }: Props) {
+export function Medal({ type, className, ...props }: Props) {
   const theme = useStore((s) => s.theme);
 
   const MedalBase = useMemo(() => {
@@ -55,11 +57,13 @@ export function Medal({ type, className }: Props) {
   }[theme.name || "undefined"];
 
   return (
-    <div className={cn(styles.medalWrapper, wrapperStyle, className)}>
+    <motion.div className={cn(styles.wrapper, wrapperStyle, className)} {...props}>
       <Suspense>
-        <MedalBase className={styles.medalBackground} style={{ filter: medalShadows }} />
-        <Logo style={{ filter: logoShadows }} />
+        <div className={styles.medalWrapper}>
+          <MedalBase className={styles.medalBackground} style={{ filter: medalShadows }} />
+          <Logo style={{ filter: logoShadows }} />
+        </div>
       </Suspense>
-    </div>
+    </motion.div>
   );
 }

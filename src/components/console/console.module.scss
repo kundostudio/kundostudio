@@ -115,7 +115,7 @@
       left: 14px;
       right: 14px;
       bottom: 50px;
-      z-index: 99;
+      // z-index: 99;
       border-radius: 6px;
 
       @include mobile {
@@ -149,6 +149,7 @@
       &::after {
         content: "";
         position: absolute;
+        z-index: 999;
         top: 0;
         left: 0;
         right: 0;

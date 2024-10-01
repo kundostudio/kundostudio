@@ -17,12 +17,7 @@ export default function Page() {
     <main className={styles.leaderboardPage}>
       <Typography.H2 className={styles.title}>leaderboard</Typography.H2>
       <Line direction="horizontal" />
-      <div className={styles.leaderboardWrapperWrapper}>
-        <Line direction="horizontal" className={styles.leaderboardHeaderLine} />
-        <div className={styles.leaderboardWrapper}>
-          <Leaderboard className={styles.leaderboard} />
-        </div>
-      </div>
+      <Leaderboard className={styles.leaderboardWrapperWrapper} />
       <Line direction="horizontal" />
       <Typography.H2 className={styles.title}>recent joins</Typography.H2>
       <Marquee className={styles.recentJoinMarquee} duration={60} offset={0}>

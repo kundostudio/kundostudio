@@ -3,13 +3,14 @@
   min-height: var(--header-height);
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: stretch;
   margin: 0;
+  justify-content: space-between;
 
   @include mobile {
     margin: 1rem 1.5rem 0 1.5rem;
     width: calc(100% - 3rem);
+    justify-content: flex-start;
   }
 
   @include laptop {
@@ -31,6 +32,7 @@
   .button {
     flex: 1;
     height: 100%;
+    max-width: min(100%, 250px);
 
     &.homeMobileXS {
       flex: 0;
@@ -43,6 +45,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 50;
 
     .logo {
       height: 24px;
@@ -56,20 +60,6 @@
       padding: 0 1rem;
       position: absolute;
     }
-  }
-}
-
-.menuIconWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  touch-action: manipulation;
-  padding: 1rem;
-  margin-right: -1rem;
-
-  .menuIcon {
-    width: 14px;
-    height: 8px;
   }
 }
 
@@ -177,4 +167,9 @@
       transform: rotate(180deg);
     }
   }
+}
+
+.menuTrigger {
+  position: relative;
+  z-index: 50;
 }
