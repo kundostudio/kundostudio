@@ -17,7 +17,7 @@ function Line({ curve, color }) {
       <meshLineMaterial
         ref={material}
         transparent
-        lineWidth={0.02}
+        lineWidth={0.03}
         color={color}
         depthWrite={false}
         dashArray={0.02}
