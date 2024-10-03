@@ -1,13 +1,15 @@
 import { Center, Environment, PerspectiveCamera, Svg } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { extend, useFrame, useThree } from "@react-three/fiber";
+import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
+extend({ MeshLineGeometry, MeshLineMaterial });
+
 import { useStore } from "~/lib/store";
 
-const logo = `
-
-`;
+import { DashedLines } from "./dashedLines";
+import { Rectangles } from "./squares";
 
 export function HomeScene() {
   const logoRef = useRef(null!);
@@ -18,6 +20,10 @@ export function HomeScene() {
 
   const { width, height } = useThree((s) => s.viewport);
 
+  useFrame(({ pointer, camera, clock }) => {
+    // camera.position.z = (-(clock.getElapsedTime() * 1) % 5) + 5;
+  });
+
   const svgMaterial = new THREE.MeshStandardMaterial({
     color: primaryColor,
     metalness: 1,
@@ -26,16 +32,14 @@ export function HomeScene() {
     emissiveIntensity: 1,
   });
 
-  useFrame(({ pointer, camera, clock }) => {
-    camera.position.z = -(clock.getElapsedTime() * 20) % 100;
-  });
-
   return (
     <>
-      <mesh ref={boxRef} position={[0, 0, 0]}>
+      <DashedLines />
+      <Rectangles />
+      {/* <mesh ref={boxRef} position={[0, 0, 0]}>
         <boxGeometry args={[width, height, 400, 1, 1, 40]} />
         <meshStandardMaterial color={primaryColor} wireframe />
-      </mesh>
+      </mesh> */}
       <Environment preset="city" environmentIntensity={0} />
       <ambientLight intensity={1} />
       <PerspectiveCamera makeDefault fov={40} position={[0, 0, 5]}>
