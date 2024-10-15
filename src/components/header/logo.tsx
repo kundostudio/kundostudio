@@ -19,7 +19,7 @@ function LettersLogo() {
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setIsEnglish((prev) => !prev);
-    }, 5000);
+    }, 3000);
 
     return () => {
       if (intervalRef.current) {
@@ -30,10 +30,11 @@ function LettersLogo() {
 
   const glitchVariants = {
     initial: { opacity: 0 },
-    animate: { opacity: 1 },
+    animate: { opacity: 1, x: [5, 0] },
     exit: {
       opacity: [0, 1, 0],
-      transition: { duration: 0.3, times: [0, 0.5, 1] },
+      x: [-2, 0, -3, 0],
+      transition: { duration: 0.3, times: [0, 0.3, 0.5, 1] },
     },
   };
 
