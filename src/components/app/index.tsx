@@ -35,10 +35,7 @@ export function App({ children }: Props) {
   return (
     <Console className={styles.console}>
       <div ref={contentRef} className={styles.content}>
-        <Canvas>
-          {/* {method === "uikit" ? <UIKitScene /> : <Scene texture={texture} />} */}
-          {/* <PostProcessing /> */}
-        </Canvas>
+        <Canvas></Canvas>
 
         <Line direction="vertical" className={styles.verticalLeftLine} />
         <Line direction="horizontal" className={styles.headerTopLine} />
