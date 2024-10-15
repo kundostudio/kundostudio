@@ -28,39 +28,6 @@
       gap: 8px;
     }
   }
-
-  .button {
-    flex: 1;
-    height: 100%;
-    max-width: min(100%, 250px);
-
-    &.homeMobileXS {
-      flex: 0;
-    }
-  }
-
-  .mobileHome {
-    height: 100%;
-    width: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 50;
-
-    .logo {
-      height: 24px;
-      padding: 0 1rem;
-      position: relative;
-      filter: drop-shadow(0px 0px 6.62px rgba(var(--current-color), 0.6));
-    }
-
-    .logoBackground {
-      height: 24px;
-      padding: 0 1rem;
-      position: absolute;
-    }
-  }
 }
 
 .linkLogo {
@@ -112,6 +79,18 @@
     @include desktop {
       height: 18px;
       width: auto;
+    }
+  }
+
+  .lettersLogo {
+    height: 30px;
+    display: flex;
+    align-items: center;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
   }
 
@@ -172,4 +151,35 @@
 .menuTrigger {
   position: relative;
   z-index: 50;
+}
+
+.mobileHome {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 50;
+}
+
+.button {
+  flex: 1;
+  height: 100%;
+  max-width: min(100%, 250px);
+}
+
+.meowLinkLogoMobile {
+  .logo {
+    height: 24px;
+    padding: 0 1rem;
+    position: relative;
+    filter: drop-shadow(0px 0px 6.62px rgba(var(--current-color), 0.6));
+  }
+
+  .logoBackground {
+    height: 24px;
+    padding: 0 1rem;
+    position: absolute;
+  }
 }

@@ -6,19 +6,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Button } from "~/components/button";
-import BackgroundLogo from "~/public/big-meow-background.svg";
-import FullLogo from "~/public/logo-full.svg";
-import SmallLogo from "~/public/logo.svg";
-
-import { Link } from "../link";
 
 import styles from "./header.module.scss";
+import { MeowLinkLogo } from "./logo";
 import { Menu } from "./menu";
 import { MenuTrigger } from "./menu/trigger";
 
 export function Header() {
   const isMobileXS = useMediaQuery("(max-width: 640px)");
-  const isMobile = useMediaQuery("(max-width: 767px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -30,10 +25,7 @@ export function Header() {
     return (
       <>
         <motion.header className={styles.header}>
-          <Link href="/" className={styles.mobileHome}>
-            <BackgroundLogo className={styles.logoBackground} />
-            <SmallLogo className={styles.logo} />
-          </Link>
+          <MeowLinkLogo className={styles.mobileHome} />
           <MenuTrigger
             isOpen={isMenuOpen}
             className={styles.menuTrigger}
@@ -47,11 +39,7 @@ export function Header() {
 
   return (
     <motion.header className={styles.header}>
-      <Button href="/" variant="highlight" className={styles.button}>
-        <span className={styles.linkLogo}>
-          {isMobile ? <SmallLogo className={styles.logo} /> : <FullLogo className={styles.logo} />}
-        </span>
-      </Button>
+      <MeowLinkLogo className={styles.button} />
       <nav className={styles.nav}>
         <Button variant="highlight" href="/leaderboard" className={styles.button}>
           leaderboard
