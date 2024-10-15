@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 import { useStore } from "~/lib/store";
 
-const DISTANCE = 2;
+const DISTANCE = 3;
 
 function Rectangle({ width, height, position }) {
   const material = useRef<MeshLineMaterial>(null!);
