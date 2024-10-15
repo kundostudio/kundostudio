@@ -9,10 +9,10 @@
 :root {
   --white: 255, 255, 255; // #ffffff
   --black: 0, 0, 0; // #000000
-  --background: 13, 13, 12; // #0D0D0C
+  --background: var(--black);
 
   --cyber: 22, 22, 22; // #161616
-  --stereo: 212, 254, 0; // #d4fe00
+  --stereo: 172, 253, 90; // #acfd5a
 
   --current-color: var(--stereo);
   --primary-color: rgb(var(--current-color));
