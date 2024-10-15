@@ -16,7 +16,6 @@
 
   --current-color: var(--stereo);
   --primary-color: rgb(var(--current-color));
-  --secondary-color: rgb(var(--cyber));
   --background-color: rgb(var(--background));
 
   --console-margin-offset: 0.5rem;
@@ -42,26 +41,6 @@
   @include desktop {
     --footer-height: 32px;
   }
-
-  // --gray-50: 230, 230, 230; // #E6E6E6
-  // --gray-100: 209, 209, 209; // #D1D1D1
-  // --gray-200: 136, 136, 136; // #888888
-  // --gray-700: 68, 68, 68; // #444444
-  // --gray-750: 32, 30, 35; // #201E23
-  // --gray-800: 25, 25, 25; // #191919
-  // --red-100: 229, 26, 47; // #E51A2F
-  // --red-150: 193, 20, 38; // #C11426
-  // --green-100: 46, 204, 113; // #2ECC71
-  // --green-200: 0, 177, 106; // #00B16A
-  // --yellow-100: 255, 215, 0; // #FFD700
-  // --yellow-200: 255, 195, 0; // #FFC300
-  // --background-color: rgb(var(--black));
-  // --text-color: rgb(var(--gray-50));
-  // --white-color: rgb(var(--gray-100));
-  // --accent-color: rgb(var(--red-100));
-  // --primary-color: rgb(var(--gray-700));
-  // --scrollbar-color: transparent;
-  // --scrollbar-bg-color: transparent;
 }
 
 html {

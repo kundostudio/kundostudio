@@ -2,7 +2,7 @@
 <circle cx="18" cy="18" r="15" fill="url(#paint0_linear_1797_650)"/>
 <g filter="url(#filter0_i_1797_650)">
 <circle cx="18" cy="18" r="12" fill="url(#paint1_linear_1797_650)"/>
-<circle cx="18" cy="18" r="12" fill="#333D00"/>
+<circle cx="18" cy="18" r="12" fill="#1B3300"/>
 </g>
 <circle cx="18" cy="18" r="12.2353" stroke="white" stroke-opacity="0.2" stroke-width="0.470588" stroke-linejoin="round"/>
 <defs>
@@ -18,15 +18,15 @@
 </filter>
 <linearGradient id="paint0_linear_1797_650" x1="18" y1="3" x2="18" y2="33" gradientUnits="userSpaceOnUse">
 <stop stop-color="#EDEDED"/>
-<stop offset="0.484375" stop-color="#C9D494"/>
-<stop offset="0.484475" stop-color="#89A110"/>
-<stop offset="1" stop-color="#D4FE00"/>
+<stop offset="0.484375" stop-color="#D3E0B8"/>
+<stop offset="0.484475" stop-color="#558A01"/>
+<stop offset="1" stop-color="#ACFD5A"/>
 </linearGradient>
 <linearGradient id="paint1_linear_1797_650" x1="18" y1="6" x2="18" y2="30" gradientUnits="userSpaceOnUse">
 <stop stop-color="#EDEDED"/>
-<stop offset="0.484375" stop-color="#C9D494"/>
-<stop offset="0.484475" stop-color="#9EBA13"/>
-<stop offset="1" stop-color="#D4FE00"/>
+<stop offset="0.484375" stop-color="#D3E0B8"/>
+<stop offset="0.484475" stop-color="#558A01"/>
+<stop offset="1" stop-color="#ACFD5A"/>
 </linearGradient>
 </defs>
 </svg>

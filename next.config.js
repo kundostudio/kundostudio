@@ -54,34 +54,7 @@ const nextConfig = {
                 memo: true,
                 dimensions: false,
                 svgoConfig: {
-                  multipass: true,
-                  plugins: [
-                    "removeDimensions",
-                    "removeOffCanvasPaths",
-                    "reusePaths",
-                    "removeElementsByAttr",
-                    "removeStyleElement",
-                    "removeScriptElement",
-                    // "prefixIds",
-                    {
-                      name: "convertPathData",
-                      params: {
-                        floatPrecision: 1,
-                      },
-                    },
-                    {
-                      name: "convertTransform",
-                      params: {
-                        floatPrecision: 1,
-                      },
-                    },
-                    {
-                      name: "cleanupListOfValues",
-                      params: {
-                        floatPrecision: 1,
-                      },
-                    },
-                  ],
+                  plugins: ["removeDimensions"],
                 },
               },
             },

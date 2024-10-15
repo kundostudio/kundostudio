@@ -40,7 +40,7 @@ export function Medal({ type, className, ...props }: Props) {
 
   const medalShadows = {
     stereo:
-      "drop-shadow(0px 1.88px 5.65px rgba(55, 66, 0, 0.8)) drop-shadow(0px 3.76px 15.06px rgba(55, 66, 0, 0.5))",
+      "drop-shadow(0px 1.88px 5.65px rgba(85, 138, 1, 0.8)) drop-shadow(0px 3.76px 15.06px rgba(85, 138, 1, 0.5))",
     grid: "none",
     horizon: "drop-shadow(0px 2px 6px rgba(16, 137, 161, 0.5))",
     wave: "drop-shadow(0px 2px 16px rgba(86, 19, 186, 0.5))",

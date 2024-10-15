@@ -33,13 +33,6 @@
       background-color: black;
       mask-size: 100% 100%;
       mask-image: radial-gradient(circle, black 30%, transparent 80%, transparent 90%);
-      // background: radial-gradient(
-      //   ellipse at center,
-      //   rgba(0, 0, 0, 1) 0%,
-      //   rgba(0, 0, 0, 1) 25%,
-      //   rgba(0, 0, 0, 0) 90%,
-      //   rgba(0, 0, 0, 0) 100%
-      // );
       pointer-events: none;
     }
   }
