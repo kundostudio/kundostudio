@@ -2,19 +2,33 @@ import { Theme } from "~/types";
 
 export const THEMES: Theme[] = [
   {
-    name: "stereo",
     color: "172, 253, 90", // #ACFD5A
+    layer: null,
+    light: "#ACFD5A",
   },
   {
-    name: "grid",
-    color: "255, 255, 255", // #FFFFFF
+    color: "172, 253, 90", // #ACFD5A
+    layer: "#2FB8CA",
+    light: "#7AD2DE",
   },
   {
-    name: "horizon",
-    color: "128, 233, 255", // #80E9FF
+    color: "172, 253, 90", // #ACFD5A
+    layer: "#AB2FCA",
+    light: "#CA9DD5",
   },
   {
-    name: "wave",
-    color: "180, 130, 255", // #B482FF
+    color: "172, 253, 90", // #ACFD5A
+    layer: "#CA832F",
+    light: "#E1B480",
+  },
+  {
+    color: "172, 253, 90", // #ACFD5A
+    layer: "#2F5BCA",
+    light: "#A6B5DA",
+  },
+  {
+    color: "172, 253, 90", // #ACFD5A
+    layer: "#CA2F2F",
+    light: "#F8BBBB",
   },
 ];

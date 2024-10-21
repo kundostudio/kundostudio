@@ -63,10 +63,22 @@ function LateralStripes({ className }: React.HTMLProps<HTMLDivElement>) {
 }
 
 function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
+  const [isMuted, setIsMuted] = useState(false);
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   return (
-    <button className={cn(styles.volumeControl, className)}>
+    <button
+      className={cn(styles.volumeControl, className)}
+      onClick={toggleMute}
+      aria-label={isMuted ? "Activate sound" : "Mute sound"}
+      aria-pressed={isMuted}
+      tabIndex={-1}
+    >
       <div className={styles.speakerButton} />
-      <SpeakerIcon className={styles.speakerIcon} />
+      <SpeakerIcon className={cn(styles.speakerIcon, { [styles.muted]: isMuted })} />
     </button>
   );
 }
@@ -118,8 +130,12 @@ function Pad({ className }: React.HTMLProps<HTMLDivElement>) {
 function Buttons({ className }: React.HTMLProps<HTMLDivElement>) {
   return (
     <div className={cn(styles.buttons, className)}>
-      <button className={styles.button}>b</button>
-      <button className={styles.button}>a</button>
+      <button className={styles.button} aria-label="Secondary button" tabIndex={-1}>
+        b
+      </button>
+      <button className={styles.button} aria-label="Primary button" tabIndex={-1}>
+        a
+      </button>
     </div>
   );
 }

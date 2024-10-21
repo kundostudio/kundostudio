@@ -2,8 +2,9 @@ import { MaterialNode, Object3DNode } from "@react-three/fiber";
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 
 export type Theme = {
-  name: string;
   color: string;
+  layer: string | null;
+  light: string | null;
 };
 
 export type Multiplier = "MEOW" | "FIVE" | "TEN" | "A" | "X" | "WWW";

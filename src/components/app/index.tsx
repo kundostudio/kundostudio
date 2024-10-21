@@ -29,13 +29,16 @@ export function App({ children }: Props) {
   useKeyPress(["c", "C"], () => {
     setThemeIndex((prevIndex) => (prevIndex + 1) % THEMES.length);
     setTheme(THEMES[themeIndex]);
+
     document.documentElement.style.setProperty("--current-color", THEMES[themeIndex].color);
+    document.documentElement.style.setProperty("--current-layer", THEMES[themeIndex].layer);
+    document.documentElement.style.setProperty("--current-light", THEMES[themeIndex].light);
   });
 
   return (
     <Console className={styles.console}>
       <div ref={contentRef} className={styles.content}>
-        <Canvas></Canvas>
+        <Canvas />
 
         <Line direction="vertical" className={styles.verticalLeftLine} />
         <Line direction="horizontal" className={styles.headerTopLine} />
