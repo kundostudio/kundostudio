@@ -15,7 +15,7 @@ export function HomePage() {
       <div className={styles.portalWrapper}>
         <LogoOutline className={styles.logo} />
         <div className={styles.fog} />
-        <View className={styles.portal}>
+        <View frames={1} className={styles.portal}>
           <HomeScene />
         </View>
       </div>
