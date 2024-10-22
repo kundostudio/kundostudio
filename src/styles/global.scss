@@ -11,11 +11,11 @@
   --black: 0, 0, 0; // #000000
   --background: var(--black);
 
-  --cyber: 22, 22, 22; // #161616
   --stereo: 172, 253, 90; // #acfd5a
+  --cyber: 22, 22, 22; // #161616
 
+  --primary-color: rgb(var(--stereo));
   --current-color: var(--stereo);
-  --primary-color: rgb(var(--current-color));
   --background-color: rgb(var(--background));
 
   --console-margin-offset: 0.5rem;

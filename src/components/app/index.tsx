@@ -33,6 +33,7 @@ export function App({ children }: Props) {
     document.documentElement.style.setProperty("--current-color", THEMES[themeIndex].color);
     document.documentElement.style.setProperty("--current-layer", THEMES[themeIndex].layer);
     document.documentElement.style.setProperty("--current-light", THEMES[themeIndex].light);
+    document.documentElement.style.setProperty("--current-shadow", THEMES[themeIndex].shadow);
   });
 
   return (

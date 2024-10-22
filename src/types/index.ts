@@ -5,6 +5,7 @@ export type Theme = {
   color: string;
   layer: string | null;
   light: string | null;
+  shadow: string | null;
 };
 
 export type Multiplier = "MEOW" | "FIVE" | "TEN" | "A" | "X" | "WWW";
