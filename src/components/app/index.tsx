@@ -30,7 +30,7 @@ export function App({ children }: Props) {
     setThemeIndex((prevIndex) => (prevIndex + 1) % THEMES.length);
     setTheme(THEMES[themeIndex]);
 
-    document.documentElement.style.setProperty("--current-color", THEMES[themeIndex].color);
+    // document.documentElement.style.setProperty("--current-color", THEMES[themeIndex].color);
     document.documentElement.style.setProperty("--current-layer", THEMES[themeIndex].layer);
     document.documentElement.style.setProperty("--current-light", THEMES[themeIndex].light);
     document.documentElement.style.setProperty("--current-shadow", THEMES[themeIndex].shadow);
