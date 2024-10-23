@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Console } from "~/components/console";
 import { Header } from "~/components/header";
@@ -10,6 +10,7 @@ import { Variations } from "~/components/variations";
 import { THEMES } from "~/constants/themes";
 import { useKeyPress } from "~/hooks/useKeyPress";
 import { useStore } from "~/lib/store";
+import { Theme } from "~/types";
 
 import styles from "./app.module.scss";
 const Canvas = dynamic(() => import("./canvas").then((mod) => mod.Canvas), {
@@ -26,15 +27,25 @@ export function App({ children }: Props) {
 
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useKeyPress(["c", "C"], () => {
-    setThemeIndex((prevIndex) => (prevIndex + 1) % THEMES.length);
-    setTheme(THEMES[themeIndex]);
+  const updateThemeCSSVars = (theme: Theme) => {
+    document.documentElement.style.setProperty("--current-color", theme.color);
+    document.documentElement.style.setProperty("--current-layer", theme.layer);
+    document.documentElement.style.setProperty("--current-light", theme.light);
+    document.documentElement.style.setProperty("--current-shadow", theme.shadow);
+  };
 
-    document.documentElement.style.setProperty("--current-color", THEMES[themeIndex].color);
-    document.documentElement.style.setProperty("--current-layer", THEMES[themeIndex].layer);
-    document.documentElement.style.setProperty("--current-light", THEMES[themeIndex].light);
-    document.documentElement.style.setProperty("--current-shadow", THEMES[themeIndex].shadow);
+  useKeyPress(["c", "C"], () => {
+    const nextThemeIndex = (themeIndex + 1) % THEMES.length;
+    const nextTheme = THEMES[nextThemeIndex];
+
+    setThemeIndex(nextThemeIndex);
+    setTheme(nextTheme);
+    updateThemeCSSVars(nextTheme);
   });
+
+  useEffect(() => {
+    updateThemeCSSVars(THEMES[0]);
+  }, []);
 
   return (
     <Console className={styles.console}>
