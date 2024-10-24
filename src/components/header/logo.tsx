@@ -6,11 +6,23 @@ import { Button } from "~/components/button";
 import { cn } from "~/lib/utils";
 import BackgroundLogo from "~/public/big-meow-background.svg";
 import SmallLogo from "~/public/logo.svg";
+import MeowJapanese from "~/public/logo/letter-japanese.svg";
+import MeowEnglish from "~/public/logo/letters.svg";
 
 import { Link } from "../link";
 
 import styles from "./header.module.scss";
-import { ENGLISH_MEOW, JAPANESE_MEOW } from "./letters";
+
+const GLITCH_VARIANTS = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, x: [5, 0] },
+  exit: {
+    opacity: [0, 1, 1, 0, 1, 0],
+    x: [-2, 0, -3, 0],
+    y: [-1, 0, 1, 0],
+    transition: { duration: 0.3, times: [0, 0.3, 0.5, 0.7, 0.9, 1] },
+  },
+};
 
 function LettersLogo() {
   const [isEnglish, setIsEnglish] = useState(true);
@@ -19,7 +31,7 @@ function LettersLogo() {
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setIsEnglish((prev) => !prev);
-    }, 3000);
+    }, 5000);
 
     return () => {
       if (intervalRef.current) {
@@ -28,46 +40,19 @@ function LettersLogo() {
     };
   }, []);
 
-  const glitchVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1, x: [5, 0] },
-    exit: {
-      opacity: [0, 1, 0],
-      x: [-2, 0, -3, 0],
-      transition: { duration: 0.3, times: [0, 0.3, 0.5, 1] },
-    },
-  };
-
   return (
-    <div className={styles.lettersLogo}>
-      <AnimatePresence mode="wait">
-        {isEnglish ? (
-          <motion.span
-            key="english"
-            variants={glitchVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            data-text={ENGLISH_MEOW}
-            className={styles.glitchText}
-          >
-            {ENGLISH_MEOW}
-          </motion.span>
-        ) : (
-          <motion.span
-            key="japanese"
-            variants={glitchVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            data-text={JAPANESE_MEOW}
-            className={styles.glitchText}
-          >
-            {JAPANESE_MEOW}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={isEnglish ? "english" : "japanese"}
+        variants={GLITCH_VARIANTS}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className={styles.lettersLogo}
+      >
+        {isEnglish ? <MeowEnglish /> : <MeowJapanese />}
+      </motion.div>
+    </AnimatePresence>
   );
 }
 

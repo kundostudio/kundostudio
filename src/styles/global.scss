@@ -25,6 +25,8 @@
   --padding-vertical: 12px;
   --padding-horizontal: 1rem;
 
+  --animation-blink: blink 0.3s forwards ease-in-out;
+
   @include mobile {
     --header-height: 40px;
     --footer-height: 38px;
@@ -127,5 +129,26 @@ html {
 
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

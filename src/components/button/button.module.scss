@@ -12,6 +12,10 @@
   &:hover {
     background: rgba(var(--current-color), 0.1);
 
+    & :not(.corner) {
+      animation: var(--animation-blink);
+    }
+
     .corner {
       width: 10px;
       height: 10px;

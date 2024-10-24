@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Button } from "~/components/button";
+import { cn } from "~/lib/utils";
 
 import styles from "./header.module.scss";
 import { MeowLinkLogo } from "./logo";
@@ -39,7 +40,7 @@ export function Header() {
 
   return (
     <motion.header className={styles.header}>
-      <MeowLinkLogo className={styles.button} />
+      <MeowLinkLogo className={cn(styles.button, styles.meowButton)} />
       <nav className={styles.nav}>
         <Button variant="highlight" href="/leaderboard" className={styles.button}>
           leaderboard

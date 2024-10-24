@@ -193,6 +193,7 @@ export function Console({ children, className }) {
 
       {/* texture */}
       <Image src={texture} alt="texture" priority className={styles.texture} />
+      <div className={styles.textureOverlay} />
     </div>
   );
 }
