@@ -29,7 +29,6 @@ export function App({ children }: Props) {
 
   const updateThemeCSSVars = (theme: Theme) => {
     document.documentElement.style.setProperty("--current-color", theme.color);
-    document.documentElement.style.setProperty("--current-layer", theme.layer);
     document.documentElement.style.setProperty("--current-light", theme.light);
     document.documentElement.style.setProperty("--current-shadow", theme.shadow);
   };

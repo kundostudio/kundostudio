@@ -4,7 +4,6 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 export type Theme = {
   name: string;
   color: string;
-  layer: string | null;
   light: string | null;
   shadow: string | null;
 };

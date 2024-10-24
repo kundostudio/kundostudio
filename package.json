@@ -18,6 +18,7 @@
     "framer-motion": "^11.1.7",
     "glslify-loader": "^2.0.0",
     "gsap": "^3.12.5",
+    "leva": "^0.9.35",
     "meshline": "^3.3.1",
     "next": "^14.2.5",
     "postprocessing": "^6.35.4",
