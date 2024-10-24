@@ -1,4 +1,4 @@
-import { motion, MotionProps } from "framer-motion";
+import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { lazy, Suspense, useMemo } from "react";
 
 import { useStore } from "~/lib/store";
@@ -24,6 +24,7 @@ export function Medal({
   logoBlur1,
   logoYOffset2,
   logoBlur2,
+  index,
   ...props
 }: Props) {
   const theme = useStore((s) => s.theme);
@@ -92,14 +93,39 @@ export function Medal({
 
   const logoShadows = `drop-shadow(0px ${logoYOffset1}px ${logoBlur1}px ${logoShadowColor1}) drop-shadow(0px ${logoYOffset2}px ${logoBlur2}px ${logoShadowColor2})`;
 
+  const GLITCH_VARIANTS = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: [0, 0.4, 0, 0.8, 0.5, 1],
+      x: [1, 0, -1, 0],
+      y: [-2, 1, 0, -1, 0, 0],
+      transition: { duration: 0.3, delay: index / 5, times: [0, 0.3, 0.5, 0.7, 0.9, 1] },
+    },
+    exit: {
+      opacity: [0, 0.5, 0.8, 0],
+      x: [-2, 0, -3, 0],
+      y: [-1, 0, 1, 0],
+      transition: { duration: 0.1, times: [0, 0.33, 0.66, 1] },
+    },
+  };
+
   return (
     <motion.div className={cn(styles.wrapper, wrapperStyle, className)} {...props}>
-      <Suspense>
-        <div className={styles.medalWrapper}>
-          <MedalBase className={styles.medalBackground} style={{ filter: medalShadows }} />
-          <Logo style={{ filter: logoShadows }} />
-        </div>
-      </Suspense>
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={theme.name}
+          variants={GLITCH_VARIANTS}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className={styles.medalWrapper}
+        >
+          <Suspense>
+            <MedalBase className={styles.medalBackground} style={{ filter: medalShadows }} />
+            <Logo style={{ filter: logoShadows }} />
+          </Suspense>
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 }

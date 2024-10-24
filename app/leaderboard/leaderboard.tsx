@@ -51,6 +51,7 @@ function Medals({ multipliers }: { multipliers: Multiplier[] }) {
         <Medal
           key={i}
           type={value}
+          index={i}
           className={styles.medal}
           medalYOffset1={2}
           medalBlur1={5}
