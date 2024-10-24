@@ -6,7 +6,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useControls } from "leva";
 import { useEffect, useRef, useState } from "react";
 
 import { Line } from "~/components/Line";
@@ -46,66 +45,6 @@ const columns = [
 ];
 
 function Medals({ multipliers }: { multipliers: Multiplier[] }) {
-  const {
-    medalYOffset1,
-    medalBlur1,
-    medalYOffset2,
-    medalBlur2,
-    logoYOffset1,
-    logoBlur1,
-    logoYOffset2,
-    logoBlur2,
-  } = useControls({
-    medalYOffset1: {
-      value: 3.76,
-      min: 0,
-      max: 5,
-      step: 0.1,
-    },
-    medalBlur1: {
-      value: 15.06,
-      min: 0,
-      max: 20,
-      step: 0.1,
-    },
-    medalYOffset2: {
-      value: 1.88,
-      min: 0,
-      max: 5,
-      step: 0.1,
-    },
-    medalBlur2: {
-      value: 5.65,
-      min: 0,
-      max: 20,
-      step: 0.1,
-    },
-    logoYOffset1: {
-      value: 3.76,
-      min: 0,
-      max: 5,
-      step: 0.1,
-    },
-    logoBlur1: {
-      value: 15.06,
-      min: 0,
-      max: 20,
-      step: 0.1,
-    },
-    logoYOffset2: {
-      value: 0.94,
-      min: 0,
-      max: 5,
-      step: 0.1,
-    },
-    logoBlur2: {
-      value: 3.76,
-      min: 0,
-      max: 10,
-      step: 0.1,
-    },
-  });
-
   return (
     <div className={styles.multipliers}>
       {multipliers.map((value, i) => (
@@ -113,14 +52,14 @@ function Medals({ multipliers }: { multipliers: Multiplier[] }) {
           key={i}
           type={value}
           className={styles.medal}
-          medalYOffset1={medalYOffset1}
-          medalBlur1={medalBlur1}
-          medalYOffset2={medalYOffset2}
-          medalBlur2={medalBlur2}
-          logoYOffset1={logoYOffset1}
-          logoBlur1={logoBlur1}
-          logoYOffset2={logoYOffset2}
-          logoBlur2={logoBlur2}
+          medalYOffset1={2}
+          medalBlur1={5}
+          medalYOffset2={2}
+          medalBlur2={5}
+          logoYOffset1={0}
+          logoBlur1={2}
+          logoYOffset2={0}
+          logoBlur2={5}
         />
       ))}
     </div>
