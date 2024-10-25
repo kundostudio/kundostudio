@@ -123,8 +123,37 @@ function Text({ className, children }) {
   return <span className={cn(styles.text, className)}>{children}</span>;
 }
 
-function Pad({ className }: React.HTMLProps<HTMLDivElement>) {
-  return <DirectionalPad className={cn(styles.pad, className)} />;
+function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
+  return (
+    <div className={styles.padWrapper}>
+      <div
+        aria-label="Directional pad up"
+        tabIndex={-1}
+        className={cn(styles.touchable, styles.padUp)}
+        onClick={onPressUp}
+      />
+      <div
+        aria-label="Direction pad down"
+        tabIndex={-1}
+        className={cn(styles.touchable, styles.padDown)}
+        onClick={onPressDown}
+      />
+      <div
+        aria-label="Directional pad left"
+        tabIndex={-1}
+        className={cn(styles.touchable, styles.padLeft)}
+        onClick={onPressLeft}
+      />
+      <div
+        aria-label="Directional pad right"
+        tabIndex={-1}
+        className={cn(styles.touchable, styles.padRight)}
+        onClick={onPressRight}
+      />
+
+      <DirectionalPad className={styles.pad} />
+    </div>
+  );
 }
 
 function Buttons({ className }: React.HTMLProps<HTMLDivElement>) {
@@ -140,7 +169,14 @@ function Buttons({ className }: React.HTMLProps<HTMLDivElement>) {
   );
 }
 
-export function Console({ children, className }) {
+export function Console({
+  children,
+  className,
+  onPressUp,
+  onPressDown,
+  onPressLeft,
+  onPressRight,
+}) {
   const viewport = useViewport();
 
   const Screen = {
@@ -188,7 +224,12 @@ export function Console({ children, className }) {
       <Speaker />
 
       {/* controls */}
-      <Pad />
+      <Pad
+        onPressUp={onPressUp}
+        onPressDown={onPressDown}
+        onPressLeft={onPressLeft}
+        onPressRight={onPressRight}
+      />
       <Buttons />
 
       {/* texture */}

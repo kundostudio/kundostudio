@@ -1,16 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { Console } from "~/components/console";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
 import { Variations } from "~/components/variations";
-import { THEMES } from "~/constants/themes";
-import { useKeyPress } from "~/hooks/useKeyPress";
-import { useStore } from "~/lib/store";
-import { Theme } from "~/types";
+import { useControls } from "~/hooks/useControls";
+import { useTheme } from "~/hooks/useTheme";
 
 import styles from "./app.module.scss";
 const Canvas = dynamic(() => import("./canvas").then((mod) => mod.Canvas), {
@@ -22,32 +20,19 @@ type Props = {
 };
 
 export function App({ children }: Props) {
-  const [themeIndex, setThemeIndex] = useState(0);
-  const { setTheme } = useStore.getState();
-
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const updateThemeCSSVars = (theme: Theme) => {
-    document.documentElement.style.setProperty("--current-color", theme.color);
-    document.documentElement.style.setProperty("--current-light", theme.light);
-    document.documentElement.style.setProperty("--current-shadow", theme.shadow);
-  };
-
-  useKeyPress(["c", "C"], () => {
-    const nextThemeIndex = (themeIndex + 1) % THEMES.length;
-    const nextTheme = THEMES[nextThemeIndex];
-
-    setThemeIndex(nextThemeIndex);
-    setTheme(nextTheme);
-    updateThemeCSSVars(nextTheme);
-  });
-
-  useEffect(() => {
-    updateThemeCSSVars(THEMES[0]);
-  }, []);
+  const { focusBack, focusNext } = useControls();
+  const { changeThemeBack, changeThemeNext } = useTheme();
 
   return (
-    <Console className={styles.console}>
+    <Console
+      className={styles.console}
+      onPressUp={changeThemeBack}
+      onPressDown={changeThemeNext}
+      onPressLeft={focusBack}
+      onPressRight={focusNext}
+    >
       <div ref={contentRef} className={styles.content}>
         <Canvas />
 

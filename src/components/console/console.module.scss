@@ -40,6 +40,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.15);
     z-index: 0;
+    pointer-events: none;
   }
 
   .screenWrapper {
@@ -330,6 +331,11 @@
   bottom: 66px;
   right: 10px;
   font-size: 11px;
+  display: none;
+
+  @media screen and (min-width: 390px) {
+    display: unset;
+  }
 
   @include mobile {
     display: none;
@@ -713,13 +719,16 @@
   }
 }
 
-.pad {
+.padWrapper {
   position: absolute;
-  left: 46px;
-  bottom: 73px;
-  height: 104px;
-  width: 104px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.6));
+  left: 20px;
+  bottom: 68px;
+  height: 110px;
+  width: 110px;
+
+  @media screen and (min-width: 390px) {
+    left: 46px;
+  }
 
   @include mobile {
     left: 48px;
@@ -730,9 +739,9 @@
 
   @include tablet {
     left: 8%;
-    bottom: calc(10px + 0.65vw);
+    bottom: calc(2px + 0.65vw);
     height: auto;
-    width: calc(50px + 3.9%);
+    width: calc(55px + 3.9%);
     aspect-ratio: 1;
   }
 
@@ -742,15 +751,54 @@
 
   @include desktop {
     left: 72px;
-    bottom: calc(-2.5px + 1.3vw);
-    height: 104px;
-    width: 104px;
+    bottom: calc(-10px + 1.3vw);
+    height: 110px;
+    width: 110px;
+  }
+
+  .pad {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .touchable {
+    width: 40px;
+    height: 40px;
+    z-index: 50;
+    position: absolute;
+    margin: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .padUp {
+    top: -10%;
+    left: 0;
+    right: 0;
+  }
+  .padDown {
+    bottom: -10%;
+    left: 0;
+    right: 0;
+  }
+  .padLeft {
+    top: 0;
+    left: -10%;
+    bottom: 0;
+  }
+  .padRight {
+    top: 0;
+    right: -10%;
+    bottom: 0;
   }
 }
 
 .buttons {
   position: absolute;
-  right: 49px;
+  right: 20px;
   bottom: 70px;
   height: 112px;
   width: 146px;
@@ -763,6 +811,10 @@
   box-shadow:
     inset 0 1px 1px 0 rgba(0, 0, 0, 0.5),
     0 1px 2px 0 rgba(255, 255, 255, 0.25);
+
+  @media screen and (min-width: 390px) {
+    right: 49px;
+  }
 
   @include mobile {
     bottom: 13px;
