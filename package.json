@@ -27,6 +27,7 @@
     "tailwind-merge": "^2.2.1",
     "three": "0.159.0",
     "tunnel-rat": "^0.1.2",
+    "use-sound": "^4.0.3",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "eslint-plugin-import": "^2.29.1",
+    "file-loader": "^6.2.0",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "raw-loader": "^4.0.2",

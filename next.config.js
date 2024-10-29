@@ -39,6 +39,20 @@ const nextConfig = {
       },
     });
 
+    // Add audio files loader
+    config.module.rules.push({
+      test: /\.(wav|mp3)$/i,
+      use: {
+        loader: "file-loader",
+        options: {
+          publicPath: "/_next/static/audio/",
+          outputPath: "static/audio/",
+          name: "[name].[ext]",
+          esModule: false,
+        },
+      },
+    });
+
     config.module.rules.push({
       test: /\.svg$/,
       oneOf: [

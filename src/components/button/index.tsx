@@ -1,8 +1,11 @@
 import Link, { LinkRestProps } from "next/link";
 import { forwardRef } from "react";
+import useSound from "use-sound";
 
 import { Typography } from "~/components/typography";
 import { cn } from "~/lib/utils";
+// @ts-ignore
+import buttonSound from "~/public/sounds/button.wav";
 
 import styles from "./button.module.scss";
 
@@ -51,12 +54,22 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
       href,
       disabled = false,
       onClick,
+      onMouseEnter,
       ...props
     },
     ref
   ) => {
     const sizeStyle = size === "small" ? styles.small : styles.large;
     const variantStyle = variant === "highlight" ? styles.highlight : "";
+
+    const [playHoverSound] = useSound(buttonSound);
+
+    const handleMouseEnter = (e: any) => {
+      if (!disabled) {
+        playHoverSound();
+        onMouseEnter?.(e);
+      }
+    };
 
     if (href) {
       const isExternal = href?.toString().startsWith("http");
@@ -65,6 +78,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
           ref={ref as any}
           className={cn(styles.button, sizeStyle, variantStyle, className)}
           href={href as any}
+          onMouseEnter={handleMouseEnter}
           {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
           {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
           {...(props as AnchorProps)}
@@ -79,6 +93,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         ref={ref as any}
         className={cn(styles.button, sizeStyle, variantStyle, className)}
         onClick={onClick as ButtonProps["onClick"]}
+        onMouseEnter={handleMouseEnter}
         {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
         {...(props as ButtonProps)}
       >

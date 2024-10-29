@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import useSound from "use-sound";
 
 import { THEMES } from "~/constants/themes";
 import { useKeyPress } from "~/hooks/useKeyPress";
 import { useStore } from "~/lib/store";
 import { Theme } from "~/types";
+// @ts-ignore
+import themeSound from "~/public/sounds/theme.wav";
 
 const updateThemeCSSVars = (theme: Theme) => {
   document.documentElement.style.setProperty("--current-color", theme.color);
@@ -15,11 +18,15 @@ export function useTheme() {
   const [themeIndex, setThemeIndex] = useState(0);
   const { setTheme } = useStore.getState();
 
+  const [playThemeSound] = useSound(themeSound);
+
   useEffect(() => {
     updateThemeCSSVars(THEMES[0]);
   }, []);
 
   function changeTheme(direction: "next" | "prev") {
+    playThemeSound();
+
     const nextThemeIndex =
       direction === "next"
         ? themeIndex === THEMES.length - 1
