@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { Marquee } from "~/components/marquee";
+import { useSound } from "~/hooks/useSound";
 import { useViewport } from "~/hooks/useViewport";
+import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
 import DirectionalPad from "~/public/console/directional-pad.svg";
 import MeowTitle from "~/public/console/meow-title.svg";
@@ -15,8 +17,13 @@ import ScreenMobileXL from "~/public/console/screen-640.svg";
 import ScreenTablet from "~/public/console/screen-768.svg";
 import ScreenMobile from "~/public/console/screen-mobile.svg";
 import texture from "~/public/console/texture.png";
+import SpeakerIconOff from "~/public/icons/speaker-off.svg";
 import SpeakerIcon from "~/public/icons/speaker.svg";
 import FullLogo from "~/public/logo-full-shadows.svg";
+// @ts-ignore
+import volumeToggleSound from "~/public/sounds/volume-toggle.mp3";
+
+import { Checkbox } from "../checkbox";
 
 import styles from "./console.module.scss";
 
@@ -63,23 +70,33 @@ function LateralStripes({ className }: React.HTMLProps<HTMLDivElement>) {
 }
 
 function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
-  const [isMuted, setIsMuted] = useState(false);
+  const [playToggleSound] = useSound(volumeToggleSound, { soundEnabled: true });
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
+  const soundEnabled = useStore((state) => state.soundEnabled);
+  const { setSoundEnabled } = useStore.getState();
+
+  const handleChange = (checked: boolean) => {
+    playToggleSound();
+    setSoundEnabled(!checked);
   };
 
   return (
-    <button
-      className={cn(styles.volumeControl, className)}
-      onClick={toggleMute}
-      aria-label={isMuted ? "Activate sound" : "Mute sound"}
-      aria-pressed={isMuted}
-      tabIndex={-1}
-    >
-      <div className={styles.speakerButton} />
-      <SpeakerIcon className={cn(styles.speakerIcon, { [styles.muted]: isMuted })} />
-    </button>
+    <div className={cn(styles.volumeControl, className)}>
+      <Checkbox
+        id="volume-control"
+        checked={!soundEnabled}
+        onCheckedChange={handleChange}
+        className={styles.volumeCheckbox}
+        aria-label={soundEnabled ? "Mute sound" : "Activate sound"}
+      />
+      <label htmlFor="volume-control" className={styles.volumeLabel}>
+        {soundEnabled ? (
+          <SpeakerIcon className={styles.speakerIcon} />
+        ) : (
+          <SpeakerIconOff className={styles.speakerIcon} />
+        )}
+      </label>
+    </div>
   );
 }
 

@@ -90,7 +90,6 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
         const scrollLeft = w.scrollLeft;
 
         const isAtRightEdge = Math.ceil(wrapperWidth + scrollLeft) >= tableWidth;
-        console.log("pepe");
         setShowRightButton(!isAtRightEdge);
         setShowLeftButton(scrollLeft > 0);
       }

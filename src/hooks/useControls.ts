@@ -1,7 +1,7 @@
 import { useState } from "react";
-import useSound from "use-sound";
 
 import { useKeyPress } from "~/hooks/useKeyPress";
+import { useSound } from "~/hooks/useSound";
 // @ts-ignore
 import focusSound from "~/public/sounds/focus.wav";
 
@@ -27,7 +27,7 @@ export function useControls() {
     }
 
     const element = elements[nextIndex] as HTMLElement;
-    console.log(nextIndex, elements, element);
+
     if (element) {
       setFocusedIndex(nextIndex);
       element.focus();

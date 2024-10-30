@@ -3,16 +3,16 @@
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import useSound from "use-sound";
 
 import { Console } from "~/components/console";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
 import { Variations } from "~/components/variations";
 import { useControls } from "~/hooks/useControls";
+import { useSound } from "~/hooks/useSound";
 import { useTheme } from "~/hooks/useTheme";
 // @ts-ignore
-import pageSound from "~/public/sounds/page.wav";
+import pageSound from "~/public/sounds/page.mp3";
 
 import styles from "./app.module.scss";
 
@@ -34,7 +34,8 @@ export function App({ children }: Props) {
 
   useEffect(() => {
     playPageSound();
-  }, [pathname, playPageSound]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <Console

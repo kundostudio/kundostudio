@@ -1,11 +1,11 @@
 import Link, { LinkRestProps } from "next/link";
 import { forwardRef } from "react";
-import useSound from "use-sound";
 
 import { Typography } from "~/components/typography";
+import { useSound } from "~/hooks/useSound";
 import { cn } from "~/lib/utils";
 // @ts-ignore
-import buttonSound from "~/public/sounds/button.wav";
+import buttonSound from "~/public/sounds/button.mp3";
 
 import styles from "./button.module.scss";
 

@@ -4,7 +4,10 @@ import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import NextLink, { type LinkProps } from "next/link";
 import { useState } from "react";
 
+import { useSound } from "~/hooks/useSound";
 import { cn } from "~/lib/utils";
+// @ts-ignore
+import buttonSound from "~/public/sounds/button.mp3";
 
 import styles from "./link.module.scss";
 
@@ -26,12 +29,23 @@ export function Link({ children, href, layoutId, ...props }: Props) {
   const isExternal = href?.toString().startsWith("http");
   const Component = isExternal ? "a" : NextLink;
 
+  const [playHoverSound] = useSound(buttonSound);
+
+  const handleEnter = (e: any) => {
+    playHoverSound();
+    setIsActive(true);
+  };
+
+  const handleLeave = () => {
+    setIsActive(false);
+  };
+
   return (
     <Component
       href={href}
       className={cn(styles.link, isActive && styles.active)}
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
       onFocus={() => setIsActive(true)}
       onBlur={() => setIsActive(false)}
       {...(isExternal && { target: "_blank", rel: "noreferrer" })}

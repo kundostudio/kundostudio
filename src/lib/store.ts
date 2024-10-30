@@ -12,6 +12,9 @@ type Store = {
 
   theme: Theme;
   setTheme: (theme: Theme) => void;
+
+  soundEnabled: boolean;
+  setSoundEnabled: (enabled: boolean) => void;
 };
 
 const store = (set) => ({
@@ -23,6 +26,9 @@ const store = (set) => ({
 
   theme: THEMES[0],
   setTheme: (theme) => set({ theme }),
+
+  soundEnabled: true,
+  setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
 });
 
 export const useStore = create<Store>(store);
