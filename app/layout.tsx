@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import { DM_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
+import { Favicon } from "~/components/favicon";
+
 import "~/styles/global.scss";
 
 const App = dynamic(() => import("~/components/app").then((mod) => mod.App), {
@@ -64,7 +66,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dm_mono.variable} ${youth.variable}`}>
-      <link rel="icon" href="/favicon.png" sizes="any" />
+      <Favicon />
       <body>
         <App>{children}</App>
       </body>
