@@ -6,7 +6,7 @@ import { useKeyPress } from "~/hooks/useKeyPress";
 import { useStore } from "~/lib/store";
 import { Theme } from "~/types";
 // @ts-ignore
-import themeSound from "~/public/sounds/theme.wav";
+import themeSound from "~/public/sounds/theme.mp3";
 
 const updateThemeCSSVars = (theme: Theme) => {
   document.documentElement.style.setProperty("--current-color", theme.color);

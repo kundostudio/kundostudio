@@ -13,6 +13,8 @@ import { useSound } from "~/hooks/useSound";
 import { useTheme } from "~/hooks/useTheme";
 // @ts-ignore
 import pageSound from "~/public/sounds/page.mp3";
+// @ts-ignore
+import music from "~/public/music/cyberpunk.mp3";
 
 import styles from "./app.module.scss";
 
@@ -27,13 +29,18 @@ type Props = {
 export function App({ children }: Props) {
   const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [playPageSound] = useSound(pageSound);
+  const [playPageChangeSound] = useSound(pageSound);
+  const [playBackgroundMusic] = useSound(music, { volume: 0.3 });
 
   const { focusBack, focusNext } = useControls();
   const { changeThemeBack, changeThemeNext } = useTheme();
 
   useEffect(() => {
-    playPageSound();
+    playBackgroundMusic();
+  }, [playBackgroundMusic]);
+
+  useEffect(() => {
+    playPageChangeSound();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
