@@ -8,6 +8,7 @@ import { Console } from "~/components/console";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
 import { Variations } from "~/components/variations";
+import { useBackgroundMusic } from "~/hooks/useBackgroundMusic";
 import { useControls } from "~/hooks/useControls";
 import { useSound } from "~/hooks/useSound";
 import { useTheme } from "~/hooks/useTheme";
@@ -29,15 +30,12 @@ type Props = {
 export function App({ children }: Props) {
   const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [playPageChangeSound] = useSound(pageSound);
-  const [playBackgroundMusic] = useSound(music, { volume: 0.3 });
+  const [playPageChangeSound, { stop }] = useSound(pageSound);
 
   const { focusBack, focusNext } = useControls();
   const { changeThemeBack, changeThemeNext } = useTheme();
 
-  useEffect(() => {
-    playBackgroundMusic();
-  }, [playBackgroundMusic]);
+  useBackgroundMusic(music);
 
   useEffect(() => {
     playPageChangeSound();
