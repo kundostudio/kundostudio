@@ -37,7 +37,13 @@ const parseValue = (value: number) => {
 
 export function Variations({ className, ...props }: JSX.IntrinsicElements["div"]) {
   return (
-    <Marquee className={cn(styles.variations, className)} repeat={4} duration={10} {...props}>
+    <Marquee
+      className={cn(styles.variations, className)}
+      repeat={4}
+      duration={10}
+      slowDownOnHover
+      {...props}
+    >
       {variations.map((v, i) => (
         <div key={i} className={styles.variation}>
           <span className={styles.variationName}>{v.name}</span>

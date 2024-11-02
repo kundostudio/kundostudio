@@ -4,15 +4,14 @@
   will-change: transform;
 
   @include reduced-motion {
-    --duration: 50s !important;
+    --speed: 0.5 !important;
   }
 
   .inner {
     display: flex;
     white-space: nowrap;
     align-items: center;
-    animation: marquee var(--duration) linear infinite;
-    animation-play-state: var(--animation-status);
+    flex-shrink: 0;
   }
 
   &.inverted {
