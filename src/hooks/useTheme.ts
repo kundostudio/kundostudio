@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useSound from "use-sound";
 
 import { THEMES } from "~/constants/themes";
 import { useKeyPress } from "~/hooks/useKeyPress";
@@ -7,6 +6,8 @@ import { useStore } from "~/lib/store";
 import { Theme } from "~/types";
 // @ts-ignore
 import themeSound from "~/public/sounds/theme.mp3";
+
+import { useSound } from "./useSound";
 
 const updateThemeCSSVars = (theme: Theme) => {
   document.documentElement.style.setProperty("--current-color", theme.color);
