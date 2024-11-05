@@ -1,4 +1,4 @@
-.variations {
+.coins {
   height: var(--variations-height);
   min-height: var(--variations-height);
   display: flex;
@@ -6,7 +6,7 @@
   mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent 100%);
   background-color: rgba(var(--current-color), 0.02);
 
-  .variation {
+  .coin {
     padding-left: 2rem;
     font-family: var(--font-dm-mono);
     font-size: 12px;
