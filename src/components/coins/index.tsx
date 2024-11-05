@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import useSWR from "swr";
 
 import { Marquee } from "~/components/marquee";
@@ -23,9 +22,9 @@ export function Coins({ className, ...props }: Props) {
     refreshInterval: 60000,
   });
 
-  useEffect(() => {
-    console.log("coins", coins);
-  }, [coins]);
+  if (error) {
+    return <div className={styles.coin}>{error.info?.error}</div>;
+  }
 
   return (
     <Marquee

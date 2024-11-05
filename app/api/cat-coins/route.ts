@@ -12,7 +12,15 @@ export async function GET() {
       }
     );
 
+    if (!response.ok) {
+      throw new Error(`API responded with status: ${response.status}`);
+    }
+
     const data = await response.json();
+
+    if (!data.data?.coins) {
+      throw new Error("Invalid data structure received");
+    }
 
     const parsedData = data.data.coins.map((c) => ({
       symbol: c.symbol,
@@ -21,6 +29,7 @@ export async function GET() {
 
     return NextResponse.json(parsedData);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch coins data" }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : "Failed to fetch coins data";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
