@@ -58,9 +58,8 @@
   }
 
   .social {
-    display: none;
-    position: absolute;
     right: 4px;
+    position: absolute;
 
     @include mobile {
       display: flex;

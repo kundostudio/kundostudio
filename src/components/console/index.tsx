@@ -88,6 +88,7 @@ function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
         onCheckedChange={handleChange}
         className={styles.volumeCheckbox}
         aria-label={soundEnabled ? "Mute sound" : "Activate sound"}
+        tabIndex={-1}
       />
       <label htmlFor="volume-control" className={styles.volumeLabel}>
         {soundEnabled ? (
