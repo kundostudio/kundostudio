@@ -1,3 +1,5 @@
+"use client";
+
 import { View } from "@react-three/drei";
 import { Canvas as R3FCanvas } from "@react-three/fiber";
 import * as THREE from "three";

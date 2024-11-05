@@ -229,7 +229,7 @@ export function Console({
         <div className={styles.content}>{children}</div>
 
         <div className={styles.screenBottomAddons}>
-          <Marquee className={styles.mindsEnteringNewWorlds} repeat={2} duration={10} offset={0}>
+          <Marquee className={styles.mindsEnteringNewWorlds} repeat={4} speed={0.5} offset={0}>
             <span className={neue.className}>minds entering other worlds</span>
           </Marquee>
           <FullLogo className={styles.logo} />

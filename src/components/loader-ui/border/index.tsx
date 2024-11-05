@@ -1,4 +1,5 @@
 import { MotionProps, motion } from "framer-motion";
+import type { JSX } from "react";
 
 import { cn } from "~/lib/utils";
 

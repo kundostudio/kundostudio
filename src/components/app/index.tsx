@@ -2,12 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
+import { Coins } from "~/components/coins";
 import { Console } from "~/components/console";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
-import { Variations } from "~/components/variations";
 import { useBackgroundMusic } from "~/hooks/useBackgroundMusic";
 import { useControls } from "~/hooks/useControls";
 import { useSound } from "~/hooks/useSound";
@@ -28,7 +28,6 @@ type Props = {
 };
 
 export function App({ children }: Props) {
-  const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const [playPageChangeSound, { stop }] = useSound(pageSound);
 
@@ -50,7 +49,7 @@ export function App({ children }: Props) {
       onPressLeft={focusBack}
       onPressRight={focusNext}
     >
-      <div ref={contentRef} className={styles.content}>
+      <div className={styles.content}>
         <Canvas />
 
         <Line direction="vertical" className={styles.verticalLeftLine} />
@@ -59,7 +58,7 @@ export function App({ children }: Props) {
         <Line direction="horizontal" className={styles.headerBottomLine} />
 
         <Line direction="horizontal" className={styles.variationsTopLine} />
-        <Variations className={styles.variations} />
+        <Coins className={styles.variations} />
         <Line direction="horizontal" className={styles.variationsBottomLine} />
 
         {children}
