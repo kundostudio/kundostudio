@@ -5,7 +5,7 @@ import { useStore } from "~/lib/store";
 
 export function useBackgroundMusic(path: string) {
   const soundEnabled = useStore((state) => state.soundEnabled);
-  const [playBackgroundMusic, { stop }] = useSound(path, { volume: 1 });
+  const [playBackgroundMusic, { stop }] = useSound(path, { volume: 0.5 });
 
   useEffect(() => {
     if (soundEnabled) {

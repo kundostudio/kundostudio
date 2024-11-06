@@ -190,6 +190,7 @@
     line-height: 24px;
     z-index: 10;
     top: var(--table-head-height);
+    transition: background-color 0.1s ease-in-out;
 
     &.leaderboardLeftButton {
       left: 0;
@@ -197,6 +198,11 @@
 
     &.leaderboardRightButton {
       right: 0;
+    }
+
+    &:focus-visible,
+    &:global(.focused) {
+      background-color: rgba(var(--current-color), 0.2);
     }
   }
 

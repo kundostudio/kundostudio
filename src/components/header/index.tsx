@@ -15,7 +15,7 @@ import { MenuTrigger } from "./menu/trigger";
 
 export function Header() {
   const isMobileXS = useMediaQuery("(max-width: 640px)");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(null);
   const pathname = usePathname();
 
   useEffect(() => {

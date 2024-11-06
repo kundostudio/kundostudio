@@ -89,8 +89,9 @@ function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
         className={styles.volumeCheckbox}
         aria-label={soundEnabled ? "Mute sound" : "Activate sound"}
         tabIndex={-1}
+        data-prevent-lose-focus
       />
-      <label htmlFor="volume-control" className={styles.volumeLabel}>
+      <label htmlFor="volume-control" className={styles.volumeLabel} data-prevent-lose-focus>
         {soundEnabled ? (
           <SpeakerIcon className={styles.speakerIcon} />
         ) : (
@@ -174,13 +175,25 @@ function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
   );
 }
 
-function Buttons({ className }: React.HTMLProps<HTMLDivElement>) {
+function Buttons({ onSelect, onUnselect, className }: any) {
   return (
     <div className={cn(styles.buttons, className)}>
-      <button className={styles.button} aria-label="Secondary button" tabIndex={-1}>
+      <button
+        className={styles.button}
+        onClick={onUnselect}
+        aria-label="Secondary button"
+        tabIndex={-1}
+        data-prevent-lose-focus
+      >
         b
       </button>
-      <button className={styles.button} aria-label="Primary button" tabIndex={-1}>
+      <button
+        className={styles.button}
+        onClick={onSelect}
+        aria-label="Primary button"
+        tabIndex={-1}
+        data-prevent-lose-focus
+      >
         a
       </button>
     </div>
@@ -194,6 +207,8 @@ export function Console({
   onPressDown,
   onPressLeft,
   onPressRight,
+  onPressSelect,
+  onPressUnselect,
 }) {
   const viewport = useViewport();
 
@@ -248,7 +263,7 @@ export function Console({
         onPressLeft={onPressLeft}
         onPressRight={onPressRight}
       />
-      <Buttons />
+      <Buttons onSelect={onPressSelect} onUnselect={onPressUnselect} />
 
       {/* texture */}
       <Image src={texture} alt="texture" priority className={styles.texture} />

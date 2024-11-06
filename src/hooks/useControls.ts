@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useKeyPress } from "~/hooks/useKeyPress";
 import { useSound } from "~/hooks/useSound";
@@ -27,10 +27,39 @@ export function useControls() {
     }
 
     const element = elements[nextIndex] as HTMLElement;
+    const prev = elements[currentIndex] as HTMLElement;
 
     if (element) {
+      prev?.classList.remove("focused");
+
       setFocusedIndex(nextIndex);
       element.focus();
+      element.classList.add("focused");
+    }
+  };
+
+  const select = () => {
+    if (focusedIndex !== null) {
+      const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
+      const element = elements[focusedIndex];
+      if (element) {
+        element.click();
+
+        if (!element.classList.contains("focused")) {
+          element.classList.add("focused");
+        }
+      }
+    }
+  };
+
+  const unselect = () => {
+    if (focusedIndex !== null) {
+      const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
+      const element = elements[focusedIndex];
+      if (element) {
+        element.classList.remove("focused");
+        element.blur();
+      }
     }
   };
 
@@ -44,8 +73,28 @@ export function useControls() {
     moveFocus("next");
   });
 
+  useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      // Verificar si el click fue en un elemento con data-prevent-lose-focus o dentro de uno
+      const clickedElement = e.target as HTMLElement;
+      const shouldPreventLoseFocus = !!clickedElement.closest("[data-prevent-lose-focus]");
+
+      if (!shouldPreventLoseFocus) {
+        const elements = document.querySelectorAll(ELEMENTS_QUERY);
+        elements.forEach((element) => element.classList.remove("focused"));
+      }
+    };
+
+    document.addEventListener("mousedown", handleMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, []);
+
   return {
     focusBack: () => moveFocus("prev"),
     focusNext: () => moveFocus("next"),
+    select,
+    unselect,
   };
 }

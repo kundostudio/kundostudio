@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 
 import { cn } from "~/lib/utils";
 
@@ -9,8 +9,21 @@ type Props = {
 } & JSX.IntrinsicElements["button"];
 
 export function MenuTrigger({ className, isOpen, ...props }: Props) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [wasOpened, setWasOpened] = useState(false);
+
+  useEffect(() => {
+    if (wasOpened) {
+      ref.current?.classList.add("focused");
+    }
+    if (isOpen) {
+      setWasOpened(true);
+    }
+  }, [isOpen, wasOpened]);
+
   return (
     <button
+      ref={ref}
       type="button"
       className={cn(styles.menuIcon, isOpen && styles.open, className)}
       {...props}

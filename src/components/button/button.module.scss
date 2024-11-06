@@ -91,7 +91,8 @@
     transition: all 0.1s ease-in-out;
   }
 
-  &:focus-visible::before {
+  &:focus-visible::before,
+  &:global(.focused)::before {
     top: -5px;
     left: -5px;
     right: -5px;

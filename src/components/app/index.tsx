@@ -31,7 +31,7 @@ export function App({ children }: Props) {
   const pathname = usePathname();
   const [playPageChangeSound, { stop }] = useSound(pageSound);
 
-  const { focusBack, focusNext } = useControls();
+  const { focusBack, focusNext, select, unselect } = useControls();
   const { changeThemeBack, changeThemeNext } = useTheme();
 
   useBackgroundMusic(music);
@@ -48,6 +48,8 @@ export function App({ children }: Props) {
       onPressDown={changeThemeNext}
       onPressLeft={focusBack}
       onPressRight={focusNext}
+      onPressSelect={select}
+      onPressUnselect={unselect}
     >
       <div className={styles.content}>
         <Canvas />
