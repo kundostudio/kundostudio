@@ -10,20 +10,28 @@ const ELEMENTS_QUERY =
 
 export function useControls() {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [isFocusActive, setIsFocusActive] = useState<boolean | null>(null);
 
   const [playFocusSound] = useSound(focusSound);
 
   const moveFocus = (direction: "next" | "prev") => {
     playFocusSound();
+    navigator.vibrate(200);
+
     const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
 
     const currentIndex = focusedIndex ?? 0;
     let nextIndex;
 
-    if (direction === "next") {
-      nextIndex = (currentIndex + 1) % elements.length;
+    if (!isFocusActive || isFocusActive === null) {
+      console.log("focus", isFocusActive);
+      nextIndex = currentIndex;
     } else {
-      nextIndex = currentIndex <= 0 ? elements.length - 1 : currentIndex - 1;
+      if (direction === "next") {
+        nextIndex = (currentIndex + 1) % elements.length;
+      } else {
+        nextIndex = currentIndex <= 0 ? elements.length - 1 : currentIndex - 1;
+      }
     }
 
     const element = elements[nextIndex] as HTMLElement;
@@ -33,6 +41,8 @@ export function useControls() {
       prev?.classList.remove("focused");
 
       setFocusedIndex(nextIndex);
+      setIsFocusActive(true);
+
       element.focus();
       element.classList.add("focused");
     }
@@ -44,6 +54,8 @@ export function useControls() {
       const element = elements[focusedIndex];
       if (element) {
         element.click();
+        setIsFocusActive(true);
+        navigator.vibrate(200);
 
         if (!element.classList.contains("focused")) {
           element.classList.add("focused");
@@ -59,6 +71,8 @@ export function useControls() {
       if (element) {
         element.classList.remove("focused");
         element.blur();
+        setIsFocusActive(false);
+        navigator.vibrate(200);
       }
     }
   };
@@ -82,6 +96,8 @@ export function useControls() {
       if (!shouldPreventLoseFocus) {
         const elements = document.querySelectorAll(ELEMENTS_QUERY);
         elements.forEach((element) => element.classList.remove("focused"));
+
+        setIsFocusActive(false);
       }
     };
 

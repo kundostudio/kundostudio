@@ -150,24 +150,28 @@ function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
         tabIndex={-1}
         className={cn(styles.touchable, styles.padUp)}
         onClick={onPressUp}
+        data-prevent-lose-focus
       />
       <div
         aria-label="Direction pad down"
         tabIndex={-1}
         className={cn(styles.touchable, styles.padDown)}
         onClick={onPressDown}
+        data-prevent-lose-focus
       />
       <div
         aria-label="Directional pad left"
         tabIndex={-1}
         className={cn(styles.touchable, styles.padLeft)}
         onClick={onPressLeft}
+        data-prevent-lose-focus
       />
       <div
         aria-label="Directional pad right"
         tabIndex={-1}
         className={cn(styles.touchable, styles.padRight)}
         onClick={onPressRight}
+        data-prevent-lose-focus
       />
 
       <DirectionalPad className={styles.pad} />
