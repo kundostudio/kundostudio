@@ -16,7 +16,6 @@ export function useControls() {
 
   const moveFocus = (direction: "next" | "prev") => {
     playFocusSound();
-    navigator.vibrate(200);
 
     const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
 
@@ -55,7 +54,6 @@ export function useControls() {
       if (element) {
         element.click();
         setIsFocusActive(true);
-        navigator.vibrate(200);
 
         if (!element.classList.contains("focused")) {
           element.classList.add("focused");
@@ -72,7 +70,6 @@ export function useControls() {
         element.classList.remove("focused");
         element.blur();
         setIsFocusActive(false);
-        navigator.vibrate(200);
       }
     }
   };

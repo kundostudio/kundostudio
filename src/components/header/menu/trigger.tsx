@@ -12,7 +12,6 @@ export function MenuTrigger({ className, isOpen, ...props }: Props) {
   const ref = useRef<HTMLButtonElement>(null);
   const [wasOpened, setWasOpened] = useState(false);
 
-  // ENCONTRAR OTRA SOLUCION DESDE EL LADO DE USE CONTROLS
   useEffect(() => {
     if (wasOpened) {
       ref.current?.classList.add("focused");
