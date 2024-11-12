@@ -86,7 +86,6 @@ export function useControls() {
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
-      // Verificar si el click fue en un elemento con data-prevent-lose-focus o dentro de uno
       const clickedElement = e.target as HTMLElement;
       const shouldPreventLoseFocus = !!clickedElement.closest("[data-prevent-lose-focus]");
 

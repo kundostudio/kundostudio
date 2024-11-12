@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { Coins } from "~/components/coins";
 import { Console } from "~/components/console";
@@ -36,33 +36,38 @@ export function App({ children }: Props) {
 
   useBackgroundMusic(music);
 
-  useEffect(() => {
+  const handlePageSound = useCallback(() => {
     playPageChangeSound();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [playPageChangeSound]);
+
+  useEffect(() => {
+    handlePageSound();
+    return () => stop();
+  }, [pathname, handlePageSound, stop]);
+
+  const consoleHandlers = useMemo(
+    () => ({
+      onPressUp: changeThemeBack,
+      onPressDown: changeThemeNext,
+      onPressLeft: focusBack,
+      onPressRight: focusNext,
+      onPressSelect: select,
+      onPressUnselect: unselect,
+    }),
+    [changeThemeBack, changeThemeNext, focusBack, focusNext, select, unselect]
+  );
 
   return (
-    <Console
-      className={styles.console}
-      onPressUp={changeThemeBack}
-      onPressDown={changeThemeNext}
-      onPressLeft={focusBack}
-      onPressRight={focusNext}
-      onPressSelect={select}
-      onPressUnselect={unselect}
-    >
+    <Console className={styles.console} {...consoleHandlers}>
       <div className={styles.content}>
         <Canvas />
-
         <Line direction="vertical" className={styles.verticalLeftLine} />
         <Line direction="horizontal" className={styles.headerTopLine} />
         <Header />
         <Line direction="horizontal" className={styles.headerBottomLine} />
-
         <Line direction="horizontal" className={styles.variationsTopLine} />
         <Coins className={styles.variations} />
         <Line direction="horizontal" className={styles.variationsBottomLine} />
-
         {children}
         <Line direction="horizontal" className={styles.footerBottomLine} />
         <Line direction="vertical" className={styles.verticalRightLine} />

@@ -1,22 +1,37 @@
 "use client";
 
+import { useInfiniteQuery } from "@tanstack/react-query";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useEffect, useRef, useState } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { Line } from "~/components/Line";
-import { Medal } from "~/components/medal";
-import { cn, formatNumber } from "~/lib/utils";
-import { LeaderboardPosition, Multiplier } from "~/types";
+import { fetcher } from "~/lib/fetcher";
+import { formatNumber } from "~/lib/utils";
 
-import { LEADERBOARD_POSITIONS } from "./data";
 import styles from "./leaderboard.module.scss";
 
-const columnHelper = createColumnHelper<LeaderboardPosition>();
+const ITEMS_PER_PAGE = 20;
+
+const columnHelper = createColumnHelper<{
+  rank: number;
+  name: string;
+  rewards: {
+    amount: string;
+    unit: string;
+    precision: number;
+  };
+}>();
+
+const formatWithPrecision = (amount: string, precision: number) => {
+  const value = Number(amount) / Math.pow(10, precision);
+  return formatNumber(value);
+};
 
 const columns = [
   columnHelper.accessor("rank", {
@@ -30,137 +45,88 @@ const columns = [
     header: () => <span>name</span>,
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("invitedBy", {
-    header: () => <span>invited by</span>,
-    cell: (info) => info.renderValue(),
-  }),
-  columnHelper.accessor("multipliers", {
-    header: () => <span>multipliers</span>,
-    cell: (info) => <Medals multipliers={info.getValue()} />,
-  }),
-  columnHelper.accessor("meowAmount", {
+  columnHelper.accessor("rewards", {
     header: () => <span>meow</span>,
-    cell: (info) => <span className={styles.meowAmount}>{formatNumber(info.getValue())}</span>,
+    cell: (info) => {
+      const rewards = info.getValue();
+      return (
+        <span className={styles.meowAmount}>
+          {formatWithPrecision(rewards.amount, rewards.precision)}
+        </span>
+      );
+    },
   }),
 ];
 
-function Medals({ multipliers }: { multipliers: Multiplier[] }) {
-  return (
-    <div className={styles.multipliers}>
-      {multipliers.map((value, i) => (
-        <Medal
-          key={i}
-          type={value}
-          index={i}
-          className={styles.medal}
-          medalYOffset1={2}
-          medalBlur1={5}
-          medalYOffset2={2}
-          medalBlur2={5}
-          logoYOffset1={0}
-          logoBlur1={2}
-          logoYOffset2={0}
-          logoBlur2={5}
-        />
-      ))}
-    </div>
-  );
-}
-
 export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
-  const wrapper = useRef<HTMLDivElement>(null);
-  const leaderboard = useRef<HTMLTableElement>(null);
+  const tableContainerRef = useRef<HTMLDivElement>(null);
 
-  const [showLeftButton, setShowLeftButton] = useState(false);
-  const [showRightButton, setShowRightButton] = useState(false);
+  const fetchLeaderboardData = useCallback(({ pageParam = 0 }) => {
+    return fetcher(`/api/leaderboard?page=${pageParam + 1}&limit=${ITEMS_PER_PAGE}`);
+  }, []);
+
+  const { data, fetchNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ["leaderboard"],
+    queryFn: fetchLeaderboardData,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.data.length < ITEMS_PER_PAGE) return undefined;
+      return pages.length;
+    },
+  });
+
+  const allData = useMemo(() => data?.pages?.flatMap((page) => page.data) || [], [data]);
 
   const table = useReactTable({
-    data: LEADERBOARD_POSITIONS,
+    data: allData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
-  useEffect(() => {
-    const w = wrapper.current;
+  const { rows } = table.getRowModel();
 
-    const checkOverflow = () => {
-      if (w && leaderboard.current) {
-        const wrapperWidth = w.clientWidth;
-        const tableWidth = leaderboard.current.scrollWidth;
-        const scrollLeft = w.scrollLeft;
+  const rowVirtualizer = useVirtualizer({
+    count: rows.length,
+    estimateSize: () => 40,
+    getScrollElement: () => tableContainerRef.current,
+    overscan: 5,
+  });
 
-        const isAtRightEdge = Math.ceil(wrapperWidth + scrollLeft) >= tableWidth;
-        setShowRightButton(!isAtRightEdge);
-        setShowLeftButton(scrollLeft > 0);
-      }
-    };
-
-    checkOverflow();
-    window.addEventListener("resize", checkOverflow);
-    w?.addEventListener("scroll", checkOverflow);
-
-    return () => {
-      window.removeEventListener("resize", checkOverflow);
-      w?.removeEventListener("scroll", checkOverflow);
-    };
-  }, []);
-
-  const handleButtonClick = (direction: "left" | "right") => {
-    if (wrapper.current && leaderboard.current) {
-      const scrollContainer = wrapper.current;
-      const table = leaderboard.current;
-      const currentScroll = scrollContainer.scrollLeft;
-
-      // Find the first fully visible column
-      const columns = table.querySelectorAll("th");
-      let nextColumnIndex = 0;
-
-      for (let i = 0; i < columns.length; i++) {
-        const column = columns[i];
-        const columnLeftEdge = column.offsetLeft - currentScroll;
-        if (columnLeftEdge >= 0) {
-          nextColumnIndex = direction === "right" ? i + 1 : i - 1;
-          break;
+  const fetchMoreOnBottomReached = useCallback(
+    (containerRefElement?: HTMLDivElement | null) => {
+      if (containerRefElement) {
+        const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
+        if (scrollHeight - scrollTop - clientHeight < 100 && !isFetching) {
+          fetchNextPage();
         }
       }
+    },
+    [fetchNextPage, isFetching]
+  );
 
-      // If there's a next/previous column, scroll to it
-      if (nextColumnIndex >= 0 && nextColumnIndex < columns.length) {
-        const targetColumn = columns[nextColumnIndex];
-        scrollContainer.scrollTo({
-          left: targetColumn.offsetLeft,
-          behavior: "smooth",
-        });
-      }
+  useEffect(() => {
+    const container = tableContainerRef.current;
+    if (container) {
+      const handleScroll = () => fetchMoreOnBottomReached(container);
+      container.addEventListener("scroll", handleScroll);
+      return () => container.removeEventListener("scroll", handleScroll);
     }
-  };
+  }, [fetchMoreOnBottomReached]);
 
   return (
     <div className={className}>
       <Line direction="horizontal" className={styles.leaderboardHeaderLine} />
-      {showLeftButton && (
-        <button
-          className={cn(styles.learboardButton, styles.leaderboardLeftButton)}
-          onClick={() => handleButtonClick("left")}
-        >
-          {"<"}
-        </button>
-      )}
-      {showRightButton && (
-        <button
-          className={cn(styles.learboardButton, styles.leaderboardRightButton)}
-          onClick={() => handleButtonClick("right")}
-        >
-          {">"}
-        </button>
-      )}
-      <div ref={wrapper} className={styles.leaderboardWrapper}>
-        <table ref={leaderboard} className={styles.leaderboard}>
+      <div ref={tableContainerRef} className={styles.leaderboardWrapper}>
+        <table className={styles.leaderboard}>
           <thead className={styles.header}>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.id} style={{ display: "flex", width: "100%" }}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className={styles.headerItem}>
+                  <th
+                    key={header.id}
+                    className={styles.headerItem}
+                    style={{ display: "flex", flex: 1 }}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -169,18 +135,44 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
               </tr>
             ))}
           </thead>
-          <tbody className={styles.leaderboardBody}>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className={styles.row}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className={styles.rowItem}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
+          <tbody
+            className={styles.leaderboardBody}
+            style={{
+              display: "grid",
+              height: `${rowVirtualizer.getTotalSize()}px`,
+              position: "relative",
+            }}
+          >
+            {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+              const row = rows[virtualRow.index];
+              return (
+                <tr
+                  key={row.id}
+                  className={styles.row}
+                  style={{
+                    display: "flex",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className={styles.rowItem}
+                      style={{ display: "flex", flex: 1 }}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
+        {/* {isFetching && <div className={styles.loading}>Loading more...</div>} */}
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import localFont from "next/font/local";
 
 import { Favicon } from "~/components/favicon";
 
+import { QueryProvider } from "./query-client";
+
 import "~/styles/global.scss";
 
 const App = dynamic(() => import("~/components/app").then((mod) => mod.App), {
@@ -68,7 +70,9 @@ export default function RootLayout({
     <html lang="en" className={`${dm_mono.variable} ${youth.variable}`}>
       <Favicon />
       <body>
-        <App>{children}</App>
+        <QueryProvider>
+          <App>{children}</App>
+        </QueryProvider>
       </body>
     </html>
   );

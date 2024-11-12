@@ -51,130 +51,136 @@
 
   .leaderboardWrapper {
     position: relative;
-    height: 100%;
-    overflow-y: auto;
-    margin: 0 var(--padding-horizontal);
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    overflow: auto;
+    height: 70vh;
+    width: 100%;
+    padding: 0;
 
     &::-webkit-scrollbar {
-      display: none; /* For Chrome, Safari, and Opera */
+      width: 2px;
+      height: 8px;
     }
 
-    &::after {
-      content: "";
-      display: block;
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2rem;
-      width: 100%;
-      background: linear-gradient(to bottom, transparent 0%, var(--background-color) 100%);
-      z-index: 1;
+    &::-webkit-scrollbar-track {
+      background: rgba(var(--current-color), 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(var(--current-color), 1);
+      border-radius: 0px;
     }
   }
 
   .leaderboard {
     width: 100%;
+    border-collapse: collapse;
+  }
 
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      background-color: var(--background-color);
+  .leaderboardBody {
+    position: relative;
+    padding: 0;
+  }
+
+  .row {
+    width: 100%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(var(--current-color), 0.1);
     }
+  }
 
-    .headerItem {
-      text-align: left;
-      padding: 0.5rem 1rem;
-      text-transform: uppercase;
-      font-size: 10px;
-      line-height: 16px;
-      letter-spacing: 0.08em;
-      text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--background-color);
+  }
 
-      @include tablet {
-        font-size: 11px;
-        letter-spacing: 0.12em;
-      }
+  .headerItem {
+    text-align: left;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
 
-      @include laptop {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-
-      @include desktop {
-        font-size: 12px;
-      }
-
-      &:last-of-type {
-        text-align: right;
-      }
-    }
-
-    tr:first-of-type {
-      .rowItem {
-        padding-top: 1rem;
-
-        @include laptop {
-          padding-top: 1.5rem;
-        }
-
-        @include desktop {
-          padding-top: 2rem;
-        }
-      }
-    }
-
-    .rowItem {
-      width: auto;
-      min-width: auto;
-      padding: 4px 1rem;
-      text-align: left;
+    @include tablet {
       font-size: 11px;
-      line-height: 24px;
-      letter-spacing: 0.08em;
-      text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
-      white-space: nowrap;
-      vertical-align: middle;
-      position: relative;
+      letter-spacing: 0.12em;
+    }
 
-      @include tablet {
-        font-size: 12px;
-        letter-spacing: 0.12em;
-        padding-top: 6px;
-        padding-bottom: 6px;
-      }
+    @include laptop {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
 
-      @include laptop {
-        font-size: 14px;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        padding-top: 8px;
-        padding-bottom: 8px;
-      }
+    @include desktop {
+      font-size: 12px;
+    }
 
-      @include desktop {
-        font-size: 16px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
+    &:last-of-type {
+      text-align: right;
+    }
+  }
 
-      &:last-of-type {
-        text-align: right;
-      }
+  // tr:first-of-type {
+  //   .rowItem {
+  //     padding-top: 1rem;
 
-      .multipliers {
-        display: flex;
-        align-items: center;
-        gap: 1px;
-      }
+  //     @include laptop {
+  //       padding-top: 1.5rem;
+  //     }
 
-      &:has(.multipliers) {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
+  //     @include desktop {
+  //       padding-top: 2rem;
+  //     }
+  //   }
+  // }
+
+  .rowItem {
+    width: auto;
+    min-width: auto;
+    padding: 8px 1rem;
+    text-align: left;
+    font-size: 11px;
+    line-height: 24px;
+    letter-spacing: 0.08em;
+    text-shadow: rgba(var(--current-color), 0.6) 0 0 8px;
+    white-space: nowrap;
+    vertical-align: middle;
+    position: relative;
+
+    @include tablet {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      padding: 8px 1rem;
+    }
+
+    @include laptop {
+      padding: 8px 1.5rem;
+    }
+
+    @include desktop {
+      font-size: 16px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    &:last-of-type {
+      text-align: right;
+    }
+
+    .multipliers {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    &:has(.multipliers) {
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 
@@ -230,5 +236,17 @@
     position: absolute;
     left: 0;
     bottom: calc(var(--footer-height) + var(--padding-vertical));
+  }
+
+  .loading {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-color);
+  }
+
+  .leaderboardWrapper {
+    max-height: 70vh; // o el valor que prefieras
+    overflow-y: auto;
+    position: relative;
   }
 }

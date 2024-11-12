@@ -18,6 +18,36 @@ export type LeaderboardPosition = {
   meowAmount: number;
 };
 
+export type LeaderboardUser = {
+  name: string;
+  zid: string | null;
+  walletAddress: string | null;
+  rewards: {
+    amount: string;
+    unit: string;
+    precision: number;
+  };
+};
+
+export type PaginatedLeaderboardResponse = {
+  data: LeaderboardUser[];
+  page: number;
+  totalItems: number;
+};
+
+export type LeaderboardResponse = LeaderboardUser[];
+
+export type LeaderboardTableRow = {
+  rank: number;
+  name: string;
+  walletAddress: string | null;
+  rewards: {
+    amount: string;
+    unit: string;
+    precision: number;
+  };
+};
+
 declare module "@react-three/fiber" {
   interface ThreeElements {
     meshLineGeometry: Object3DNode<MeshLineGeometry, typeof MeshLineGeometry>;
