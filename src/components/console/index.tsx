@@ -77,14 +77,14 @@ function VolumeControl({ className }: React.HTMLProps<HTMLDivElement>) {
 
   const handleChange = (checked: boolean) => {
     playToggleSound();
-    setSoundEnabled(!checked);
+    setSoundEnabled(checked);
   };
 
   return (
     <div className={cn(styles.volumeControl, className)}>
       <Checkbox
         id="volume-control"
-        checked={!soundEnabled}
+        checked={soundEnabled}
         onCheckedChange={handleChange}
         className={styles.volumeCheckbox}
         aria-label={soundEnabled ? "Mute sound" : "Activate sound"}

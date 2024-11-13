@@ -12,7 +12,14 @@ const Checkbox = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
 >(({ className, ...props }, ref) => (
   <CheckboxPrimitive.Root ref={ref} className={cn(styles.root, className)} {...props}>
-    <CheckboxPrimitive.Indicator className={styles.indicator} />
+    <div className={styles.control}>
+      <CheckboxPrimitive.Indicator className={styles.indicator}>
+        <div className={styles.light} />
+        <div className={styles.light} />
+        <div className={styles.light} />
+        <div className={styles.light} />
+      </CheckboxPrimitive.Indicator>
+    </div>
   </CheckboxPrimitive.Root>
 ));
 
