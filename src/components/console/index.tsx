@@ -47,7 +47,7 @@ function ChainLive() {
         <div className={styles.light} />
         <div className={styles.light} />
       </div>
-      <span className={neue.className}>chain live</span>
+      <span className={neue.className}>z-chain live</span>
     </div>
   );
 }
