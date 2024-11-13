@@ -24,6 +24,7 @@ export async function GET() {
 
     const parsedData = data.data.coins.map((c) => ({
       symbol: c.symbol,
+      slug: c.slug,
       change: c.quote.USD.percent_change_24h,
     }));
 

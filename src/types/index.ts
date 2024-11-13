@@ -48,6 +48,23 @@ export type LeaderboardTableRow = {
   };
 };
 
+export type CoinInfo = {
+  name: string;
+  symbol: string;
+  description: string;
+  urls: {
+    website: string;
+    twitter: string;
+    explorer: string;
+  };
+};
+
+export type CoinData = {
+  symbol: string;
+  slug: string;
+  change: number;
+};
+
 declare module "@react-three/fiber" {
   interface ThreeElements {
     meshLineGeometry: Object3DNode<MeshLineGeometry, typeof MeshLineGeometry>;
