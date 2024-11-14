@@ -38,12 +38,12 @@
       height: 100%;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" viewBox="0 0 3 3" fill="none"><circle cx="1.5" cy="1.5" r="1.5" fill="rgb(13, 13, 12)"/></svg>');
       background-color: white;
-      opacity: 0.2;
+      opacity: 0.1;
     }
 
     .light {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       background-color: rgb(var(--current-color));
       position: absolute;
@@ -73,8 +73,8 @@
   }
 
   .indicator {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     background-color: rgb(var(--current-color));
     border-radius: 50%;
     position: absolute;
