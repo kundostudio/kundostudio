@@ -10,7 +10,8 @@ export function useSound(sound: string, options?: HookOptions) {
 
   return useSoundLib(sound, {
     soundEnabled,
-    playbackRate: isMenuOpen ? 0.95 : 1,
     ...options,
+    playbackRate: isMenuOpen ? 0.95 : 1,
+    volume: isMenuOpen ? 0.7 : 1,
   });
 }
