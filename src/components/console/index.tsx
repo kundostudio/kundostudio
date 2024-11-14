@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Marquee } from "~/components/marquee";
 import { useSound } from "~/hooks/useSound";
 import { useViewport } from "~/hooks/useViewport";
 import { useStore } from "~/lib/store";
@@ -25,6 +24,7 @@ import volumeToggleSound from "~/public/sounds/volume-toggle.mp3";
 
 import { Checkbox } from "../checkbox";
 
+import { BottomLedScreen } from "./bottom-led-screen";
 import styles from "./console.module.scss";
 
 const neue = localFont({
@@ -249,9 +249,7 @@ export function Console({
         <div className={styles.content}>{children}</div>
 
         <div className={styles.screenBottomAddons}>
-          <Marquee className={styles.mindsEnteringNewWorlds} repeat={4} speed={0.5} offset={0}>
-            <span className={neue.className}>minds entering other worlds</span>
-          </Marquee>
+          <BottomLedScreen />
           <FullLogo className={styles.logo} />
         </div>
       </div>

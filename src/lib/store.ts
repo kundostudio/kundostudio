@@ -15,6 +15,9 @@ type Store = {
 
   soundEnabled: boolean;
   setSoundEnabled: (enabled: boolean) => void;
+
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isOpen: boolean) => void;
 };
 
 const store = (set) => ({
@@ -29,6 +32,9 @@ const store = (set) => ({
 
   soundEnabled: true,
   setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
+
+  isMenuOpen: false,
+  setIsMenuOpen: (isOpen) => set({ isMenuOpen: isOpen }),
 });
 
 export const useStore = create<Store>(store);

@@ -6,9 +6,11 @@ import { useStore } from "~/lib/store";
 
 export function useSound(sound: string, options?: HookOptions) {
   const soundEnabled = useStore(useCallback((state) => state.soundEnabled, []));
+  const isMenuOpen = useStore(useCallback((state) => state.isMenuOpen, []));
 
   return useSoundLib(sound, {
     soundEnabled,
+    playbackRate: isMenuOpen ? 0.95 : 1,
     ...options,
   });
 }

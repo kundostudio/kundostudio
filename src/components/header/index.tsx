@@ -3,10 +3,14 @@
 import { useMediaQuery } from "@studio-freight/hamo";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { Button } from "~/components/button";
+import { useSound } from "~/hooks/useSound";
+import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
+// @ts-ignore
+import openSound from "~/public/sounds/menu-open.mp3";
 
 import styles from "./header.module.scss";
 import { MeowLinkLogo } from "./logo";
@@ -15,12 +19,20 @@ import { MenuTrigger } from "./menu/trigger";
 
 export function Header() {
   const isMobileXS = useMediaQuery("(max-width: 640px)");
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const isMenuOpen = useStore((state) => state.isMenuOpen);
+  const { setIsMenuOpen } = useStore.getState();
+
+  const [playOpenSound] = useSound(openSound);
 
   useEffect(() => {
     setIsMenuOpen(false);
-  }, [pathname]);
+  }, [pathname, setIsMenuOpen]);
+
+  const handleToggleMenu = () => {
+    playOpenSound();
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   if (isMobileXS) {
     return (
@@ -30,7 +42,7 @@ export function Header() {
           <MenuTrigger
             isOpen={isMenuOpen}
             className={styles.menuTrigger}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={handleToggleMenu}
           />
         </motion.header>
         <Menu isOpen={isMenuOpen} />
