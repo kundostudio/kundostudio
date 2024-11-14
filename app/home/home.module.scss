@@ -49,6 +49,13 @@
       mask-image: radial-gradient(circle, black 30%, transparent 80%, transparent 90%);
       pointer-events: none;
     }
+
+    .musicToggle {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      z-index: 30;
+    }
   }
 
   .footerTopLine {

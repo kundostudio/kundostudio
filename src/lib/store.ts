@@ -16,6 +16,9 @@ type Store = {
   soundEnabled: boolean;
   setSoundEnabled: (enabled: boolean) => void;
 
+  musicEnabled: boolean;
+  setMusicEnabled: (enabled: boolean) => void;
+
   isMenuOpen: boolean;
   setIsMenuOpen: (isOpen: boolean) => void;
 };
@@ -32,6 +35,9 @@ const store = (set) => ({
 
   soundEnabled: true,
   setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
+
+  musicEnabled: false,
+  setMusicEnabled: (enabled) => set({ musicEnabled: enabled }),
 
   isMenuOpen: false,
   setIsMenuOpen: (isOpen) => set({ isMenuOpen: isOpen }),

@@ -20,8 +20,8 @@ function Line({ curve, color }) {
         lineWidth={0.03}
         color={color}
         depthWrite={false}
-        dashArray={0.02}
-        dashRatio={0.3}
+        dashArray={0.015}
+        dashRatio={0.2}
         toneMapped={false}
       />
     </mesh>

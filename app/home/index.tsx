@@ -4,6 +4,7 @@ import { View } from "@react-three/drei";
 
 import { Footer } from "~/components/footer";
 import { Line } from "~/components/Line";
+import { MusicToggle } from "~/components/music-toggle";
 
 import { Cat } from "./cat";
 import styles from "./home.module.scss";
@@ -18,6 +19,7 @@ export function HomePage() {
         <View as="button" frames={1} className={styles.portal}>
           <HomeScene />
         </View>
+        <MusicToggle className={styles.musicToggle} />
       </div>
       <Line direction="horizontal" className={styles.footerTopLine} />
       <Footer />
