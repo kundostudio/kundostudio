@@ -1,10 +1,7 @@
 import { useState } from "react";
 
 import { cn } from "~/lib/utils";
-import HoverDown from "~/public/console/pad/hover-down.svg";
-import HoverLeft from "~/public/console/pad/hover-left.svg";
-import HoverRight from "~/public/console/pad/hover-right.svg";
-import HoverUp from "~/public/console/pad/hover-up.svg";
+import Hover from "~/public/console/pad/hover.svg";
 import Idle from "~/public/console/pad/idle.svg";
 import PressedDown from "~/public/console/pad/pressed-down.svg";
 import PressedLeft from "~/public/console/pad/pressed-left.svg";
@@ -18,10 +15,7 @@ export function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
 
   const PadSVG = {
     idle: Idle,
-    "hover-up": HoverUp,
-    "hover-down": HoverDown,
-    "hover-left": HoverLeft,
-    "hover-right": HoverRight,
+    hover: Hover,
     "pressed-up": PressedUp,
     "pressed-down": PressedDown,
     "pressed-left": PressedLeft,
@@ -37,7 +31,7 @@ export function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
         onClick={onPressUp}
         onPointerDown={() => setStatus("pressed-up")}
         onPointerUp={() => setStatus("idle")}
-        onPointerEnter={() => setStatus("hover-up")}
+        onPointerEnter={() => setStatus("hover")}
         onPointerLeave={() => setStatus("idle")}
         data-prevent-lose-focus
       />
@@ -48,7 +42,7 @@ export function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
         onClick={onPressDown}
         onPointerDown={() => setStatus("pressed-down")}
         onPointerUp={() => setStatus("idle")}
-        onPointerEnter={() => setStatus("hover-down")}
+        onPointerEnter={() => setStatus("hover")}
         onPointerLeave={() => setStatus("idle")}
         data-prevent-lose-focus
       />
@@ -59,7 +53,7 @@ export function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
         onClick={onPressLeft}
         onPointerDown={() => setStatus("pressed-left")}
         onPointerUp={() => setStatus("idle")}
-        onPointerEnter={() => setStatus("hover-left")}
+        onPointerEnter={() => setStatus("hover")}
         onPointerLeave={() => setStatus("idle")}
         data-prevent-lose-focus
       />
@@ -70,7 +64,7 @@ export function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
         onClick={onPressRight}
         onPointerDown={() => setStatus("pressed-right")}
         onPointerUp={() => setStatus("idle")}
-        onPointerEnter={() => setStatus("hover-right")}
+        onPointerEnter={() => setStatus("hover")}
         onPointerLeave={() => setStatus("idle")}
         data-prevent-lose-focus
       />
