@@ -125,6 +125,11 @@
     }
   }
 
+  tr {
+    margin: 0 var(--padding-horizontal);
+    width: calc(100% - var(--padding-horizontal) * 2) !important;
+  }
+
   // tr:first-of-type {
   //   .rowItem {
   //     padding-top: 1rem;
