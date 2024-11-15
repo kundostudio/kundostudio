@@ -801,6 +801,7 @@
 
 .buttons {
   position: absolute;
+  z-index: 30;
   right: 20px;
   bottom: 70px;
   height: 112px;
@@ -864,6 +865,20 @@
       0 3px 4px 0 rgba(0, 0, 0, 0.6),
       inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
       inset 0 -2px 1px 0 rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      box-shadow:
+        0 4px 4px 0 rgba(0, 0, 0, 0.6),
+        inset 0 2px 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -2px 1px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    &:active {
+      box-shadow:
+        0 0 4px 0 rgba(0, 0, 0, 0.8),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 1px 0 rgba(0, 0, 0, 0.5);
+    }
 
     &:first-of-type {
       background-color: #262626;

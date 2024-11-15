@@ -7,7 +7,7 @@ import { useSound } from "~/hooks/useSound";
 import { useViewport } from "~/hooks/useViewport";
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
-import DirectionalPad from "~/public/console/directional-pad.svg";
+
 import MeowTitle from "~/public/console/meow-title.svg";
 import ScreenLaptop from "~/public/console/screen-1024.svg";
 import ScreenDesktop from "~/public/console/screen-1440.svg";
@@ -25,7 +25,9 @@ import volumeToggleSound from "~/public/sounds/volume-toggle.mp3";
 import { Checkbox } from "../checkbox";
 
 import { BottomLedScreen } from "./bottom-led-screen";
+import { Buttons } from "./buttons";
 import styles from "./console.module.scss";
+import { Pad } from "./pad";
 
 const neue = localFont({
   src: [
@@ -140,68 +142,6 @@ function Speaker({ className }: React.HTMLProps<HTMLDivElement>) {
 
 function Text({ className, children }) {
   return <span className={cn(styles.text, className)}>{children}</span>;
-}
-
-function Pad({ onPressUp, onPressDown, onPressLeft, onPressRight }) {
-  return (
-    <div className={styles.padWrapper}>
-      <div
-        aria-label="Directional pad up"
-        tabIndex={-1}
-        className={cn(styles.touchable, styles.padUp)}
-        onClick={onPressUp}
-        data-prevent-lose-focus
-      />
-      <div
-        aria-label="Direction pad down"
-        tabIndex={-1}
-        className={cn(styles.touchable, styles.padDown)}
-        onClick={onPressDown}
-        data-prevent-lose-focus
-      />
-      <div
-        aria-label="Directional pad left"
-        tabIndex={-1}
-        className={cn(styles.touchable, styles.padLeft)}
-        onClick={onPressLeft}
-        data-prevent-lose-focus
-      />
-      <div
-        aria-label="Directional pad right"
-        tabIndex={-1}
-        className={cn(styles.touchable, styles.padRight)}
-        onClick={onPressRight}
-        data-prevent-lose-focus
-      />
-
-      <DirectionalPad className={styles.pad} />
-    </div>
-  );
-}
-
-function Buttons({ onSelect, onUnselect, className }: any) {
-  return (
-    <div className={cn(styles.buttons, className)}>
-      <button
-        className={styles.button}
-        onClick={onUnselect}
-        aria-label="Secondary button"
-        tabIndex={-1}
-        data-prevent-lose-focus
-      >
-        b
-      </button>
-      <button
-        className={styles.button}
-        onClick={onSelect}
-        aria-label="Primary button"
-        tabIndex={-1}
-        data-prevent-lose-focus
-      >
-        a
-      </button>
-    </div>
-  );
 }
 
 export function Console({
