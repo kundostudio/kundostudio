@@ -16,7 +16,7 @@ export function HomePage() {
       <div className={styles.portalWrapper}>
         <Cat className={styles.logo} />
         <div className={styles.fog} />
-        <View as="button" frames={1} className={styles.portal}>
+        <View as="div" frames={1} className={styles.portal}>
           <HomeScene />
         </View>
         <MusicToggle className={styles.musicToggle} />
