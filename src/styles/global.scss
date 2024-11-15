@@ -67,6 +67,23 @@ body,
   min-height: 100dvh;
 }
 
+* {
+  user-select: none !important;
+}
+
+p,
+h2,
+a,
+button,
+input,
+label,
+textarea,
+select,
+span,
+td {
+  user-select: text !important;
+}
+
 a,
 button,
 input,
