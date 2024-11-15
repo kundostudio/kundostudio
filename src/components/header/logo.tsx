@@ -56,13 +56,13 @@ function LettersLogo() {
   );
 }
 
-export function MeowLinkLogo({ className }: { className?: string }) {
+export function MeowLinkLogo({ className, ...props }: any) {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const isMobileXS = useMediaQuery("(max-width: 640px)");
 
   if (isMobileXS) {
     return (
-      <Link href="/" className={cn(styles.meowLinkLogoMobile, className)}>
+      <Link href="/" className={cn(styles.meowLinkLogoMobile, className)} {...props}>
         <BackgroundLogo className={styles.logoBackground} />
         <SmallLogo className={styles.logo} />
       </Link>

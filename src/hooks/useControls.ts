@@ -74,6 +74,25 @@ export function useControls() {
     }
   };
 
+  const focusElement = (elementRef: React.RefObject<HTMLElement>) => {
+    if (!elementRef.current) return;
+
+    const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
+    const elementIndex = elements.findIndex((el) => el === elementRef.current);
+
+    if (elementIndex !== -1) {
+      // Remove focused class from previous element if exists
+      const prevElement = focusedIndex !== null ? elements[focusedIndex] : null;
+      prevElement?.classList.remove("focused");
+
+      // Update state and add focused class
+      setFocusedIndex(elementIndex);
+      setIsFocusActive(true);
+      elementRef.current.classList.add("focused");
+      elementRef.current.focus();
+    }
+  };
+
   useKeyPress(["ArrowLeft"], (e) => {
     e.preventDefault();
     moveFocus("prev");
@@ -108,5 +127,6 @@ export function useControls() {
     focusNext: () => moveFocus("next"),
     select,
     unselect,
+    focusElement,
   };
 }

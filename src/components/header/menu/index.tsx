@@ -11,6 +11,7 @@ import styles from "./menu.module.scss";
 
 type Props = {
   isOpen: boolean;
+  onItemClick: () => void;
 };
 
 const LINKS = [
@@ -18,15 +19,15 @@ const LINKS = [
   { label: "leaderboard", href: "/leaderboard" },
 ];
 
-function MenuItem({ item }) {
+function MenuItem({ item, onItemClick }) {
   return (
-    <Button variant="highlight" href={item.href} className={styles.button}>
+    <Button variant="highlight" href={item.href} onClick={onItemClick} className={styles.button}>
       {item.label}
     </Button>
   );
 }
 
-export function Menu({ isOpen }: Props) {
+export function Menu({ isOpen, onItemClick }: Props) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -40,7 +41,7 @@ export function Menu({ isOpen }: Props) {
           <nav className={styles.nav}>
             <ul>
               {LINKS.map((item) => (
-                <MenuItem key={item.label} item={item} />
+                <MenuItem key={item.label} item={item} onItemClick={onItemClick} />
               ))}
             </ul>
           </nav>

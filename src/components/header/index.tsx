@@ -3,7 +3,7 @@
 import { useMediaQuery } from "@studio-freight/hamo";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "~/components/button";
 import { useSound } from "~/hooks/useSound";
@@ -12,40 +12,70 @@ import { cn } from "~/lib/utils";
 // @ts-ignore
 import openSound from "~/public/sounds/menu-open.mp3";
 
+import { useControls } from "~/hooks/useControls";
 import styles from "./header.module.scss";
 import { MeowLinkLogo } from "./logo";
 import { Menu } from "./menu";
 import { MenuTrigger } from "./menu/trigger";
 
 export function Header() {
+  const ref = useRef(null);
   const isMobileXS = useMediaQuery("(max-width: 640px)");
   const pathname = usePathname();
   const isMenuOpen = useStore((state) => state.isMenuOpen);
   const { setIsMenuOpen } = useStore.getState();
+  const [isTriggerActive, setTriggerActive] = useState(false);
 
   const [playOpenSound] = useSound(openSound);
+
+  const [wasOpened, setWasOpened] = useState(false);
+  const { focusElement } = useControls();
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname, setIsMenuOpen]);
 
+  // useEffect(() => {
+  //   if (isMenuOpen) {
+  //     setWasOpened(true);
+  //   }
+  // }, [isMenuOpen, wasOpened, ref]);
+
+  // useEffect(() => {
+  //   if (wasOpened && isTriggerActive) {
+  //     focusElement(ref);
+  //   }
+  // }, [isMenuOpen, wasOpened]);
+
   const handleToggleMenu = () => {
     playOpenSound();
     setIsMenuOpen(!isMenuOpen);
+    // setTriggerActive(true);
   };
 
   if (isMobileXS) {
+    const handleLogoClick = () => {
+      // setTriggerActive(false);
+
+      if (pathname === "/") {
+        setIsMenuOpen(false);
+      }
+    };
     return (
       <>
         <motion.header className={styles.header}>
-          <MeowLinkLogo className={styles.mobileHome} />
+          <MeowLinkLogo onClick={handleLogoClick} className={styles.mobileHome} />
           <MenuTrigger
+            ref={ref}
             isOpen={isMenuOpen}
             className={styles.menuTrigger}
             onClick={handleToggleMenu}
           />
         </motion.header>
-        <Menu isOpen={isMenuOpen} />
+        <Menu
+          isOpen={isMenuOpen}
+          onItemClick={(() => setIsMenuOpen(false))}
+        />
       </>
     );
   }
