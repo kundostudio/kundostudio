@@ -7,7 +7,6 @@ import { useSound } from "~/hooks/useSound";
 import { useViewport } from "~/hooks/useViewport";
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
-
 import MeowTitle from "~/public/console/meow-title.svg";
 import ScreenLaptop from "~/public/console/screen-1024.svg";
 import ScreenDesktop from "~/public/console/screen-1440.svg";
