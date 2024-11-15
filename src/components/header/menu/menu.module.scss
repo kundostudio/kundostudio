@@ -63,6 +63,7 @@
     &::before {
       opacity: 1;
       pointer-events: auto;
+      animation: var(--animation-blink);
     }
 
     .line:first-of-type {
