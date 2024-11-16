@@ -3,6 +3,7 @@
 import { View } from "@react-three/drei";
 
 import { Footer } from "~/components/footer";
+import { GamepadDetected } from "~/components/gamepad-detected";
 import { Line } from "~/components/Line";
 import { MusicToggle } from "~/components/music-toggle";
 
@@ -19,6 +20,7 @@ export function HomePage() {
         <View as="div" frames={1} className={styles.portal}>
           <HomeScene />
         </View>
+        <GamepadDetected className={styles.gamepadDetected} />
         <MusicToggle className={styles.musicToggle} />
       </div>
       <Line direction="horizontal" className={styles.footerTopLine} />

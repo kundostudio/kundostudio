@@ -1,0 +1,18 @@
+.gamepadDetected {
+  position: relative;
+  left: 1rem;
+  bottom: 0;
+  color: rgb(var(--current-color));
+  background: rgba(var(--current-color), 0.05);
+  border: rgba(var(--current-color), 0.1) 1px solid;
+  backdrop-filter: blur(4px);
+  padding: 8px 16px;
+  height: 40px;
+  font-family: var(--font-dm-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(8px);
+  z-index: 30;
+}

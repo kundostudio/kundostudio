@@ -1,4 +1,4 @@
-import { forwardRef, type JSX } from "react";
+import { forwardRef, useRef, type JSX } from "react";
 
 import { cn } from "~/lib/utils";
 
@@ -9,12 +9,24 @@ type Props = {
 } & JSX.IntrinsicElements["button"];
 
 export const MenuTrigger = forwardRef<HTMLButtonElement, Props>(
-  ({ className, isOpen, ...props }, ref) => {
+  ({ className, isOpen, onClick, ...props }, ref) => {
+    const lastClickTime = useRef(0);
+    const DEBOUNCE_TIME = 300;
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const now = Date.now();
+      if (now - lastClickTime.current >= DEBOUNCE_TIME) {
+        lastClickTime.current = now;
+        onClick?.(e);
+      }
+    };
+
     return (
       <button
         ref={ref}
         type="button"
         className={cn(styles.menuIcon, isOpen && styles.open, className)}
+        onClick={handleClick}
         {...props}
       >
         <div className={styles.line}>

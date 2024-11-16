@@ -2,7 +2,7 @@
 
 import * as Toggle from "@radix-ui/react-toggle";
 import { motion } from "framer-motion";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import { useSound } from "~/hooks/useSound";
 import { useStore } from "~/lib/store";
@@ -37,10 +37,20 @@ export function MusicToggle({ className }: { className?: string }) {
   const [playHoverSound] = useSound(buttonSound);
   const musicEnabled = useStore((state) => state.musicEnabled);
   const { setMusicEnabled } = useStore.getState();
+  const lastToggleTime = useRef(0);
+  const DEBOUNCE_TIME = 300;
 
   const handleMouseEnter = useCallback(() => {
     playHoverSound();
   }, [playHoverSound]);
+
+  const handlePressedChange = (pressed: boolean) => {
+    const now = Date.now();
+    if (now - lastToggleTime.current >= DEBOUNCE_TIME) {
+      lastToggleTime.current = now;
+      setMusicEnabled(pressed);
+    }
+  };
 
   return (
     <Toggle.Root
@@ -48,7 +58,7 @@ export function MusicToggle({ className }: { className?: string }) {
       aria-label="Toggle music"
       onMouseEnter={handleMouseEnter}
       pressed={musicEnabled}
-      onPressedChange={setMusicEnabled}
+      onPressedChange={handlePressedChange}
     >
       <span className={styles.corner} />
       <span className={styles.corner} />

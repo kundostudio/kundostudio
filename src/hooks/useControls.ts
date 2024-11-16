@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useKeyPress } from "~/hooks/useKeyPress";
 import { useSound } from "~/hooks/useSound";
@@ -12,42 +12,50 @@ export function useControls() {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [isFocusActive, setIsFocusActive] = useState<boolean | null>(null);
 
+  const gamepadRef = useRef({
+    lastAxisUpdate: 0,
+    lastButtonPress: 0,
+    buttonPressTimeout: null as NodeJS.Timeout | null,
+  });
+
   const [playFocusSound] = useSound(focusSound);
 
-  const moveFocus = (direction: "next" | "prev") => {
-    playFocusSound();
+  const moveFocus = useCallback(
+    (direction: "next" | "prev") => {
+      playFocusSound();
 
-    const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
+      const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
 
-    const currentIndex = focusedIndex ?? 0;
-    let nextIndex;
+      const currentIndex = focusedIndex ?? 0;
+      let nextIndex;
 
-    if (!isFocusActive || isFocusActive === null) {
-      console.log("focus", isFocusActive);
-      nextIndex = currentIndex;
-    } else {
-      if (direction === "next") {
-        nextIndex = (currentIndex + 1) % elements.length;
+      if (!isFocusActive || isFocusActive === null) {
+        nextIndex = currentIndex;
       } else {
-        nextIndex = currentIndex <= 0 ? elements.length - 1 : currentIndex - 1;
+        if (direction === "next") {
+          nextIndex = (currentIndex + 1) % elements.length;
+        } else {
+          nextIndex = currentIndex <= 0 ? elements.length - 1 : currentIndex - 1;
+        }
       }
-    }
 
-    const element = elements[nextIndex] as HTMLElement;
-    const prev = elements[currentIndex] as HTMLElement;
+      const element = elements[nextIndex] as HTMLElement;
+      const prev = elements[currentIndex] as HTMLElement;
 
-    if (element) {
-      prev?.classList.remove("focused");
+      if (element) {
+        prev?.classList.remove("focused");
 
-      setFocusedIndex(nextIndex);
-      setIsFocusActive(true);
+        setFocusedIndex(nextIndex);
+        setIsFocusActive(true);
 
-      element.focus();
-      element.classList.add("focused");
-    }
-  };
+        element.focus();
+        element.classList.add("focused");
+      }
+    },
+    [focusedIndex, isFocusActive, playFocusSound]
+  );
 
-  const select = () => {
+  const select = useCallback(() => {
     if (focusedIndex !== null) {
       const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
       const element = elements[focusedIndex];
@@ -60,9 +68,10 @@ export function useControls() {
         }
       }
     }
-  };
+  }, [focusedIndex]);
 
-  const unselect = () => {
+  const unselect = useCallback(() => {
+    console.log("unselect");
     if (focusedIndex !== null) {
       const elements = [...document.querySelectorAll(ELEMENTS_QUERY)] as HTMLElement[];
       const element = elements[focusedIndex];
@@ -72,7 +81,7 @@ export function useControls() {
         setIsFocusActive(false);
       }
     }
-  };
+  }, [focusedIndex]);
 
   const focusElement = (elementRef: React.RefObject<HTMLElement>) => {
     if (!elementRef.current) return;
@@ -81,11 +90,9 @@ export function useControls() {
     const elementIndex = elements.findIndex((el) => el === elementRef.current);
 
     if (elementIndex !== -1) {
-      // Remove focused class from previous element if exists
       const prevElement = focusedIndex !== null ? elements[focusedIndex] : null;
       prevElement?.classList.remove("focused");
 
-      // Update state and add focused class
       setFocusedIndex(elementIndex);
       setIsFocusActive(true);
       elementRef.current.classList.add("focused");
@@ -121,6 +128,68 @@ export function useControls() {
       document.removeEventListener("mousedown", handleMouseDown);
     };
   }, []);
+
+  const handleGamepadInput = useCallback(() => {
+    const gamepad = navigator.getGamepads()?.[0];
+    if (!gamepad) return;
+
+    const now = Date.now();
+    const DEBOUNCE_TIME = 150;
+
+    if (now - gamepadRef.current.lastAxisUpdate > DEBOUNCE_TIME) {
+      const axisH = gamepad.axes[0];
+
+      if (Math.abs(axisH) > 0.5) {
+        if (axisH > 0.5) {
+          moveFocus("next");
+        } else if (axisH < -0.5) {
+          moveFocus("prev");
+        }
+        gamepadRef.current.lastAxisUpdate = now;
+      }
+    }
+
+    const buttonA = gamepad.buttons[0];
+    const buttonB = gamepad.buttons[1];
+
+    if (buttonA.pressed && !gamepadRef.current.buttonPressTimeout) {
+      select();
+      gamepadRef.current.buttonPressTimeout = setTimeout(() => {
+        gamepadRef.current.buttonPressTimeout = null;
+      }, 300);
+    } else if (buttonB.pressed && !gamepadRef.current.buttonPressTimeout) {
+      unselect();
+      gamepadRef.current.buttonPressTimeout = setTimeout(() => {
+        gamepadRef.current.buttonPressTimeout = null;
+      }, 300);
+    }
+  }, [moveFocus, select, unselect]);
+
+  useEffect(() => {
+    const handleGamepadConnected = (e: GamepadEvent) => {
+      console.log("Gamepad connected:", e.gamepad);
+    };
+
+    const handleGamepadDisconnected = (e: GamepadEvent) => {
+      console.log("Gamepad disconnected:", e.gamepad);
+    };
+
+    window.addEventListener("gamepadconnected", handleGamepadConnected);
+    window.addEventListener("gamepaddisconnected", handleGamepadDisconnected);
+
+    let animationFrameId: number;
+    const pollGamepad = () => {
+      handleGamepadInput();
+      animationFrameId = requestAnimationFrame(pollGamepad);
+    };
+    pollGamepad();
+
+    return () => {
+      window.removeEventListener("gamepadconnected", handleGamepadConnected);
+      window.removeEventListener("gamepaddisconnected", handleGamepadDisconnected);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [handleGamepadInput]);
 
   return {
     focusBack: () => moveFocus("prev"),

@@ -64,3 +64,10 @@
     bottom: calc(var(--footer-height) + var(--padding-vertical));
   }
 }
+
+.gamepadDetected {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 30;
+}
