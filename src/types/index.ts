@@ -66,6 +66,14 @@ export type CoinData = {
   change: number;
 };
 
+export type RecentJoinUser = {
+  name: string;
+  joined_at: string;
+  relative: string;
+};
+
+export type RecentJoinsResponse = RecentJoinUser[];
+
 declare module "@react-three/fiber" {
   interface ThreeElements {
     meshLineGeometry: Object3DNode<MeshLineGeometry, typeof MeshLineGeometry>;
