@@ -105,6 +105,21 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(var(--current-color), 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(var(--current-color), 1);
+    border-radius: 0px;
+  }
 
   .nav {
     flex: 1;
@@ -125,6 +140,8 @@
     gap: 8px;
     width: 100%;
     height: 64px;
+    min-height: 64px;
+    margin-top: 0.5rem;
 
     .socialLink {
       flex: 1;

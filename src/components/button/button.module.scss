@@ -116,7 +116,30 @@
   &.highlight {
     flex-shrink: 0;
     min-width: fit-content;
-    background: rgba(var(--current-color), 0.1);
+    background: rgba(var(--current-color), 0.15);
+
+    &:hover,
+    &:focus {
+      background: rgba(var(--current-color), 0.15);
+    }
+
+    .corner {
+      display: inline-block;
+    }
+
+    .text {
+      font-size: 18px;
+      list-style: 1;
+      letter-spacing: 0em;
+      font-family: var(--font-youth);
+      padding: 12px;
+    }
+  }
+
+  &.subtle {
+    flex-shrink: 0;
+    min-width: fit-content;
+    background: rgba(var(--current-color), 0.05);
 
     &:hover,
     &:focus {

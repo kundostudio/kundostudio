@@ -22,7 +22,7 @@
 
     @include mobile {
       margin-left: 8px;
-      width: 100%;
+      flex: 1;
       display: flex;
       justify-content: flex-end;
       gap: 8px;
@@ -171,11 +171,46 @@
 .button {
   flex: 1;
   height: 100%;
-  max-width: min(100%, 250px);
   background-color: unset;
+
+  &[href="/leaderboard"] {
+    flex-grow: 1.5;
+    flex-basis: 200px;
+    flex-shrink: 1;
+    max-width: 248px;
+  }
+
+  &[href="/bridge"] {
+    flex-grow: 1;
+    flex-basis: 120px;
+    flex-shrink: 1;
+    max-width: 175px;
+  }
+  &[href="/stake"] {
+    flex-grow: 1;
+    flex-basis: 120px;
+    flex-shrink: 1;
+    max-width: 158px;
+  }
+
+  @include mobile {
+    flex-basis: 0;
+    min-width: 80px;
+  }
+
+  @include tablet {
+    flex-basis: 120px;
+  }
+
+  @include laptop {
+    flex-basis: 160px;
+  }
 }
 
 .meowButton {
+  width: 172px;
+  max-width: 172px;
+
   @include mobile {
     background-color: unset !important;
   }

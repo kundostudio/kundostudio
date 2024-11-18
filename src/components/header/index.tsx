@@ -3,7 +3,7 @@
 import { useMediaQuery } from "@studio-freight/hamo";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { Button } from "~/components/button";
 import { useSound } from "~/hooks/useSound";
@@ -12,7 +12,6 @@ import { cn } from "~/lib/utils";
 // @ts-ignore
 import openSound from "~/public/sounds/menu-open.mp3";
 
-import { useControls } from "~/hooks/useControls";
 import styles from "./header.module.scss";
 import { MeowLinkLogo } from "./logo";
 import { Menu } from "./menu";
@@ -24,39 +23,20 @@ export function Header() {
   const pathname = usePathname();
   const isMenuOpen = useStore((state) => state.isMenuOpen);
   const { setIsMenuOpen } = useStore.getState();
-  const [isTriggerActive, setTriggerActive] = useState(false);
 
   const [playOpenSound] = useSound(openSound);
-
-  const [wasOpened, setWasOpened] = useState(false);
-  const { focusElement } = useControls();
 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname, setIsMenuOpen]);
 
-  // useEffect(() => {
-  //   if (isMenuOpen) {
-  //     setWasOpened(true);
-  //   }
-  // }, [isMenuOpen, wasOpened, ref]);
-
-  // useEffect(() => {
-  //   if (wasOpened && isTriggerActive) {
-  //     focusElement(ref);
-  //   }
-  // }, [isMenuOpen, wasOpened]);
-
   const handleToggleMenu = () => {
     playOpenSound();
     setIsMenuOpen(!isMenuOpen);
-    // setTriggerActive(true);
   };
 
   if (isMobileXS) {
     const handleLogoClick = () => {
-      // setTriggerActive(false);
-
       if (pathname === "/") {
         setIsMenuOpen(false);
       }
@@ -72,10 +52,7 @@ export function Header() {
             onClick={handleToggleMenu}
           />
         </motion.header>
-        <Menu
-          isOpen={isMenuOpen}
-          onItemClick={(() => setIsMenuOpen(false))}
-        />
+        <Menu isOpen={isMenuOpen} onItemClick={() => setIsMenuOpen(false)} />
       </>
     );
   }
@@ -84,8 +61,26 @@ export function Header() {
     <motion.header className={styles.header}>
       <MeowLinkLogo className={cn(styles.button, styles.meowButton)} />
       <nav className={styles.nav}>
-        <Button variant="highlight" href="/leaderboard" className={styles.button}>
+        <Button
+          variant={pathname === "/leaderboard" ? "highlight" : "subtle"}
+          href="/leaderboard"
+          className={styles.button}
+        >
           leaderboard
+        </Button>
+        <Button
+          variant={pathname === "/bridge" ? "highlight" : "subtle"}
+          href="/bridge"
+          className={styles.button}
+        >
+          bridge
+        </Button>
+        <Button
+          variant={pathname === "/stake" ? "highlight" : "subtle"}
+          href="/stake"
+          className={styles.button}
+        >
+          stake
         </Button>
       </nav>
     </motion.header>

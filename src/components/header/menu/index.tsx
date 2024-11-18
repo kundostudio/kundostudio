@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 import { Button } from "~/components/button";
 import M from "~/public/social/m.svg";
@@ -17,17 +18,25 @@ type Props = {
 const LINKS = [
   { label: "home", href: "/" },
   { label: "leaderboard", href: "/leaderboard" },
+  { label: "bridge", href: "/bridge" },
+  { label: "stake", href: "/stake" },
 ];
 
-function MenuItem({ item, onItemClick }) {
+function MenuItem({ item, active, onItemClick }) {
   return (
-    <Button variant="highlight" href={item.href} onClick={onItemClick} className={styles.button}>
+    <Button
+      variant={active ? "highlight" : "subtle"}
+      href={item.href}
+      onClick={onItemClick}
+      className={styles.button}
+    >
       {item.label}
     </Button>
   );
 }
 
 export function Menu({ isOpen, onItemClick }: Props) {
+  const pathname = usePathname();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -41,7 +50,12 @@ export function Menu({ isOpen, onItemClick }: Props) {
           <nav className={styles.nav}>
             <ul>
               {LINKS.map((item) => (
-                <MenuItem key={item.label} item={item} onItemClick={onItemClick} />
+                <MenuItem
+                  key={item.label}
+                  item={item}
+                  onItemClick={onItemClick}
+                  active={pathname === item.href}
+                />
               ))}
             </ul>
           </nav>

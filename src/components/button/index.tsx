@@ -11,7 +11,7 @@ import styles from "./button.module.scss";
 
 type CommonProps = {
   size?: "small" | "large";
-  variant?: "default" | "highlight";
+  variant?: "default" | "highlight" | "subtle";
   href?: string;
   disabled?: boolean;
 };
@@ -60,7 +60,12 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
     ref
   ) => {
     const sizeStyle = size === "small" ? styles.small : styles.large;
-    const variantStyle = variant === "highlight" ? styles.highlight : "";
+
+    const variantStyle = {
+      default: "",
+      highlight: styles.highlight,
+      subtle: styles.subtle,
+    }[variant];
 
     const [playHoverSound] = useSound(buttonSound);
 
