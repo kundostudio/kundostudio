@@ -1,5 +1,3 @@
-import { useMediaQuery } from "@studio-freight/hamo";
-
 import { Typography } from "~/components/typography";
 import M from "~/public/social/m.svg";
 import O from "~/public/social/o.svg";
@@ -12,7 +10,6 @@ import { Link } from "../link";
 import styles from "./footer.module.scss";
 
 export function Footer() {
-  const isMobile = useMediaQuery("(max-width: 640px)");
   return (
     <footer className={styles.wrapper}>
       <div className={styles.poweredBy}>
@@ -30,25 +27,24 @@ export function Footer() {
           <Typography.Span className="tracking-[0.08em]">21,369</Typography.Span>
         </div>
       </div>
-      {!isMobile && (
-        <span className={styles.social}>
-          <Link href="#">
-            <O className="w-[15.77px] h-auto" />
-          </Link>
-          <Link href="#">
-            <X className="w-[15.77px] h-auto" />
-          </Link>
-          <Link href="#">
-            <Telegram className="w-[15.77px] h-auto" />
-          </Link>
-          <Link href="#">
-            <M className="w-[15.77px] h-auto" />
-          </Link>
-          <Link href="#">
-            <W className="w-[15.77px] h-auto" />
-          </Link>
-        </span>
-      )}
+
+      <span className={styles.social}>
+        <Link href="#">
+          <O className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <X className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <Telegram className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <M className="w-[15.77px] h-auto" />
+        </Link>
+        <Link href="#">
+          <W className="w-[15.77px] h-auto" />
+        </Link>
+      </span>
     </footer>
   );
 }

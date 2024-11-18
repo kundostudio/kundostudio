@@ -1,6 +1,7 @@
 "use client";
 
 import { View } from "@react-three/drei";
+import { useMediaQuery } from "@studio-freight/hamo";
 
 import { Footer } from "~/components/footer";
 import { GamepadDetected } from "~/components/gamepad-detected";
@@ -12,6 +13,7 @@ import styles from "./home.module.scss";
 import { HomeScene } from "./scene";
 
 export function HomePage() {
+  const isMobile = useMediaQuery("(max-width: 640px)");
   return (
     <div className={styles.wrapper}>
       <div className={styles.portalWrapper}>
@@ -24,7 +26,7 @@ export function HomePage() {
         <MusicToggle className={styles.musicToggle} />
       </div>
       <Line direction="horizontal" className={styles.footerTopLine} />
-      <Footer />
+      {!isMobile && <Footer />}
     </div>
   );
 }

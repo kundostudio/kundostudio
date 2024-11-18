@@ -10,7 +10,11 @@
     align-items: center;
     box-shadow: 0 0 8px rgba(var(--current-color), 0.6);
     height: 100%;
-    margin: 24px calc(var(--padding-horizontal) + 24px);
+    margin: 20px calc(var(--padding-horizontal) + 12px);
+
+    @include tablet {
+      margin: 24px calc(var(--padding-horizontal) + 24px);
+    }
 
     .portal {
       border: 2px solid rgb(var(--current-color));
@@ -59,9 +63,14 @@
   }
 
   .footerTopLine {
-    position: absolute;
-    left: 0;
-    bottom: calc(var(--footer-height) + var(--padding-vertical));
+    opacity: 0;
+
+    @include tablet {
+      opacity: 1;
+      position: absolute;
+      left: 0;
+      bottom: calc(var(--footer-height) + var(--padding-vertical));
+    }
   }
 }
 
