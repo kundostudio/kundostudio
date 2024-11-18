@@ -11,16 +11,18 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { Line } from "~/components/Line";
+import { useViewport } from "~/hooks/useViewport";
 import { fetcher } from "~/lib/fetcher";
 import { formatNumber } from "~/lib/utils";
 
 import styles from "./leaderboard.module.scss";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 50;
 
 const columnHelper = createColumnHelper<{
   rank: number;
   name: string;
+  invitedBy: string | null;
   rewards: {
     amount: string;
     unit: string;
@@ -45,6 +47,10 @@ const columns = [
     header: () => <span>name</span>,
     cell: (info) => info.getValue(),
   }),
+  columnHelper.accessor("invitedBy", {
+    header: () => <span>invited by</span>,
+    cell: (info) => info.getValue() || "-",
+  }),
   columnHelper.accessor("rewards", {
     header: () => <span>meow</span>,
     cell: (info) => {
@@ -60,6 +66,7 @@ const columns = [
 
 export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
   const tableContainerRef = useRef<HTMLDivElement>(null);
+  const viewport = useViewport();
 
   const fetchLeaderboardData = useCallback(({ pageParam = 0 }) => {
     return fetcher(`/api/leaderboard?page=${pageParam + 1}&limit=${ITEMS_PER_PAGE}`);
@@ -85,11 +92,20 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
 
   const { rows } = table.getRowModel();
 
+  const rowHeight = {
+    mobile: 32,
+    mobileXL: 32,
+    tablet: 36,
+    laptop: 40,
+    desktop: 48,
+    desktopXL: 48,
+  }[viewport || "desktop"];
+
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 40,
+    estimateSize: () => rowHeight,
     getScrollElement: () => tableContainerRef.current,
-    overscan: 5,
+    overscan: 3,
   });
 
   const fetchMoreOnBottomReached = useCallback(

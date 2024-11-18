@@ -22,6 +22,7 @@ export type LeaderboardUser = {
   name: string;
   zid: string | null;
   walletAddress: string | null;
+  invitedBy: string | null;
   rewards: {
     amount: string;
     unit: string;

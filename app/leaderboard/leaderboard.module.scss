@@ -120,8 +120,8 @@
       font-size: 12px;
     }
 
-    &:last-of-type {
-      text-align: right;
+    &:last-child {
+      justify-content: flex-end;
     }
   }
 
@@ -147,7 +147,7 @@
   .rowItem {
     width: auto;
     min-width: auto;
-    padding: 8px 1rem;
+    padding: 4px 1rem;
     text-align: left;
     font-size: 11px;
     line-height: 24px;
@@ -160,7 +160,7 @@
     @include tablet {
       font-size: 12px;
       letter-spacing: 0.12em;
-      padding: 8px 1rem;
+      padding: 6px 1rem;
     }
 
     @include laptop {
@@ -174,7 +174,7 @@
     }
 
     &:last-of-type {
-      text-align: right;
+      justify-content: flex-end;
     }
 
     .multipliers {

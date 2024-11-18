@@ -26,6 +26,7 @@ export async function GET(request: Request) {
     const parsedData = data.map((user, index) => ({
       rank: (safePage - 1) * safeLimit + index + 1,
       name: user.name,
+      invitedBy: user.invitedBy,
       rewards: {
         amount: user.rewards.amount,
         unit: user.rewards.unit,
