@@ -12,7 +12,7 @@ export function RecentJoins() {
   const { data } = useQuery({
     queryKey: ["recent-joins"],
     queryFn: () => fetcher("/api/recent-joins"),
-    refetchInterval: 60000,
+    refetchInterval: 20000,
   });
 
   if (!data) return null;

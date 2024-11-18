@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { RecentJoinsResponse } from "~/types";
 
-const DEFAULT_LIMIT = 20;
+const DEFAULT_LIMIT = 30;
 
 export async function GET() {
   try {
