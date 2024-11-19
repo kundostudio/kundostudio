@@ -1,5 +1,4 @@
 import { useMediaQuery, useRect } from "@studio-freight/hamo";
-import localFont from "next/font/local";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -28,17 +27,6 @@ import { Buttons } from "./buttons";
 import styles from "./console.module.scss";
 import { Pad } from "./pad";
 
-const neue = localFont({
-  src: [
-    {
-      path: "../../../public/fonts/neue.woff2",
-      weight: "400",
-      style: "regular",
-    },
-  ],
-  variable: "--font-neue",
-});
-
 function ChainLive() {
   return (
     <div className={styles.status}>
@@ -48,7 +36,7 @@ function ChainLive() {
         <div className={styles.light} />
         <div className={styles.light} />
       </div>
-      <span className={neue.className}>z-chain live</span>
+      <span className={styles.chainLiveText}>z-chain live</span>
     </div>
   );
 }

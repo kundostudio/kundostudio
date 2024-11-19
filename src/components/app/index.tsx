@@ -1,11 +1,13 @@
 "use client";
 
+import { useMediaQuery } from "@studio-freight/hamo";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo } from "react";
 
 import { Coins } from "~/components/coins";
 import { Console } from "~/components/console";
+import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
 import { useBackgroundMusic } from "~/hooks/useBackgroundMusic";
@@ -28,6 +30,7 @@ type Props = {
 };
 
 export function App({ children }: Props) {
+  const isMobile = useMediaQuery("(max-width: 640px)");
   const pathname = usePathname();
   const [playPageChangeSound, { stop }] = useSound(pageSound);
 
@@ -71,6 +74,8 @@ export function App({ children }: Props) {
         {children}
         <Line direction="horizontal" className={styles.footerBottomLine} />
         <Line direction="vertical" className={styles.verticalRightLine} />
+        <Line direction="horizontal" className={styles.footerTopLine} />
+        {!isMobile && <Footer />}
       </div>
     </Console>
   );

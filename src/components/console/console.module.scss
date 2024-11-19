@@ -276,7 +276,8 @@
     }
   }
 
-  span {
+  .chainLiveText {
+    font-family: var(--font-neue);
     font-size: 8px;
     text-transform: uppercase;
     letter-spacing: 0.16em;
@@ -439,7 +440,8 @@
       background-color: white;
     }
 
-    span {
+    .bottomLedText {
+      font-family: var(--font-neue);
       display: inline-block;
       font-size: 16px;
       line-height: 17.408px;
@@ -453,25 +455,25 @@
         font-size: 22px;
         line-height: 32.686px;
       }
-    }
 
-    span::before {
-      content: "";
-      margin-bottom: -0.081em;
-      display: table;
+      &::before {
+        content: "";
+        margin-bottom: -0.081em;
+        display: table;
 
-      @include laptop {
-        margin-bottom: -0.2799em;
+        @include laptop {
+          margin-bottom: -0.2799em;
+        }
       }
-    }
 
-    span::after {
-      content: "";
-      margin-top: -0.294em;
-      display: table;
+      &::after {
+        content: "";
+        margin-top: -0.294em;
+        display: table;
 
-      @include laptop {
-        margin-top: -0.4929em;
+        @include laptop {
+          margin-top: -0.4929em;
+        }
       }
     }
   }
@@ -890,4 +892,8 @@
       font-size: 13.9px;
     }
   }
+}
+
+.chainLiveText {
+  font-family: var(--font-neue);
 }

@@ -82,6 +82,12 @@ const nextConfig = {
       use: ["raw-loader", "glslify-loader"],
     });
 
+    // Agregar loader para archivos .txt
+    config.module.rules.push({
+      test: /\.txt$/,
+      use: "raw-loader",
+    });
+
     return config;
   },
   headers: async () => {

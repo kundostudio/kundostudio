@@ -105,7 +105,7 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
     count: rows.length,
     estimateSize: () => rowHeight,
     getScrollElement: () => tableContainerRef.current,
-    overscan: 3,
+    overscan: 20,
   });
 
   const fetchMoreOnBottomReached = useCallback(

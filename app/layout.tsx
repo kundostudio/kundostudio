@@ -36,6 +36,17 @@ const youth = localFont({
   variable: "--font-youth",
 });
 
+const neue = localFont({
+  src: [
+    {
+      path: "../public/fonts/neue.woff2",
+      weight: "400",
+      style: "regular",
+    },
+  ],
+  variable: "--font-neue",
+});
+
 export const metadata: Metadata = {
   title: "MEOW",
   description: "a hyper-fast blockchain",
@@ -67,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dm_mono.variable} ${youth.variable}`}>
+    <html lang="en" className={`${dm_mono.variable} ${youth.variable} ${neue.variable}`}>
       <Favicon />
       <body>
         <QueryProvider>
