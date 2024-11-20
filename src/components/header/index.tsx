@@ -68,13 +68,13 @@ export function Header() {
         >
           leaderboard
         </Button>
-        <Button
+        {/* <Button
           variant={pathname === "/bridge" ? "highlight" : "subtle"}
           href="/bridge"
           className={styles.button}
         >
           bridge
-        </Button>
+        </Button> */}
         <Button
           variant={pathname === "/stake" ? "highlight" : "subtle"}
           href="/stake"
