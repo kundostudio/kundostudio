@@ -1,0 +1,97 @@
+.wrapper {
+  border: 1px solid var(--current-shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 407px;
+  gap: 24px;
+}
+
+.title {
+  font-family: var(--font-youth);
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(var(--current-color), 0.6);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.button {
+  width: 100%;
+  height: 64px;
+  background: rgba(var(--current-color), 0.1) !important;
+
+  &:hover {
+    background: rgba(var(--current-color), 0.15) !important;
+  }
+}
+
+.closeButton {
+  border: 1px solid var(--current-shadow);
+  background-color: rgba(var(--current-color), 0);
+  width: 28px;
+  height: 28px;
+  position: relative;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+  transition:
+    border,
+    background-color 0.2s ease;
+
+  &:hover {
+    border: 1px solid rgb(var(--current-color));
+    background-color: rgba(var(--current-color), 0.1);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background-color: rgb(var(--current-color));
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  .outline {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: var(--primary-color);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+  }
+
+  &:focus-visible .outline,
+  &:global(.focused) .outline {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-width: 1px;
+    opacity: 1;
+  }
+}

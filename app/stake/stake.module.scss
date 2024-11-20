@@ -199,6 +199,32 @@
   text-shadow: var(--current-shadow) 0 0 4px;
   background: rgba(var(--current-color), 0.05);
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: var(--primary-color);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+  }
+
+  &:focus-visible::before,
+  &:global(.focused)::before {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-width: 1px;
+    opacity: 1;
+  }
+
   &:hover {
     background: rgba(var(--current-color), 0.1);
   }
