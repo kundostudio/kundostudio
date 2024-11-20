@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo } from "react";
 
 import { Coins } from "~/components/coins";
 import { Console } from "~/components/console";
+import { DialogProvider } from "~/components/dialog";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Line } from "~/components/Line";
@@ -61,22 +62,25 @@ export function App({ children }: Props) {
   );
 
   return (
-    <Console className={styles.console} {...consoleHandlers}>
-      <div className={styles.content}>
-        <Canvas />
-        <Line direction="vertical" className={styles.verticalLeftLine} />
-        <Line direction="horizontal" className={styles.headerTopLine} />
-        <Header />
-        <Line direction="horizontal" className={styles.headerBottomLine} />
-        <Line direction="horizontal" className={styles.variationsTopLine} />
-        <Coins className={styles.variations} />
-        <Line direction="horizontal" className={styles.variationsBottomLine} />
-        {children}
-        <Line direction="horizontal" className={styles.footerBottomLine} />
-        <Line direction="vertical" className={styles.verticalRightLine} />
-        <Line direction="horizontal" className={styles.footerTopLine} />
-        {!isMobile && <Footer />}
-      </div>
-    </Console>
+    <>
+      <Console className={styles.console} {...consoleHandlers}>
+        <div className={styles.content}>
+          <Canvas />
+          <Line direction="vertical" className={styles.verticalLeftLine} />
+          <Line direction="horizontal" className={styles.headerTopLine} />
+          <Header />
+          <Line direction="horizontal" className={styles.headerBottomLine} />
+          <Line direction="horizontal" className={styles.variationsTopLine} />
+          <Coins className={styles.variations} />
+          <Line direction="horizontal" className={styles.variationsBottomLine} />
+          {children}
+          <Line direction="horizontal" className={styles.footerBottomLine} />
+          <Line direction="vertical" className={styles.verticalRightLine} />
+          <Line direction="horizontal" className={styles.footerTopLine} />
+          {!isMobile && <Footer />}
+          <DialogProvider />
+        </div>
+      </Console>
+    </>
   );
 }
