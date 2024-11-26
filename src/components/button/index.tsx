@@ -1,3 +1,4 @@
+import { motion, MotionProps } from "framer-motion";
 import Link, { LinkRestProps } from "next/link";
 import { forwardRef, type JSX } from "react";
 
@@ -11,17 +12,27 @@ import styles from "./button.module.scss";
 
 type CommonProps = {
   size?: "small" | "large";
-  variant?: "default" | "highlight" | "subtle";
+  variant?: "default" | "highlight" | "subtle" | "pixel";
   href?: string;
   disabled?: boolean;
 };
 
-type ButtonProps = CommonProps & JSX.IntrinsicElements["button"];
-type AnchorProps = CommonProps & LinkRestProps;
+type ButtonProps = CommonProps & JSX.IntrinsicElements["button"] & MotionProps;
+type AnchorProps = CommonProps & LinkRestProps & MotionProps;
 
-type Props = ButtonProps | AnchorProps;
+export type Props = ButtonProps | AnchorProps;
 
-function Content({ children }: { children: React.ReactNode }) {
+function Content({ variant, children }: { variant: string; children: React.ReactNode }) {
+  if (variant === "pixel") {
+    return (
+      <>
+        <span className={styles.pixelCorner} />
+        <span className={styles.pixelText}>{children}</span>
+        <span className={styles.pixelCorner} />
+      </>
+    );
+  }
+
   if (typeof children === "string") {
     return (
       <>
@@ -44,6 +55,9 @@ function Content({ children }: { children: React.ReactNode }) {
   );
 }
 
+const MotionButton = motion.button;
+const MotionLink = motion(Link);
+
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
   (
     {
@@ -65,6 +79,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
       default: "",
       highlight: styles.highlight,
       subtle: styles.subtle,
+      pixel: styles.pixel,
     }[variant];
 
     const [playHoverSound] = useSound(buttonSound);
@@ -79,7 +94,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
     if (href) {
       const isExternal = href?.toString().startsWith("http");
       return (
-        <Link
+        <MotionLink
           ref={ref as any}
           className={cn(styles.button, sizeStyle, variantStyle, className)}
           href={href as any}
@@ -88,13 +103,13 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
           {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
           {...(props as AnchorProps)}
         >
-          <Content>{children}</Content>
-        </Link>
+          <Content variant={variant}>{children}</Content>
+        </MotionLink>
       );
     }
 
     return (
-      <button
+      <MotionButton
         ref={ref as any}
         className={cn(styles.button, sizeStyle, variantStyle, className)}
         onClick={onClick as ButtonProps["onClick"]}
@@ -102,8 +117,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
         {...(props as ButtonProps)}
       >
-        <Content>{children}</Content>
-      </button>
+        <Content variant={variant}>{children}</Content>
+      </MotionButton>
     );
   }
 );

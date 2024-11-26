@@ -1,5 +1,4 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
-// import { Cross2Icon } from '@radix-ui/react-icons'
 import clsx from "clsx";
 import { forwardRef } from "react";
 
@@ -50,6 +49,8 @@ export function Dialog({
       >
         {title && <span className={styles.title}>{title}</span>}
         {content}
+        <div className={styles.dialogBorder} />
+        <div className={styles.dialogBorder} />
       </RadixDialog.Content>
     </RadixDialog.Portal>
   );

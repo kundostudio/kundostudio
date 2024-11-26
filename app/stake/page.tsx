@@ -2,19 +2,20 @@
 
 import { useMediaQuery } from "@studio-freight/hamo";
 
+import { Button } from "~/components/button";
 import { useDialog } from "~/hooks/useDialog";
 
 import { CatAscii } from "./cat-ascii";
-import { ConnectWallet } from "./dialogs/connect-wallet";
+import { StakeDialog } from "./stake-dialog";
 import styles from "./stake.module.scss";
 
 export default function Page() {
   const isUpperTablet = useMediaQuery("(min-width: 768px)");
 
-  const { setDialogOpen } = useDialog("connect-wallet", {
+  const { setDialogOpen } = useDialog("stake-dialog", {
     title: "stake",
     closeOnClickOutside: false,
-    content: <ConnectWallet />,
+    content: <StakeDialog />,
   });
 
   return (
@@ -51,11 +52,13 @@ export default function Page() {
               STAKE WILD / CONNECT YOUR WALLET AND START STAKING TO EARN MEOW
             </h2>
 
-            <button className={styles.stakeButton} onClick={() => setDialogOpen(true)}>
+            <Button
+              variant="pixel"
+              className={styles.stakeButton}
+              onClick={() => setDialogOpen(true)}
+            >
               STAKE NOW
-              <span className={styles.corner} />
-              <span className={styles.corner} />
-            </button>
+            </Button>
           </div>
         </div>
       </div>
