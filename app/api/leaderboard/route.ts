@@ -32,6 +32,7 @@ export async function GET(request: Request) {
         unit: user.rewards.unit,
         precision: user.rewards.precision,
       },
+      multipliers: user.multipliers.map((multiplier) => multiplier.type),
     }));
 
     return NextResponse.json({

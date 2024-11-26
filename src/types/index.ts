@@ -8,14 +8,10 @@ export type Theme = {
   shadow: string | null;
 };
 
-export type Multiplier = "MEOW" | "FIVE" | "TEN" | "A" | "X" | "WWW";
-
-export type LeaderboardPosition = {
-  rank: number;
-  name: string;
-  invitedBy: string;
-  multipliers: Multiplier[];
-  meowAmount: number;
+export type Multiplier = {
+  type: string;
+  multiplier: number;
+  isPositive: boolean;
 };
 
 export type LeaderboardUser = {
@@ -28,10 +24,11 @@ export type LeaderboardUser = {
     unit: string;
     precision: number;
   };
+  multipliers: Multiplier[];
 };
 
 export type PaginatedLeaderboardResponse = {
-  data: LeaderboardUser[];
+  data: (LeaderboardUser & { rank: number })[];
   page: number;
   totalItems: number;
 };
@@ -73,6 +70,11 @@ export type RecentJoinUser = {
 };
 
 export type RecentJoinsResponse = RecentJoinUser[];
+
+export type UserInfoResponse = {
+  totalUsers: number;
+  totalWallets: number;
+};
 
 export type DialogTypeProps = {
   type?: "dialog";

@@ -14,21 +14,15 @@ import { Line } from "~/components/Line";
 import { useViewport } from "~/hooks/useViewport";
 import { fetcher } from "~/lib/fetcher";
 import { formatNumber } from "~/lib/utils";
+import { LeaderboardUser, PaginatedLeaderboardResponse } from "~/types";
 
 import styles from "./leaderboard.module.scss";
 
 const ITEMS_PER_PAGE = 50;
 
-const columnHelper = createColumnHelper<{
-  rank: number;
-  name: string;
-  invitedBy: string | null;
-  rewards: {
-    amount: string;
-    unit: string;
-    precision: number;
-  };
-}>();
+type LeaderboardRow = LeaderboardUser & { rank: number };
+
+const columnHelper = createColumnHelper<LeaderboardRow>();
 
 const formatWithPrecision = (amount: string, precision: number) => {
   const value = Number(amount) / Math.pow(10, precision);
@@ -51,6 +45,10 @@ const columns = [
     header: () => <span>invited by</span>,
     cell: (info) => info.getValue() || "-",
   }),
+  columnHelper.accessor("multipliers", {
+    header: () => <span>multipliers</span>,
+    cell: (info) => info.getValue().toString() || "-",
+  }),
   columnHelper.accessor("rewards", {
     header: () => <span>meow</span>,
     cell: (info) => {
@@ -68,9 +66,12 @@ export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const viewport = useViewport();
 
-  const fetchLeaderboardData = useCallback(({ pageParam = 0 }) => {
-    return fetcher(`/api/leaderboard?page=${pageParam + 1}&limit=${ITEMS_PER_PAGE}`);
-  }, []);
+  const fetchLeaderboardData = useCallback(
+    ({ pageParam = 0 }): Promise<PaginatedLeaderboardResponse> => {
+      return fetcher(`/api/leaderboard?page=${pageParam + 1}&limit=${ITEMS_PER_PAGE}`);
+    },
+    []
+  );
 
   const { data, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ["leaderboard"],
