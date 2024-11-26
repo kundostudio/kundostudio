@@ -1,15 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
+
 import { Typography } from "~/components/typography";
+import { fetcher } from "~/lib/fetcher";
 import M from "~/public/social/m.svg";
 import O from "~/public/social/o.svg";
 import Telegram from "~/public/social/telegram.svg";
 import W from "~/public/social/w.svg";
 import X from "~/public/social/x.svg";
+import { UserInfoResponse } from "~/types";
 
 import { Link } from "../link";
 
 import styles from "./footer.module.scss";
 
 export function Footer() {
+  const { data: userInfo } = useQuery<UserInfoResponse>({
+    queryKey: ["user-info"],
+    queryFn: () => fetcher("/api/info"),
+    refetchInterval: 60000,
+  });
+
   return (
     <footer className={styles.wrapper}>
       <div className={styles.poweredBy}>
@@ -24,7 +34,9 @@ export function Footer() {
           <Typography.Span className="opacity-40 tracking-[0.08em] mobile:before:pr-2">
             wallets:
           </Typography.Span>
-          <Typography.Span className="tracking-[0.08em]">21,369</Typography.Span>
+          <Typography.Span className="tracking-[0.08em]">
+            {userInfo?.totalWallets.toLocaleString() ?? "..."}
+          </Typography.Span>
         </div>
       </div>
 
