@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get("limit") || String(DEFAULT_LIMIT), 10);
 
     const safePage = Math.max(1, page);
-    const safeLimit = Math.max(1, Math.min(limit, 50));
+    const safeLimit = Math.max(1, Math.min(limit, 200));
 
     const response = await fetch(
       `https://zosapi.zero.tech/api/v2/users/leaderboard?page=${safePage}&limit=${safeLimit}`
