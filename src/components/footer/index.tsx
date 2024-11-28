@@ -31,9 +31,7 @@ export function Footer() {
       </div>
       <div className={styles.prices}>
         <div className="flex items-center gap-2">
-          <Typography.Span className="opacity-40 tracking-[0.08em] mobile:before:pr-2">
-            wallets:
-          </Typography.Span>
+          <Typography.Span className="opacity-40 tracking-[0.08em]">wallets:</Typography.Span>
           <Typography.Span className="tracking-[0.08em]">
             {userInfo?.totalWallets.toLocaleString() ?? "..."}
           </Typography.Span>

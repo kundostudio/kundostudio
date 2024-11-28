@@ -112,7 +112,7 @@
   gap: 16px;
 
   @include tablet {
-    gap: 64px;
+    gap: 48px;
   }
 }
 
@@ -133,8 +133,8 @@
     flex-direction: column;
     align-items: flex-start;
     font-family: var(--font-neue);
-    font-size: 24px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 20px;
     letter-spacing: 0.16em;
     text-shadow: var(--current-shadow) 0 0 4px;
     width: 100%;
@@ -142,8 +142,8 @@
     @include tablet {
       flex-direction: row;
       justify-content: space-between;
-      font-size: 28px;
-      line-height: 36px;
+      font-size: 24px;
+      line-height: 32px;
       gap: 1rem;
     }
 
@@ -166,16 +166,16 @@
   gap: 24px;
 
   .title {
-    font-size: 24px;
-    line-height: 24px;
+    font-size: 22px;
+    line-height: 22px;
     letter-spacing: 0.02em;
     text-shadow: var(--current-shadow) 0 0 8px;
     font-family: var(--font-youth);
     text-align: left;
 
     @include tablet {
-      font-size: 28px;
-      line-height: 34px;
+      font-size: 24px;
+      line-height: 32px;
       letter-spacing: 0.04em;
     }
   }
