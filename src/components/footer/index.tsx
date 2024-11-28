@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Typography } from "~/components/typography";
 import { fetcher } from "~/lib/fetcher";
-import M from "~/public/social/m.svg";
-import O from "~/public/social/o.svg";
+// import M from "~/public/social/m.svg";
 import Telegram from "~/public/social/telegram.svg";
-import W from "~/public/social/w.svg";
+import Zero from "~/public/social/zero.svg";
+// import W from "~/public/social/w.svg";
 import X from "~/public/social/x.svg";
 import { UserInfoResponse } from "~/types";
 
@@ -41,21 +41,21 @@ export function Footer() {
       </div>
 
       <span className={styles.social}>
-        <Link href="#">
-          <O className="w-[15.77px] h-auto" />
+        <Link href="https://www.zero.tech">
+          <Zero className="w-[15.77px] h-auto" />
         </Link>
-        <Link href="#">
+        <Link href="https://twitter.com/meow_cabal">
           <X className="w-[15.77px] h-auto" />
         </Link>
-        <Link href="#">
+        <Link href="https://telegram.me/meowchainofficial">
           <Telegram className="w-[15.77px] h-auto" />
         </Link>
-        <Link href="#">
+        {/* <Link href="#">
           <M className="w-[15.77px] h-auto" />
         </Link>
         <Link href="#">
           <W className="w-[15.77px] h-auto" />
-        </Link>
+        </Link> */}
       </span>
     </footer>
   );

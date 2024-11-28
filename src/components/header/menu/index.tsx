@@ -2,11 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 import { Button } from "~/components/button";
-import M from "~/public/social/m.svg";
-import O from "~/public/social/o.svg";
+// import M from "~/public/social/m.svg";
 import Telegram from "~/public/social/telegram.svg";
-import W from "~/public/social/w.svg";
+// import W from "~/public/social/w.svg";
 import X from "~/public/social/x.svg";
+import Zero from "~/public/social/zero.svg";
 
 import styles from "./menu.module.scss";
 
@@ -60,22 +60,30 @@ export function Menu({ isOpen, onItemClick }: Props) {
             </ul>
           </nav>
           <div className={styles.social}>
-            <Button variant="highlight" href="#" className={styles.socialLink}>
+            <Button variant="highlight" href="https://www.zero.tech" className={styles.socialLink}>
               <span className={styles.socialLogoWrapper}>
-                <O className="w-8 h-8" />
+                <Zero className="w-8 h-8" />
               </span>
             </Button>
-            <Button variant="highlight" href="#" className={styles.socialLink}>
+            <Button
+              variant="highlight"
+              href="https://twitter.com/meow_cabal"
+              className={styles.socialLink}
+            >
               <span className={styles.socialLogoWrapper}>
                 <X className="w-8 h-8" />
               </span>
             </Button>
-            <Button variant="highlight" href="#" className={styles.socialLink}>
+            <Button
+              variant="highlight"
+              href="https://telegram.me/meowchainofficial"
+              className={styles.socialLink}
+            >
               <span className={styles.socialLogoWrapper}>
                 <Telegram className="w-8 h-8" />
               </span>
             </Button>
-            <Button variant="highlight" href="#" className={styles.socialLink}>
+            {/* <Button variant="highlight" href="#" className={styles.socialLink}>
               <span className={styles.socialLogoWrapper}>
                 <M className="w-8 h-8" />
               </span>
@@ -84,7 +92,7 @@ export function Menu({ isOpen, onItemClick }: Props) {
               <span className={styles.socialLogoWrapper}>
                 <W className="w-8 h-8" />
               </span>
-            </Button>
+            </Button> */}
           </div>
           <div className={styles.footerText}>
             <span className={styles.privacy}>
