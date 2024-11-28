@@ -14,9 +14,9 @@ const nextConfig = {
   },
   swcMinify: true,
   images: {
-    // ADD in case you need to import SVGs in next/image component
-    // dangerouslyAllowSVG: true,
-    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     formats: ["image/avif", "image/webp"],
   },
   // add @import 'styles/_functions'; to all scss files.

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, MotionProps } from "framer-motion";
-import { lazy, Suspense, useMemo } from "react";
+import Image from "next/image";
 
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
@@ -29,18 +29,9 @@ export function Medal({
 }: Props) {
   const theme = useStore((s) => s.theme);
 
-  const MedalBase = useMemo(() => {
-    const t = type.toLowerCase();
-    const variant = theme.name;
-    return lazy(() => import(`~/public/medals/${t}-medal-${variant}.svg`));
-  }, [type, theme.name]);
-  const Logo = useMemo(() => {
-    const t = type.toLowerCase();
-    const variant = theme.name;
-    return lazy(() => import(`~/public/medals/${t}-${variant}.svg`));
-  }, [type, theme.name]);
-
   const wrapperStyle = {
+    domain_holder: styles.wrapperBase,
+    subdomain_holder: styles.wrapperBase,
     MEOW: styles.wrapperBase,
     FIVE: styles.wrapperBase,
     TEN: styles.wrapperBase,
@@ -110,22 +101,30 @@ export function Medal({
   };
 
   return (
-    <motion.div className={cn(styles.wrapper, wrapperStyle, className)} {...props}>
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={theme.name}
-          variants={GLITCH_VARIANTS}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className={styles.medalWrapper}
-        >
-          <Suspense>
-            <MedalBase className={styles.medalBackground} style={{ filter: medalShadows }} />
-            <Logo style={{ filter: logoShadows }} />
-          </Suspense>
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
+    <AnimatePresence mode="popLayout">
+      <motion.div
+        key={theme.name}
+        variants={GLITCH_VARIANTS}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className={cn(styles.wrapper, wrapperStyle, className)}
+        {...props}
+      >
+        <Image
+          src={`/medals/${type}-medal-${theme.name}.svg`}
+          alt="medal"
+          className={styles.medalBackground}
+          fill
+          style={{ filter: medalShadows }}
+        />
+        <Image
+          src={`/medals/${type}-${theme.name}.svg`}
+          alt="logo"
+          fill
+          style={{ filter: logoShadows }}
+        />
+      </motion.div>
+    </AnimatePresence>
   );
 }

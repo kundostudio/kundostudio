@@ -11,10 +11,11 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import { Line } from "~/components/Line";
+import { Medal } from "~/components/medal";
 import { useViewport } from "~/hooks/useViewport";
 import { fetcher } from "~/lib/fetcher";
 import { formatNumber } from "~/lib/utils";
-import { LeaderboardUser, PaginatedLeaderboardResponse } from "~/types";
+import { LeaderboardUser, Multiplier, PaginatedLeaderboardResponse } from "~/types";
 
 import styles from "./leaderboard.module.scss";
 
@@ -47,7 +48,7 @@ const columns = [
   }),
   columnHelper.accessor("multipliers", {
     header: () => <span>multipliers</span>,
-    cell: (info) => info.getValue().toString() || "-",
+    cell: (info) => <Medals multipliers={info.getValue()} />,
   }),
   columnHelper.accessor("rewards", {
     header: () => <span>meow</span>,
@@ -62,6 +63,31 @@ const columns = [
   }),
 ];
 
+function Medals({ multipliers }: { multipliers: Multiplier[] }) {
+  if (!multipliers || multipliers.length === 0) {
+    return "-";
+  }
+  return (
+    <div className={styles.multipliers}>
+      {multipliers.map((value, i) => (
+        <Medal
+          key={i}
+          type={value.type}
+          index={i}
+          className={styles.medal}
+          medalYOffset1={2}
+          medalBlur1={5}
+          medalYOffset2={2}
+          medalBlur2={5}
+          logoYOffset1={0}
+          logoBlur1={2}
+          logoYOffset2={0}
+          logoBlur2={5}
+        />
+      ))}
+    </div>
+  );
+}
 export function Leaderboard({ className }: React.HTMLProps<HTMLTableElement>) {
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const viewport = useViewport();
