@@ -41,19 +41,6 @@ function ChainLive() {
   );
 }
 
-function TopStripes() {
-  const isUpperMobile = useMediaQuery("(min-width: 640px)");
-  return (
-    <div className={styles.topStripes}>
-      <div className={styles.stripe} />
-      <div className={styles.stripe} />
-      <div className={styles.stripe} />
-      <div className={styles.stripe} />
-      {isUpperMobile && <div className={styles.stripe} />}
-    </div>
-  );
-}
-
 function LateralStripes({ className }: React.HTMLProps<HTMLDivElement>) {
   return <div className={cn(styles.lateralStripes, className)} />;
 }
@@ -163,7 +150,6 @@ export function Console({
       <Text className={styles.textTop}>f3-m</Text>
       <Text className={styles.textLeft}>c24</Text>
       <Text className={styles.textRight}>f3-m</Text>
-      <TopStripes />
       <LateralStripes className={styles.lateralTopStripes} />
       <LateralStripes className={styles.lateralBottomStripes} />
 

@@ -20,6 +20,8 @@ import pageSound from "~/public/sounds/page.mp3";
 // @ts-ignore
 import music from "~/public/music/cyberpunk.mp3";
 
+import { TopStripes } from "../console/top-stripes";
+
 import styles from "./app.module.scss";
 
 const Canvas = dynamic(() => import("./canvas").then((mod) => mod.Canvas), {
@@ -63,6 +65,7 @@ export function App({ children }: Props) {
 
   return (
     <>
+      <TopStripes className={styles.topStripes} />
       <Console className={styles.console} {...consoleHandlers}>
         <div className={styles.content}>
           <Canvas />

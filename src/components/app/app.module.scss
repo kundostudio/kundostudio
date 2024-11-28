@@ -11,6 +11,17 @@
   margin: var(--console-margin-offset);
 }
 
+.topStripes {
+  position: absolute;
+  z-index: 10;
+  top: calc(var(--console-margin-offset));
+  right: calc(var(--console-margin-offset) + 24px);
+
+  @include mobile {
+    right: calc(var(--console-margin-offset) + 41px);
+  }
+}
+
 .content {
   display: flex;
   flex-direction: column;
