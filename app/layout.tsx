@@ -1,55 +1,77 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-import { DM_Mono } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
-
-import { Favicon } from "~/components/favicon";
-
-import { QueryProvider } from "./query-client";
 
 import "~/styles/global.scss";
 
-const App = dynamic(() => import("~/components/app").then((mod) => mod.App), {
-  ssr: false,
-});
-
-const dm_mono = DM_Mono({
+const mono = Roboto_Mono({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-dm-mono",
+  variable: "--font-mono",
   display: "swap",
 });
 
-const youth = localFont({
+const suisse = localFont({
   src: [
     {
-      path: "../public/fonts/youth-medium.woff2",
+      path: "../public/fonts/SuisseIntl-Medium.otf",
       weight: "500",
       style: "normal",
     },
-    {
-      path: "../public/fonts/youth-bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
   ],
-  variable: "--font-youth",
-});
-
-const neue = localFont({
-  src: [
-    {
-      path: "../public/fonts/neue.woff2",
-      weight: "400",
-      style: "regular",
-    },
-  ],
-  variable: "--font-neue",
+  variable: "--font-suisse",
 });
 
 export const metadata: Metadata = {
-  title: "MEOW",
-  description: "a hyper-fast blockchain",
+  title: "Kundo Studio",
+  description: "Creative studio from Argentina",
+
+  // Open Graph
+  openGraph: {
+    title: "Kundo Studio",
+    description: "Creative studio from Argentina",
+    images: [
+      {
+        url: "/OG_light.png",
+        width: 1200,
+        height: 630,
+        alt: "Kundo Studio",
+      },
+    ],
+  },
+
+  // Icons
+  icons: {
+    icon: [
+      {
+        url: "/favicon_light.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/favicon_dark.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    apple: [
+      {
+        url: "/favicon_light.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/favicon_dark.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/favicon_dark.png",
+      },
+    ],
+  },
+
+  // Manifest
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -58,13 +80,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dm_mono.variable} ${youth.variable} ${neue.variable}`}>
-      <Favicon />
-      <body>
-        <QueryProvider>
-          <App>{children}</App>
-        </QueryProvider>
-      </body>
+    <html lang="en" className={`${mono.variable} ${suisse.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
