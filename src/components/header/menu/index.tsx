@@ -2,11 +2,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 import { Button } from "~/components/button";
-// import M from "~/public/social/m.svg";
-import Telegram from "~/public/social/telegram.svg";
-// import W from "~/public/social/w.svg";
-import X from "~/public/social/x.svg";
-import Zero from "~/public/social/zero.svg";
 
 import styles from "./menu.module.scss";
 
@@ -18,7 +13,6 @@ type Props = {
 const LINKS = [
   { label: "home", href: "/" },
   { label: "leaderboard", href: "/leaderboard" },
-  // { label: "bridge", href: "/bridge" },
   { label: "stake", href: "/stake" },
 ];
 
@@ -61,27 +55,21 @@ export function Menu({ isOpen, onItemClick }: Props) {
           </nav>
           <div className={styles.social}>
             <Button variant="highlight" href="https://www.zero.tech" className={styles.socialLink}>
-              <span className={styles.socialLogoWrapper}>
-                <Zero className="w-8 h-8" />
-              </span>
+              link
             </Button>
             <Button
               variant="highlight"
               href="https://twitter.com/meow_cabal"
               className={styles.socialLink}
             >
-              <span className={styles.socialLogoWrapper}>
-                <X className="w-8 h-8" />
-              </span>
+              link
             </Button>
             <Button
               variant="highlight"
               href="https://telegram.me/meowchainofficial"
               className={styles.socialLink}
             >
-              <span className={styles.socialLogoWrapper}>
-                <Telegram className="w-8 h-8" />
-              </span>
+              link
             </Button>
             {/* <Button variant="highlight" href="#" className={styles.socialLink}>
               <span className={styles.socialLogoWrapper}>

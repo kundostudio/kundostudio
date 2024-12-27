@@ -1,60 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+"use client";
 
-import { Typography } from "~/components/typography";
-import { fetcher } from "~/lib/fetcher";
-// import M from "~/public/social/m.svg";
-import Telegram from "~/public/social/telegram.svg";
-import Zero from "~/public/social/zero.svg";
-// import W from "~/public/social/w.svg";
-import X from "~/public/social/x.svg";
-import { UserInfoResponse } from "~/types";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
+import Logo from "~/public/logo.svg";
 
 import { Link } from "../link";
 
-import styles from "./footer.module.scss";
-
 export function Footer() {
-  const { data: userInfo } = useQuery<UserInfoResponse>({
-    queryKey: ["user-info"],
-    queryFn: () => fetcher("/api/info"),
-    refetchInterval: 60000,
-  });
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
-    <footer className={styles.wrapper}>
-      <div className={styles.poweredBy}>
-        <Typography.Span className="opacity-40 tracking-[0.08em]">powered by: </Typography.Span>
-        <Typography.Span className="tracking-[0.08em] pl-2">
-          Zero <span className="opacity-40 tracking-[0.08em]">x</span> Z Chain{" "}
-          <span className="opacity-40 tracking-[0.08em]">x</span> Polygon ZKVM
-        </Typography.Span>
+    <footer className="flex items-center justify-between p-4 border-t border-tertiary-color">
+      <Logo className="h-6 w-auto" />
+      <div className="flex gap-6">
+        <Link href="/">home</Link>
+        <Link href="/work">work</Link>
+        <Link href="/about">about</Link>
+        <Link href="/contact">contact</Link>
       </div>
-      <div className={styles.prices}>
-        <div className="flex items-center gap-2">
-          <Typography.Span className="opacity-40 tracking-[0.08em]">wallets:</Typography.Span>
-          <Typography.Span className="tracking-[0.08em]">
-            {userInfo?.totalWallets.toLocaleString() ?? "..."}
-          </Typography.Span>
+      {mounted && (
+        <div className="flex gap-4">
+          {["system", "light", "dark"].map((t) => (
+            <button
+              key={t}
+              onClick={() => setTheme(t)}
+              className={`px-3 py-1 rounded-md transition-colors ${
+                theme === t ? "bg-tertiary-color text-primary-color" : "hover:bg-tertiary-color/50"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
         </div>
-      </div>
-
-      <span className={styles.social}>
-        <Link href="https://www.zero.tech">
-          <Zero className="w-[15.77px] h-auto" />
-        </Link>
-        <Link href="https://twitter.com/meow_cabal">
-          <X className="w-[15.77px] h-auto" />
-        </Link>
-        <Link href="https://telegram.me/meowchainofficial">
-          <Telegram className="w-[15.77px] h-auto" />
-        </Link>
-        {/* <Link href="#">
-          <M className="w-[15.77px] h-auto" />
-        </Link>
-        <Link href="#">
-          <W className="w-[15.77px] h-auto" />
-        </Link> */}
-      </span>
+      )}
     </footer>
   );
 }

@@ -2,11 +2,7 @@ import { motion, MotionProps } from "framer-motion";
 import Link, { LinkRestProps } from "next/link";
 import { forwardRef, type JSX } from "react";
 
-import { Typography } from "~/components/typography";
-import { useSound } from "~/hooks/useSound";
 import { cn } from "~/lib/utils";
-// @ts-ignore
-import buttonSound from "~/public/sounds/button.mp3";
 
 import styles from "./button.module.scss";
 
@@ -21,39 +17,6 @@ type ButtonProps = CommonProps & JSX.IntrinsicElements["button"] & MotionProps;
 type AnchorProps = CommonProps & LinkRestProps & MotionProps;
 
 export type Props = ButtonProps | AnchorProps;
-
-function Content({ variant, children }: { variant: string; children: React.ReactNode }) {
-  if (variant === "pixel") {
-    return (
-      <>
-        <span className={styles.pixelCorner} />
-        <span className={styles.pixelText}>{children}</span>
-        <span className={styles.pixelCorner} />
-      </>
-    );
-  }
-
-  if (typeof children === "string") {
-    return (
-      <>
-        <Typography.Span className={styles.text}>{children}</Typography.Span>
-        <span className={styles.corner} />
-        <span className={styles.corner} />
-        <span className={styles.corner} />
-        <span className={styles.corner} />
-      </>
-    );
-  }
-  return (
-    <>
-      {children}
-      <span className={styles.corner} />
-      <span className={styles.corner} />
-      <span className={styles.corner} />
-      <span className={styles.corner} />
-    </>
-  );
-}
 
 const MotionButton = motion.button;
 const MotionLink = motion(Link);
@@ -82,11 +45,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
       pixel: styles.pixel,
     }[variant];
 
-    const [playHoverSound] = useSound(buttonSound);
-
     const handleMouseEnter = (e: any) => {
       if (!disabled) {
-        playHoverSound();
         onMouseEnter?.(e);
       }
     };
@@ -103,7 +63,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
           {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
           {...(props as AnchorProps)}
         >
-          <Content variant={variant}>{children}</Content>
+          {children}
         </MotionLink>
       );
     }
@@ -117,7 +77,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
         {...(props as ButtonProps)}
       >
-        <Content variant={variant}>{children}</Content>
+        {children}
       </MotionButton>
     );
   }

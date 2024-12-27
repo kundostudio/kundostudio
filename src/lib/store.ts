@@ -1,23 +1,10 @@
 import { create } from "zustand";
 
-import { THEMES } from "~/constants/themes";
-import { DialogTypeProps, Theme } from "~/types";
+import { DialogTypeProps } from "~/types";
 
 type Store = {
-  sceneReady: boolean;
-  setSceneReady: (ready: boolean) => void;
-
   appReady: boolean;
   setAppReady: (appReady: boolean) => void;
-
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-
-  soundEnabled: boolean;
-  setSoundEnabled: (enabled: boolean) => void;
-
-  musicEnabled: boolean;
-  setMusicEnabled: (enabled: boolean) => void;
 
   isMenuOpen: boolean;
   setIsMenuOpen: (isOpen: boolean) => void;
@@ -32,20 +19,8 @@ type Store = {
 };
 
 const store = (set) => ({
-  sceneReady: false,
-  setSceneReady: (ready) => set({ sceneReady: ready }),
-
   appReady: true,
   setAppReady: (appReady) => set({ appReady }),
-
-  theme: THEMES[0],
-  setTheme: (theme) => set({ theme }),
-
-  soundEnabled: true,
-  setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
-
-  musicEnabled: false,
-  setMusicEnabled: (enabled) => set({ musicEnabled: enabled }),
 
   isMenuOpen: false,
   setIsMenuOpen: (isOpen) => set({ isMenuOpen: isOpen }),

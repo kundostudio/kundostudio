@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
+import { Footer } from "~/components/footer";
+import { Header } from "~/components/header";
+import { ThemeProvider } from "~/components/theme-provider";
+
 import "~/styles/global.scss";
 
 const mono = Roboto_Mono({
@@ -81,7 +85,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${mono.variable} ${suisse.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
