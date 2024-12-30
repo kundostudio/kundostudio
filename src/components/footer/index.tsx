@@ -1,44 +1,33 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "@studio-freight/hamo";
 
+import { Link } from "~/components/link";
+import { ThemeSelector } from "~/components/theme-selector";
+import { Typography } from "~/components/typography";
 import Logo from "~/public/logo.svg";
 
-import { Link } from "../link";
-
 export function Footer() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isTabletUp = useMediaQuery("(min-width: 768px)");
 
   return (
-    <footer className="flex items-center justify-between p-4 border-t border-tertiary-color">
-      <Logo className="h-6 w-auto" />
-      <div className="flex gap-6">
-        <Link href="/">home</Link>
-        <Link href="/work">work</Link>
-        <Link href="/about">about</Link>
-        <Link href="/contact">contact</Link>
-      </div>
-      {mounted && (
-        <div className="flex gap-4">
-          {["system", "light", "dark"].map((t) => (
-            <button
-              key={t}
-              onClick={() => setTheme(t)}
-              className={`px-3 py-1 rounded-md transition-colors ${
-                theme === t ? "bg-tertiary-color text-primary-color" : "hover:bg-tertiary-color/50"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      )}
+    <footer className="flex items-center justify-between p-4 fluid-container">
+      {isTabletUp && <Logo className="h-6 w-auto" />}
+      <nav className="flex flex-col items-start md:flex-row md:items-center gap-4 md:gap-6">
+        <Link href="/">
+          <Typography.P className="uppercase text-secondary">home</Typography.P>
+        </Link>
+        <Link href="/work">
+          <Typography.P className="uppercase text-secondary">work</Typography.P>
+        </Link>
+        <Link href="/about">
+          <Typography.P className="uppercase text-secondary">about</Typography.P>
+        </Link>
+        <Link href="/contact">
+          <Typography.P className="uppercase text-secondary">contact</Typography.P>
+        </Link>
+      </nav>
+      {isTabletUp && <ThemeSelector />}
     </footer>
   );
 }
