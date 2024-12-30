@@ -16,3 +16,5 @@ export type DialogStore = {
   setDialogOpen: (key: string, open: boolean) => void;
   setIsOpen: (open: boolean) => void;
 };
+
+export type Viewport = "mobile" | "mobileXL" | "tablet" | "laptop" | "desktop" | "desktopXL" | null;

@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@studio-freight/hamo";
 
-export type Viewport = "mobile" | "mobileXL" | "tablet" | "laptop" | "desktop" | "desktopXL" | null;
+import { Viewport } from "~/types";
 
 export function useViewport(defaultViewport: Viewport = null): Viewport {
   const isMobile = useMediaQuery("(max-width: 639px)");
