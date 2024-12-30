@@ -7,6 +7,20 @@
 @tailwind utilities;
 
 :root {
+  --layout-padding-x: 16px;
+
+  @include tablet {
+    --layout-padding-x: 24px;
+  }
+
+  @include laptop {
+    --layout-padding-x: 32px;
+  }
+
+  @include desktop {
+    --layout-padding-x: 112px;
+  }
+
   --primary-color: #000000;
   --secondary-color: #6e6e6e;
   --tertiary-color: #e0e0e0;
@@ -22,24 +36,13 @@
   --foreground: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  [data-theme="system"] {
-    --primary-color: #ffffff;
-    --secondary-color: #757575;
-    --tertiary-color: #272727;
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  [data-theme="system"] {
-    --primary-color: #000000;
-    --secondary-color: #6e6e6e;
-    --tertiary-color: #e0e0e0;
-    --background: #ffffff;
-    --foreground: #000000;
-  }
+.fluid-container {
+  width: 100%;
+  max-width: min(100%, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--layout-padding-x);
+  padding-right: var(--layout-padding-x);
 }
 
 html {
@@ -56,30 +59,11 @@ html,
 body {
   overscroll-behavior: none;
   height: 100%;
-  background-color: var(--background);
-  color: var(--foreground);
 }
 
 body,
 #__next {
   min-height: 100dvh;
-}
-
-* {
-  user-select: none !important;
-}
-
-p,
-h2,
-a,
-button,
-input,
-label,
-textarea,
-select,
-span,
-td {
-  user-select: text !important;
 }
 
 a,
@@ -93,8 +77,8 @@ select {
 }
 
 *::selection {
-  background-color: rgba(var(--current-color), 0.2);
-  color: var(--primary-color);
+  background-color: var(--foreground);
+  color: var(--background);
 }
 
 svg.icon {
