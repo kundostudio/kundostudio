@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 
+import { Columns } from "~/components/columns";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { ThemeProvider } from "~/components/theme-provider";
@@ -78,14 +79,32 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
+const COLUMNS_DIMENSIONS = {
+  mobile: 4,
+  mobileXL: 4,
+  tablet: 8,
+  laptop: 12,
+  desktop: 12,
+  desktopXL: 12,
+} as const;
+
+const COLUMNS_GAP = {
+  mobile: 20,
+  mobileXL: 20,
+  tablet: 24,
+  laptop: 32,
+  desktop: 32,
+  desktopXL: 32,
+} as const;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${mono.variable} ${suisse.variable}`}>
-      <body>
+    <html lang="en" className={`${mono.variable} ${suisse.variable} relative`}>
+      <body className="flex flex-col min-h-screen">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -95,6 +114,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Columns dimensions={COLUMNS_DIMENSIONS} gap={COLUMNS_GAP} color="rgba(255, 0, 0, 0.2)" />
         </ThemeProvider>
       </body>
     </html>
