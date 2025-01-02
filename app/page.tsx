@@ -3,7 +3,14 @@
 import { useMediaQuery } from "@studio-freight/hamo";
 import Link from "next/link";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/accordion";
 import { Carousel } from "~/components/carousel";
+import { LinkList } from "~/components/link-list";
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import FullLogo from "~/public/full-logo.svg";
@@ -24,6 +31,25 @@ const CAROUSEL_ITEMS = [
     image: "/projects/meow.png",
     name: "Meow",
     link: "/projects/meow",
+  },
+];
+
+const CLIENTS_ITEMS = [
+  {
+    label: "Scale",
+    href: "https://scale.com/",
+  },
+  {
+    label: "Sketch",
+    href: "https://www.sketch.com/",
+  },
+  {
+    label: "Emerge Tools",
+    href: "https://emergetools.com/",
+  },
+  {
+    label: "Nhost",
+    href: "https://nhost.io/",
   },
 ];
 
@@ -110,7 +136,10 @@ export default function Home() {
         </Typography.H3>
 
         {/* Placeholder for client list */}
-        <div className="bg-tertiary col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8 aspect-[4/1]" />
+        <LinkList
+          className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8 aspect-[4/1]"
+          items={CLIENTS_ITEMS}
+        />
       </section>
 
       <div className="w-full h-px bg-tertiary" />
@@ -134,14 +163,13 @@ export default function Home() {
           innovation, our approach adapts to your specific needs.`}
         </Typography.H3>
 
-        {/* Design Section */}
+        {/* Services List - Desktop */}
         <div className="w-full h-px bg-tertiary col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8" />
 
-        <Typography.P className="text-primary md:col-start-4 lg:col-start-5 text-start">
+        <Typography.P className="hidden md:block md:col-start-4 lg:col-start-5">
           DESIGN:
         </Typography.P>
-
-        <div className="col-span-4 md:col-start-5 md:col-span-4 lg:col-start-7 xl:col-start-6 xl:col-span-7 lg:col-span-6 text-start">
+        <div className="hidden md:flex flex-col md:col-start-6 md:col-span-3 lg:col-start-7 xl:col-start-6 lg:col-span-6 xl:col-span-7">
           <Typography.P>ART & CREATIVE DIRECTION</Typography.P>
           <Typography.P>VISUAL IDENTITY</Typography.P>
           <Typography.P>PRODUCT DESIGN</Typography.P>
@@ -152,14 +180,12 @@ export default function Home() {
           <Typography.P>APPS & USER INTERFACE</Typography.P>
         </div>
 
-        {/* Development Section */}
         <div className="w-full h-px bg-tertiary col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8" />
 
-        <Typography.P className="text-primary md:col-start-4 lg:col-start-5 col-span-1">
+        <Typography.P className="hidden md:block md:col-start-4 lg:col-start-5">
           DEVELOPMENT:
         </Typography.P>
-
-        <div className="col-span-4 md:col-start-5 md:col-span-4 lg:col-start-7 lg:col-span-6 xl:col-start-6 xl:col-span-7">
+        <div className="hidden md:flex flex-col md:col-start-6 md:col-span-3 lg:col-start-7 xl:col-start-6 lg:col-span-6 xl:col-span-7">
           <Typography.P>ANIMATION DEVELOPMENT</Typography.P>
           <Typography.P>CMS INTEGRATION</Typography.P>
           <Typography.P>WEB 3D EXPERIENCES</Typography.P>
@@ -173,20 +199,54 @@ export default function Home() {
           <Typography.P>TECHNICAL CONSULTATION</Typography.P>
         </div>
 
-        {/* Animation Section */}
         <div className="w-full h-px bg-tertiary col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8" />
 
-        <Typography.P className="text-primary md:col-start-4 lg:col-start-5 col-span-1">
+        <Typography.P className="hidden md:block md:col-start-4 lg:col-start-5">
           ANIMATION:
         </Typography.P>
-
-        <div className="col-span-4 md:col-start-5 md:col-span-4 lg:col-start-7 lg:col-span-6 xl:col-start-6 xl:col-span-7">
+        <div className="hidden md:flex flex-col md:col-start-6 md:col-span-3 lg:col-start-7 xl:col-start-6 lg:col-span-6 xl:col-span-7">
           <Typography.P>PRODUCT UI</Typography.P>
           <Typography.P>LOGO REVEALS</Typography.P>
           <Typography.P>BRANDING VIDEOS</Typography.P>
           <Typography.P>EXPLAINER VIDEOS</Typography.P>
           <Typography.P>INFOGRAPHIC VIDEOS</Typography.P>
           <Typography.P>& MORE</Typography.P>
+        </div>
+
+        {/* Services List - Mobile */}
+        <div className="md:hidden col-span-4">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="design">
+              <AccordionTrigger>Design</AccordionTrigger>
+              <AccordionContent>
+                <Typography.P className="text-secondary">
+                  ART & CREATIVE DIRECTION, VISUAL IDENTITY, PRODUCT DESIGN, CONSULTING, WEBSITE
+                  DESIGN, LANDING PAGES, RESPONSIVE DESIGN, APPS & USER INTERFACE
+                </Typography.P>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="development">
+              <AccordionTrigger>Development</AccordionTrigger>
+              <AccordionContent>
+                <Typography.P className="text-secondary">
+                  ANIMATION DEVELOPMENT, WEB 3D EXPERIENCES, PERFORMANCE METRICS, ANALYTICS
+                  IMPLEMENTATION, CREATIVE DEVELOPMENT, FRONTEND DEVELOPMENT, INTERACTION DESIGN,
+                  CMS INTEGRATION, ECOMMERCE DEVELOPMENT & TECHNICAL CONSULTATION
+                </Typography.P>
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="animation">
+              <AccordionTrigger>Motion</AccordionTrigger>
+              <AccordionContent>
+                <Typography.P className="text-secondary">
+                  PRODUCT UI, LOGO REVEALS, BRANDING VIDEOS, EXPLAINER VIDEOS, INFOGRAPHIC VIDEOS &
+                  MORE
+                </Typography.P>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
