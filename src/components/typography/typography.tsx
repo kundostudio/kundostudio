@@ -6,7 +6,7 @@ function H1({ className, ...props }: JSX.IntrinsicElements["h1"]) {
   return (
     <h1
       className={cn(
-        "font-sans text-[96px] leading-[96px] font-medium tracking-[0em] ml-[-0.07em] text-start",
+        "font-sans text-[36px] leading-[40px] md:text-[96px] md:leading-[96px] font-medium tracking-[0em] ml-[-0.07em] text-start",
         className
       )}
       {...props}
