@@ -56,7 +56,7 @@ export default function About() {
             hello@kundo.studio
           </Link>{" "}
           or{" "}
-          <Link href="/contact" className="text-primary">
+          <Link href="https://cal.com/kundo" className="text-primary">
             book a call
           </Link>
         </Typography.H3>
