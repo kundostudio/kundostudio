@@ -11,7 +11,7 @@ export function Footer() {
   const isTabletUp = useMediaQuery("(min-width: 768px)");
 
   return (
-    <footer className="flex items-center justify-between p-4 fluid-container">
+    <footer className="flex items-center justify-between p-4 fluid-container pb-16 md:pb-12">
       {isTabletUp && <Logo className="h-6 w-auto" />}
       <nav className="flex flex-col -translate-x-2 md:translate-x-0 items-start md:flex-row md:items-center gap-2 md:gap-4">
         <Link href="/">
