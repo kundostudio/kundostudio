@@ -31,7 +31,7 @@ export default function Contact() {
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
         CONTACT
       </Typography.P>
-      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 pb-8">
         <Typography.H3>
           We&apos;d love to learn more about you and your business. Let&apos;s connect and explore
           how we can help you take things to the next level.{" "}
@@ -41,6 +41,7 @@ export default function Contact() {
         </Typography.H3>
       </div>
 
+      <div className="h-[1px] bg-tertiary col-span-full" />
       {/* Collaborate Section */}
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
         [ 02 ]
@@ -48,7 +49,7 @@ export default function Contact() {
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
         COLLABORATE
       </Typography.P>
-      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 pb-8">
         <Typography.H3>
           If you&apos;re a developer or designer looking to collaborate with us, we&apos;d love to
           hear from you. Please drop us a line at{" "}
@@ -59,6 +60,7 @@ export default function Contact() {
         </Typography.H3>
       </div>
 
+      <div className="h-[1px] bg-tertiary col-span-full" />
       {/* Follow Section */}
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
         [ 03 ]
@@ -66,7 +68,7 @@ export default function Contact() {
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
         FOLLOW
       </Typography.P>
-      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+      <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 pb-8">
         <Typography.H3>
           We focus on our work rather posting stuff, but is nice to connect via social media. Give
           us a follow at{" "}
