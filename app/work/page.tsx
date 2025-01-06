@@ -12,39 +12,41 @@ const PROJECTS = [
     id: 1,
     name: "RUNREAL",
     image: "/projects/runreal.png",
-    href: "/work/runreal",
+    slug: "runreal",
   },
   {
     id: 2,
     name: "REBILL",
     image: "/projects/rebill.png",
-    href: "/work/rebill",
+    slug: "rebill",
   },
   {
     id: 3,
     name: "FRESH VINTAGE",
     image: "/projects/fresh-vintage.png",
-    href: "/work/fresh-vintage",
+    slug: "fresh-vintage",
   },
   {
     id: 4,
     name: "MEOW",
     image: "/projects/meow.png",
-    href: "/work/meow",
+    slug: "meow",
   },
   {
     id: 5,
     name: "SEQUENCE",
     image: "/projects/sequence.png",
-    href: "/work/sequence",
+    slug: "sequence",
   },
   {
     id: 6,
     name: "EMERGE TOOLS",
     image: "/projects/emerge-tools.png",
-    href: "/work/emerge-tools",
+    slug: "emerge-tools",
   },
-];
+] as const;
+
+type ProjectSlug = (typeof PROJECTS)[number]["slug"];
 
 export default function Work() {
   return (
@@ -84,7 +86,11 @@ export default function Work() {
       {/* Projects Grid */}
       <div className="col-span-4 md:col-span-8 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-8">
         {PROJECTS.map((project) => (
-          <Link key={project.id} href={project.href as Route} className="group flex flex-col">
+          <Link
+            key={project.id}
+            href={`/work/${project.slug}` as Route}
+            className="group flex flex-col"
+          >
             <div className="relative aspect-[384/202] bg-black overflow-hidden border border-tertiary">
               <Image
                 src={project.image}
