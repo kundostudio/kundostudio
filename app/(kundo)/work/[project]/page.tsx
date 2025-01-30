@@ -1,21 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import { PROJECT_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
 
 interface Props {
-  params: {
-    project: string;
-  };
+  params: Promise<{ project: string }>;
 }
 
 export default async function ProjectDetail({ params }: Props) {
+  const slug = (await params).project;
+
   const { data: project } = await sanityFetch({
     query: PROJECT_QUERY,
-    params: { slug: params.project },
+    params: { slug },
   });
 
   if (!project) {
