@@ -1,5 +1,5 @@
-import { motion, MotionProps } from "framer-motion";
-import Link, { LinkRestProps } from "next/link";
+import { motion, MotionProps } from "motion/react";
+import Link, { LinkProps } from "next/link";
 import { forwardRef, type JSX } from "react";
 
 import { cn } from "~/lib/utils";
@@ -11,10 +11,11 @@ type CommonProps = {
   variant?: "default" | "highlight" | "subtle" | "pixel";
   href?: string;
   disabled?: boolean;
+  className?: string;
 };
 
 type ButtonProps = CommonProps & JSX.IntrinsicElements["button"] & MotionProps;
-type AnchorProps = CommonProps & LinkRestProps & MotionProps;
+type AnchorProps = CommonProps & Omit<LinkProps, keyof CommonProps> & MotionProps;
 
 export type Props = ButtonProps | AnchorProps;
 
@@ -45,21 +46,15 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
       pixel: styles.pixel,
     }[variant];
 
-    const handleMouseEnter = (e: any) => {
-      if (!disabled) {
-        onMouseEnter?.(e);
-      }
-    };
-
     if (href) {
-      const isExternal = href?.toString().startsWith("http");
+      const isExternal = href.toString().startsWith("http");
       return (
         <MotionLink
           ref={ref as any}
           className={cn(styles.button, sizeStyle, variantStyle, className)}
-          href={href as any}
-          onMouseEnter={handleMouseEnter}
-          {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
+          href={href}
+          onMouseEnter={onMouseEnter as (e: React.MouseEvent<HTMLAnchorElement>) => void}
+          {...(disabled && { "aria-disabled": true, tabIndex: -1 })}
           {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
           {...(props as AnchorProps)}
         >
@@ -73,7 +68,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, Props>(
         ref={ref as any}
         className={cn(styles.button, sizeStyle, variantStyle, className)}
         onClick={onClick as ButtonProps["onClick"]}
-        onMouseEnter={handleMouseEnter}
+        onMouseEnter={onMouseEnter as (e: React.MouseEvent<HTMLButtonElement>) => void}
         {...(disabled && { "aria-disabled": true, tabIndex: -1, disabled: true })}
         {...(props as ButtonProps)}
       >
