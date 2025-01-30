@@ -1,8 +1,9 @@
-"use client";
-
+"use client";;
 import { motion } from "framer-motion";
 
 import { cn } from "~/lib/utils";
+
+import type { JSX } from "react";
 
 type Props = JSX.IntrinsicElements["button"] & {
   isOpen: boolean;

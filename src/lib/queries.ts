@@ -1,0 +1,102 @@
+import { defineQuery } from "next-sanity";
+
+// Types for the query responses
+export interface Skill {
+  _id: string;
+  name: string;
+  category: "design" | "development" | "animation";
+}
+
+export interface Quote {
+  text: string;
+  author: {
+    name: string;
+    role: string;
+    image: string;
+  };
+}
+
+export interface Project {
+  _id: string;
+  name: string;
+  url?: string;
+  thumbnail: string;
+  subtitle: string;
+  description: string;
+  year: number;
+  slug: string;
+  skills: Skill[];
+  mainImage: string;
+  secondaryImage: string;
+  images?: string[];
+  quote?: Quote;
+}
+
+// Project queries
+export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && defined(slug.current)][0...12] {
+  _id,
+  name,
+  url,
+  "thumbnail": thumbnail.asset->url,
+  subtitle,
+  description,
+  year,
+  "slug": slug.current,
+  "skills": skills[]-> {
+    _id,
+    name,
+    category
+  },
+  "mainImage": mainImage.asset->url,
+  "secondaryImage": secondaryImage.asset->url,
+  "images": images[].asset->url,
+  quote {
+    text,
+    author {
+      name,
+      role,
+      "image": image.asset->url
+    }
+  }
+}`);
+
+export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current == $slug][0] {
+  _id,
+  name,
+  url,
+  "thumbnail": thumbnail.asset->url,
+  subtitle,
+  description,
+  year,
+  "slug": slug.current,
+  "skills": skills[]-> {
+    _id,
+    name,
+    category
+  },
+  "mainImage": mainImage.asset->url,
+  "secondaryImage": secondaryImage.asset->url,
+  "images": images[].asset->url,
+  quote {
+    text,
+    author {
+      name,
+      role,
+      "image": image.asset->url
+    }
+  }
+}`);
+
+// Skills queries
+export const SKILLS_QUERY = defineQuery(`*[_type == "skill"] | order(name asc) {
+  _id,
+  name,
+  category
+}`);
+
+export const SKILLS_BY_CATEGORY_QUERY =
+  defineQuery(`*[_type == "skill" && category == $category] | order(name asc) {
+  _id,
+  name,
+  category
+}`);

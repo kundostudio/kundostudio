@@ -6,14 +6,18 @@ const path = require("path");
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    typedRoutes: true,
     optimizeCss: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development",
   },
-  swcMinify: true,
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

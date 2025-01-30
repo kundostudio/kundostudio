@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type JSX } from "react";
 
 import { Typography } from "~/components/typography";
 import { cn } from "~/lib/utils";

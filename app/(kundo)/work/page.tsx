@@ -1,54 +1,15 @@
-"use client";
-
 import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
+import { PROJECTS_QUERY } from "~/lib/queries";
+import { sanityFetch } from "~/sanity/lib/live";
 
-const PROJECTS = [
-  {
-    id: 1,
-    name: "RUNREAL",
-    image: "/projects/runreal.png",
-    slug: "runreal",
-  },
-  {
-    id: 2,
-    name: "REBILL",
-    image: "/projects/rebill.png",
-    slug: "rebill",
-  },
-  {
-    id: 3,
-    name: "FRESH VINTAGE",
-    image: "/projects/fresh-vintage.png",
-    slug: "fresh-vintage",
-  },
-  {
-    id: 4,
-    name: "MEOW",
-    image: "/projects/meow.png",
-    slug: "meow",
-  },
-  {
-    id: 5,
-    name: "SEQUENCE",
-    image: "/projects/sequence.png",
-    slug: "sequence",
-  },
-  {
-    id: 6,
-    name: "EMERGE TOOLS",
-    image: "/projects/emerge-tools.png",
-    slug: "emerge-tools",
-  },
-] as const;
+export default async function Work() {
+  const { data: projects } = await sanityFetch({ query: PROJECTS_QUERY });
 
-type ProjectSlug = (typeof PROJECTS)[number]["slug"];
-
-export default function Work() {
   return (
     <Page className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pb-[120px]">
       {/* Header */}
@@ -57,7 +18,7 @@ export default function Work() {
         <div className="relative inline-block w-fit">
           <Typography.H1 className="leading-none w-fit mt-1 mb-8">Projects</Typography.H1>
           <Typography.P className="absolute top-0 -right-2 translate-x-full text-primary">
-            [{PROJECTS.length}]
+            [{projects?.length}]
           </Typography.P>
         </div>
         <Typography.P className="text-secondary uppercase">
@@ -85,16 +46,16 @@ export default function Work() {
 
       {/* Projects Grid */}
       <div className="col-span-4 md:col-span-8 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-8">
-        {PROJECTS.map((project) => (
+        {projects?.map((project, index) => (
           <Link
-            key={project.id}
+            key={project._id}
             href={`/work/${project.slug}` as Route}
             className="group flex flex-col"
           >
             <div className="relative aspect-[384/202] bg-black overflow-hidden border border-tertiary">
               <Image
-                src={project.image}
-                alt={project.name}
+                src={project.thumbnail ?? ""}
+                alt={project.name ?? ""}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
@@ -123,8 +84,8 @@ export default function Work() {
               </div>
             </div>
             <div className="flex justify-between mt-1">
-              <Typography.P>{project.name}</Typography.P>
-              <Typography.P>[{project.id}]</Typography.P>
+              <Typography.P className="uppercase">{project.name}</Typography.P>
+              <Typography.P>[{index + 1}]</Typography.P>
             </div>
           </Link>
         ))}

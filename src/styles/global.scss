@@ -8,6 +8,11 @@
 
 :root {
   --layout-padding-x: 16px;
+  --primary-color: #000000;
+  --secondary-color: #6e6e6e;
+  --tertiary-color: #e0e0e0;
+  --background: #ffffff;
+  --foreground: #000000;
 
   @include tablet {
     --layout-padding-x: 24px;
@@ -20,12 +25,6 @@
   @include desktop {
     --layout-padding-x: 112px;
   }
-
-  --primary-color: #000000;
-  --secondary-color: #6e6e6e;
-  --tertiary-color: #e0e0e0;
-  --background: #ffffff;
-  --foreground: #000000;
 }
 
 .dark {
