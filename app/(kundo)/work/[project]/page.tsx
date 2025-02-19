@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import { PROJECT_QUERY } from "~/lib/queries";

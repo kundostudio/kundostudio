@@ -14,6 +14,7 @@ import { LinkList } from "~/components/link-list";
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import FullLogo from "~/public/full-logo.svg";
+import Arrow from "~/public/icons/arrow.svg";
 
 const STUDIO_DESCRIPTION_DESKTOP =
   "KUNDO IS A TIGHT-KNIT TEAM COMBINING CRAFTSMANSHIP AND COLLABORATION TO HELP FOUNDERS SECURE FUNDING, LAUNCH PRODUCTS, AND ACHIEVE GROWTH.";
@@ -60,8 +61,8 @@ export default function Home() {
     <Page className="flex flex-col pb-[120px] !px-0" as="div">
       <section className="flex flex-col border-b border-tertiary text-start fluid-container">
         <div className="flex flex-col md:flex-row md:gap-8 md:mt-8">
-          <div className="flex-1 h-14 max-h-14 md:h-full md:max-h-full my-2 md:my-0 relative">
-            <FullLogo className="h-full max-w-full md:absolute" />
+          <div className="flex-1 h-14 md:h-auto relative">
+            <FullLogo className="h-full w-auto max-w-full object-contain md:absolute md:inset-0" />
           </div>
 
           <div className="flex-1 flex-shrink-0 h-fit">
@@ -85,9 +86,7 @@ export default function Home() {
             <Link href="/contact" className="group flex items-center gap-4">
               <Typography.H3>
                 Commissions Opened{" "}
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
+                <Arrow className="w-6 inline-block transition-transform duration-300 group-hover:translate-x-1" />
               </Typography.H3>
               <Typography.P className="text-secondary hidden lg:block">/ CONTACT</Typography.P>
             </Link>
