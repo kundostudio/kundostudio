@@ -32,8 +32,8 @@ export interface Project {
   year: number;
   slug: string;
   skills: Skill[];
-  mainImage: string;
-  secondaryImage: string;
+  mainAsset: Asset;
+  secondaryAsset: Asset;
   assets?: Asset[];
   quote?: Quote;
 }
@@ -53,8 +53,24 @@ export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && defined(slug.
     name,
     category
   },
-  "mainImage": mainImage.asset->url,
-  "secondaryImage": secondaryImage.asset->url,
+  "mainAsset": {
+    "url": select(
+      mainAsset.filetype == "img" => mainAsset.image.asset->url,
+      mainAsset.filetype == "video" => mainAsset.video.asset->url,
+      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
+    ),
+    "filetype": mainAsset.filetype,
+    "size": mainAsset.size
+  },
+  "secondaryAsset": {
+    "url": select(
+      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,
+      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,
+      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
+    ),
+    "filetype": secondaryAsset.filetype,
+    "size": secondaryAsset.size
+  },
   "assets": assets[] {
     "url": select(
       filetype == "img" => image.asset->url,
@@ -88,8 +104,24 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     name,
     category
   },
-  "mainImage": mainImage.asset->url,
-  "secondaryImage": secondaryImage.asset->url,
+  "mainAsset": {
+    "url": select(
+      mainAsset.filetype == "img" => mainAsset.image.asset->url,
+      mainAsset.filetype == "video" => mainAsset.video.asset->url,
+      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
+    ),
+    "filetype": mainAsset.filetype,
+    "size": mainAsset.size
+  },
+  "secondaryAsset": {
+    "url": select(
+      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,
+      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,
+      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
+    ),
+    "filetype": secondaryAsset.filetype,
+    "size": secondaryAsset.size
+  },
   "assets": assets[] {
     "url": select(
       filetype == "img" => image.asset->url,

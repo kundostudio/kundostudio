@@ -17,6 +17,12 @@ export default defineType({
       type: "url",
     }),
     defineField({
+      name: "year",
+      title: "Year",
+      type: "number",
+      validation: (Rule) => Rule.required().min(2000).max(new Date().getFullYear()),
+    }),
+    defineField({
       name: "thumbnail",
       title: "Thumbnail",
       type: "image",
@@ -32,54 +38,52 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "mainAsset",
+      title: "A / MAIN ASSET",
+      description: "The asset from the top fold.",
+      type: "asset",
+      options: {
+        hotspot: true,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "description",
-      title: "Description",
+      title: "A / DESCRIPTION",
       type: "text",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "year",
-      title: "Year",
-      type: "number",
-      validation: (Rule) => Rule.required().min(2000).max(new Date().getFullYear()),
-    }),
-    defineField({
       name: "skills",
-      title: "Skills",
+      title: "B / WORK",
+      description: "Add the skills used in the project.",
       type: "array",
       of: [{ type: "reference", to: [{ type: "skill" }] }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "mainImage",
-      title: "Main Image",
-      type: "image",
+      name: "secondaryAsset",
+      title: "B / SECONDARY ASSET",
+      description: "The asset below the description and before the quote.",
+      type: "asset",
       options: {
         hotspot: true,
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "secondaryImage",
-      title: "Secondary Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
+      name: "quote",
+      title: "C / QUOTE",
+      type: "quote",
     }),
+
     defineField({
       name: "assets",
-      title: "Project Assets",
+      title: "C / PROJECT ASSETS",
       type: "array",
       description:
         "Add images or videos that can be displayed in full width or compact (half width)",
       of: [{ type: "asset" }],
-    }),
-    defineField({
-      name: "quote",
-      title: "Quote",
-      type: "quote",
     }),
     defineField({
       name: "slug",

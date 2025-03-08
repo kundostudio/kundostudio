@@ -55,16 +55,24 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
       )}
 
-      {/* Project Image */}
-      {project.mainImage && (
+      {/* Main Asset */}
+      {project.mainAsset && project.mainAsset.url && (
         <div className="col-span-full aspect-[16/9] relative">
-          <Image
-            src={project.mainImage}
-            alt={project.name || "Project image"}
-            fill
-            className="object-cover"
-            priority
-          />
+          {project.mainAsset.filetype === "img" ? (
+            <Image
+              src={project.mainAsset.url}
+              alt={project.name || "Project image"}
+              fill
+              className="object-cover"
+              priority
+            />
+          ) :  (
+            <Video 
+              src={project.mainAsset.url}
+              isStreaming={project.mainAsset.filetype === "video-stream"}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
       )}
 
@@ -99,15 +107,28 @@ export default async function ProjectDetail({ params }: Props) {
         </Typography.P>
       </div>
 
-      {/* Secondary Image */}
-      {project.secondaryImage && (
+      {/* Secondary Asset */}
+      {project.secondaryAsset && project.secondaryAsset.url && (
         <div className="col-span-full aspect-video relative mt-16">
-          <Image
-            src={project.secondaryImage}
-            alt={project.name || "Secondary project image"}
-            fill
-            className="object-cover"
-          />
+          {project.secondaryAsset.filetype === "img" ? (
+            <Image
+              src={project.secondaryAsset.url}
+              alt={project.name || "Secondary project image"}
+              fill
+              className="object-cover"
+            />
+          ) : project.secondaryAsset.filetype === "video" ? (
+            <Video 
+              src={project.secondaryAsset.url}
+              className="w-full h-full object-cover"
+            />
+          ) : project.secondaryAsset.filetype === "video-stream" ? (
+            <Video 
+              src={project.secondaryAsset.url}
+              isStreaming={true}
+              className="w-full h-full object-cover"
+            />
+          ) : null}
         </div>
       )}
 
@@ -166,13 +187,18 @@ export default async function ProjectDetail({ params }: Props) {
                     fill
                     className="object-cover"
                   />
-                ) : (
+                ) : asset.filetype === "video" ? (
                   <Video 
                     src={asset.url}
-                    isStreaming={asset.filetype === "video-stream"}
                     className="w-full h-full object-cover"
                   />
-                )}
+                ) : asset.filetype === "video-stream" ? (
+                  <Video 
+                    src={asset.url}
+                    isStreaming={true}
+                    className="w-full h-full object-cover"
+                  />
+                ) : null}
               </div>
             );
           })}
