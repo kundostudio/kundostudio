@@ -16,6 +16,12 @@ export interface Quote {
   };
 }
 
+export interface Asset {
+  url: string;
+  filetype: "img" | "video" | "video-stream";
+  size: "full" | "compact";
+}
+
 export interface Project {
   _id: string;
   name: string;
@@ -28,7 +34,7 @@ export interface Project {
   skills: Skill[];
   mainImage: string;
   secondaryImage: string;
-  images?: string[];
+  assets?: Asset[];
   quote?: Quote;
 }
 
@@ -49,7 +55,15 @@ export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && defined(slug.
   },
   "mainImage": mainImage.asset->url,
   "secondaryImage": secondaryImage.asset->url,
-  "images": images[].asset->url,
+  "assets": assets[] {
+    "url": select(
+      filetype == "img" => image.asset->url,
+      filetype == "video" => video.asset->url,
+      filetype == "video-stream" => videoStream.asset->playbackId
+    ),
+    filetype,
+    size
+  },
   quote {
     text,
     author {
@@ -76,7 +90,15 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   },
   "mainImage": mainImage.asset->url,
   "secondaryImage": secondaryImage.asset->url,
-  "images": images[].asset->url,
+  "assets": assets[] {
+    "url": select(
+      filetype == "img" => image.asset->url,
+      filetype == "video" => video.asset->url,
+      filetype == "video-stream" => videoStream.asset->playbackId
+    ),
+    filetype,
+    size
+  },
   quote {
     text,
     author {

@@ -3,11 +3,19 @@ import Link from "next/link";
 
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
+import { Video } from "~/components/video";
 import { PROJECT_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
 
 interface Props {
   params: Promise<{ project: string }>;
+}
+
+// Define a local Asset type that acepta valores nulos
+interface ProjectAsset {
+  url: string | null;
+  filetype: "img" | "video" | "video-stream" | null;
+  size: "full" | "compact" | null;
 }
 
 export default async function ProjectDetail({ params }: Props) {
@@ -51,8 +59,8 @@ export default async function ProjectDetail({ params }: Props) {
       {project.mainImage && (
         <div className="col-span-full aspect-[16/9] relative">
           <Image
-            src={project.mainImage as string}
-            alt={project.name!}
+            src={project.mainImage}
+            alt={project.name || "Project image"}
             fill
             className="object-cover"
             priority
@@ -95,8 +103,8 @@ export default async function ProjectDetail({ params }: Props) {
       {project.secondaryImage && (
         <div className="col-span-full aspect-video relative mt-16">
           <Image
-            src={project.secondaryImage as string}
-            alt={project.name!}
+            src={project.secondaryImage}
+            alt={project.name || "Secondary project image"}
             fill
             className="object-cover"
           />
@@ -121,8 +129,8 @@ export default async function ProjectDetail({ params }: Props) {
             <div className="flex items-center gap-2 mt-4">
               {project.quote.author.image && (
                 <Image
-                  src={project.quote.author.image as string}
-                  alt={project.quote.author.name!}
+                  src={project.quote.author.image}
+                  alt={project.quote.author.name || "Quote author"}
                   width={24}
                   height={24}
                   className="rounded-full"
@@ -136,22 +144,38 @@ export default async function ProjectDetail({ params }: Props) {
         </>
       )}
 
-      {/* Additional Images */}
-      {project.images && project.images.length > 0 && (
+      {/* Project Assets */}
+      {project.assets && project.assets.length > 0 && (
         <div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-16">
-          {project.images.map(
-            (image, index) =>
-              image && (
-                <div key={index} className="aspect-video relative">
+          {project.assets.map((asset, index) => {
+            // Skip assets without a URL or filetype
+            if (!asset.url || !asset.filetype) return null;
+            
+            // Determine if the asset should be full width based on its size property
+            const isFullWidth = asset.size === "full";
+            
+            return (
+              <div 
+                key={index} 
+                className={`aspect-video relative ${isFullWidth ? "col-span-full" : ""}`}
+              >
+                {asset.filetype === "img" ? (
                   <Image
-                    src={image as string}
-                    alt={`${project.name} - Image ${index + 1}`}
+                    src={asset.url}
+                    alt={`${project.name || "Project"} - Asset ${index + 1}`}
                     fill
                     className="object-cover"
                   />
-                </div>
-              )
-          )}
+                ) : (
+                  <Video 
+                    src={asset.url}
+                    isStreaming={asset.filetype === "video-stream"}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </Page>
