@@ -1,70 +1,11 @@
 "use client";
 
-import { PortableText, PortableTextReactComponents } from "next-sanity";
-import { Link } from "~/components/link";
 import { Page } from "~/components/page";
+import { PortableText } from "~/components/portable-text";
 import { Typography } from "~/components/typography";
+import type { AboutPage as AboutPageType } from "~/lib/queries";
 
-// Configure the PortableText components
-const portableTextComponents: Partial<PortableTextReactComponents> = {
-  marks: {
-    link: ({ value, children }) => {
-      const { href, blank } = value || {};
-      return (
-        <Link href={href || "#"} target={blank ? "_blank" : undefined} showIcon={blank}>
-          {children}
-        </Link>
-      );
-    },
-  },
-  types: {
-    image: ({ value }) => {
-      if (!value?.asset?.url) {
-        return null;
-      }
-      const { alt, caption } = value;
-      return (
-        <figure className="my-8">
-          <div className="relative w-full aspect-video">
-            <Image
-              src={value.asset.url}
-              alt={alt || ""}
-              fill
-              className="object-cover"
-            />
-          </div>
-          {caption && (
-            <figcaption className="mt-2 text-sm text-secondary">
-              {caption}
-            </figcaption>
-          )}
-        </figure>
-      );
-    },
-  },
-  block: {
-    h1: ({ children }) => <Typography.H1>{children}</Typography.H1>,
-    h2: ({ children }) => <Typography.H2>{children}</Typography.H2>,
-    h3: ({ children }) => <Typography.H3>{children}</Typography.H3>,
-    h4: ({ children }) => <Typography.H4>{children}</Typography.H4>,
-    normal: ({ children }) => <Typography.P className="mb-4">{children}</Typography.P>,
-    blockquote: ({ children }) => (
-      <blockquote className="pl-4 border-l-2 border-primary italic my-6">
-        <Typography.P>{children}</Typography.P>
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-6 mb-6">{children}</ol>,
-  },
-  listItem: {
-    bullet: ({ children }) => <li className="mb-1">{children}</li>,
-    number: ({ children }) => <li className="mb-1">{children}</li>,
-  },
-};
-
-export function AboutPage({ aboutData }) {
+export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
   return (
     <Page className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pb-[120px]">
       {/* Header */}
@@ -94,8 +35,8 @@ export function AboutPage({ aboutData }) {
 
       {/* Content */}
       <div className="flex flex-col gap-8 col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 md:pb-8 lg:pb-24">
-      {aboutData?.content ? (
-          <PortableText value={aboutData.content} components={portableTextComponents} />
+        {aboutData?.content ? (
+          <PortableText value={aboutData.content} />
         ) : (
           <Typography.P>No content available. Add content in the Sanity Studio.</Typography.P>
         )}
