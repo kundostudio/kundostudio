@@ -15,7 +15,7 @@ import { Item } from "./item";
 import { Menu } from "./menu";
 import { MenuTrigger } from "./menu-trigger";
 
-const NAVIGATION_ITEMS = [
+export const NAVIGATION_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
@@ -27,7 +27,7 @@ export function Header() {
   const pathname = usePathname();
   const isMenuOpen = useStore((state) => state.isMenuOpen);
   const { setIsMenuOpen } = useStore.getState();
-
+ 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname, setIsMenuOpen]);

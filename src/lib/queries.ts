@@ -36,10 +36,12 @@ export interface Project {
   secondaryAsset: Asset;
   assets?: Asset[];
   quote?: Quote;
+  visible?: boolean;
 }
 
 // Project queries
-export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && defined(slug.current)][0...12] {
+export const PROJECTS_QUERY =
+  defineQuery(`*[_type == "project" && defined(slug.current) && visible == true][0...12] {
   _id,
   name,
   url,
@@ -48,6 +50,7 @@ export const PROJECTS_QUERY = defineQuery(`*[_type == "project" && defined(slug.
   description,
   year,
   "slug": slug.current,
+  visible,
   "skills": skills[]-> {
     _id,
     name,
@@ -99,6 +102,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   description,
   year,
   "slug": slug.current,
+  visible,
   "skills": skills[]-> {
     _id,
     name,

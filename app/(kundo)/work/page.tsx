@@ -2,6 +2,7 @@ import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { HackerText } from "~/components/hacker-text";
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import { PROJECTS_QUERY } from "~/lib/queries";
@@ -14,16 +15,36 @@ export default async function Work() {
     <Page className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pb-[120px]">
       {/* Header */}
       <div className="col-span-full flex flex-col mt-10 md:mt-18 lg:translate-y-6 lg:mt-28">
-        <Typography.P className="text-secondary uppercase">/ WORK</Typography.P>
+        <Typography.P className="text-secondary uppercase">
+          <HackerText
+            iterationsToAdvance={2}
+            speed={50}
+            startsComplete
+            minRepeatTime={5000}
+            maxRepeatTime={10000}
+          >
+            / WORK
+          </HackerText>
+        </Typography.P>
         <div className="relative inline-block w-fit">
           <Typography.H1 className="leading-none w-fit mt-1 mb-8">Projects</Typography.H1>
           <Typography.P className="absolute top-0 -right-2 translate-x-full text-primary">
             [{projects?.length}]
           </Typography.P>
         </div>
-        <Typography.P className="text-secondary uppercase">
-          <span className="text-primary">SELECTED PROJECTS.</span> EXPLORE THE
-          <br /> WORK WE DID WITH AMAZING CLIENTS.
+        <Typography.P className="text-secondary uppercase max-w-[250px]">
+          <span className="text-primary">
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              SELECTED PROJECTS.
+            </HackerText>
+          </span>
+            {" "}EXPLORE THE WORK WE DID WITH AMAZING CLIENTS.
         </Typography.P>
       </div>
 
@@ -31,10 +52,26 @@ export default async function Work() {
 
       {/* Section number and label */}
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-        [ 01 ]
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          [ 01 ]
+        </HackerText>
       </Typography.P>
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-        PROJECTS
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          PROJECTS
+        </HackerText>
       </Typography.P>
 
       {/* Description */}

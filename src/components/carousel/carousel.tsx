@@ -8,6 +8,8 @@ import { useState, type JSX } from "react";
 import { Typography } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
+import { CarouselButton } from "./button";
+
 interface CarouselItem {
   image: string;
   name: string;
@@ -90,20 +92,8 @@ export function Carousel({ items, description, className, ...props }: Props) {
           </AnimatePresence>
 
           {/* Navigation Buttons */}
-          <button
-            onClick={() => paginate(-1)}
-            className="absolute left-0 top-0 bottom-0 w-1/4 z-10 group"
-            aria-label="Previous slide"
-          >
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-30 bg-gradient-to-r from-tertiary to-transparent" />
-          </button>
-          <button
-            onClick={() => paginate(1)}
-            className="absolute right-0 top-0 bottom-0 w-1/4 z-10 group"
-            aria-label="Next slide"
-          >
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-30 bg-gradient-to-l from-tertiary to-transparent" />
-          </button>
+          <CarouselButton direction="left" onClick={() => paginate(-1)}>PREV</CarouselButton>
+          <CarouselButton direction="right" onClick={() => paginate(1)}>NEXT</CarouselButton>
         </div>
 
         {/* Bottom Info */}

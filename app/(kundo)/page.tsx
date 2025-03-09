@@ -4,6 +4,7 @@ import { useMediaQuery } from "@studio-freight/hamo";
 import Link from "next/link";
 
 import { Carousel } from "~/components/carousel";
+import { HackerText } from "~/components/hacker-text";
 import { LinkList } from "~/components/link-list";
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
@@ -67,7 +68,7 @@ export default function Home() {
             </Typography.P>
             <Link
               href="mailto:hello@kundo.studio"
-              className="mt-1 md:mt-8 border-t border-b border-tertiary w-full h-6 flex items-center justify-start"
+              className="mt-1 md:mt-8 border-t border-b border-tertiary w-[calc(100%+var(--layout-padding-x))] h-6 flex items-center justify-start"
             >
               <Typography.P className="text-secondary">HELLO@KUNDO.STUDIO</Typography.P>
             </Link>
@@ -115,12 +116,28 @@ export default function Home() {
         <section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pt-8 pb-16">
           {/* Section number */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-            [ 01 ]
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              [ 01 ]
+            </HackerText>
           </Typography.P>
 
           {/* Section title */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-            CLIENTS
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              CLIENTS
+            </HackerText>
           </Typography.P>
 
           {/* Main text */}
@@ -142,14 +159,29 @@ export default function Home() {
         <section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pt-8 pb-16">
           {/* Section number */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-            [ 02 ]
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              [ 02 ]
+            </HackerText>
           </Typography.P>
 
           {/* Section title */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-            SERVICES
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              SERVICES
+            </HackerText>
           </Typography.P>
-
           {/* Main text */}
           <Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
             {`We offer three core services to deliver high-impact solutions for businesses of all sizes.
@@ -164,12 +196,28 @@ export default function Home() {
         <section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-y-8 gap-x-4 md:gap-x-6 lg:gap-x-8 pt-8 pb-16">
           {/* Section number */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-            [ 03 ]
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              [ 03 ]
+            </HackerText>
           </Typography.P>
 
           {/* Section title */}
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-            PRICING
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              PRICING
+            </HackerText>
           </Typography.P>
 
           {/* Main text */}

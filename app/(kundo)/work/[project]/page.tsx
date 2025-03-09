@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HackerText } from "~/components/hacker-text";
 import { Page } from "~/components/page";
 import { Typography } from "~/components/typography";
 import { Video } from "~/components/video";
@@ -34,7 +35,17 @@ export default async function ProjectDetail({ params }: Props) {
     <Page className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pb-[120px]">
       {/* Header */}
       <div className="col-span-full flex flex-col mt-10 md:mt-18 lg:translate-y-6 lg:mt-28">
-        <Typography.P className="text-secondary uppercase">/ WORK</Typography.P>
+        <Typography.P className="text-secondary uppercase">
+          <HackerText
+            iterationsToAdvance={2}
+            speed={50}
+            startsComplete
+            minRepeatTime={5000}
+            maxRepeatTime={10000}
+          >
+            / WORK
+          </HackerText>
+        </Typography.P>
         <div className="relative inline-block w-fit">
           <Typography.H1 className="leading-none w-fit mt-1 mb-8">{project.name}</Typography.H1>
           <Typography.P className="absolute top-0 -right-2 translate-x-full text-primary">
@@ -78,10 +89,26 @@ export default async function ProjectDetail({ params }: Props) {
 
       {/* Description */}
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-        A /
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          A /
+        </HackerText>
       </Typography.P>
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-        DESCRIPTION
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          DESCRIPTION
+        </HackerText>
       </Typography.P>
       <Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
         {project.description}
@@ -91,10 +118,26 @@ export default async function ProjectDetail({ params }: Props) {
 
       {/* Work */}
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-        B /
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          B /
+        </HackerText>
       </Typography.P>
       <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-        WORK
+        <HackerText
+          iterationsToAdvance={2}
+          speed={30}
+          startsComplete
+          minRepeatTime={5000}
+          maxRepeatTime={10000}
+        >
+          WORK
+        </HackerText>
       </Typography.P>
       <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
         <Typography.P className="text-secondary uppercase">
@@ -132,22 +175,37 @@ export default async function ProjectDetail({ params }: Props) {
         </div>
       )}
 
-      <div className="h-px bg-tertiary col-span-full" />
 
       {/* Quote */}
       {project.quote?.text && project.quote.author && (
         <>
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-            C /
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              C /
+            </HackerText>
           </Typography.P>
           <Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-            QUOTE
+            <HackerText
+              iterationsToAdvance={2}
+              speed={30}
+              startsComplete
+              minRepeatTime={5000}
+              maxRepeatTime={10000}
+            >
+              QUOTE
+            </HackerText>
           </Typography.P>
           <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
             <Typography.H3 className="text-start text-balance">
               &ldquo;{project.quote.text}&rdquo;
-            </Typography.H3>
-            <div className="flex items-center gap-2 mt-4">
+              </Typography.H3>
+              <div className="flex items-center gap-2 mt-4">
               {project.quote.author.image && (
                 <Image
                   src={project.quote.author.image}

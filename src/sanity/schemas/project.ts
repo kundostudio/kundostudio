@@ -12,6 +12,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "visible",
+      title: "Visible",
+      description: "Toggle to control whether this project is displayed on the site",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
       name: "url",
       title: "URL",
       type: "url",
@@ -101,6 +108,14 @@ export default defineType({
       title: "name",
       subtitle: "subtitle",
       media: "thumbnail",
+      visible: "visible",
+    },
+    prepare({ title, subtitle, media, visible }) {
+      return {
+        title: `${title}${visible === false ? " (Hidden)" : ""}`,
+        subtitle,
+        media,
+      };
     },
   },
 });
