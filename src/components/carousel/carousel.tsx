@@ -8,12 +8,14 @@ import { useState, type JSX } from "react";
 import { Typography } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
+import { Video } from "../video";
 import { CarouselButton } from "./button";
 
 interface CarouselItem {
-  image: string;
+  src: string;
   name: string;
   link: string;
+  type?: "img" | "video" | "video-stream";
 }
 
 type Props = JSX.IntrinsicElements["div"] & {
@@ -78,15 +80,22 @@ export function Carousel({ items, description, className, ...props }: Props) {
               }}
               className="absolute inset-0"
             >
-              {/* Main Image */}
+              {/* Main Content (Image or Video) */}
               <Link href={items[currentIndex].link as any} className="block w-full h-full">
-                <Image
-                  src={items[currentIndex].image}
+                {items[currentIndex].type === "img" ? (
+                  <Image
+                  src={items[currentIndex].src}
                   alt={items[currentIndex].name}
                   fill
                   className="object-cover"
                   priority
-                />
+                /> ) : (
+                  <Video
+                    src={items[currentIndex].src}
+                    isStreaming={items[currentIndex].type === "video-stream"}
+                    className="object-cover w-full h-full"
+                  />
+                )}
               </Link>
             </motion.div>
           </AnimatePresence>

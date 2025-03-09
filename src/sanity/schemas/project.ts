@@ -19,6 +19,12 @@ export default defineType({
       initialValue: true,
     }),
     defineField({
+      name: "client",
+      title: "Client",
+      type: "reference",
+      to: [{ type: "client" }],
+    }),
+    defineField({
       name: "url",
       title: "URL",
       type: "url",
