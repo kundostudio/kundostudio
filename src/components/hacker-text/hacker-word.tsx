@@ -1,6 +1,7 @@
 import { useIntersectionObserver } from "@studio-freight/hamo"
 import clsx from "clsx"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { JSX } from "react/jsx-runtime"
 
 import styles from "./hacker-text.module.scss"
 
