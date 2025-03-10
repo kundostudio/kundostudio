@@ -1,5 +1,6 @@
 import { CONTACT_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
+
 import { ContactPage } from "./contact";
 
 export default async function Contact() {
@@ -9,3 +10,4 @@ export default async function Contact() {
     <ContactPage contactData={contactData} />
   );
 }
+ 

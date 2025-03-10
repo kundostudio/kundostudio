@@ -16,7 +16,7 @@ export function ContactPage({ contactData }: { contactData: ContactPageType | nu
           <Typography.H1 className="leading-none w-fit mt-1 mb-8">Get in Touch</Typography.H1>
         </div>
         <Typography.P className="text-secondary uppercase">
-          <span className="text-primary">LET'S WORK TOGETHER.</span> REACH OUT TO START A CONVERSATION.
+          <span className="text-primary">LET&apos;S WORK TOGETHER.</span> REACH OUT TO START A CONVERSATION.
         </Typography.P>
       </div>
 

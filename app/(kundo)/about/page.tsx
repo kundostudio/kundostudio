@@ -1,5 +1,6 @@
 import { ABOUT_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
+
 import { AboutPage } from "./about";
 
 export default async function About() {
@@ -9,3 +10,4 @@ export default async function About() {
     <AboutPage aboutData={aboutData} />
   );
 }
+ 
