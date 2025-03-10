@@ -7,11 +7,20 @@ import { Carousel } from "~/components/carousel";
 import { HackerText } from "~/components/hacker-text";
 import { LinkList } from "~/components/link-list";
 import { Page } from "~/components/page";
+import { PortableText } from "~/components/portable-text";
 import { Typography } from "~/components/typography";
 import FullLogo from "~/public/full-logo.svg";
 import Arrow from "~/public/icons/arrow.svg";
 
-export function HomePage({ studioDescriptionDesktop, studioDescriptionMobile, carouselProjects, featuredClients }) {
+export function HomePage({ 
+  studioDescriptionDesktop, 
+  studioDescriptionMobile, 
+  carouselProjects, 
+  clientsDescription,
+  featuredClients,
+  servicesDescription,
+  pricingDescription
+}) {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const description = isMobile ? studioDescriptionMobile : studioDescriptionDesktop;
 
@@ -106,12 +115,19 @@ export function HomePage({ studioDescriptionDesktop, studioDescriptionMobile, ca
           </Typography.P>
 
           {/* Main text */}
-          <Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-            Working with clients globally, we bring ideas to life through design—serving as partners
-            and founding designers to build innovative solutions together.
-          </Typography.H3>
+          <div className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+            {clientsDescription ? (
+              <PortableText value={clientsDescription} />
+            ) : (
+              <Typography.H3>
+                Working with clients globally, we bring ideas to life through design—serving as partners
+                and founding designers to build innovative solutions together.
+              </Typography.H3>
+            )}
+          </div>
 
-          {featuredClients && (
+          {/* Client list */}
+          {featuredClients && featuredClients.length > 0 && (
             <LinkList
               className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-8 aspect-[4/1]"
               items={featuredClients}
@@ -148,12 +164,19 @@ export function HomePage({ studioDescriptionDesktop, studioDescriptionMobile, ca
               SERVICES
             </HackerText>
           </Typography.P>
+          
           {/* Main text */}
-          <Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-            {`We offer three core services to deliver high-impact solutions for businesses of all sizes.
-          Whether you're a startup founder looking to scale or an established company seeking fresh
-          innovation, our approach adapts to your specific needs.`}
-          </Typography.H3>
+          <div className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+            {servicesDescription ? (
+              <PortableText value={servicesDescription} />
+            ) : (
+              <Typography.H3>
+                {`We offer three core services to deliver high-impact solutions for businesses of all sizes.
+                Whether you're a startup founder looking to scale or an established company seeking fresh
+                innovation, our approach adapts to your specific needs.`}
+              </Typography.H3>
+            )}
+          </div>
         </section>
 
         <div className="w-full h-px bg-tertiary" />
@@ -187,11 +210,17 @@ export function HomePage({ studioDescriptionDesktop, studioDescriptionMobile, ca
           </Typography.P>
 
           {/* Main text */}
-          <Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 text-pretty">
-            We partner with companies at every stage, from bootstrapped startups to Series D+
-            organizations. With a focus on collaboration, we create customized solutions that
-            maximize value and drive long-term success.
-          </Typography.H3>
+          <div className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6 text-pretty">
+            {pricingDescription ? (
+              <PortableText value={pricingDescription} />
+            ) : (
+              <Typography.H3>
+                We partner with companies at every stage, from bootstrapped startups to Series D+
+                organizations. With a focus on collaboration, we create customized solutions that
+                maximize value and drive long-term success.
+              </Typography.H3>
+            )}
+          </div>
         </section>
       </main>
     </Page>

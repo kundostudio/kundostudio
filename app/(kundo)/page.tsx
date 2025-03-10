@@ -1,7 +1,8 @@
 import { HOME_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
-import { HomePage } from "./home/page";
 
+import { HomePage } from "./home/page";
+ 
 // Fallback values in case Sanity data is not available
 const FALLBACK_STUDIO_DESCRIPTION_DESKTOP =
   "KUNDO IS A TIGHT-KNIT TEAM COMBINING CRAFTSMANSHIP AND COLLABORATION TO HELP FOUNDERS SECURE FUNDING, LAUNCH PRODUCTS, AND ACHIEVE GROWTH.";
@@ -52,7 +53,10 @@ export default async function Home() {
       studioDescriptionDesktop={studioDescriptionDesktop}
       studioDescriptionMobile={studioDescriptionMobile}
       carouselProjects={carouselProjects}
+      clientsDescription={data?.clientsDescription}
       featuredClients={featuredClients}
+      servicesDescription={data?.servicesDescription}
+      pricingDescription={data?.pricingDescription}
     />
   );
 }

@@ -9,6 +9,7 @@ import { richText } from "./objects/richText";
 import project from "./project";
 import quote from "./quote";
 import skill from "./skill";
+import works from "./works";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,6 +22,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     client,
     about,
     contact,
+    works,
     // Objects
     richText,
   ],

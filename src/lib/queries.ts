@@ -59,7 +59,10 @@ export interface HomePage {
   studioDescriptionDesktop: string;
   studioDescriptionMobile: string;
   carouselProjects: CarouselItem[];
+  clientsDescription: any[]; // Using 'any' for PortableText content
   featuredClients?: Client[];
+  servicesDescription: any[]; // Using 'any' for PortableText content
+  pricingDescription: any[]; // Using 'any' for PortableText content
   clients?: Client[];
 }
 
@@ -82,6 +85,13 @@ export interface ContactPage {
   socialLinks?: SocialLink[];
 }
 
+export interface WorksPage {
+  title: string;
+  subtitle?: string;
+  description: any[]; // Using 'any' for PortableText content
+  featuredProjects: Project[];
+}
+
 // Home page query
 export const HOME_QUERY = defineQuery(`*[_type == "home" && _id == "home"][0] {
   studioDescriptionDesktop,
@@ -97,12 +107,21 @@ export const HOME_QUERY = defineQuery(`*[_type == "home" && _id == "home"][0] {
     ),
     "type": mainAsset.filetype
   },
+  clientsDescription,
   "featuredClients": featuredClients[]-> {
     _id,
     name,
     website,
     "logo": logo.asset->url
   },
+  servicesDescription,
+  pricingDescription,
+  "clients": *[_type == "client" && visible != false] | order(name asc) {
+    _id,
+    name,
+    website,
+    "logo": logo.asset->url
+  }
 }`);
 
 // Project queries
@@ -263,5 +282,69 @@ export const CONTACT_QUERY = defineQuery(`*[_type == "contact" && _id == "contac
     platform,
     url,
     label
+  }
+}`);
+
+// Works page query
+export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0] {
+  title,
+  subtitle,
+  description,
+  "featuredProjects": featuredProjects[]-> {
+    _id,
+    name,
+    url,
+    "thumbnail": thumbnail.asset->url,
+    subtitle,
+    description,
+    year,
+    "slug": slug.current,
+    visible,
+    "client": client-> {
+      _id,
+      name,
+      website,
+      "logo": logo.asset->url
+    },
+    "skills": skills[]-> {
+      _id,
+      name,
+      category
+    },
+    "mainAsset": {
+      "url": select(
+        mainAsset.filetype == "img" => mainAsset.image.asset->url,
+        mainAsset.filetype == "video" => mainAsset.video.asset->url,
+        mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
+      ),
+      "filetype": mainAsset.filetype,
+      "size": mainAsset.size
+    },
+    "secondaryAsset": {
+      "url": select(
+        secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,
+        secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,
+        secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
+      ),
+      "filetype": secondaryAsset.filetype,
+      "size": secondaryAsset.size
+    },
+    "assets": assets[] {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      filetype,
+      size
+    },
+    quote {
+      text,
+      author {
+        name,
+        role,
+        "image": image.asset->url
+      }
+    }
   }
 }`);

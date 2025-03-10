@@ -8,22 +8,6 @@ export default defineType({
   // Only one instance of this document should exist
   fields: [
     defineField({
-      name: "carouselProjects",
-      title: "Carousel Projects",
-      description: "Select projects to display in the home page carousel",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "project" }],
-          options: {
-            filter: "visible == true",
-          },
-        },
-      ],
-      validation: (Rule) => Rule.required().min(1).max(10),
-    }),
-    defineField({
       name: "studioDescriptionDesktop",
       title: "Studio Description (Desktop)",
       type: "text",
@@ -40,8 +24,31 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "carouselProjects",
+      title: "Carousel Projects",
+      description: "Select projects to display in the home page carousel",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "project" }],
+          options: {
+            filter: "visible == true",
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1).max(10),
+    }),
+    defineField({
+      name: "clientsDescription",
+      title: "01 / CLIENTS: Description",
+      description: "Rich text content for the Clients section",
+      type: "richText",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "featuredClients",
-      title: "Featured Clients",
+      title: "01 / CLIENTS: Featured Clients",
       description: "Select clients to highlight on the home page",
       type: "array",
       of: [
@@ -53,6 +60,20 @@ export default defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "servicesDescription",
+      title: "02 / SERVICES: Description",
+      description: "Rich text content for the Services section",
+      type: "richText",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "pricingDescription",
+      title: "03 / PRICING: Description",
+      description: "Rich text content for the Pricing section",
+      type: "richText",
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {

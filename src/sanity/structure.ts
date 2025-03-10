@@ -9,6 +9,10 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Home Page")
         .child(S.document().schemaType("home").documentId("home").title("Home Page")),
+      // Singleton for Works Page
+      S.listItem()
+        .title("Works Page")
+        .child(S.document().schemaType("works").documentId("works").title("Works Page")),
       // Singleton for About Page
       S.listItem()
         .title("About Page")
@@ -17,8 +21,12 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Contact Page")
         .child(S.document().schemaType("contact").documentId("contact").title("Contact Page")),
+
+      // Divider
+      S.divider(),
+
       // Regular document types
       ...S.documentTypeListItems().filter(
-        (listItem) => !["home", "about", "contact"].includes(listItem.getId() as string)
+        (listItem) => !["home", "about", "contact", "works"].includes(listItem.getId() as string)
       ),
     ]);
