@@ -122,7 +122,7 @@ export default async function RootLayout({
       enableSystem
       disableTransitionOnChange
     >
-      <div className={`${inter.variable} fluid-container`}>
+      <div className={`${inter.variable} fluid-container max-w-[1366px]`}>
         <nav className="flex flex-row py-[17px]">
           <Logo className="fill-[#FAFAFA] size-[18px]" />
         </nav>
