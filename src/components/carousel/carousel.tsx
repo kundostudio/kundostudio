@@ -9,6 +9,7 @@ import { Typography } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
 import { Video } from "../video";
+
 import { CarouselButton } from "./button";
 
 interface CarouselItem {
@@ -28,7 +29,8 @@ export function Carousel({ items, description, className, ...props }: Props) {
   const [[page, direction], setPage] = useState([0, 0]);
 
   const paginate = (newDirection: number) => {
-    const newIndex = (currentIndex + newDirection + items.length) % items.length;
+    const newIndex =
+      (currentIndex + newDirection + items.length) % items.length;
     setPage([page + newDirection, newDirection]);
     setCurrentIndex(newIndex);
   };
@@ -81,15 +83,19 @@ export function Carousel({ items, description, className, ...props }: Props) {
               className="absolute inset-0"
             >
               {/* Main Content (Image or Video) */}
-              <Link href={items[currentIndex].link as any} className="block w-full h-full">
+              <Link
+                href={items[currentIndex].link as any}
+                className="block w-full h-full"
+              >
                 {items[currentIndex].type === "img" ? (
                   <Image
-                  src={items[currentIndex].src}
-                  alt={items[currentIndex].name}
-                  fill
-                  className="object-cover"
-                  priority
-                /> ) : (
+                    src={items[currentIndex].src}
+                    alt={items[currentIndex].name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
                   <Video
                     src={items[currentIndex].src}
                     isStreaming={items[currentIndex].type === "video-stream"}
@@ -101,8 +107,12 @@ export function Carousel({ items, description, className, ...props }: Props) {
           </AnimatePresence>
 
           {/* Navigation Buttons */}
-          <CarouselButton direction="left" onClick={() => paginate(-1)}>PREV</CarouselButton>
-          <CarouselButton direction="right" onClick={() => paginate(1)}>NEXT</CarouselButton>
+          <CarouselButton direction="left" onClick={() => paginate(-1)}>
+            PREV
+          </CarouselButton>
+          <CarouselButton direction="right" onClick={() => paginate(1)}>
+            NEXT
+          </CarouselButton>
         </div>
 
         {/* Bottom Info */}
@@ -112,7 +122,8 @@ export function Carousel({ items, description, className, ...props }: Props) {
 
           {/* Pagination */}
           <Typography.P className="text-primary">
-            {String(currentIndex + 1).padStart(2, "0")} — {String(items.length).padStart(2, "0")}
+            {String(currentIndex + 1).padStart(2, "0")} —{" "}
+            {String(items.length).padStart(2, "0")}
           </Typography.P>
         </div>
       </div>

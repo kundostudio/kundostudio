@@ -1,10 +1,10 @@
-"use client";;
+"use client";
+
 import Link from "next/link";
+import type { JSX } from "react";
 
 import { Typography } from "~/components/typography";
 import ArrowUpRight from "~/public/icons/arrow-up-right.svg";
-
-import type { JSX } from "react";
 
 interface LinkItem {
   label: string;
