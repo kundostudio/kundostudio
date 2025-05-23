@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { VisualEditing } from "next-sanity";
-import { Roboto_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 
@@ -9,9 +9,18 @@ import { DisableDraftMode } from "~/components/disable-draft-mode";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { ThemeProvider } from "~/components/theme-provider";
+import { Typography } from "~/components/typography";
+import Logo from "~/public/logo.svg";
 import { SanityLive } from "~/sanity/lib/live";
 
 import "~/styles/global.scss";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: "500",
+  variable: "--font-inter",
+  display: "swap",
+});
 
 const mono = Roboto_Mono({
   subsets: ["latin"],
@@ -106,10 +115,43 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className={`${inter.variable} fluid-container`}>
+        <nav className="flex flex-row py-[17px]">
+          <Logo className="fill-[#FAFAFA] size-[18px]" />
+        </nav>
+        <section className="flex flex-col pt-[178px]">
+          <Typography.P className="text-[#FAFAFA] font-[510] text-2xl font-inter leading-8">
+            A collaborative studio practice.
+          </Typography.P>
+          <Typography.P className="text-[#FAFAFA] font-[510] text-2xl font-inter leading-8">
+            For inquiries{" "}
+            <a href="mailto:hello@kundo.studio" className="underline">
+              hello@kundo.studio
+            </a>
+          </Typography.P>
+        </section>
+      </div>
+    </ThemeProvider>
+  );
+
   const isDraftMode = await (await draftMode()).isEnabled;
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <div className={`${mono.variable} ${suisse.variable} relative flex flex-col min-h-screen`}>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div
+        className={`${mono.variable} ${suisse.variable} relative flex flex-col min-h-screen`}
+      >
         <Header />
         {children}
         <SanityLive />
@@ -120,7 +162,11 @@ export default async function RootLayout({
           </>
         )}
         <Footer />
-        <Columns dimensions={COLUMNS_DIMENSIONS} gap={COLUMNS_GAP} color="rgba(255, 0, 0, 0.2)" />
+        <Columns
+          dimensions={COLUMNS_DIMENSIONS}
+          gap={COLUMNS_GAP}
+          color="rgba(255, 0, 0, 0.2)"
+        />
       </div>
     </ThemeProvider>
   );
