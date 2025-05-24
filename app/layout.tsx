@@ -1,24 +1,21 @@
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* FORCE DARK MODE BEFORE HYDRATION */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.documentElement.classList.add('dark');
-              localStorage.setItem('theme', 'dark');
-            `,
-          }}
-        />
-      </head>
-      <body className="bg-background text-foreground" suppressHydrationWarning>
-        {children}
-      </body>
-    </html>
-  );
-}
+<head>
+  {/* Force dark mode on first paint */}
+  <style>{`
+    html {
+      background: black;
+      color-scheme: dark;
+    }
+    html:not(.dark) {
+      transition: none !important;
+      color-scheme: dark !important;
+    }
+  `}</style>
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      `,
+    }}
+  />
+</head>
