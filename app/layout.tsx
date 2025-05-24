@@ -5,7 +5,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body suppressHydrationWarning>{children}</body>
+      <body className="bg-background text-foreground" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
