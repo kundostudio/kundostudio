@@ -5,7 +5,16 @@ import * as React from "react";
 
 export function ThemeProvider({
   children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="dark"
+      forcedTheme="dark"
+    >
+      {children}
+    </NextThemesProvider>
+  );
 }
