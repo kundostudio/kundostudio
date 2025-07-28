@@ -13,28 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <head>
-        {/* Forzar dark mode en el primer render */}
-        <style>{`
-          html {
-            background: black;
-            color-scheme: dark;
-          }
-          html:not(.dark) {
-            transition: none !important;
-            color-scheme: dark !important;
-          }
-        `}</style>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.documentElement.classList.remove('light');
-              document.documentElement.classList.add('dark');
-            `,
-          }}
-        />
-      </head>
-      <body>{children}</body>
+      <body className="bg-black text-white">{children}</body>
     </html>
   );
 }
