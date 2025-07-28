@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
-
 const plugin = require("tailwindcss/plugin");
 
 const config: Config = {
@@ -8,6 +7,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // Modo oscuro forzado mediante clase
   darkMode: "class",
   theme: {
     screens: {
@@ -61,4 +61,5 @@ const config: Config = {
     }),
   ],
 };
+
 export default config;
