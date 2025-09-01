@@ -5,78 +5,104 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-import { Time } from "~/components/time";
-import { Typography } from "~/components/typography";
+import { Button } from "~/components/button";
+import * as Typography from "~/components/typography";
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
 import Logo from "~/public/logo.svg";
 
-import { Item } from "./item";
 import { Menu } from "./menu";
-import { MenuTrigger } from "./menu-trigger";
 
 export const NAVIGATION_ITEMS = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+	{ href: "/", label: "Home" },
+	{ href: "/work", label: "Work" },
+	{ href: "/about", label: "About" },
 ] as const;
 
-export function Header() {
-  const isMobile = useMediaQuery("(max-width: 767px)");
-  const pathname = usePathname();
-  const isMenuOpen = useStore((state) => state.isMenuOpen);
-  const { setIsMenuOpen } = useStore.getState();
- 
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname, setIsMenuOpen]);
+type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
-  const handleLogoClick = () => {
-    if (pathname === "/") {
-      setIsMenuOpen(false);
-    }
-  };
+export function Header({ className, ...props }: HeaderProps) {
+	const isMobile = useMediaQuery("(max-width: 639px)");
+	const pathname = usePathname();
+	const isMenuOpen = useStore((state) => state.isMenuOpen);
+	const { setIsMenuOpen } = useStore.getState();
 
-  const handleToggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+	useEffect(() => {
+		setIsMenuOpen(false);
+	}, [pathname, setIsMenuOpen]);
 
-  if (isMobile) {
-    return (
-      <>
-        <header
-          className={cn(
-            "fixed top-0 left-0 right-0 z-[70] h-10 mx-4 bg-background flex justify-between items-center",
-            !isMenuOpen && "border-b border-tertiary"
-          )}
-        >
-          <Link href="/" onClick={handleLogoClick}>
-            <Logo className="h-6 w-auto" />
-          </Link>
-          <MenuTrigger isOpen={isMenuOpen} onClick={handleToggleMenu} className="translate-x-1" />
-        </header>
-        <Menu isOpen={isMenuOpen}>
-          <div className="flex h-full w-full flex-col justify-end items-start gap-4 pb-16">
-            {NAVIGATION_ITEMS.map((item) => (
-              <a key={item.href} href={item.href}>
-                <Typography.H3>{item.label}</Typography.H3>
-              </a>
-            ))}
-          </div>
-        </Menu>
-      </>
-    );
-  }
+	const handleLogoClick = () => {
+		if (pathname === "/") {
+			setIsMenuOpen(false);
+		}
+	};
 
-  return (
-    <header className="fixed flex justify-center top-0 left-0 h-6 border-b border-solid border-tertiary w-full z-50 bg-background">
-      <nav className="flex justify-between items-center fluid-container">
-        {NAVIGATION_ITEMS.map((item) => (
-          <Item key={item.href} {...item} />
-        ))}
-        <Time />
-      </nav>
-    </header>
-  );
+	const handleToggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
+	if (isMobile) {
+		return (
+			<>
+				<header className="w-full h-12 px-5 flex justify-between items-center relative">
+					<Link href="/" onClick={handleLogoClick}>
+						<Logo className="h-4" />
+					</Link>
+					<button
+						type="button"
+						className={cn(
+							"w-[18.5px] h-[18.5px] rounded-full border border-primary absolute z-100 right-5 top-0 bottom-0 my-auto",
+							isMenuOpen ? "bg-primary" : "bg-transparent",
+						)}
+						onClick={handleToggleMenu}
+					/>
+				</header>
+				<Menu isOpen={isMenuOpen}>
+					<div className="flex h-full w-full flex-col justify-end items-start gap-4 pb-16">
+						{NAVIGATION_ITEMS.map((item) => (
+							<a key={item.href} href={item.href}>
+								<Typography.H3>{item.label}</Typography.H3>
+							</a>
+						))}
+					</div>
+				</Menu>
+			</>
+		);
+	}
+
+	return (
+		<header
+			className={cn(
+				"flex w-full mx-auto justify-between h-8 px-19 md:px-3 lg:px-11 xl:px-0 max-w-256 relative",
+				className,
+			)}
+			{...props}
+		>
+			<nav className="flex justify-between items-center gap-4">
+				{NAVIGATION_ITEMS.map((item) => (
+					<Link
+						href={item.href}
+						key={item.href}
+						className={cn("h-full px-4 -ml-4 flex items-center justify-center relative")}
+					>
+						<span
+							key={item.href}
+							className={cn(
+								"text-primary w-fit relative",
+								Typography.buttonStyles,
+								pathname === item.href &&
+									"after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-px after:bg-primary after:rounded-full",
+							)}
+						>
+							{item.label}
+						</span>
+					</Link>
+				))}
+			</nav>
+			<Link href="/" className="absolute inset-0 m-auto size-fit" onClick={handleLogoClick}>
+				<Logo className="h-8 w-12 p-2" />
+			</Link>
+			<Button>Get in touch</Button>
+		</header>
+	);
 }

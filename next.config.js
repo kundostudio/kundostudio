@@ -4,122 +4,117 @@ const path = require("path");
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
-  reactStrictMode: true,
-  experimental: {
-    optimizeCss: true,
-  },
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development",
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-      },
-    ],
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    formats: ["image/avif", "image/webp"],
-  },
-  // add @import 'styles/_functions'; to all scss files.
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-    prependData: `@import '~/styles/_functions';`,
-  },
-  webpack: (config, options) => {
-    // handle font files
-    config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: {
-        loader: "file-loader",
-        options: {
-          publicPath: "/_next/static/fonts/",
-          outputPath: "static/fonts/",
-          name: "[name].[ext]",
-          esModule: false,
-        },
-      },
-    });
+	reactStrictMode: true,
+	experimental: {
+		optimizeCss: true,
+	},
+	compiler: {
+		removeConsole: process.env.NODE_ENV !== "development",
+	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "cdn.sanity.io",
+			},
+		],
+		dangerouslyAllowSVG: true,
+		contentDispositionType: "attachment",
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+		formats: ["image/avif", "image/webp"],
+	},
+	webpack: (config, options) => {
+		// handle font files
+		config.module.rules.push({
+			test: /\.(woff|woff2|eot|ttf|otf)$/,
+			use: {
+				loader: "file-loader",
+				options: {
+					publicPath: "/_next/static/fonts/",
+					outputPath: "static/fonts/",
+					name: "[name].[ext]",
+					esModule: false,
+				},
+			},
+		});
 
-    // Add audio files loader
-    config.module.rules.push({
-      test: /\.(wav|mp3)$/i,
-      use: {
-        loader: "file-loader",
-        options: {
-          publicPath: "/_next/static/audio/",
-          outputPath: "static/audio/",
-          name: "[name].[ext]",
-          esModule: false,
-        },
-      },
-    });
+		// Add audio files loader
+		config.module.rules.push({
+			test: /\.(wav|mp3)$/i,
+			use: {
+				loader: "file-loader",
+				options: {
+					publicPath: "/_next/static/audio/",
+					outputPath: "static/audio/",
+					name: "[name].[ext]",
+					esModule: false,
+				},
+			},
+		});
 
-    config.module.rules.push({
-      test: /\.svg$/,
-      oneOf: [
-        {
-          resourceQuery: /url$/,
-          use: "raw-loader",
-        },
-        {
-          use: [
-            {
-              loader: "@svgr/webpack",
-              options: {
-                memo: true,
-                dimensions: false,
-                svgoConfig: {
-                  plugins: ["removeDimensions"],
-                },
-              },
-            },
-          ],
-        },
-      ],
-    });
+		config.module.rules.push({
+			test: /\.svg$/,
+			oneOf: [
+				{
+					resourceQuery: /url$/,
+					use: "raw-loader",
+				},
+				{
+					use: [
+						{
+							loader: "@svgr/webpack",
+							options: {
+								memo: true,
+								dimensions: false,
+								svgoConfig: {
+									plugins: ["removeDimensions"],
+								},
+							},
+						},
+					],
+				},
+			],
+		});
 
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag)$/,
-      use: ["raw-loader", "glslify-loader"],
-    });
+		config.module.rules.push({
+			test: /\.(glsl|vs|fs|vert|frag)$/,
+			use: ["raw-loader", "glslify-loader"],
+		});
 
-    // Agregar loader para archivos .txt
-    config.module.rules.push({
-      test: /\.txt$/,
-      use: "raw-loader",
-    });
+		// Agregar loader para archivos .txt
+		config.module.rules.push({
+			test: /\.txt$/,
+			use: "raw-loader",
+		});
 
-    return config;
-  },
-  headers: async () => {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
-          },
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
-          },
-        ],
-      },
-    ];
-  },
+		return config;
+	},
+	headers: async () => {
+		return [
+			{
+				source: "/(.*)",
+				headers: [
+					{
+						key: "X-Content-Type-Options",
+						value: "nosniff",
+					},
+					{
+						key: "X-Frame-Options",
+						value: "SAMEORIGIN",
+					},
+					{
+						key: "X-XSS-Protection",
+						value: "1; mode=block",
+					},
+				],
+			},
+		];
+	},
 };
 
 module.exports = () => {
-  const plugins = [];
-  return plugins.reduce((acc, plugin) => plugin(acc), {
-    ...nextConfig,
-  });
+	const plugins = [];
+	return plugins.reduce((acc, plugin) => plugin(acc), {
+		...nextConfig,
+	});
 };

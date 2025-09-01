@@ -2,131 +2,105 @@ import { defineQuery } from "next-sanity";
 
 // Types for the query responses
 export interface Skill {
-  _id: string;
-  name: string;
-  category: "design" | "development" | "animation";
+	_id: string;
+	name: string;
+	category: "design" | "development" | "animation";
 }
 
 export interface Quote {
-  text: string;
-  author: {
-    name: string;
-    role: string;
-    image: string;
-  };
+	text: string;
+	author: {
+		name: string;
+		role: string;
+		image: string;
+	};
 }
 
 export interface Asset {
-  url: string;
-  filetype: "img" | "video" | "video-stream";
-  size: "full" | "compact";
+	url: string;
+	filetype: "img" | "video" | "video-stream";
 }
 
 export interface Client {
-  _id: string;
-  name: string;
-  website: string;
-  logo?: string;
+	_id: string;
+	name: string;
+	website: string;
+	logo?: string;
 }
 
 export interface Project {
-  _id: string;
-  name: string;
-  url?: string;
-  thumbnail: string;
-  subtitle: string;
-  description: string;
-  year: number;
-  slug: string;
-  skills: Skill[];
-  mainAsset: Asset;
-  secondaryAsset: Asset;
-  assets?: Asset[];
-  quote?: Quote;
-  visible?: boolean;
-  client?: Client;
+	_id: string;
+	name: string;
+	url?: string;
+	thumbnail: string;
+	subtitle: string;
+	description: string;
+	year: number;
+	slug: string;
+	skills: Skill[];
+	mainAsset: Asset;
+	secondaryAsset: Asset;
+	assets?: Asset[];
+	quote?: Quote;
+	visible?: boolean;
+	client?: Client;
 }
 
 export interface CarouselItem {
-  _id: string;
-  name: string;
-  slug: string;
-  src: string;
-  type: "img" | "video" | "video-stream";
+	_id: string;
+	name: string;
+	slug: string;
+	src: string;
+	type: "img" | "video" | "video-stream";
 }
 
 export interface HomePage {
-  studioDescriptionDesktop: string;
-  studioDescriptionMobile: string;
-  carouselProjects: CarouselItem[];
-  clientsDescription: any[]; // Using 'any' for PortableText content
-  featuredClients?: Client[];
-  servicesDescription: any[]; // Using 'any' for PortableText content
-  pricingDescription: any[]; // Using 'any' for PortableText content
-  clients?: Client[];
+	title: string;
+	asset?: Asset;
 }
 
 export interface AboutPage {
-  content: any[]; // Using 'any' for PortableText content
+	content: any[]; // Using 'any' for PortableText content
 }
 
 export interface SocialLink {
-  platform: string;
-  url: string;
-  label?: string;
+	platform: string;
+	url: string;
+	label?: string;
 }
 
 export interface ContactPage {
-  contactContent: any[]; // Using 'any' for PortableText content
-  collaborateContent: any[]; // Using 'any' for PortableText content
-  followContent: any[]; // Using 'any' for PortableText content
-  email: string;
-  calendarLink?: string;
-  socialLinks?: SocialLink[];
+	contactContent: any[]; // Using 'any' for PortableText content
+	collaborateContent: any[]; // Using 'any' for PortableText content
+	followContent: any[]; // Using 'any' for PortableText content
+	email: string;
+	calendarLink?: string;
+	socialLinks?: SocialLink[];
 }
 
 export interface WorksPage {
-  title: string;
-  subtitle?: string;
-  description: any[]; // Using 'any' for PortableText content
-  featuredProjects: Project[];
+	title: string;
+	subtitle?: string;
+	description: any[]; // Using 'any' for PortableText content
+	featuredProjects: Project[];
 }
 
 // Home page query
 export const HOME_QUERY = defineQuery(`*[_type == "home" && _id == "home"][0] {
-  studioDescriptionDesktop,
-  studioDescriptionMobile,
-  "carouselProjects": carouselProjects[]-> {
-    _id,
-    name,
-    "slug": slug.current,
-    "src": select(
-      mainAsset.filetype == "img" => mainAsset.image.asset->url,
-      mainAsset.filetype == "video" => mainAsset.video.asset->url,
-      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
+  title,
+  "asset": {
+    "url": select(
+      asset.filetype == "img" => asset.image.asset->url,
+      asset.filetype == "video" => asset.video.asset->url,
+      asset.filetype == "video-stream" => asset.videoStream.asset->playbackId
     ),
-    "type": mainAsset.filetype
-  },
-  clientsDescription,
-  "featuredClients": featuredClients[]-> {
-    _id,
-    name,
-    website,
-    "logo": logo.asset->url
-  },
-  servicesDescription,
-  pricingDescription,
-  "clients": *[_type == "client" && visible != false] | order(name asc) {
-    _id,
-    name,
-    website,
-    "logo": logo.asset->url
+    "filetype": asset.filetype
   }
 }`);
 
 // Project queries
 export const PROJECTS_QUERY =
-  defineQuery(`*[_type == "project" && defined(slug.current) && visible == true][0...12] {
+	defineQuery(`*[_type == "project" && defined(slug.current) && visible == true][0...12] {
   _id,
   name,
   url,
@@ -154,7 +128,7 @@ export const PROJECTS_QUERY =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-    "size": mainAsset.size
+
   },
   "secondaryAsset": {
     "url": select(
@@ -163,7 +137,7 @@ export const PROJECTS_QUERY =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-    "size": secondaryAsset.size
+
   },
   "assets": assets[] {
     "url": select(
@@ -172,7 +146,7 @@ export const PROJECTS_QUERY =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-    size
+
   },
   quote {
     text,
@@ -212,7 +186,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-    "size": mainAsset.size
+
   },
   "secondaryAsset": {
     "url": select(
@@ -221,7 +195,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-    "size": secondaryAsset.size
+
   },
   "assets": assets[] {
     "url": select(
@@ -230,7 +204,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-    size
+
   },
   quote {
     text,
@@ -250,7 +224,7 @@ export const SKILLS_QUERY = defineQuery(`*[_type == "skill"] | order(name asc) {
 }`);
 
 export const SKILLS_BY_CATEGORY_QUERY =
-  defineQuery(`*[_type == "skill" && category == $category] | order(name asc) {
+	defineQuery(`*[_type == "skill" && category == $category] | order(name asc) {
   _id,
   name,
   category
@@ -258,7 +232,7 @@ export const SKILLS_BY_CATEGORY_QUERY =
 
 // Clients query
 export const CLIENTS_QUERY =
-  defineQuery(`*[_type == "client" && visible != false] | order(name asc) {
+	defineQuery(`*[_type == "client" && visible != false] | order(name asc) {
   _id,
   name,
   website,
@@ -318,7 +292,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
       ),
       "filetype": mainAsset.filetype,
-      "size": mainAsset.size
+  
     },
     "secondaryAsset": {
       "url": select(
@@ -327,7 +301,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
       ),
       "filetype": secondaryAsset.filetype,
-      "size": secondaryAsset.size
+  
     },
     "assets": assets[] {
       "url": select(
@@ -336,7 +310,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         filetype == "video-stream" => videoStream.asset->playbackId
       ),
       filetype,
-      size
+  
     },
     quote {
       text,

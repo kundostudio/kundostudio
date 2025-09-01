@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* biome-ignore lint/suspicious/noUnknownAtRules: <explanation> */
+@theme {
+	/* Color primitives */
+	--background: 0 0 0;
+	--primary: 255 255 255;
+	--secondary: 128 128 128;
+	--accent: 0 0 255;
+
+	/* Color palette */
+	--color-background: rgb(var(--background));
+	--color-primary: rgb(var(--primary));
+	--color-secondary: rgb(var(--secondary));
+	--color-accent: rgb(var(--accent));
+
+	/* Breakpoints */
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1440px;
+
+	/* Fonts */
+	--font-sans: var(--font-inter);
+	--font-mono: var(--font-geist-mono);
+
+	/* Easings */
+	--ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+	--ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+	--ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+	--ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+	--ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+	--ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+	--ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	--ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+	--ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+	--ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+	--ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+	--ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	--ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+	--ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+	--ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+	--ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+	--ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+	/* Animations */
+	--animate-marquee: marquee;
+	--animate-marquee-inverted: marquee-inverted;
+	--animate-marquee-vertical: marquee-vertical;
+	--animate-marquee-vertical-inverted: marquee-vertical-inverted;
+	--animate-blink: blink;
+	--animate-accordion-down: accordion-down 0.3s ease-in-out;
+	--animate-accordion-up: accordion-up 0.3s ease-in-out;
+
+	@keyframes blink {
+		0% {
+			opacity: 0.2;
+		}
+		20% {
+			opacity: 0.8;
+		}
+		40% {
+			opacity: 0;
+		}
+		60% {
+			opacity: 0.9;
+		}
+		80% {
+			opacity: 0.1;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes accordion-down {
+		from {
+			height: 0;
+			opacity: 0;
+		}
+		to {
+			height: var(--radix-accordion-content-height);
+			opacity: 1;
+		}
+	}
+
+	@keyframes accordion-up {
+		from {
+			height: var(--radix-accordion-content-height);
+			opacity: 1;
+		}
+		to {
+			height: 0;
+			opacity: 0;
+		}
+	}
+}
+
+@keyframes marquee {
+	0% {
+		transform: translate3d(0%, 0, 0);
+	}
+	100% {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+
+@keyframes marquee-inverted {
+	0% {
+		transform: translate3d(-100%, 0, 0);
+	}
+	100% {
+		transform: translate3d(0%, 0, 0);
+	}
+}
+
+@keyframes marquee-vertical {
+	0% {
+		transform: translate3d(0, 0%, 0);
+	}
+	100% {
+		transform: translate3d(0, -100%, 0);
+	}
+}
+
+@keyframes marquee-vertical-inverted {
+	0% {
+		transform: translate3d(0, -100%, 0);
+	}
+	100% {
+		transform: translate3d(0, 0%, 0);
+	}
+}
+
+@layer base {
+	html {
+		background-color: var(--color-background);
+		color: var(--color-primary);
+		text-rendering: geometricPrecision;
+		-webkit-font-smoothing: antialiased;
+		-moz-font-smoothing: antialiased;
+		/* biome-ignore lint/correctness/noUnknownProperty: vendor prefix fallback */
+		font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	html,
+	body {
+		overscroll-behavior: auto;
+		height: 100%;
+	}
+
+	body,
+	#__next {
+		min-height: 100svh;
+	}
+
+	*::selection {
+		background-color: var(--color-accent);
+		color: #fff;
+	}
+}
+
+/* Lenis */
+.lenis {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+	pointer-events: none;
+}

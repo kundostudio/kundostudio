@@ -14,432 +14,425 @@
 
 // Source: schema.json
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
-  background?: string;
-  foreground?: string;
-  population?: number;
-  title?: string;
+	_type: "sanity.imagePaletteSwatch";
+	background?: string;
+	foreground?: string;
+	population?: number;
+	title?: string;
 };
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
-  darkMuted?: SanityImagePaletteSwatch;
-  lightVibrant?: SanityImagePaletteSwatch;
-  darkVibrant?: SanityImagePaletteSwatch;
-  vibrant?: SanityImagePaletteSwatch;
-  dominant?: SanityImagePaletteSwatch;
-  lightMuted?: SanityImagePaletteSwatch;
-  muted?: SanityImagePaletteSwatch;
+	_type: "sanity.imagePalette";
+	darkMuted?: SanityImagePaletteSwatch;
+	lightVibrant?: SanityImagePaletteSwatch;
+	darkVibrant?: SanityImagePaletteSwatch;
+	vibrant?: SanityImagePaletteSwatch;
+	dominant?: SanityImagePaletteSwatch;
+	lightMuted?: SanityImagePaletteSwatch;
+	muted?: SanityImagePaletteSwatch;
 };
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+	_type: "sanity.imageDimensions";
+	height?: number;
+	width?: number;
+	aspectRatio?: number;
 };
 
 export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
+	_type: "geopoint";
+	lat?: number;
+	lng?: number;
+	alt?: number;
 };
 
 export type Project = {
-  _id: string;
-  _type: "project";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  url?: string;
-  thumbnail?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  subtitle?: string;
-  description?: string;
-  year?: number;
-  skills?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "skill";
-  }>;
-  mainAsset?: Asset;
-  secondaryAsset?: Asset;
-  assets?: Array<
-    {
-      _key: string;
-    } & Asset
-  >;
-  quote?: Quote;
-  slug?: Slug;
+	_id: string;
+	_type: "project";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	name?: string;
+	url?: string;
+	thumbnail?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+	subtitle?: string;
+	description?: string;
+	year?: number;
+	skills?: Array<{
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		_key: string;
+		[internalGroqTypeReferenceTo]?: "skill";
+	}>;
+	mainAsset?: Asset;
+	secondaryAsset?: Asset;
+	assets?: Array<
+		{
+			_key: string;
+		} & Asset
+	>;
+	quote?: Quote;
+	slug?: Slug;
 };
 
 export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
+	_type: "slug";
+	current?: string;
+	source?: string;
 };
 
 export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
+	_id: string;
+	_type: "sanity.fileAsset";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	originalFilename?: string;
+	label?: string;
+	title?: string;
+	description?: string;
+	altText?: string;
+	sha1hash?: string;
+	extension?: string;
+	mimeType?: string;
+	size?: number;
+	assetId?: string;
+	uploadId?: string;
+	path?: string;
+	url?: string;
+	source?: SanityAssetSourceData;
 };
 
 export type Asset = {
-  _type: "asset";
-  filetype?: "img" | "video" | "video-stream";
-  size?: "full" | "compact";
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  video?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
-  videoStream?: MuxVideo;
+	_type: "asset";
+	filetype?: "img" | "video" | "video-stream";
+	image?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+		};
+		hotspot?: SanityImageHotspot;
+		crop?: SanityImageCrop;
+		_type: "image";
+	};
+	video?: {
+		asset?: {
+			_ref: string;
+			_type: "reference";
+			_weak?: boolean;
+			[internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+		};
+		_type: "file";
+	};
+	videoStream?: MuxVideo;
 };
 
 export type Quote = {
-  _type: "quote";
-  text?: string;
-  author?: {
-    name?: string;
-    role?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-  };
+	_type: "quote";
+	text?: string;
+	author?: {
+		name?: string;
+		role?: string;
+		image?: {
+			asset?: {
+				_ref: string;
+				_type: "reference";
+				_weak?: boolean;
+				[internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+			};
+			hotspot?: SanityImageHotspot;
+			crop?: SanityImageCrop;
+			_type: "image";
+		};
+	};
 };
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+	_type: "sanity.imageCrop";
+	top?: number;
+	bottom?: number;
+	left?: number;
+	right?: number;
 };
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+	_type: "sanity.imageHotspot";
+	x?: number;
+	y?: number;
+	height?: number;
+	width?: number;
 };
 
 export type SanityImageAsset = {
-  _id: string;
-  _type: "sanity.imageAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  metadata?: SanityImageMetadata;
-  source?: SanityAssetSourceData;
+	_id: string;
+	_type: "sanity.imageAsset";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	originalFilename?: string;
+	label?: string;
+	title?: string;
+	description?: string;
+	altText?: string;
+	sha1hash?: string;
+	extension?: string;
+	mimeType?: string;
+	size?: number;
+	assetId?: string;
+	uploadId?: string;
+	path?: string;
+	url?: string;
+	metadata?: SanityImageMetadata;
+	source?: SanityAssetSourceData;
 };
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
-  name?: string;
-  id?: string;
-  url?: string;
+	_type: "sanity.assetSourceData";
+	name?: string;
+	id?: string;
+	url?: string;
 };
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
-  location?: Geopoint;
-  dimensions?: SanityImageDimensions;
-  palette?: SanityImagePalette;
-  lqip?: string;
-  blurHash?: string;
-  hasAlpha?: boolean;
-  isOpaque?: boolean;
+	_type: "sanity.imageMetadata";
+	location?: Geopoint;
+	dimensions?: SanityImageDimensions;
+	palette?: SanityImagePalette;
+	lqip?: string;
+	blurHash?: string;
+	hasAlpha?: boolean;
+	isOpaque?: boolean;
 };
 
 export type Skill = {
-  _id: string;
-  _type: "skill";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  category?: "design" | "development" | "animation";
+	_id: string;
+	_type: "skill";
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	name?: string;
+	category?: "design" | "development" | "animation";
 };
 
 export type MuxVideo = {
-  _type: "mux.video";
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
-  };
+	_type: "mux.video";
+	asset?: {
+		_ref: string;
+		_type: "reference";
+		_weak?: boolean;
+		[internalGroqTypeReferenceTo]?: "mux.videoAsset";
+	};
 };
 
 export type MuxVideoAsset = {
-  _type: "mux.videoAsset";
-  status?: string;
-  assetId?: string;
-  playbackId?: string;
-  filename?: string;
-  thumbTime?: number;
-  data?: MuxAssetData;
+	_type: "mux.videoAsset";
+	status?: string;
+	assetId?: string;
+	playbackId?: string;
+	filename?: string;
+	thumbTime?: number;
+	data?: MuxAssetData;
 };
 
 export type MuxAssetData = {
-  _type: "mux.assetData";
-  resolution_tier?: string;
-  upload_id?: string;
-  created_at?: string;
-  id?: string;
-  status?: string;
-  max_stored_resolution?: string;
-  passthrough?: string;
-  encoding_tier?: string;
-  master_access?: string;
-  aspect_ratio?: string;
-  duration?: number;
-  max_stored_frame_rate?: number;
-  mp4_support?: string;
-  max_resolution_tier?: string;
-  tracks?: Array<
-    {
-      _key: string;
-    } & MuxTrack
-  >;
-  playback_ids?: Array<
-    {
-      _key: string;
-    } & MuxPlaybackId
-  >;
-  static_renditions?: MuxStaticRenditions;
+	_type: "mux.assetData";
+	resolution_tier?: string;
+	upload_id?: string;
+	created_at?: string;
+	id?: string;
+	status?: string;
+	max_stored_resolution?: string;
+	passthrough?: string;
+	encoding_tier?: string;
+	master_access?: string;
+	aspect_ratio?: string;
+	duration?: number;
+	max_stored_frame_rate?: number;
+	mp4_support?: string;
+	max_resolution_tier?: string;
+	tracks?: Array<
+		{
+			_key: string;
+		} & MuxTrack
+	>;
+	playback_ids?: Array<
+		{
+			_key: string;
+		} & MuxPlaybackId
+	>;
+	static_renditions?: MuxStaticRenditions;
 };
 
 export type MuxStaticRenditions = {
-  _type: "mux.staticRenditions";
-  status?: string;
-  files?: Array<
-    {
-      _key: string;
-    } & MuxStaticRenditionFile
-  >;
+	_type: "mux.staticRenditions";
+	status?: string;
+	files?: Array<
+		{
+			_key: string;
+		} & MuxStaticRenditionFile
+	>;
 };
 
 export type MuxStaticRenditionFile = {
-  _type: "mux.staticRenditionFile";
-  ext?: string;
-  name?: string;
-  width?: number;
-  bitrate?: number;
-  filesize?: number;
-  height?: number;
+	_type: "mux.staticRenditionFile";
+	ext?: string;
+	name?: string;
+	width?: number;
+	bitrate?: number;
+	filesize?: number;
+	height?: number;
 };
 
 export type MuxPlaybackId = {
-  _type: "mux.playbackId";
-  id?: string;
-  policy?: string;
+	_type: "mux.playbackId";
+	id?: string;
+	policy?: string;
 };
 
 export type MuxTrack = {
-  _type: "mux.track";
-  id?: string;
-  type?: string;
-  max_width?: number;
-  max_frame_rate?: number;
-  duration?: number;
-  max_height?: number;
+	_type: "mux.track";
+	id?: string;
+	type?: string;
+	max_width?: number;
+	max_frame_rate?: number;
+	duration?: number;
+	max_height?: number;
 };
 
 export type AllSanitySchemaTypes =
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | Geopoint
-  | Project
-  | Slug
-  | SanityFileAsset
-  | Asset
-  | Quote
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
-  | Skill
-  | MuxVideo
-  | MuxVideoAsset
-  | MuxAssetData
-  | MuxStaticRenditions
-  | MuxStaticRenditionFile
-  | MuxPlaybackId
-  | MuxTrack;
+	| SanityImagePaletteSwatch
+	| SanityImagePalette
+	| SanityImageDimensions
+	| Geopoint
+	| Project
+	| Slug
+	| SanityFileAsset
+	| Asset
+	| Quote
+	| SanityImageCrop
+	| SanityImageHotspot
+	| SanityImageAsset
+	| SanityAssetSourceData
+	| SanityImageMetadata
+	| Skill
+	| MuxVideo
+	| MuxVideoAsset
+	| MuxAssetData
+	| MuxStaticRenditions
+	| MuxStaticRenditionFile
+	| MuxPlaybackId
+	| MuxTrack;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries.ts
 // Variable: PROJECTS_QUERY
 // Query: *[_type == "project" && defined(slug.current)][0...12] {  _id,  name,  url,  "thumbnail": thumbnail.asset->url,  subtitle,  description,  year,  "slug": slug.current,  "skills": skills[]-> {    _id,    name,    category  },  "mainAsset": {    "url": select(      mainAsset.filetype == "img" => mainAsset.image.asset->url,      mainAsset.filetype == "video" => mainAsset.video.asset->url,      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId    ),    "filetype": mainAsset.filetype,    "size": mainAsset.size  },  "secondaryAsset": {    "url": select(      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId    ),    "filetype": secondaryAsset.filetype,    "size": secondaryAsset.size  },  "assets": assets[] {    "url": select(      filetype == "img" => image.asset->url,      filetype == "video" => video.asset->url,      filetype == "video-stream" => videoStream.asset->playbackId    ),    filetype,    size  },  quote {    text,    author {      name,      role,      "image": image.asset->url    }  }}
 export type PROJECTS_QUERYResult = Array<{
-  _id: string;
-  name: string | null;
-  url: string | null;
-  thumbnail: string | null;
-  subtitle: string | null;
-  description: string | null;
-  year: number | null;
-  slug: string | null;
-  skills: Array<{
-    _id: string;
-    name: string | null;
-    category: "animation" | "design" | "development" | null;
-  }> | null;
-  mainAsset: {
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  };
-  secondaryAsset: {
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  };
-  assets: Array<{
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  }> | null;
-  quote: {
-    text: string | null;
-    author: {
-      name: string | null;
-      role: string | null;
-      image: string | null;
-    } | null;
-  } | null;
+	_id: string;
+	name: string | null;
+	url: string | null;
+	thumbnail: string | null;
+	subtitle: string | null;
+	description: string | null;
+	year: number | null;
+	slug: string | null;
+	skills: Array<{
+		_id: string;
+		name: string | null;
+		category: "animation" | "design" | "development" | null;
+	}> | null;
+	mainAsset: {
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	};
+	secondaryAsset: {
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	};
+	assets: Array<{
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	}> | null;
+	quote: {
+		text: string | null;
+		author: {
+			name: string | null;
+			role: string | null;
+			image: string | null;
+		} | null;
+	} | null;
 }>;
 // Variable: PROJECT_QUERY
 // Query: *[_type == "project" && slug.current == $slug][0] {  _id,  name,  url,  "thumbnail": thumbnail.asset->url,  subtitle,  description,  year,  "slug": slug.current,  "skills": skills[]-> {    _id,    name,    category  },  "mainAsset": {    "url": select(      mainAsset.filetype == "img" => mainAsset.image.asset->url,      mainAsset.filetype == "video" => mainAsset.video.asset->url,      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId    ),    "filetype": mainAsset.filetype,    "size": mainAsset.size  },  "secondaryAsset": {    "url": select(      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId    ),    "filetype": secondaryAsset.filetype,    "size": secondaryAsset.size  },  "assets": assets[] {    "url": select(      filetype == "img" => image.asset->url,      filetype == "video" => video.asset->url,      filetype == "video-stream" => videoStream.asset->playbackId    ),    filetype,    size  },  quote {    text,    author {      name,      role,      "image": image.asset->url    }  }}
 export type PROJECT_QUERYResult = {
-  _id: string;
-  name: string | null;
-  url: string | null;
-  thumbnail: string | null;
-  subtitle: string | null;
-  description: string | null;
-  year: number | null;
-  slug: string | null;
-  skills: Array<{
-    _id: string;
-    name: string | null;
-    category: "animation" | "design" | "development" | null;
-  }> | null;
-  mainAsset: {
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  };
-  secondaryAsset: {
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  };
-  assets: Array<{
-    url: string | null;
-    filetype: "img" | "video-stream" | "video" | null;
-    size: "compact" | "full" | null;
-  }> | null;
-  quote: {
-    text: string | null;
-    author: {
-      name: string | null;
-      role: string | null;
-      image: string | null;
-    } | null;
-  } | null;
+	_id: string;
+	name: string | null;
+	url: string | null;
+	thumbnail: string | null;
+	subtitle: string | null;
+	description: string | null;
+	year: number | null;
+	slug: string | null;
+	skills: Array<{
+		_id: string;
+		name: string | null;
+		category: "animation" | "design" | "development" | null;
+	}> | null;
+	mainAsset: {
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	};
+	secondaryAsset: {
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	};
+	assets: Array<{
+		url: string | null;
+		filetype: "img" | "video-stream" | "video" | null;
+	}> | null;
+	quote: {
+		text: string | null;
+		author: {
+			name: string | null;
+			role: string | null;
+			image: string | null;
+		} | null;
+	} | null;
 } | null;
 // Variable: SKILLS_QUERY
 // Query: *[_type == "skill"] | order(name asc) {  _id,  name,  category}
 export type SKILLS_QUERYResult = Array<{
-  _id: string;
-  name: string | null;
-  category: "animation" | "design" | "development" | null;
+	_id: string;
+	name: string | null;
+	category: "animation" | "design" | "development" | null;
 }>;
 // Variable: SKILLS_BY_CATEGORY_QUERY
 // Query: *[_type == "skill" && category == $category] | order(name asc) {  _id,  name,  category}
 export type SKILLS_BY_CATEGORY_QUERYResult = Array<{
-  _id: string;
-  name: string | null;
-  category: "animation" | "design" | "development" | null;
+	_id: string;
+	name: string | null;
+	category: "animation" | "design" | "development" | null;
 }>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
-  interface SanityQueries {
-    '*[_type == "project" && defined(slug.current)][0...12] {\n  _id,\n  name,\n  url,\n  "thumbnail": thumbnail.asset->url,\n  subtitle,\n  description,\n  year,\n  "slug": slug.current,\n  "skills": skills[]-> {\n    _id,\n    name,\n    category\n  },\n  "mainAsset": {\n    "url": select(\n      mainAsset.filetype == "img" => mainAsset.image.asset->url,\n      mainAsset.filetype == "video" => mainAsset.video.asset->url,\n      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId\n    ),\n    "filetype": mainAsset.filetype,\n    "size": mainAsset.size\n  },\n  "secondaryAsset": {\n    "url": select(\n      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,\n      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,\n      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId\n    ),\n    "filetype": secondaryAsset.filetype,\n    "size": secondaryAsset.size\n  },\n  "assets": assets[] {\n    "url": select(\n      filetype == "img" => image.asset->url,\n      filetype == "video" => video.asset->url,\n      filetype == "video-stream" => videoStream.asset->playbackId\n    ),\n    filetype,\n    size\n  },\n  quote {\n    text,\n    author {\n      name,\n      role,\n      "image": image.asset->url\n    }\n  }\n}': PROJECTS_QUERYResult;
-    '*[_type == "project" && slug.current == $slug][0] {\n  _id,\n  name,\n  url,\n  "thumbnail": thumbnail.asset->url,\n  subtitle,\n  description,\n  year,\n  "slug": slug.current,\n  "skills": skills[]-> {\n    _id,\n    name,\n    category\n  },\n  "mainAsset": {\n    "url": select(\n      mainAsset.filetype == "img" => mainAsset.image.asset->url,\n      mainAsset.filetype == "video" => mainAsset.video.asset->url,\n      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId\n    ),\n    "filetype": mainAsset.filetype,\n    "size": mainAsset.size\n  },\n  "secondaryAsset": {\n    "url": select(\n      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,\n      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,\n      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId\n    ),\n    "filetype": secondaryAsset.filetype,\n    "size": secondaryAsset.size\n  },\n  "assets": assets[] {\n    "url": select(\n      filetype == "img" => image.asset->url,\n      filetype == "video" => video.asset->url,\n      filetype == "video-stream" => videoStream.asset->playbackId\n    ),\n    filetype,\n    size\n  },\n  quote {\n    text,\n    author {\n      name,\n      role,\n      "image": image.asset->url\n    }\n  }\n}': PROJECT_QUERYResult;
-    '*[_type == "skill"] | order(name asc) {\n  _id,\n  name,\n  category\n}': SKILLS_QUERYResult;
-    '*[_type == "skill" && category == $category] | order(name asc) {\n  _id,\n  name,\n  category\n}': SKILLS_BY_CATEGORY_QUERYResult;
-  }
+	interface SanityQueries {
+		'*[_type == "project" && defined(slug.current)][0...12] {\n  _id,\n  name,\n  url,\n  "thumbnail": thumbnail.asset->url,\n  subtitle,\n  description,\n  year,\n  "slug": slug.current,\n  "skills": skills[]-> {\n    _id,\n    name,\n    category\n  },\n  "mainAsset": {\n    "url": select(\n      mainAsset.filetype == "img" => mainAsset.image.asset->url,\n      mainAsset.filetype == "video" => mainAsset.video.asset->url,\n      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId\n    ),\n    "filetype": mainAsset.filetype,\n    "size": mainAsset.size\n  },\n  "secondaryAsset": {\n    "url": select(\n      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,\n      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,\n      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId\n    ),\n    "filetype": secondaryAsset.filetype,\n    "size": secondaryAsset.size\n  },\n  "assets": assets[] {\n    "url": select(\n      filetype == "img" => image.asset->url,\n      filetype == "video" => video.asset->url,\n      filetype == "video-stream" => videoStream.asset->playbackId\n    ),\n    filetype,\n    size\n  },\n  quote {\n    text,\n    author {\n      name,\n      role,\n      "image": image.asset->url\n    }\n  }\n}': PROJECTS_QUERYResult;
+		'*[_type == "project" && slug.current == $slug][0] {\n  _id,\n  name,\n  url,\n  "thumbnail": thumbnail.asset->url,\n  subtitle,\n  description,\n  year,\n  "slug": slug.current,\n  "skills": skills[]-> {\n    _id,\n    name,\n    category\n  },\n  "mainAsset": {\n    "url": select(\n      mainAsset.filetype == "img" => mainAsset.image.asset->url,\n      mainAsset.filetype == "video" => mainAsset.video.asset->url,\n      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId\n    ),\n    "filetype": mainAsset.filetype,\n    "size": mainAsset.size\n  },\n  "secondaryAsset": {\n    "url": select(\n      secondaryAsset.filetype == "img" => secondaryAsset.image.asset->url,\n      secondaryAsset.filetype == "video" => secondaryAsset.video.asset->url,\n      secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId\n    ),\n    "filetype": secondaryAsset.filetype,\n    "size": secondaryAsset.size\n  },\n  "assets": assets[] {\n    "url": select(\n      filetype == "img" => image.asset->url,\n      filetype == "video" => video.asset->url,\n      filetype == "video-stream" => videoStream.asset->playbackId\n    ),\n    filetype,\n    size\n  },\n  quote {\n    text,\n    author {\n      name,\n      role,\n      "image": image.asset->url\n    }\n  }\n}': PROJECT_QUERYResult;
+		'*[_type == "skill"] | order(name asc) {\n  _id,\n  name,\n  category\n}': SKILLS_QUERYResult;
+		'*[_type == "skill" && category == $category] | order(name asc) {\n  _id,\n  name,\n  category\n}': SKILLS_BY_CATEGORY_QUERYResult;
+	}
 }
