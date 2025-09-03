@@ -32,3 +32,6 @@ export function HomePage({ title, asset }: HomePageProps) {
 		</Page>
 	);
 }
+
+// Prevent Next.js from treating this as a page component
+HomePage.displayName = "HomePage";
