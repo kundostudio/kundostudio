@@ -8,6 +8,7 @@ import { Columns } from "~/components/columns";
 import { DisableDraftMode } from "~/components/disable-draft-mode";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
+
 import { SanityLive } from "~/sanity/lib/live";
 
 import "~/styles/global.css";
@@ -117,7 +118,7 @@ export default async function RootLayout({
 		<div
 			className={`${mono.variable} ${suisse.variable} ${inter.variable} relative flex flex-col min-h-svh`}
 		>
-			<Header className="mt-10" />
+			<Header className="fixed top-0 left-0 right-0 z-100 mt-10" />
 			{children}
 			<SanityLive />
 			{isDraftMode && (

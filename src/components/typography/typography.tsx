@@ -48,7 +48,7 @@ export function P({ className, ...props }: JSX.IntrinsicElements["p"]) {
 	return (
 		<p
 			className={cn(
-				"font-mono text-[12px] leading-[16px] font-normal tracking-[0em] text-start",
+				"text-[14px] leading-[22px] font-medium tracking-[-0.05px] text-start",
 				className,
 			)}
 			{...props}
@@ -56,7 +56,7 @@ export function P({ className, ...props }: JSX.IntrinsicElements["p"]) {
 	);
 }
 
-export const buttonStyles = "text-[11px] font-semibold leading-[13px] tracking-[-0.05em]";
+export const buttonStyles = "text-[11px] font-semibold leading-[13px] tracking-[-0.05%]";
 
 export function Button({ className, ...props }: JSX.IntrinsicElements["span"]) {
 	return <span className={cn(buttonStyles, className)} {...props} />;

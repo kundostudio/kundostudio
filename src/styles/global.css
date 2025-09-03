@@ -143,6 +143,14 @@
 		/* biome-ignore lint/correctness/noUnknownProperty: vendor prefix fallback */
 		font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+
+		/* Hide native scrollbar */
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE and Edge */
+	}
+
+	html::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
 	}
 
 	html,

@@ -137,7 +137,7 @@ export const PROJECTS_QUERY =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-
+    "size": secondaryAsset.size
   },
   "assets": assets[] {
     "url": select(
@@ -146,7 +146,7 @@ export const PROJECTS_QUERY =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-
+    size
   },
   quote {
     text,
@@ -186,7 +186,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-
+    "size": mainAsset.size
   },
   "secondaryAsset": {
     "url": select(
@@ -195,7 +195,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-
+    "size": secondaryAsset.size
   },
   "assets": assets[] {
     "url": select(
@@ -204,7 +204,7 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-
+    size
   },
   quote {
     text,
@@ -292,7 +292,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
       ),
       "filetype": mainAsset.filetype,
-  
+      "size": mainAsset.size
     },
     "secondaryAsset": {
       "url": select(
@@ -301,7 +301,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
       ),
       "filetype": secondaryAsset.filetype,
-  
+      "size": secondaryAsset.size
     },
     "assets": assets[] {
       "url": select(
@@ -310,7 +310,7 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         filetype == "video-stream" => videoStream.asset->playbackId
       ),
       filetype,
-  
+      size
     },
     quote {
       text,
