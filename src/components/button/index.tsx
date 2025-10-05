@@ -1,4 +1,4 @@
-import * as Typography from "~/components/typography";
+import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -87,7 +87,7 @@ export function Button({ className, children, ...props }: ButtonProps) {
 				/>
 			</div>
 
-			<span className={cn(Typography.buttonStyles, "text-white relative z-10")}>{children}</span>
+			<span className={cn(textStyles.button, "text-white relative z-10")}>{children}</span>
 		</button>
 	);
 }

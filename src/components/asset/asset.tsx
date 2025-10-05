@@ -1,71 +1,143 @@
 "use client";
 
 import MuxPlayer from "@mux/mux-player-react";
-import NextImage from "next/image";
-import { useState } from "react";
+import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import { cn } from "~/lib/utils";
 
-type AssetType = "img" | "video" | "video-stream";
+export type AssetProps =
+	| ({
+			filetype: "img";
+	  } & ImageProps)
+	| ({
+			filetype: "video";
+	  } & VideoProps)
+	| ({
+			filetype: "video-stream";
+	  } & MUXPlayerProps);
 
-export interface AssetProps {
-	url: string;
-	filetype: AssetType;
-}
+export function Asset(props: AssetProps) {
+	if (props.filetype === "img") {
+		const { filetype: _ignoredType, ...imageProps } = props;
 
-type Props = {
-	asset: AssetProps;
-	className?: string;
-	imageClassName?: string;
-	alt?: string;
-} & React.HTMLAttributes<HTMLDivElement>;
-
-export function Asset({ asset, className, imageClassName, alt = "Asset", ...props }: Props) {
-	const [muted, setMuted] = useState(true);
-
-	if (!asset?.url || !asset?.filetype) {
-		return null;
+		return <Image {...imageProps} />;
 	}
 
-	if (asset.filetype === "img") {
-		return (
-			<div className={cn("relative rounded-[10px] overflow-hidden", className)} {...props}>
-				<NextImage src={asset.url} alt={alt} fill className={cn("object-cover", imageClassName)} />
-				<div className="absolute inset-0 rounded-[10px] border border-white/16" />
-			</div>
-		);
+	if (props.filetype === "video-stream") {
+		const { filetype: _ignoredType, ...muxProps } = props;
+
+		return <MUXPlayer {...muxProps} />;
 	}
 
-	if (asset.filetype === "video-stream") {
-		return (
-			<div className={cn("relative h-full flex my-auto", className)} {...props}>
-				<MuxPlayer
-					streamType="on-demand"
-					playbackId={asset.url}
-					autoPlay
-					loop
-					muted={muted}
-					nohotkeys
-					defaultHiddenCaptions
-					thumbnailTime={0}
-					className="h-full max-w-full [--controls:none] [--media-object-fit:contain]"
-				/>
-			</div>
-		);
-	}
+	if (props.filetype === "video") {
+		const { filetype: _ignoredType, ...videoProps } = props;
 
-	if (asset.filetype === "video") {
-		return (
-			<div className={cn("relative h-full flex my-auto", className)} {...props}>
-				<video
-					loop
-					autoPlay
-					muted={muted}
-					src={asset.url}
-					className="h-full max-w-full object-cover"
-				/>
-			</div>
-		);
+		return <Video {...videoProps} />;
 	}
 
 	return null;
+}
+
+type ImageProps = NextImageProps & {
+	container?: React.HTMLAttributes<HTMLDivElement>;
+};
+
+export function Image({
+	src,
+	className,
+	style,
+	alt = "Asset",
+	container = {},
+	...props
+}: ImageProps) {
+	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
+	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+	return (
+		<div
+			className={cn("relative rounded-[10px] overflow-hidden", className, containerClassName)}
+			style={mergedStyle}
+			{...containerRest}
+		>
+			<NextImage src={src} alt={alt} className={cn("object-cover")} {...props} />
+			<div className="absolute inset-0 rounded-[10px] border border-white/16" />
+		</div>
+	);
+}
+
+type MUXPlayerProps = React.ComponentProps<typeof MuxPlayer> & {
+	container?: React.HTMLAttributes<HTMLDivElement>;
+	muted?: boolean;
+	playbackId: string;
+};
+
+export function MUXPlayer({
+	container = {},
+	className,
+	style,
+	muted = true,
+	playbackId,
+	autoPlay = true,
+	loop = true,
+	playsInline = true,
+	...props
+}: MUXPlayerProps) {
+	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
+	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+	return (
+		<div
+			className={cn("relative h-full flex my-auto", className, containerClassName)}
+			style={mergedStyle}
+			{...containerRest}
+		>
+			<MuxPlayer
+				streamType="on-demand"
+				playbackId={playbackId}
+				autoPlay={autoPlay}
+				loop={loop}
+				muted={muted}
+				playsInline={playsInline}
+				nohotkeys
+				defaultHiddenCaptions
+				thumbnailTime={0}
+				className="h-full max-w-full [--controls:none] [--media-object-fit:contain]"
+				{...props}
+			/>
+		</div>
+	);
+}
+
+type VideoProps = React.ComponentProps<"video"> & {
+	container?: React.HTMLAttributes<HTMLDivElement>;
+	muted?: boolean;
+};
+
+export function Video({
+	src,
+	className,
+	style,
+	loop = true,
+	muted = true,
+	autoPlay = true,
+	playsInline = true,
+	container = {},
+	...props
+}: VideoProps) {
+	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
+	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+	return (
+		<div
+			className={cn("relative h-full flex my-auto", className, containerClassName)}
+			style={mergedStyle}
+			{...containerRest}
+		>
+			<video
+				loop={loop}
+				muted={muted}
+				autoPlay={autoPlay}
+				playsInline={playsInline}
+				src={src}
+				className="h-full max-w-full object-cover"
+				{...props}
+			/>
+		</div>
+	);
 }

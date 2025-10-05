@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import { Button } from "~/components/button";
-import * as Typography from "~/components/typography";
+import { textStyles } from "~/components/typography";
 import { useStore } from "~/lib/store";
 import { cn } from "~/lib/utils";
 import Logo from "~/public/logo.svg";
@@ -61,7 +61,7 @@ export function Header({ className, ...props }: HeaderProps) {
 					<div className="flex h-full w-full flex-col justify-end items-start gap-4 pb-16">
 						{NAVIGATION_ITEMS.map((item) => (
 							<a key={item.href} href={item.href}>
-								<Typography.H3>{item.label}</Typography.H3>
+								<span className={cn("text-primary uppercase", textStyles.h1)}>{item.label}</span>
 							</a>
 						))}
 					</div>
@@ -89,7 +89,7 @@ export function Header({ className, ...props }: HeaderProps) {
 							key={item.href}
 							className={cn(
 								"text-primary w-fit relative",
-								Typography.buttonStyles,
+								textStyles.buttonNav,
 								pathname === item.href &&
 									"after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-px after:bg-primary after:rounded-full",
 							)}

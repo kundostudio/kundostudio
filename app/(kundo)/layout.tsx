@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
-import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 
@@ -13,31 +11,6 @@ import { SanityLive } from "~/sanity/lib/live";
 
 import "~/styles/global.css";
 
-const inter = Inter({
-	subsets: ["latin"],
-	weight: "500",
-	variable: "--font-inter",
-	display: "swap",
-});
-
-const mono = Roboto_Mono({
-	subsets: ["latin"],
-	weight: "400",
-	variable: "--font-mono",
-	display: "swap",
-});
-
-const suisse = localFont({
-	src: [
-		{
-			path: "../../public/fonts/SuisseIntl-Medium.otf",
-			weight: "500",
-			style: "normal",
-		},
-	],
-	variable: "--font-suisse",
-});
-
 export const metadata: Metadata = {
 	title: "Kundo Studio",
 	description: "Creative studio from Argentina",
@@ -48,7 +21,7 @@ export const metadata: Metadata = {
 		description: "Creative studio from Argentina",
 		images: [
 			{
-				url: "/OG_light.png",
+				url: "/OG.png",
 				width: 1200,
 				height: 630,
 				alt: "Kundo Studio",
@@ -58,30 +31,12 @@ export const metadata: Metadata = {
 
 	// Icons
 	icons: {
-		icon: [
-			{
-				url: "/favicon_light.png",
-				media: "(prefers-color-scheme: light)",
-			},
-			{
-				url: "/favicon_dark.png",
-				media: "(prefers-color-scheme: dark)",
-			},
-		],
-		apple: [
-			{
-				url: "/favicon_light.png",
-				media: "(prefers-color-scheme: light)",
-			},
-			{
-				url: "/favicon_dark.png",
-				media: "(prefers-color-scheme: dark)",
-			},
-		],
+		icon: "/favicon.svg",
+		apple: "/favicon.svg",
 		other: [
 			{
 				rel: "mask-icon",
-				url: "/favicon_dark.png",
+				url: "/favicon.svg",
 			},
 		],
 	},
@@ -115,9 +70,7 @@ export default async function RootLayout({
 }>) {
 	const isDraftMode = await (await draftMode()).isEnabled;
 	return (
-		<div
-			className={`${mono.variable} ${suisse.variable} ${inter.variable} relative flex flex-col min-h-svh`}
-		>
+		<div className="relative flex flex-col min-h-svh">
 			<Header className="fixed top-0 left-0 right-0 z-100 mt-10" />
 			{children}
 			<SanityLive />

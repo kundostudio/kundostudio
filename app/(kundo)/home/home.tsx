@@ -1,12 +1,13 @@
 "use client";
 
-import { Asset, type AssetProps } from "~/components/asset";
+import { Asset } from "~/components/asset";
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
+import type { Asset as QueryAsset } from "~/lib/queries";
 
 interface HomePageProps {
 	title?: string;
-	asset?: AssetProps;
+	asset?: QueryAsset;
 }
 
 export function HomePage({ title, asset }: HomePageProps) {
@@ -15,17 +16,21 @@ export function HomePage({ title, asset }: HomePageProps) {
 			<div className="aspect-[1.62] relative">
 				{asset && (
 					<Asset
-						asset={asset}
+						filetype="img"
+						src={asset.url}
 						alt="Kundo"
-						className="absolute inset-0"
-						style={{
-							maskImage:
-								"linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.6) 64%, rgba(0, 0, 0, 0) 80%)",
+						fill
+						container={{
+							className: "absolute inset-0",
+							style: {
+								maskImage:
+									"linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.6) 64%, rgba(0, 0, 0, 0) 80%)",
+							},
 						}}
 					/>
 				)}
 				<div className="absolute bottom-4 left-0">
-					<Typography.H2 className="text-secondary">Kundo</Typography.H2>
+					<Typography.H2 className="text-secondary">Kundo Studio</Typography.H2>
 					{title && <Typography.H1 className="text-primary">{title}</Typography.H1>}
 				</div>
 			</div>

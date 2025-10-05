@@ -21,7 +21,7 @@
 	--breakpoint-xl: 1440px;
 
 	/* Fonts */
-	--font-sans: var(--font-inter);
+	--font-neue: var(--font-neue);
 	--font-mono: var(--font-geist-mono);
 
 	/* Easings */
@@ -157,6 +157,7 @@
 	body {
 		overscroll-behavior: auto;
 		height: 100%;
+		font-family: var(--font-neue);
 	}
 
 	body,
