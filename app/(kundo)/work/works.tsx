@@ -20,25 +20,43 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 
 			{/* Projects Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-				{projects.map((project, index) => (
-					<Link
-						key={project._id}
-						href={`/work/${project.slug}` as Route}
-						className="group flex flex-col"
-					>
-						<div className="relative aspect-[1.62] bg-black overflow-hidden border border-white/16 rounded-[10px]">
-							<Image
-								src={project.thumbnail ?? ""}
-								alt={project.name ?? ""}
-								fill
-								className="object-cover transition-transform duration-300 group-hover:scale-105"
-							/>
-						</div>
-						<div className="flex justify-between mt-4">
-							<Typography.P className="text-primary">{project.name}</Typography.P>
-						</div>
-					</Link>
-				))}
+				{projects.map((project) => {
+					const skillNames = (project.skills ?? [])
+						.map((skill) => skill?.name)
+						.filter((name): name is string => Boolean(name));
+
+					return (
+						<Link
+							key={project._id}
+							href={`/work/${project.slug}` as Route}
+							className="group flex flex-col"
+						>
+							<div className="relative aspect-[1.62] bg-black overflow-hidden border border-white/16 rounded-[10px]">
+								<Image
+									src={project.thumbnail ?? ""}
+									alt={project.name ?? ""}
+									fill
+									className="object-cover transition-transform duration-300 group-hover:scale-105"
+								/>
+							</div>
+							<div className="mt-4 flex flex-col gap-1">
+								<Typography.P className="text-primary flex items-center gap-2">
+									<span>{project.name}</span>
+									{project.year ? (
+										<span className="text-secondary">&mdash; {project.year}</span>
+									) : null}
+								</Typography.P>
+								{skillNames.length > 0 ? (
+									<Typography.P className="text-secondary">
+										{skillNames
+											.map((skill) => skill.charAt(0).toUpperCase() + skill.slice(1))
+											.join(", ")}
+									</Typography.P>
+								) : null}
+							</div>
+						</Link>
+					);
+				})}
 			</div>
 		</Page>
 	);
