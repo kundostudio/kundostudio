@@ -2,44 +2,67 @@
 
 import MuxPlayer from "@mux/mux-player-react";
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
+import type * as React from "react";
 import { cn } from "~/lib/utils";
 
-export type AssetProps =
-	| ({
-			filetype: "img";
-	  } & ImageProps)
-	| ({
-			filetype: "video";
-	  } & VideoProps)
-	| ({
-			filetype: "video-stream";
-	  } & MUXPlayerProps);
+/* =========================
+ * Props por variante
+ * ========================= */
 
-export function Asset(props: AssetProps) {
-	if (props.filetype === "img") {
-		const { filetype: _ignoredType, ...imageProps } = props;
-
-		return <Image {...imageProps} />;
-	}
-
-	if (props.filetype === "video-stream") {
-		const { filetype: _ignoredType, ...muxProps } = props;
-
-		return <MUXPlayer {...muxProps} />;
-	}
-
-	if (props.filetype === "video") {
-		const { filetype: _ignoredType, ...videoProps } = props;
-
-		return <Video {...videoProps} />;
-	}
-
-	return null;
-}
-
-type ImageProps = NextImageProps & {
+type BaseContainer = {
 	container?: React.HTMLAttributes<HTMLDivElement>;
 };
+
+type ImgAsset = {
+	filetype: "img";
+} & BaseContainer &
+	// Hago alt opcional en tu wrapper, aunque NextImage lo pide obligatorio
+	Omit<NextImageProps, "alt"> & { alt?: string };
+
+type VideoStreamAsset = {
+	filetype: "video-stream";
+	// Permitimos usar playbackId o src (por compat)
+	playbackId?: string;
+	src?: string;
+} & BaseContainer &
+	Omit<React.ComponentProps<typeof MuxPlayer>, "playbackId">;
+
+type VideoAsset = {
+	filetype: "video";
+} & BaseContainer &
+	React.ComponentProps<"video">; // incluye src, controls, loop, etc.
+
+export type AssetProps = ImgAsset | VideoStreamAsset | VideoAsset;
+
+/* =========================
+ * Componente discriminado
+ * ========================= */
+
+export function Asset(props: AssetProps) {
+	switch (props.filetype) {
+		case "img":
+			return <Image {...props} />;
+
+		case "video-stream": {
+			const { playbackId, src, ...rest } = props;
+			const id = playbackId ?? (typeof src === "string" ? src : undefined);
+			if (!id) return null;
+			return <MUXPlayer playbackId={id} {...rest} />;
+		}
+
+		case "video": {
+			// Evitamos pasar filetype/container al <video>
+			const { container, ...rest } = props;
+			return <Video container={container} {...rest} />;
+		}
+	}
+}
+
+/* =========================
+ * IMG
+ * ========================= */
+
+type ImageProps = ImgAsset;
 
 export function Image({
 	src,
@@ -51,23 +74,37 @@ export function Image({
 }: ImageProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
 	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+
+	// NextImage: o width/height o fill. Si no vienen, uso fill por defecto.
+	const { width, height, sizes, ...rest } = props as Omit<ImageProps, "src" | "alt" | "container">;
+	const needsFill = !("fill" in rest) && (!width || !height);
+
 	return (
 		<div
 			className={cn("relative rounded-[10px] overflow-hidden", className, containerClassName)}
 			style={mergedStyle}
 			{...containerRest}
 		>
-			<NextImage src={src} alt={alt} className={cn("object-cover")} {...props} />
-			<div className="absolute inset-0 rounded-[10px] border border-white/16" />
+			<NextImage
+				src={src}
+				alt={alt}
+				className={cn("object-cover")}
+				quality={100}
+				{...(needsFill ? { fill: true, sizes: sizes ?? "100vw" } : { width, height, sizes })}
+				{...rest}
+			/>
+			<div
+				className={cn("absolute inset-0 rounded-[10px] border border-white/16", containerClassName)}
+			/>
 		</div>
 	);
 }
 
-type MUXPlayerProps = React.ComponentProps<typeof MuxPlayer> & {
-	container?: React.HTMLAttributes<HTMLDivElement>;
-	muted?: boolean;
-	playbackId: string;
-};
+/* =========================
+ * MUX
+ * ========================= */
+
+type MUXPlayerProps = VideoStreamAsset;
 
 export function MUXPlayer({
 	container = {},
@@ -82,6 +119,7 @@ export function MUXPlayer({
 }: MUXPlayerProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
 	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+
 	return (
 		<div
 			className={cn("relative h-full flex my-auto", className, containerClassName)}
@@ -105,10 +143,11 @@ export function MUXPlayer({
 	);
 }
 
-type VideoProps = React.ComponentProps<"video"> & {
-	container?: React.HTMLAttributes<HTMLDivElement>;
-	muted?: boolean;
-};
+/* =========================
+ * VIDEO nativo
+ * ========================= */
+
+type VideoProps = VideoAsset;
 
 export function Video({
 	src,
@@ -123,6 +162,7 @@ export function Video({
 }: VideoProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
 	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
+
 	return (
 		<div
 			className={cn("relative h-full flex my-auto", className, containerClassName)}

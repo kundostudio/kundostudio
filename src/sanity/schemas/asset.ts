@@ -22,6 +22,12 @@ export default defineType({
 			},
 		}),
 		defineField({
+			name: "alt",
+			type: "string",
+			title: "Alternative text",
+			description: "Used for accessibility and SEO when the asset renders as an image.",
+		}),
+		defineField({
 			name: "image",
 			type: "image",
 			title: "Image",

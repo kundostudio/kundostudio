@@ -1,3 +1,4 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import { defineQuery } from "next-sanity";
 
 // Types for the query responses
@@ -19,6 +20,7 @@ export interface Quote {
 export interface Asset {
 	url: string;
 	filetype: "img" | "video" | "video-stream";
+	alt?: string | null;
 }
 
 export interface Client {
@@ -59,8 +61,43 @@ export interface HomePage {
 	asset?: Asset;
 }
 
+export type PortableTextValue = PortableTextBlock[];
+
+export interface AboutHero {
+	heading?: string;
+	body?: PortableTextValue;
+	asset?: Asset | null;
+}
+
+export interface AboutCard {
+	_key: string;
+	title?: string;
+	description?: PortableTextValue;
+	asset?: Asset | null;
+}
+
+export interface AboutCapability {
+	_key: string;
+	title?: string;
+	description?: PortableTextValue;
+}
+
+export interface AboutWhatWeDoSection {
+	heading?: string;
+	description?: PortableTextValue;
+	capabilities?: AboutCapability[];
+}
+
+export interface AboutPrefooter {
+	tagline?: string;
+	asset?: Asset | null;
+}
+
 export interface AboutPage {
-	content: any[]; // Using 'any' for PortableText content
+	hero?: AboutHero | null;
+	cards?: AboutCard[];
+	whatWeDo?: AboutWhatWeDoSection | null;
+	prefooter?: AboutPrefooter | null;
 }
 
 export interface SocialLink {
@@ -242,7 +279,53 @@ export const CLIENTS_QUERY =
 
 // About page query
 export const ABOUT_QUERY = defineQuery(`*[_type == "about" && _id == "about"][0] {
-  content
+  hero {
+    heading,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  },
+  "cards": cards[] {
+    _key,
+    title,
+    description,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  },
+  whatWeDo {
+    heading,
+    description,
+    "capabilities": capabilities[] {
+      _key,
+      title,
+      description
+    }
+  },
+  prefooter {
+    tagline,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  }
 }`);
 
 // Contact page query

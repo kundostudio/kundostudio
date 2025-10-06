@@ -16,10 +16,8 @@ export function HomePage({ title, asset }: HomePageProps) {
 			<div className="aspect-[1.62] relative">
 				{asset && (
 					<Asset
-						filetype="img"
+						filetype={asset.filetype}
 						src={asset.url}
-						alt="Kundo"
-						fill
 						container={{
 							className: "absolute inset-0",
 							style: {

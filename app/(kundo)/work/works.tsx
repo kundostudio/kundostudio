@@ -1,18 +1,19 @@
 "use client";
 
 import type { Route } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import { Asset } from "~/components/asset";
 
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
 import type { WorksPage as WorksPageType } from "~/lib/queries";
+import { cn } from "~/lib/utils";
 
 export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 	const projects = worksData?.featuredProjects || [];
 
 	return (
-		<Page className="flex flex-col gap-28 w-full mx-auto px-5 sm:px-19 md:px-3 lg:px-11 xl:px-0 max-w-256 pt-[26px] sm:pt-14">
+		<Page className="flex flex-col gap-28 w-full mx-auto px-5 sm:px-19 md:px-3 lg:px-11 xl:px-0 max-w-256 pt-[26px] sm:pt-14 mb-[120px]">
 			<Typography.H1>
 				Built on trust.
 				<br /> Proven by outcomes
@@ -31,27 +32,30 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 							href={`/work/${project.slug}` as Route}
 							className="group flex flex-col"
 						>
-							<div className="relative aspect-[1.62] bg-black overflow-hidden border border-white/16 rounded-[10px]">
-								<Image
-									src={project.thumbnail ?? ""}
-									alt={project.name ?? ""}
+							<div className="relative aspect-[1.62]">
+								<Asset
+									filetype="img"
+									src={project.thumbnail}
+									alt={project.name}
 									fill
 									className="object-cover transition-transform duration-300 group-hover:scale-105"
+									container={{
+										className: "absolute inset-0",
+									}}
 								/>
 							</div>
 							<div className="mt-4 flex flex-col gap-1">
-								<Typography.P className="text-primary flex items-center gap-2">
-									<span>{project.name}</span>
-									{project.year ? (
-										<span className="text-secondary">&mdash; {project.year}</span>
-									) : null}
-								</Typography.P>
+								<h3 className={cn(Typography.textStyles.body, "text-primary")}>
+									{project.name}
+									{project.year ? <span> &mdash; {project.year}</span> : null}
+								</h3>
 								{skillNames.length > 0 ? (
-									<Typography.P className="text-secondary">
+									<h4 className={cn(Typography.textStyles.body, "text-secondary")}>
 										{skillNames
 											.map((skill) => skill.charAt(0).toUpperCase() + skill.slice(1))
+											.slice(0, 3)
 											.join(", ")}
-									</Typography.P>
+									</h4>
 								) : null}
 							</div>
 						</Link>

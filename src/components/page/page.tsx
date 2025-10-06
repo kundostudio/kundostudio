@@ -14,21 +14,10 @@ type Props<T extends ElementType = "main"> = {
 	children: React.ReactNode;
 } & Omit<React.ComponentPropsWithoutRef<T>, "as" | "className" | "children">;
 
-export function Page<T extends ElementType = "main">({
-	as,
-	className,
-	children,
-	...props
-}: Props<T>) {
+export function Page<T extends ElementType = "main">({ as, children, ...props }: Props<T>) {
 	const Component = as || "main";
 
 	const isMenuOpen = useStore((state) => state.isMenuOpen);
-
-	const { scrollY } = useScroll();
-	const maskImageY = useTransform(scrollY, (value) => value);
-	const maskImageY122 = useTransform(scrollY, (value) => value + 72);
-	const maskImageY152 = useTransform(scrollY, (value) => value + 100);
-	const maskImageY172 = useTransform(scrollY, (value) => value + 120);
 
 	useEffect(() => {
 		if (isMenuOpen) {
@@ -59,22 +48,9 @@ export function Page<T extends ElementType = "main">({
 				overscroll: true,
 			}}
 		>
-			<motion.div
-				className="flex-1"
-				style={{
-					maskImage: useMotionTemplate`linear-gradient(
-					to bottom,
-					rgba(0, 0, 0, 0) ${maskImageY}px,
-					rgba(0, 0, 0, 0) ${maskImageY122}px,
-					rgba(0, 0, 0, 0.8) ${maskImageY152}px,
-					rgba(0, 0, 0, 1) ${maskImageY172}px
-				`,
-				}}
-			>
-				<Component className={cn("mt-18", className)} {...props}>
-					{children}
-				</Component>
-			</motion.div>
+			<Component {...props} className={cn("mt-18 flex-1", props.className)}>
+				{children}
+			</Component>
 			<Scrollbar className="fixed hidden md:block md:right-5 xl:right-45 top-32" />
 		</ReactLenis>
 	);

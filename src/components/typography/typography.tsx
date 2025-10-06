@@ -21,39 +21,15 @@ export function H2({ className, ...props }: JSX.IntrinsicElements["h2"]) {
 }
 
 export function H3({ className, ...props }: JSX.IntrinsicElements["h3"]) {
-	return (
-		<h3
-			className={cn(
-				"text-[26px] leading-[34px] font-medium tracking-[-0.02em] text-start",
-				className,
-			)}
-			{...props}
-		/>
-	);
+	return <h3 className={cn(textStyles.body, className)} {...props} />;
 }
 
 export function H4({ className, ...props }: JSX.IntrinsicElements["h4"]) {
-	return (
-		<h4
-			className={cn(
-				"text-[22px] leading-[30px] font-medium tracking-[-0.02em] text-start",
-				className,
-			)}
-			{...props}
-		/>
-	);
+	return <h4 className={cn(textStyles.body, className)} {...props} />;
 }
 
 export function P({ className, ...props }: JSX.IntrinsicElements["p"]) {
-	return (
-		<p
-			className={cn(
-				"text-[14px] leading-[22px] font-medium tracking-[-0.05px] text-start",
-				className,
-			)}
-			{...props}
-		/>
-	);
+	return <p className={cn(textStyles.body, className)} {...props} />;
 }
 
 export function Button({ className, ...props }: JSX.IntrinsicElements["span"]) {
