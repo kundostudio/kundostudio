@@ -16,9 +16,18 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
-			name: "asset",
-			title: "Asset",
-			type: "asset",
+			name: "assets",
+			title: "Assets",
+			type: "array",
+			of: [{ type: "asset" }],
+		}),
+		defineField({
+			name: "imageDuration",
+			title: "Image Duration (milliseconds)",
+			type: "number",
+			description: "Duration in milliseconds for each image transition",
+			initialValue: 5000,
+			validation: (Rule) => Rule.required().min(100).max(30000),
 		}),
 	],
 	preview: {

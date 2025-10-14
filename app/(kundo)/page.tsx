@@ -6,5 +6,5 @@ import { HomePage } from "./home/home";
 export default async function Home() {
 	const { data } = await sanityFetch({ query: HOME_QUERY });
 
-	return <HomePage title={data?.title} asset={data?.asset} />;
+	return <HomePage title={data?.title} assets={data?.assets} imageDuration={data?.imageDuration} />;
 }

@@ -18,7 +18,7 @@
 	--breakpoint-sm: 640px;
 	--breakpoint-md: 768px;
 	--breakpoint-lg: 1024px;
-	--breakpoint-xl: 1440px;
+	--breakpoint-xl: 1280px;
 
 	/* Fonts */
 	--font-neue: var(--font-neue);
@@ -190,4 +190,10 @@
 
 .lenis.lenis-scrolling iframe {
 	pointer-events: none;
+}
+
+@layer utilities {
+	.container {
+		@apply px-5 md:px-10 max-w-[578px] md:max-w-[1130px] xl:max-w-[1220px] w-full mx-auto;
+	}
 }

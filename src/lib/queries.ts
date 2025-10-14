@@ -58,7 +58,8 @@ export interface CarouselItem {
 
 export interface HomePage {
 	title: string;
-	asset?: Asset;
+	assets?: Asset[];
+	imageDuration?: number;
 }
 
 export type PortableTextValue = PortableTextBlock[];
@@ -125,13 +126,15 @@ export interface WorksPage {
 // Home page query
 export const HOME_QUERY = defineQuery(`*[_type == "home" && _id == "home"][0] {
   title,
-  "asset": {
+  imageDuration,
+  "assets": assets[] {
     "url": select(
-      asset.filetype == "img" => asset.image.asset->url,
-      asset.filetype == "video" => asset.video.asset->url,
-      asset.filetype == "video-stream" => asset.videoStream.asset->playbackId
+      filetype == "img" => image.asset->url,
+      filetype == "video" => video.asset->url,
+      filetype == "video-stream" => videoStream.asset->playbackId
     ),
-    "filetype": asset.filetype
+    filetype,
+    alt
   }
 }`);
 

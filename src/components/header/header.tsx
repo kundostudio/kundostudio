@@ -44,7 +44,7 @@ export function Header({ className, ...props }: HeaderProps) {
 	if (isMobile) {
 		return (
 			<>
-				<header className="w-full h-12 px-5 flex justify-between items-center relative">
+				<header className="h-12 flex justify-between items-center relative container">
 					<Link href="/" onClick={handleLogoClick}>
 						<Logo className="h-4" />
 					</Link>
@@ -71,13 +71,7 @@ export function Header({ className, ...props }: HeaderProps) {
 	}
 
 	return (
-		<header
-			className={cn(
-				"flex w-full mx-auto justify-between h-8 px-19 md:px-3 lg:px-11 xl:px-0 max-w-256 relative",
-				className,
-			)}
-			{...props}
-		>
+		<header className={cn("flex justify-between h-8 relative container", className)} {...props}>
 			<nav className="flex justify-between items-center gap-4">
 				{NAVIGATION_ITEMS.map((item) => (
 					<Link

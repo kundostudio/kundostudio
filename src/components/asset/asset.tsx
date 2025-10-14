@@ -11,6 +11,7 @@ import { cn } from "~/lib/utils";
 
 type BaseContainer = {
 	container?: React.HTMLAttributes<HTMLDivElement>;
+	variant?: "default" | "card";
 };
 
 type ImgAsset = {
@@ -70,32 +71,42 @@ export function Image({
 	style,
 	alt = "Asset",
 	container = {},
+	variant = "default",
+	width,
+	height,
+	quality = 100,
 	...props
 }: ImageProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
-	const mergedStyle = { ...(containerStyle || {}), ...(style || {}) } as React.CSSProperties;
-
-	// NextImage: o width/height o fill. Si no vienen, uso fill por defecto.
-	const { width, height, sizes, ...rest } = props as Omit<ImageProps, "src" | "alt" | "container">;
-	const needsFill = !("fill" in rest) && (!width || !height);
 
 	return (
 		<div
-			className={cn("relative rounded-[10px] overflow-hidden", className, containerClassName)}
-			style={mergedStyle}
+			className={cn(
+				"relative overflow-hidden flex justify-center items-center",
+				variant === "card" && "rounded-[10px]",
+				width && `w-[${width}px]`,
+				height && `h-[${height}px]`,
+				containerClassName,
+			)}
+			style={containerStyle}
 			{...containerRest}
 		>
 			<NextImage
 				src={src}
 				alt={alt}
-				className={cn("object-cover")}
-				quality={100}
-				{...(needsFill ? { fill: true, sizes: sizes ?? "100vw" } : { width, height, sizes })}
-				{...rest}
+				className={cn("object-cover", className)}
+				quality={quality}
+				{...("fill" in props ? { fill: true } : { width, height })}
+				{...props}
 			/>
-			<div
-				className={cn("absolute inset-0 rounded-[10px] border border-white/16", containerClassName)}
-			/>
+			{variant === "card" && (
+				<div
+					className={cn(
+						"absolute inset-0 rounded-[10px] border border-white/16",
+						containerClassName,
+					)}
+				/>
+			)}
 		</div>
 	);
 }
