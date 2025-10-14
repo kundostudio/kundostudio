@@ -38,6 +38,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 									src={project.thumbnail}
 									alt={project.name}
 									fill
+									variant="card"
 									className="object-cover transition-transform duration-300 group-hover:scale-105"
 									container={{
 										className: "absolute inset-0",
