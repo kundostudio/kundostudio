@@ -39,43 +39,49 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 	const heroAsset = hero?.asset;
 	const prefooterAsset = prefooter?.asset;
 
+	// before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-t before:from-black before:via-black/40 before:to-transparent
 	return (
-		<Page className="flex flex-col gap-24 w-full mx-auto mt-0">
-			{hero ? (
-				<section className="relative overflow-hidden bg-[#050505] px-6 sm:px-12 md:px-16 lg:px-20 py-16 sm:py-24 md:py-28 lg:py-32 before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-t before:from-black before:via-black/40 before:to-transparent">
-					{heroAsset?.url ? (
+		<Page className="flex flex-col w-full mx-auto mt-0">
+			{hero && (
+				<section className="relative overflow-hidden bg-[#050505] pt-44 pb-30 sm:pt-[274px] sm:pb-50 lg:pt-[394px] lg:pb-42 xl:pt-120">
+					{heroAsset?.url && (
 						<Asset
 							filetype={heroAsset.filetype}
 							src={heroAsset.url}
 							fill
-							className="object-top"
 							container={{
-								className: "absolute inset-0",
+								className: "absolute inset-0 aspect-[1.77]",
 							}}
 						/>
-					) : null}
-					<div className="relative z-10 flex flex-col gap-6 max-w-3xl">
+					)}
+					<div className="relative z-10 container">
 						{hero.heading && (
-							<Typography.H1 className="text-primary leading-[0.95]">{hero.heading}</Typography.H1>
+							<Typography.H1 className={cn(Typography.textStyles.h1, "text-primary max-w-174")}>
+								{hero.heading}
+							</Typography.H1>
 						)}
 					</div>
 				</section>
-			) : null}
+			)}
 
 			{cards.length > 0 ? (
-				<section className="flex flex-col gap-10">
-					<div className="grid grid-cols-1 gap-8 md:grid-cols-3 max-w-[1008px] mx-auto">
+				<section className="relative flex flex-col gap-10 pt-36 pb-30 px-5 md:px-10">
+					<div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-10" />
+					<div className="flex flex-row gap-8 mx-auto overflow-x-auto">
 						{cards.map((card) => {
 							const asset = card.asset;
 
 							return (
-								<article key={card._key} className="flex flex-col gap-6">
+								<article key={card._key} className="flex flex-col gap-6 w-[314px] min-w-[314px]">
 									{asset?.url ? (
 										<Asset
 											filetype={asset.filetype}
 											src={asset.url}
 											fill
-											className="relative aspect-[0.68]"
+											variant="card"
+											container={{
+												className: "aspect-[0.68]",
+											}}
 										/>
 									) : null}
 									<div className="flex flex-col">
@@ -94,7 +100,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 			) : null}
 
 			{whatWeDo ? (
-				<section className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 max-w-[1200px] mx-auto px-10">
+				<section className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 container pt-20">
 					<div className="md:col-span-5">
 						{whatWeDo.heading ? (
 							<Typography.H2 className={cn("text-primary", Typography.textStyles.h1)}>
