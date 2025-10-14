@@ -48,9 +48,9 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 							filetype={heroAsset.filetype}
 							src={heroAsset.url}
 							fill
-							className="absolute inset-0"
+							className="object-top"
 							container={{
-								className: "rounded-none!",
+								className: "absolute inset-0",
 							}}
 						/>
 					) : null}
