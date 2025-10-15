@@ -13,7 +13,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 	const projects = worksData?.featuredProjects || [];
 
 	return (
-		<Page className="flex flex-col gap-28 pt-[26px] sm:pt-14 mb-[120px] container">
+		<Page className="flex flex-col gap-28 sm:mt-18 pt-[26px] sm:pt-26 mb-[120px] container">
 			<Typography.H1>
 				Built on trust.
 				<br /> Proven by outcomes

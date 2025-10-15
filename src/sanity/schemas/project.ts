@@ -19,6 +19,16 @@ export default defineType({
 			initialValue: true,
 		}),
 		defineField({
+			name: "slug",
+			title: "Slug",
+			type: "slug",
+			options: {
+				source: "name",
+				maxLength: 96,
+			},
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
 			name: "client",
 			title: "Client",
 			type: "reference",
@@ -83,14 +93,6 @@ export default defineType({
 			type: "richText",
 		}),
 		defineField({
-			name: "skills",
-			title: "B / WORK",
-			description: "Add the skills used in the project.",
-			type: "array",
-			of: [{ type: "reference", to: [{ type: "skill" }] }],
-			validation: (Rule) => Rule.required(),
-		}),
-		defineField({
 			name: "quote",
 			title: "C / QUOTE",
 			type: "quote",
@@ -98,20 +100,18 @@ export default defineType({
 
 		defineField({
 			name: "assets",
-			title: "C / PROJECT ASSETS",
+			title: "PROJECT ASSETS",
 			type: "array",
 			description:
 				"Add images or videos that can be displayed in full width or compact (half width)",
 			of: [{ type: "asset" }],
 		}),
 		defineField({
-			name: "slug",
-			title: "Slug",
-			type: "slug",
-			options: {
-				source: "name",
-				maxLength: 96,
-			},
+			name: "skills",
+			title: "ROLES",
+			description: "Roles for the project, internal and external.",
+			type: "array",
+			of: [{ type: "reference", to: [{ type: "skill" }] }],
 			validation: (Rule) => Rule.required(),
 		}),
 	],

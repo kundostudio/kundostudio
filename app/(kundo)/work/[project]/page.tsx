@@ -34,7 +34,7 @@ export default async function ProjectDetail({ params }: Props) {
 	}
 
 	return (
-		<Page className="pb-23">
+		<Page className="sm:mt-18 pb-23">
 			{/* Header */}
 			<div className="container flex flex-col items-start gap-12 mt-[54px] sm:mt-22 mb-12">
 				<Typography.H1 className="mb-8 max-w-146">{project.title}</Typography.H1>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMediaQuery } from "@studio-freight/hamo";
+import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -73,25 +74,42 @@ export function Header({ className, ...props }: HeaderProps) {
 	return (
 		<header className={cn("flex justify-between h-8 relative container", className)} {...props}>
 			<nav className="flex justify-between items-center gap-4">
-				{NAVIGATION_ITEMS.map((item) => (
-					<Link
-						href={item.href}
-						key={item.href}
-						className={cn("h-full px-4 -ml-4 flex items-center justify-center relative")}
-					>
-						<span
+				{NAVIGATION_ITEMS.map((item) => {
+					const isActive =
+						item.href === "/"
+							? pathname === "/"
+							: pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+					return (
+						<Link
+							href={item.href}
 							key={item.href}
-							className={cn(
-								"text-primary w-fit relative",
-								textStyles.buttonNav,
-								pathname === item.href &&
-									"after:absolute after:bottom-[-2px] after:left-0 after:w-full after:h-px after:bg-primary after:rounded-full",
-							)}
+							className={cn("h-full px-4 -ml-4 flex items-center justify-center relative")}
 						>
-							{item.label}
-						</span>
-					</Link>
-				))}
+							<span
+								key={item.href}
+								className={cn("text-primary w-fit relative", textStyles.buttonNav)}
+							>
+								{item.label}
+								{/* Active underline container */}
+								<span className="pointer-events-none absolute bottom-[-2px] left-0 w-full h-px overflow-hidden rounded-full">
+									<AnimatePresence initial={false}>
+										{isActive ? (
+											<motion.span
+												key="active-bar"
+												className="block w-full h-full bg-primary"
+												initial={{ x: "-100%" }}
+												animate={{ x: "0%" }}
+												exit={{ x: "100%" }}
+												transition={{ duration: 0.15, ease: "easeInOut" }}
+											/>
+										) : null}
+									</AnimatePresence>
+								</span>
+							</span>
+						</Link>
+					);
+				})}
 			</nav>
 			<Link href="/" className="absolute inset-0 m-auto size-fit" onClick={handleLogoClick}>
 				<Logo className="h-8 w-12 p-2" />

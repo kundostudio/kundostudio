@@ -35,7 +35,7 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 	const currentAsset = assets?.[currentIndex];
 
 	return (
-		<Page className="flex flex-col pt-[26px] sm:pt-14 container">
+		<Page className="flex flex-col sm:mt-18 pt-[26px] sm:pt-14 container">
 			<div className="aspect-[1.62] relative">
 				{currentAsset && (
 					<Asset
