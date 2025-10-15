@@ -37,6 +37,7 @@ export interface Project {
 	thumbnail: string;
 	subtitle: string;
 	description: string;
+	secondaryDescription?: PortableTextValue;
 	year: number;
 	slug: string;
 	skills: Skill[];
@@ -203,8 +204,9 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   name,
   url,
   "thumbnail": thumbnail.asset->url,
-  subtitle,
+  title,
   description,
+  secondaryDescription,
   year,
   "slug": slug.current,
   visible,

@@ -48,7 +48,7 @@ export function Page<T extends ElementType = "main">({ as, children, ...props }:
 				overscroll: true,
 			}}
 		>
-			<Component {...props} className={cn("mt-18 flex-1", props.className)}>
+			<Component {...props} className={cn("mt-12 sm:mt-18 flex-1", props.className)}>
 				{children}
 			</Component>
 			<Scrollbar className="fixed hidden md:block md:right-5 xl:right-45 top-32" />

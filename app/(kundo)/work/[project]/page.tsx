@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "~/components/button";
 
 import { HackerText } from "~/components/hacker-text";
 import { Page } from "~/components/page";
+import { PortableText } from "~/components/portable-text";
 import * as Typography from "~/components/typography";
 import { Video } from "~/components/video";
 import { PROJECT_QUERY } from "~/lib/queries";
+import { cn } from "~/lib/utils";
 import { sanityFetch } from "~/sanity/lib/live";
 
 interface Props {
@@ -31,43 +34,23 @@ export default async function ProjectDetail({ params }: Props) {
 	}
 
 	return (
-		<Page className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 gap-y-8 md:gap-x-6 lg:gap-x-8 pb-[120px]">
+		<Page className="pb-23">
 			{/* Header */}
-			<div className="col-span-full flex flex-col mt-10 md:mt-18 lg:translate-y-6 lg:mt-28">
-				<Typography.P className="text-secondary uppercase">
-					<HackerText
-						iterationsToAdvance={2}
-						speed={50}
-						startsComplete
-						minRepeatTime={5000}
-						maxRepeatTime={10000}
-					>
-						/ WORK
-					</HackerText>
-				</Typography.P>
-				<div className="relative inline-block w-fit">
-					<Typography.H1 className="leading-none w-fit mt-1 mb-8">{project.name}</Typography.H1>
-					<Typography.P className="absolute top-0 -right-2 translate-x-full text-primary">
-						[{project.year}]
-					</Typography.P>
-				</div>
-				<Typography.P className="text-secondary uppercase">{project.subtitle}</Typography.P>
+			<div className="container flex flex-col items-start gap-12 mt-[54px] sm:mt-22 mb-12">
+				<Typography.H1 className="mb-8 max-w-146">{project.title}</Typography.H1>
+				{/* Visit Button */}
+				{project.url && (
+					<Link href={project.url} target="_blank" rel="noopener noreferrer">
+						<Button>
+							<Typography.P>Visit</Typography.P>
+						</Button>
+					</Link>
+				)}
 			</div>
 
-			<div className="h-16 md:h-24 lg:h-36 border-t border-tertiary col-span-full" />
-
-			{/* Visit Button */}
-			{project.url && (
-				<div className="col-span-full flex justify-end">
-					<Link href={project.url} target="_blank" rel="noopener noreferrer" className="group">
-						<Typography.P className="text-primary uppercase">VISIT →</Typography.P>
-					</Link>
-				</div>
-			)}
-
 			{/* Main Asset */}
-			{project.mainAsset && project.mainAsset.url && (
-				<div className="col-span-full aspect-[16/9] relative">
+			{project.mainAsset?.url && (
+				<div className="w-full aspect-[16/9] relative">
 					{project.mainAsset.filetype === "img" ? (
 						<Image
 							src={project.mainAsset.url}
@@ -87,71 +70,13 @@ export default async function ProjectDetail({ params }: Props) {
 			)}
 
 			{/* Description */}
-			<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-				<HackerText
-					iterationsToAdvance={2}
-					speed={30}
-					startsComplete
-					minRepeatTime={5000}
-					maxRepeatTime={10000}
-				>
-					A /
-				</HackerText>
-			</Typography.P>
-			<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-				<HackerText
-					iterationsToAdvance={2}
-					speed={30}
-					startsComplete
-					minRepeatTime={5000}
-					maxRepeatTime={10000}
-				>
-					DESCRIPTION
-				</HackerText>
-			</Typography.P>
-			<Typography.H3 className="text-start col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-				{project.description}
-			</Typography.H3>
-
-			<div className="h-px bg-tertiary col-span-full" />
-
-			{/* Work */}
-			<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-				<HackerText
-					iterationsToAdvance={2}
-					speed={30}
-					startsComplete
-					minRepeatTime={5000}
-					maxRepeatTime={10000}
-				>
-					B /
-				</HackerText>
-			</Typography.P>
-			<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-				<HackerText
-					iterationsToAdvance={2}
-					speed={30}
-					startsComplete
-					minRepeatTime={5000}
-					maxRepeatTime={10000}
-				>
-					WORK
-				</HackerText>
-			</Typography.P>
-			<div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-				<Typography.P className="text-secondary uppercase">
-					{project.skills?.map((skill) => (
-						<span key={skill._id}>
-							{skill.name}
-							<br />
-						</span>
-					))}
-				</Typography.P>
+			<div className="container mt-26 mb-32">
+				<Typography.H2 className="max-w-96">{project.description}</Typography.H2>
 			</div>
 
 			{/* Secondary Asset */}
-			{project.secondaryAsset && project.secondaryAsset.url && (
-				<div className="col-span-full aspect-video relative mt-16">
+			{project.secondaryAsset?.url && (
+				<div className="container aspect-video relative">
 					{project.secondaryAsset.filetype === "img" ? (
 						<Image
 							src={project.secondaryAsset.url}
@@ -171,7 +96,20 @@ export default async function ProjectDetail({ params }: Props) {
 				</div>
 			)}
 
-			{/* Quote */}
+			{/* Secondary Description */}
+			{project.secondaryDescription && (
+				<div className="container mt-20 mb-14">
+					<PortableText
+						value={project.secondaryDescription}
+						classes={{
+							block: { normal: cn(Typography.textStyles.body, "max-w-[383px]") },
+							marks: { strong: "text-secondary" },
+						}}
+					/>
+				</div>
+			)}
+
+			{/* Quote
 			{project.quote?.text && project.quote.author && (
 				<>
 					<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
@@ -216,11 +154,11 @@ export default async function ProjectDetail({ params }: Props) {
 						</div>
 					</div>
 				</>
-			)}
+			)} */}
 
 			{/* Project Assets */}
 			{project.assets && project.assets.length > 0 && (
-				<div className="col-span-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-16">
+				<div className="container mt-20 flex flex-col gap-8">
 					{project.assets.map((asset, index) => {
 						// Skip assets without a URL or filetype
 						if (!asset.url || !asset.filetype) return null;
@@ -248,6 +186,18 @@ export default async function ProjectDetail({ params }: Props) {
 					})}
 				</div>
 			)}
+
+			{/* Work */}
+			<div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+				<Typography.P className="text-secondary uppercase">
+					{project.skills?.map((skill) => (
+						<span key={skill._id}>
+							{skill.name}
+							<br />
+						</span>
+					))}
+				</Typography.P>
+			</div>
 		</Page>
 	);
 }

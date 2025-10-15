@@ -44,7 +44,7 @@ export function Header({ className, ...props }: HeaderProps) {
 	if (isMobile) {
 		return (
 			<>
-				<header className="h-12 flex justify-between items-center relative container">
+				<header className="fixed top-0 left-0 right-0 z-100 h-12 flex justify-between items-center container">
 					<Link href="/" onClick={handleLogoClick}>
 						<Logo className="h-4" />
 					</Link>

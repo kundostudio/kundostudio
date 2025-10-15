@@ -12,6 +12,7 @@ import { cn } from "~/lib/utils";
 type PortableTextClassNames = {
   marks?: {
     link?: string;
+    strong?: string;
   };
   types?: {
     image?: {
@@ -56,6 +57,7 @@ function createPortableTextComponents(classes?: PortableTextClassNames): Partial
           </Link>
         );
       },
+      strong: ({ children }) => <strong className={cn(classes?.marks?.strong)}>{children}</strong>,
     },
     types: {
       image: ({ value }) => {
