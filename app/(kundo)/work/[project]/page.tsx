@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { Asset } from "~/components/asset";
 import { Button } from "~/components/button";
-import { HackerText } from "~/components/hacker-text";
 import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
 import * as Typography from "~/components/typography";
@@ -14,12 +13,6 @@ import { sanityFetch } from "~/sanity/lib/live";
 
 interface Props {
 	params: Promise<{ project: string }>;
-}
-
-// Define a local Asset type that acepta valores nulos
-interface ProjectAsset {
-	url: string | null;
-	filetype: "img" | "video" | "video-stream" | null;
 }
 
 export default async function ProjectDetail({ params }: Props) {
@@ -62,7 +55,7 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Description */}
 			<div className="container mt-26 mb-32">
-				<Typography.H2 className="max-w-96">{project.description}</Typography.H2>
+				<p className={cn(Typography.textStyles.h3, "max-w-96")}>{project.description}</p>
 			</div>
 
 			{/* Secondary Asset (using shared Asset) */}
@@ -117,9 +110,9 @@ export default async function ProjectDetail({ params }: Props) {
 								{/* Quote block */}
 								{project.quote?.text && project.quote.author && (
 									<div className="self-end max-w-122 mt-8 mb-26 flex flex-col gap-6">
-										<Typography.H2 className="text-start">
+										<p className={cn(Typography.textStyles.h2, "text-start")}>
 											&ldquo;{project.quote.text}&rdquo;
-										</Typography.H2>
+										</p>
 										<div className="flex items-center gap-2 w-fit">
 											{project.quote.author.image && (
 												<Image
@@ -130,7 +123,7 @@ export default async function ProjectDetail({ params }: Props) {
 													className="rounded-full"
 												/>
 											)}
-											<span className={cn(Typography.textStyles.label, "text-secondary uppercase")}>
+											<span className={cn(Typography.textStyles.h4, "text-secondary uppercase")}>
 												— {project.quote.author.name}, {project.quote.author.role}
 											</span>
 										</div>
@@ -240,13 +233,13 @@ export default async function ProjectDetail({ params }: Props) {
 			)}
 
 			<div className="container flex flex-col items-center gap-4 mt-42">
-				<Sign className="w-[27px]" />
+				<Sign className="w-[50px]" />
 				<Image
 					src="/projects/seal.png"
 					alt="Kundo Quality Seal"
 					quality={100}
-					width={40}
-					height={40}
+					width={80}
+					height={80}
 				/>
 			</div>
 		</Page>

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -8,7 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
     "incremental": false,
@@ -36,10 +40,17 @@
       }
     ],
     "paths": {
-      "~/public/*": ["./public/*"],
-      "~/*": ["./src/*"]
+      "~/public/*": [
+        "./public/*"
+      ],
+      "~/*": [
+        "./src/*"
+      ]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
   },
   "include": [
     "next-env.d.ts",
@@ -48,7 +59,10 @@
     "**/*.js",
     ".next/types/**/*.ts",
     "postcss.config.mjs",
-    "next.config.mjs"
+    "next.config.mjs",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -16,7 +16,7 @@ function renderCardDescription(card: AboutCard) {
 	return (
 		<PortableText
 			value={card.description}
-			classes={{ block: { normal: cn("text-secondary", Typography.textStyles.h2) } }}
+			classes={{ block: { normal: cn("text-secondary", Typography.textStyles.h4) } }}
 		/>
 	);
 }
@@ -39,7 +39,6 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 	const heroAsset = hero?.asset;
 	const prefooterAsset = prefooter?.asset;
 
-	// before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-t before:from-black before:via-black/40 before:to-transparent
 	return (
 		<Page className="flex flex-col w-full mx-auto mt-0">
 			{hero && (
@@ -85,11 +84,9 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 										/>
 									) : null}
 									<div className="flex flex-col">
-										{card.title ? (
-											<h3 className={cn("text-primary inline", Typography.textStyles.h2)}>
-												{card.title}
-											</h3>
-										) : null}
+										{card.title && (
+											<Typography.H4 className="text-primary inline">{card.title}</Typography.H4>
+										)}
 										{renderCardDescription(card)}
 									</div>
 								</article>
@@ -112,7 +109,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 						{whatWeDo.description ? (
 							<PortableText
 								value={whatWeDo.description}
-								classes={{ block: { normal: cn("text-primary", Typography.textStyles.h2) } }}
+								classes={{ block: { normal: cn("text-primary", Typography.textStyles.h3) } }}
 							/>
 						) : null}
 						{whatWeDo.capabilities?.length ? (
@@ -128,7 +125,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 													<PortableText
 														value={capability.description}
 														classes={{
-															block: { normal: cn("text-secondary", Typography.textStyles.h2) },
+															block: { normal: cn("text-secondary", Typography.textStyles.h4) },
 														}}
 													/>
 												</div>

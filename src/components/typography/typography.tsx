@@ -5,11 +5,13 @@ import { cn } from "~/lib/utils";
 export const textStyles = {
 	button: "font-neue text-[14px] font-medium leading-[20px] tracking-[-0.05%]",
 	buttonNav: "font-neue text-[16px] font-medium leading-[22px] tracking-[-0.05%]",
-	body: "font-neue text-[14px] font-medium leading-[22px] tracking-[-0.03px]",
-	bodyAA: "font-neue text-[14px] font-medium leading-[22px] tracking-[-0.05px]",
+	body: "font-neue text-[16px] font-medium leading-[24px] tracking-[-0.03px]",
+	bodyAA: "font-neue text-[16px] font-medium leading-[24px] tracking-[-0.05px]",
 	label: "font-neue text-[12px] font-medium leading-[16px] tracking-[-0.05%]",
-	h1: "font-neue font-bold text-[54px] leading-[56px] tracking-[-0.05%]",
-	h2: "font-neue font-medium text-[26px] leading-[28px] tracking-[-0.5px]",
+	h1: "font-neue font-bold text-[54px] leading-[1.1] tracking-[-0.05%]",
+	h2: "font-neue font-medium text-[41px] leading-[1.25] tracking-[-0.5px]",
+	h3: "font-neue font-medium text-[30px] leading-[1.35] tracking-[-0.5px]",
+	h4: "font-neue font-medium text-[23px] leading-[1.45] tracking-[-0.5px]",
 };
 
 export function H1({ className, ...props }: JSX.IntrinsicElements["h1"]) {
@@ -21,11 +23,11 @@ export function H2({ className, ...props }: JSX.IntrinsicElements["h2"]) {
 }
 
 export function H3({ className, ...props }: JSX.IntrinsicElements["h3"]) {
-	return <h3 className={cn(textStyles.body, className)} {...props} />;
+	return <h3 className={cn(textStyles.h3, className)} {...props} />;
 }
 
 export function H4({ className, ...props }: JSX.IntrinsicElements["h4"]) {
-	return <h4 className={cn(textStyles.body, className)} {...props} />;
+	return <h4 className={cn(textStyles.h4, className)} {...props} />;
 }
 
 export function P({ className, ...props }: JSX.IntrinsicElements["p"]) {
