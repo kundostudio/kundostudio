@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
+import { Asset } from "~/components/asset";
 import { Button } from "~/components/button";
-
 import { HackerText } from "~/components/hacker-text";
 import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
 import * as Typography from "~/components/typography";
-import { Video } from "~/components/video";
 import { PROJECT_QUERY } from "~/lib/queries";
 import { cn } from "~/lib/utils";
 import Sign from "~/public/projects/sign.svg";
@@ -50,25 +49,15 @@ export default async function ProjectDetail({ params }: Props) {
 				)}
 			</div>
 
-			{/* Main Asset */}
+			{/* Main Asset (using shared Asset) */}
 			{project.mainAsset?.url && (
-				<div className="w-full aspect-[16/9] relative">
-					{project.mainAsset.filetype === "img" ? (
-						<Image
-							src={project.mainAsset.url}
-							alt={project.name || "Project image"}
-							fill
-							className="object-cover"
-							priority
-						/>
-					) : (
-						<Video
-							src={project.mainAsset.url}
-							isStreaming={project.mainAsset.filetype === "video-stream"}
-							className="w-full h-full object-cover"
-						/>
-					)}
-				</div>
+				<Asset
+					filetype={project.mainAsset.filetype}
+					src={project.mainAsset.url}
+					fill
+					className="object-cover"
+					container={{ className: "w-full aspect-[16/9] relative" }}
+				/>
 			)}
 
 			{/* Description */}
@@ -76,26 +65,15 @@ export default async function ProjectDetail({ params }: Props) {
 				<Typography.H2 className="max-w-96">{project.description}</Typography.H2>
 			</div>
 
-			{/* Secondary Asset */}
+			{/* Secondary Asset (using shared Asset) */}
 			{project.secondaryAsset?.url && (
-				<div className="container aspect-video relative">
-					{project.secondaryAsset.filetype === "img" ? (
-						<Image
-							src={project.secondaryAsset.url}
-							alt={project.name || "Secondary project image"}
-							fill
-							className="object-cover"
-						/>
-					) : project.secondaryAsset.filetype === "video" ? (
-						<Video src={project.secondaryAsset.url} className="w-full h-full object-cover" />
-					) : project.secondaryAsset.filetype === "video-stream" ? (
-						<Video
-							src={project.secondaryAsset.url}
-							isStreaming={true}
-							className="w-full h-full object-cover"
-						/>
-					) : null}
-				</div>
+				<Asset
+					filetype={project.secondaryAsset.filetype}
+					src={project.secondaryAsset.url}
+					fill
+					className="rounded-[5px] sm:rounded-[10px]"
+					container={{ className: "container aspect-video relative" }}
+				/>
 			)}
 
 			{/* Secondary Description */}
@@ -111,90 +89,81 @@ export default async function ProjectDetail({ params }: Props) {
 				</div>
 			)}
 
-			{/* Quote
-			{project.quote?.text && project.quote.author && (
-				<>
-					<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-1">
-						<HackerText
-							iterationsToAdvance={2}
-							speed={30}
-							startsComplete
-							minRepeatTime={5000}
-							maxRepeatTime={10000}
-						>
-							C /
-						</HackerText>
-					</Typography.P>
-					<Typography.P className="text-secondary uppercase text-start col-span-1 md:col-start-2">
-						<HackerText
-							iterationsToAdvance={2}
-							speed={30}
-							startsComplete
-							minRepeatTime={5000}
-							maxRepeatTime={10000}
-						>
-							QUOTE
-						</HackerText>
-					</Typography.P>
-					<div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-						<Typography.H3 className="text-start text-balance">
-							&ldquo;{project.quote.text}&rdquo;
-						</Typography.H3>
-						<div className="flex items-center gap-2 mt-4">
-							{project.quote.author.image && (
-								<Image
-									src={project.quote.author.image}
-									alt={project.quote.author.name || "Quote author"}
-									width={24}
-									height={24}
-									className="rounded-full"
-								/>
-							)}
-							<Typography.P className="text-secondary uppercase">
-								{project.quote.author.name}, {project.quote.author.role}
-							</Typography.P>
-						</div>
-					</div>
-				</>
-			)} */}
-
-			{/* Project Assets */}
+			{/* Project Assets with inline Quote after first two */}
 			{project.assets && project.assets.length > 0 && (
 				<div className="container mt-20 flex flex-col gap-8">
-					{project.assets.map((asset, index) => {
-						// Skip assets without a URL or filetype
-						if (!asset.url || !asset.filetype) return null;
+					{(() => {
+						const firstHalf = project.assets.slice(0, 2) ?? [];
+						const secondHalf = project.assets.slice(2) ?? [];
 
 						return (
-							<div key={index} className="aspect-video relative">
-								{asset.filetype === "img" ? (
-									<Image
-										src={asset.url}
-										alt={`${project.name || "Project"} - Asset ${index + 1}`}
-										fill
-										className="object-cover"
-									/>
-								) : asset.filetype === "video" ? (
-									<Video src={asset.url} className="w-full h-full object-cover" />
-								) : asset.filetype === "video-stream" ? (
-									<Video
-										src={asset.url}
-										isStreaming={true}
-										className="w-full h-full object-cover"
-									/>
-								) : null}
-							</div>
+							<>
+								{/* First half of assets */}
+								{firstHalf.map(
+									(asset, index) =>
+										asset?.url &&
+										asset?.filetype && (
+											<Asset
+												key={`asset-first-${index}`}
+												filetype={asset.filetype}
+												src={asset.url}
+												fill
+												className="rounded-[5px] sm:rounded-[10px]"
+												container={{ className: "aspect-video" }}
+											/>
+										),
+								)}
+
+								{/* Quote block */}
+								{project.quote?.text && project.quote.author && (
+									<div className="self-end max-w-122 mt-8 mb-26 flex flex-col gap-6">
+										<Typography.H2 className="text-start">
+											&ldquo;{project.quote.text}&rdquo;
+										</Typography.H2>
+										<div className="flex items-center gap-2 w-fit">
+											{project.quote.author.image && (
+												<Image
+													src={project.quote.author.image}
+													alt={project.quote.author.name || "Quote author"}
+													width={24}
+													height={24}
+													className="rounded-full"
+												/>
+											)}
+											<span className={cn(Typography.textStyles.label, "text-secondary uppercase")}>
+												— {project.quote.author.name}, {project.quote.author.role}
+											</span>
+										</div>
+									</div>
+								)}
+
+								{/* Second half of assets */}
+								{secondHalf.map(
+									(asset, index) =>
+										asset?.url &&
+										asset?.filetype && (
+											<Asset
+												key={`asset-second-${index}`}
+												filetype={asset.filetype}
+												src={asset.url}
+												fill
+												className="rounded-[5px] sm:rounded-[10px]"
+												container={{ className: "aspect-video relative" }}
+											/>
+										),
+								)}
+							</>
 						);
-					})}
+					})()}
 				</div>
 			)}
 
 			{/* Roles (below assets) */}
-			{project.roles?.internal?.length || project.roles?.external?.length ? (
+			{(project.roles?.internal?.length || project.roles?.external?.length) && (
 				<div className="container mt-20 mb-24">
 					<div className="mx-auto w-fit">
 						<div className="grid grid-cols-[auto_auto] gap-x-8 gap-y-2 items-start">
-							{project.roles?.internal?.length ? (
+							{project.roles?.internal?.length && (
 								<>
 									<div />
 									<Typography.P className={cn("uppercase text-primary")}>KUNDO STUDIO</Typography.P>
@@ -217,9 +186,9 @@ export default async function ProjectDetail({ params }: Props) {
 										),
 									)}
 								</>
-							) : null}
+							)}
 
-							{project.roles?.external?.length ? (
+							{project.roles?.external?.length && (
 								<>
 									<div className="col-span-2 h-8" />
 									<div />
@@ -246,7 +215,7 @@ export default async function ProjectDetail({ params }: Props) {
 									)}
 
 									{/* Services */}
-									{(project.roles?.services?.length ?? 0) > 0 ? (
+									{(project.roles?.services?.length ?? 0) > 0 && (
 										<>
 											<div className="col-span-2 h-8" />
 											{project.roles.services.map((service: string, i: number) => (
@@ -262,25 +231,14 @@ export default async function ProjectDetail({ params }: Props) {
 												</Fragment>
 											))}
 										</>
-									) : null}
+									)}
 								</>
-							) : null}
+							)}
 						</div>
 					</div>
 				</div>
-			) : null}
+			)}
 
-			{/* Work */}
-			{/* <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
-				<Typography.P className="text-secondary uppercase">
-					{project.skills?.map((skill) => (
-						<span key={skill._id}>
-							{skill.name}
-							<br />
-						</span>
-					))}
-				</Typography.P>
-			</div> */}
 			<div className="container flex flex-col items-center gap-4 mt-42">
 				<Sign className="w-[27px]" />
 				<Image

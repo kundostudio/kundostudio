@@ -1,6 +1,12 @@
 "use client";
 
-import MuxPlayer from "@mux/mux-player-react";
+import dynamic from "next/dynamic";
+
+// Lazy-load Mux player only on client to avoid SSR hydration mismatch
+const ClientMuxPlayer = dynamic(() => import("@mux/mux-player-react"), {
+	ssr: false,
+});
+
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import type * as React from "react";
 import { cn } from "~/lib/utils";
@@ -102,7 +108,7 @@ export function Image({
 			{variant === "card" && (
 				<div
 					className={cn(
-						"absolute inset-0 rounded-[10px] border border-white/16",
+						"absolute! inset-0 rounded-[10px] border border-white/16",
 						containerClassName,
 					)}
 				/>
@@ -126,6 +132,7 @@ export function MUXPlayer({
 	autoPlay = true,
 	loop = true,
 	playsInline = true,
+	variant = "default",
 	...props
 }: MUXPlayerProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
@@ -137,7 +144,7 @@ export function MUXPlayer({
 			style={mergedStyle}
 			{...containerRest}
 		>
-			<MuxPlayer
+			<ClientMuxPlayer
 				streamType="on-demand"
 				playbackId={playbackId}
 				autoPlay={autoPlay}
@@ -150,6 +157,14 @@ export function MUXPlayer({
 				className="h-full max-w-full [--controls:none] [--media-object-fit:contain]"
 				{...props}
 			/>
+			{variant === "card" && (
+				<div
+					className={cn(
+						"absolute! inset-0 rounded-[10px] border border-white/16",
+						containerClassName,
+					)}
+				/>
+			)}
 		</div>
 	);
 }
