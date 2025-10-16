@@ -1,5 +1,6 @@
 "use client";
 
+import type MuxPlayer from "@mux/mux-player-react";
 import dynamic from "next/dynamic";
 
 // Lazy-load Mux player only on client to avoid SSR hydration mismatch
