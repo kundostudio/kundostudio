@@ -29,6 +29,12 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			name: "projectType",
+			title: "Project Type",
+			type: "array",
+			of: [{ type: "projectType" }],
+		}),
+		defineField({
 			name: "client",
 			title: "Client",
 			type: "reference",
@@ -107,12 +113,29 @@ export default defineType({
 			of: [{ type: "asset" }],
 		}),
 		defineField({
-			name: "skills",
+			name: "roles",
 			title: "ROLES",
-			description: "Roles for the project, internal and external.",
-			type: "array",
-			of: [{ type: "reference", to: [{ type: "skill" }] }],
-			validation: (Rule) => Rule.required(),
+			type: "object",
+			fields: [
+				defineField({
+					name: "internal",
+					title: "KUNDO / Roles",
+					type: "array",
+					of: [{ type: "roleItem" }],
+				}),
+				defineField({
+					name: "external",
+					title: "CLIENT / Roles",
+					type: "array",
+					of: [{ type: "roleItem" }],
+				}),
+				defineField({
+					name: "services",
+					title: "SERVICES",
+					type: "array",
+					of: [{ type: "string" }],
+				}),
+			],
 		}),
 	],
 	preview: {

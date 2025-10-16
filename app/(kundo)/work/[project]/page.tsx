@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import { Button } from "~/components/button";
 
 import { HackerText } from "~/components/hacker-text";
@@ -9,6 +10,7 @@ import * as Typography from "~/components/typography";
 import { Video } from "~/components/video";
 import { PROJECT_QUERY } from "~/lib/queries";
 import { cn } from "~/lib/utils";
+import Sign from "~/public/projects/sign.svg";
 import { sanityFetch } from "~/sanity/lib/live";
 
 interface Props {
@@ -187,8 +189,89 @@ export default async function ProjectDetail({ params }: Props) {
 				</div>
 			)}
 
+			{/* Roles (below assets) */}
+			{project.roles?.internal?.length || project.roles?.external?.length ? (
+				<div className="container mt-20 mb-24">
+					<div className="mx-auto w-fit">
+						<div className="grid grid-cols-[auto_auto] gap-x-8 gap-y-2 items-start">
+							{project.roles?.internal?.length ? (
+								<>
+									<div />
+									<Typography.P className={cn("uppercase text-primary")}>KUNDO STUDIO</Typography.P>
+									{project.roles.internal.map(
+										(item: { role?: string; people?: string }, idx: number) => (
+											<Fragment key={`int-${idx}`}>
+												<Typography.P className="text-secondary text-end">{item.role}</Typography.P>
+												<div className="flex flex-col gap-1">
+													{(item.people || "")
+														.split(/\r?\n/)
+														.map((s) => s.trim())
+														.filter(Boolean)
+														.map((person, i) => (
+															<Typography.P key={i} className="text-primary">
+																{person}
+															</Typography.P>
+														))}
+												</div>
+											</Fragment>
+										),
+									)}
+								</>
+							) : null}
+
+							{project.roles?.external?.length ? (
+								<>
+									<div className="col-span-2 h-8" />
+									<div />
+									<Typography.P className={cn("uppercase text-primary")}>
+										{project.name}
+									</Typography.P>
+									{project.roles.external.map(
+										(item: { role?: string; people?: string }, idx: number) => (
+											<Fragment key={`ext-${idx}`}>
+												<Typography.P className="text-secondary text-end">{item.role}</Typography.P>
+												<div className="flex flex-col gap-1">
+													{(item.people || "")
+														.split(/\r?\n/)
+														.map((s) => s.trim())
+														.filter(Boolean)
+														.map((person, i) => (
+															<Typography.P key={i} className="text-primary">
+																{person}
+															</Typography.P>
+														))}
+												</div>
+											</Fragment>
+										),
+									)}
+
+									{/* Services */}
+									{(project.roles?.services?.length ?? 0) > 0 ? (
+										<>
+											<div className="col-span-2 h-8" />
+											{project.roles.services.map((service: string, i: number) => (
+												<Fragment key={`svc-${i}`}>
+													{i === 0 ? (
+														<Typography.P className="text-secondary text-end">
+															Services
+														</Typography.P>
+													) : (
+														<div />
+													)}
+													<Typography.P className="text-primary">{service}</Typography.P>
+												</Fragment>
+											))}
+										</>
+									) : null}
+								</>
+							) : null}
+						</div>
+					</div>
+				</div>
+			) : null}
+
 			{/* Work */}
-			<div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
+			{/* <div className="col-span-4 md:col-start-4 md:col-span-5 lg:col-start-5 lg:col-span-6">
 				<Typography.P className="text-secondary uppercase">
 					{project.skills?.map((skill) => (
 						<span key={skill._id}>
@@ -197,6 +280,16 @@ export default async function ProjectDetail({ params }: Props) {
 						</span>
 					))}
 				</Typography.P>
+			</div> */}
+			<div className="container flex flex-col items-center gap-4 mt-42">
+				<Sign className="w-[27px]" />
+				<Image
+					src="/projects/seal.png"
+					alt="Kundo Quality Seal"
+					quality={100}
+					width={40}
+					height={40}
+				/>
 			</div>
 		</Page>
 	);

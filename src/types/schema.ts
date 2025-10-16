@@ -1,16 +1,5 @@
 import type { Rule } from "sanity";
 
-export interface SkillSchema {
-	name: "skill";
-	fields: {
-		name: {
-			name: "name";
-			type: "string";
-			validation: (rule: Rule) => Rule;
-		};
-	}[];
-}
-
 export interface QuoteAuthorSchema {
 	name: "name" | "role" | "image";
 	type: "string" | "image";

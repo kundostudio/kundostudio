@@ -22,9 +22,11 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 			{/* Projects Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
 				{projects.map((project) => {
-					const skillNames = (project.skills ?? [])
-						.map((skill) => skill?.name)
-						.filter((name): name is string => Boolean(name));
+					const projectTypes = Array.isArray(project.projectType)
+						? project.projectType.filter((t): t is string => Boolean(t))
+						: project.projectType
+						? [project.projectType]
+						: [];
 
 					return (
 						<Link
@@ -50,13 +52,8 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 									{project.name}
 									{project.year ? <span> &mdash; {project.year}</span> : null}
 								</h3>
-								{skillNames.length > 0 ? (
-									<h4 className={cn(Typography.textStyles.body, "text-secondary")}>
-										{skillNames
-											.map((skill) => skill.charAt(0).toUpperCase() + skill.slice(1))
-											.slice(0, 3)
-											.join(", ")}
-									</h4>
+								{projectTypes.length > 0 ? (
+									<h4 className={cn(Typography.textStyles.body, "text-secondary")}>{projectTypes.join(", ")}</h4>
 								) : null}
 							</div>
 						</Link>

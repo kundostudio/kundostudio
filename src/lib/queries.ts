@@ -2,11 +2,6 @@ import type { PortableTextBlock } from "@portabletext/types";
 import { defineQuery } from "next-sanity";
 
 // Types for the query responses
-export interface Skill {
-	_id: string;
-	name: string;
-	category: "design" | "development" | "animation";
-}
 
 export interface Quote {
 	text: string;
@@ -30,6 +25,17 @@ export interface Client {
 	logo?: string;
 }
 
+export interface RoleItem {
+  role?: string;
+  people?: string;
+}
+
+export interface ProjectRoles {
+  internal?: RoleItem[];
+  external?: RoleItem[];
+  services?: string[];
+}
+
 export interface Project {
 	_id: string;
 	name: string;
@@ -40,7 +46,8 @@ export interface Project {
 	secondaryDescription?: PortableTextValue;
 	year: number;
 	slug: string;
-	skills: Skill[];
+	projectType?: string | string[];
+	roles?: ProjectRoles;
 	mainAsset: Asset;
 	secondaryAsset: Asset;
 	assets?: Asset[];
@@ -157,11 +164,6 @@ export const PROJECTS_QUERY =
     website,
     "logo": logo.asset->url
   },
-  "skills": skills[]-> {
-    _id,
-    name,
-    category
-  },
   "mainAsset": {
     "url": select(
       mainAsset.filetype == "img" => mainAsset.image.asset->url,
@@ -188,6 +190,17 @@ export const PROJECTS_QUERY =
     ),
     filetype,
     size
+  },
+  roles {
+    internal[]{
+      role,
+      people
+    },
+    external[]{
+      role,
+      people
+    },
+    services
   },
   quote {
     text,
@@ -216,11 +229,6 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     website,
     "logo": logo.asset->url
   },
-  "skills": skills[]-> {
-    _id,
-    name,
-    category
-  },
   "mainAsset": {
     "url": select(
       mainAsset.filetype == "img" => mainAsset.image.asset->url,
@@ -248,6 +256,17 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     filetype,
     size
   },
+  roles {
+    internal[]{
+      role,
+      people
+    },
+    external[]{
+      role,
+      people
+    },
+    services
+  },
   quote {
     text,
     author {
@@ -256,20 +275,6 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       "image": image.asset->url
     }
   }
-}`);
-
-// Skills queries
-export const SKILLS_QUERY = defineQuery(`*[_type == "skill"] | order(name asc) {
-  _id,
-  name,
-  category
-}`);
-
-export const SKILLS_BY_CATEGORY_QUERY =
-	defineQuery(`*[_type == "skill" && category == $category] | order(name asc) {
-  _id,
-  name,
-  category
 }`);
 
 // Clients query
@@ -361,17 +366,13 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
     description,
     year,
     "slug": slug.current,
+    "projectType": projectType[].name,
     visible,
     "client": client-> {
       _id,
       name,
       website,
       "logo": logo.asset->url
-    },
-    "skills": skills[]-> {
-      _id,
-      name,
-      category
     },
     "mainAsset": {
       "url": select(

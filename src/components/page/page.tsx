@@ -50,7 +50,7 @@ export function Page<T extends ElementType = "main">({ as, children, ...props }:
 			<Component {...props} className={cn("mt-12 sm:mt-0 flex-1", props.className)}>
 				{children}
 			</Component>
-			<Scrollbar className="fixed hidden md:block md:right-5 xl:right-45 top-32" />
+			<Scrollbar className="fixed hidden md:block md:right-10 top-32" />
 		</ReactLenis>
 	);
 }
