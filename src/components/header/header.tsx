@@ -72,7 +72,10 @@ export function Header({ className, ...props }: HeaderProps) {
 	}
 
 	return (
-		<header className={cn("flex justify-between h-8 relative container", className)} {...props}>
+		<header
+			className={cn("flex justify-between items-center h-8 relative container", className)}
+			{...props}
+		>
 			<nav className="flex justify-between items-center gap-4">
 				{NAVIGATION_ITEMS.map((item) => {
 					const isActive =

@@ -20,7 +20,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 			</Typography.H1>
 
 			{/* Projects Grid */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
 				{projects.map((project) => {
 					const projectTypes = Array.isArray(project.projectType)
 						? project.projectType.filter((t): t is string => Boolean(t))

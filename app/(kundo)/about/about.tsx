@@ -16,7 +16,7 @@ function renderCardDescription(card: AboutCard) {
 	return (
 		<PortableText
 			value={card.description}
-			classes={{ block: { normal: cn("text-secondary", Typography.textStyles.h4) } }}
+			classes={{ block: { normal: cn("text-secondary inline", Typography.textStyles.h4) } }}
 		/>
 	);
 }
@@ -65,14 +65,20 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 			)}
 
 			{cards.length > 0 ? (
-				<section className="relative flex flex-col gap-10 pt-36 pb-30 px-5 md:px-10">
+				<section className="relative flex flex-col gap-10 pt-36 pb-30">
 					<div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-10" />
-					<div className="flex flex-row gap-8 mx-auto overflow-x-auto">
+					<div
+						className="flex flex-row gap-8 mx-auto overflow-x-auto px-5 md:px-10"
+						style={{ scrollbarWidth: "none" }}
+					>
 						{cards.map((card) => {
 							const asset = card.asset;
 
 							return (
-								<article key={card._key} className="flex flex-col gap-6 w-[314px] min-w-[314px]">
+								<article
+									key={card._key}
+									className="flex flex-col gap-6 w-[314px] min-w-[314px] shrink-0"
+								>
 									{asset?.url ? (
 										<Asset
 											filetype={asset.filetype}
@@ -85,9 +91,11 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 											}}
 										/>
 									) : null}
-									<div className="flex flex-col">
+									<div className="mx-[3px] sm:mx-[5px]">
 										{card.title && (
-											<Typography.H4 className="text-primary inline">{card.title}</Typography.H4>
+											<Typography.H4 className="text-primary inline mr-1">
+												{card.title}
+											</Typography.H4>
 										)}
 										{renderCardDescription(card)}
 									</div>

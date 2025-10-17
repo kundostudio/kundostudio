@@ -10,6 +10,7 @@ const ClientMuxPlayer = dynamic(() => import("@mux/mux-player-react"), {
 
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import type * as React from "react";
+import { useState } from "react";
 import { cn } from "~/lib/utils";
 
 /* =========================
@@ -86,6 +87,8 @@ export function Image({
 }: ImageProps) {
 	const { className: containerClassName, style: containerStyle, ...containerRest } = container;
 
+	const [isLoading, setIsLoading] = useState(true);
+
 	return (
 		<div
 			className={cn(
@@ -101,8 +104,13 @@ export function Image({
 			<NextImage
 				src={src}
 				alt={alt}
-				className={cn("object-cover", className)}
+				className={cn(
+					"object-cover opacity-0 transition-opacity duration-300",
+					!isLoading && "opacity-100",
+					className,
+				)}
 				quality={quality}
+				onLoad={() => setIsLoading(false)}
 				{...("fill" in props ? { fill: true } : { width, height })}
 				{...props}
 			/>
