@@ -48,6 +48,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 							filetype={heroAsset.filetype}
 							src={heroAsset.url}
 							fill
+							sizes="100vw"
 							container={{
 								className: "absolute inset-0 aspect-[1.77]",
 							}}
@@ -78,6 +79,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 											src={asset.url}
 											fill
 											variant="card"
+											sizes="314px"
 											container={{
 												className: "aspect-[0.68]",
 											}}
@@ -143,10 +145,10 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 			) : null}
 
 			{prefooterAsset?.url || prefooter?.tagline ? (
-				<section className="relative overflow-hidden flex flex-col items-center justify-center text-center gap-8 h-[632px]">
+				<section className="relative overflow-hidden flex flex-col items-center justify-center text-center gap-8 h-screen">
 					{prefooterAsset?.url ? (
 						<div
-							className="absolute inset-0 flex justify-center items-start mix-blend-hard-light"
+							className="absolute inset-0 flex justify-center items-start mix-blend-hard-light h-[632px] m-auto"
 							style={{
 								maskImage:
 									"linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 86px, rgba(0,0,0,1) 216px, rgba(0,0,0,1) calc(100% - 216px), rgba(0,0,0,0) calc(100% - 86px), rgba(0,0,0,0) 100%)",
@@ -167,7 +169,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 					<div className="relative z-10 flex flex-col gap-4 items-center">
 						{prefooter?.tagline && (
 							<span
-								className="text-primary text-[74px] leading-[74px] tracking-[-0.1%]"
+								className="text-primary text-[74px] leading-[74px] tracking-[-0.1%] translate-y-25"
 								style={{
 									textShadow:
 										"0 8px 24px rgba(0, 0, 0, 1), 0 0 16px rgba(0, 0, 0, 1), 0 10px 16px rgba(0, 0, 0, 1)",

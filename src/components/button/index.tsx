@@ -1,14 +1,17 @@
 import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
+import ArrowLink from "~/public/icons/arrow-link.svg";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+	isExternal?: boolean;
+};
 
-export function Button({ className, children, ...props }: ButtonProps) {
+export function Button({ className, children, isExternal, ...props }: ButtonProps) {
 	return (
 		<button
 			type="button"
 			className={cn(
-				"relative rounded-full h-8 px-6 flex items-center justify-center cursor-pointer",
+				"relative rounded-full h-9 min-w-32 px-6 flex items-center justify-center cursor-pointer",
 				"backdrop-blur-[6px] bg-white/0.2 hover:bg-white/12 transition-all ease-out-circ duration-300 border-0",
 				className,
 			)}
@@ -28,7 +31,7 @@ export function Button({ className, children, ...props }: ButtonProps) {
 		>
 			{/* First angular gradient layer */}
 			<div
-				className="absolute inset-0 rounded-full"
+				className="absolute inset-0 rounded-full pointer-events-none"
 				style={{
 					mask: `
 					linear-gradient(#fff 0 0) content-box,
@@ -58,7 +61,7 @@ export function Button({ className, children, ...props }: ButtonProps) {
 			</div>
 			{/* Second angular gradient layer */}
 			<div
-				className="absolute inset-0 rounded-full"
+				className="absolute inset-0 rounded-full pointer-events-none"
 				style={{
 					mask: `
 					linear-gradient(#fff 0 0) content-box,
@@ -74,7 +77,7 @@ export function Button({ className, children, ...props }: ButtonProps) {
 				}}
 			>
 				<div
-					className="absolute inset-0 aspect-square m-auto"
+					className="absolute inset-0 aspect-square m-auto pointer-events-none"
 					style={{
 						background: `
 					radial-gradient(ellipse 64px 32px at 25% 50%, 
@@ -88,6 +91,7 @@ export function Button({ className, children, ...props }: ButtonProps) {
 			</div>
 
 			<span className={cn(textStyles.button, "text-white relative z-10")}>{children}</span>
+			{isExternal && <ArrowLink className="ml-2 size-[14px]" />}
 		</button>
 	);
 }

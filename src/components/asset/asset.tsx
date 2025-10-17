@@ -90,7 +90,7 @@ export function Image({
 		<div
 			className={cn(
 				"relative overflow-hidden flex justify-center items-center",
-				variant === "card" && "rounded-[10px]",
+				variant === "card" && "rounded-[5px] sm:rounded-[10px]",
 				width && `w-[${width}px]`,
 				height && `h-[${height}px]`,
 				containerClassName,
@@ -109,7 +109,7 @@ export function Image({
 			{variant === "card" && (
 				<div
 					className={cn(
-						"absolute! inset-0 rounded-[10px] border border-white/16",
+						"absolute! inset-0 rounded-[5px] sm:rounded-[10px] border border-white/16",
 						containerClassName,
 					)}
 				/>

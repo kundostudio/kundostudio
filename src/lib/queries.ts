@@ -36,6 +36,15 @@ export interface ProjectRoles {
   services?: string[];
 }
 
+export interface SecondaryDescriptionSection {
+  title?: string;
+  content?: PortableTextValue;
+}
+
+export interface SecondaryDescription {
+  sections?: SecondaryDescriptionSection[];
+}
+
 export interface Project {
 	_id: string;
 	name: string;
@@ -43,7 +52,7 @@ export interface Project {
 	thumbnail: string;
 	subtitle: string;
 	description: string;
-	secondaryDescription?: PortableTextValue;
+	secondaryDescription?: SecondaryDescription | null;
 	year: number;
 	slug: string;
 	projectType?: string | string[];
@@ -219,7 +228,12 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   "thumbnail": thumbnail.asset->url,
   title,
   description,
-  secondaryDescription,
+  secondaryDescription {
+    sections[] {
+      title,
+      content
+    }
+  },
   year,
   "slug": slug.current,
   visible,

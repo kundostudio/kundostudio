@@ -95,8 +95,33 @@ export default defineType({
 		defineField({
 			name: "secondaryDescription",
 			title: "SECONDARY DESCRIPTION",
-			description: "Rich text shown after the secondary asset.",
-			type: "richText",
+			description: "Sections of copy shown after the secondary asset.",
+			type: "object",
+			fields: [
+				defineField({
+					name: "sections",
+					title: "Sections",
+					type: "array",
+					of: [
+						{
+							title: "Section",
+							type: "object",
+							fields: [
+								defineField({ name: "title", title: "Title", type: "string" }),
+								defineField({ name: "content", title: "Content", type: "richText" }),
+							],
+							preview: {
+								select: { title: "title" },
+								prepare: ({ title }) => ({ title: title || "Untitled section" }),
+							},
+						},
+					],
+				}),
+			],
+			preview: {
+				select: { title: "sections.0.title" },
+				prepare: ({ title }) => ({ title: title ? `Secondary: ${title}` : "Secondary description" }),
+			},
 		}),
 		defineField({
 			name: "quote",

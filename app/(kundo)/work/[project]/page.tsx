@@ -6,7 +6,7 @@ import { Button } from "~/components/button";
 import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
 import * as Typography from "~/components/typography";
-import { PROJECT_QUERY } from "~/lib/queries";
+import { PROJECT_QUERY, type SecondaryDescriptionSection } from "~/lib/queries";
 import { cn } from "~/lib/utils";
 import Sign from "~/public/projects/sign.svg";
 import { sanityFetch } from "~/sanity/lib/live";
@@ -27,6 +27,10 @@ export default async function ProjectDetail({ params }: Props) {
 		return null;
 	}
 
+	const secondarySections = project.secondaryDescription?.sections ?? [];
+	const leftColumnSections = secondarySections.slice(0, 2);
+	const rightColumnSections = secondarySections.slice(2);
+
 	return (
 		<Page className="sm:mt-18 pb-23">
 			{/* Header */}
@@ -35,9 +39,7 @@ export default async function ProjectDetail({ params }: Props) {
 				{/* Visit Button */}
 				{project.url && (
 					<Link href={project.url} target="_blank" rel="noopener noreferrer">
-						<Button>
-							<Typography.P>Visit</Typography.P>
-						</Button>
+						<Button isExternal>Visit</Button>
 					</Link>
 				)}
 			</div>
@@ -60,27 +62,39 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Secondary Asset (using shared Asset) */}
 			{project.secondaryAsset?.url && (
-				<Asset
-					filetype={project.secondaryAsset.filetype}
-					src={project.secondaryAsset.url}
-					fill
-					className="rounded-[5px] sm:rounded-[10px]"
-					container={{ className: "container aspect-video relative" }}
-				/>
-			)}
-
-			{/* Secondary Description */}
-			{project.secondaryDescription && (
-				<div className="container mt-20 mb-14">
-					<PortableText
-						value={project.secondaryDescription}
-						classes={{
-							block: { normal: cn(Typography.textStyles.body, "max-w-[383px]") },
-							marks: { strong: "text-secondary" },
-						}}
+				<div className="container">
+					<Asset
+						filetype={project.secondaryAsset.filetype}
+						src={project.secondaryAsset.url}
+						fill
+						variant="card"
+						container={{ className: "aspect-video" }}
 					/>
 				</div>
 			)}
+
+			{/* Secondary Description (sections) */}
+			{secondarySections.length > 0 ? (
+				<div className="container my-26">
+					<div className="flex flex-row gap-8 flex-wrap">
+						<div className="flex flex-col gap-6 w-full md:w-auto md:flex-[0_0_383px] md:max-w-[383px]">
+							{leftColumnSections.map((section, index) => (
+								<SectionBlock key={`secondary-section-${index}`} section={section} />
+							))}
+						</div>
+						{rightColumnSections.length > 0 && (
+							<div className="flex flex-col gap-6 w-full md:w-auto md:flex-[0_0_383px] md:max-w-[383px] md:mt-0">
+								{rightColumnSections.map((section, index) => (
+									<SectionBlock
+										key={`secondary-section-${index + leftColumnSections.length}`}
+										section={section}
+									/>
+								))}
+							</div>
+						)}
+					</div>
+				</div>
+			) : null}
 
 			{/* Project Assets with inline Quote after first two */}
 			{project.assets && project.assets.length > 0 && (
@@ -101,7 +115,7 @@ export default async function ProjectDetail({ params }: Props) {
 												filetype={asset.filetype}
 												src={asset.url}
 												fill
-												className="rounded-[5px] sm:rounded-[10px]"
+												variant="card"
 												container={{ className: "aspect-video" }}
 											/>
 										),
@@ -109,7 +123,7 @@ export default async function ProjectDetail({ params }: Props) {
 
 								{/* Quote block */}
 								{project.quote?.text && project.quote.author && (
-									<div className="self-end max-w-122 mt-8 mb-26 flex flex-col gap-6">
+									<div className="self-end max-w-122 my-26 flex flex-col gap-6">
 										<p className={cn(Typography.textStyles.h2, "text-start")}>
 											&ldquo;{project.quote.text}&rdquo;
 										</p>
@@ -140,7 +154,7 @@ export default async function ProjectDetail({ params }: Props) {
 												filetype={asset.filetype}
 												src={asset.url}
 												fill
-												className="rounded-[5px] sm:rounded-[10px]"
+												variant="card"
 												container={{ className: "aspect-video relative" }}
 											/>
 										),
@@ -153,7 +167,7 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Roles (below assets) */}
 			{(project.roles?.internal?.length || project.roles?.external?.length) && (
-				<div className="container mt-20 mb-24">
+				<div className="container mt-26 mb-24">
 					<div className="mx-auto w-fit">
 						<div className="grid grid-cols-[auto_auto] gap-x-8 gap-y-2 items-start">
 							{project.roles?.internal?.length && (
@@ -243,5 +257,44 @@ export default async function ProjectDetail({ params }: Props) {
 				/>
 			</div>
 		</Page>
+	);
+}
+
+interface SectionBlockProps {
+	section: SecondaryDescriptionSection;
+}
+
+function SectionBlock({ section }: SectionBlockProps) {
+	if (!section) {
+		return null;
+	}
+
+	return (
+		<div className="w-full max-w-[383px]">
+			{section.title && section.content ? (
+				<div className="inline">
+					<h4 className={cn(Typography.textStyles.body, "text-secondary inline")}>
+						{section.title}{" "}
+					</h4>
+					<PortableText
+						value={section.content}
+						classes={{
+							block: { normal: cn(Typography.textStyles.body, "md:mb-0 inline") },
+							marks: { strong: "text-secondary" },
+						}}
+					/>
+				</div>
+			) : section.title ? (
+				<Typography.H4 className="text-secondary">{section.title}</Typography.H4>
+			) : section.content ? (
+				<PortableText
+					value={section.content}
+					classes={{
+						block: { normal: cn(Typography.textStyles.body, "md:mb-0") },
+						marks: { strong: "text-secondary" },
+					}}
+				/>
+			) : null}
+		</div>
 	);
 }
