@@ -117,7 +117,9 @@ export function Header({ className, ...props }: HeaderProps) {
 			<Link href="/" className="absolute inset-0 m-auto size-fit" onClick={handleLogoClick}>
 				<Logo className="h-8 w-12 p-2" />
 			</Link>
-			<Button>Get in touch</Button>
+			<Link href="mailto:hello@kundo.studio">
+				<Button>Get in touch</Button>
+			</Link>
 		</header>
 	);
 }
