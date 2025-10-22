@@ -1,132 +1,163 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import { defineQuery } from "next-sanity";
 
 // Types for the query responses
-export interface Skill {
-  _id: string;
-  name: string;
-  category: "design" | "development" | "animation";
-}
 
 export interface Quote {
-  text: string;
-  author: {
-    name: string;
-    role: string;
-    image: string;
-  };
+	text: string;
+	author: {
+		name: string;
+		role: string;
+		image: string;
+	};
 }
 
 export interface Asset {
-  url: string;
-  filetype: "img" | "video" | "video-stream";
-  size: "full" | "compact";
+	url: string;
+	filetype: "img" | "video" | "video-stream";
+	alt?: string | null;
 }
 
 export interface Client {
-  _id: string;
-  name: string;
-  website: string;
-  logo?: string;
+	_id: string;
+	name: string;
+	website: string;
+	logo?: string;
+}
+
+export interface RoleItem {
+  role?: string;
+  people?: string;
+}
+
+export interface ProjectRoles {
+  internal?: RoleItem[];
+  external?: RoleItem[];
+  services?: string[];
+}
+
+export interface SecondaryDescriptionSection {
+  title?: string;
+  content?: PortableTextValue;
+}
+
+export interface SecondaryDescription {
+  sections?: SecondaryDescriptionSection[];
 }
 
 export interface Project {
-  _id: string;
-  name: string;
-  url?: string;
-  thumbnail: string;
-  subtitle: string;
-  description: string;
-  year: number;
-  slug: string;
-  skills: Skill[];
-  mainAsset: Asset;
-  secondaryAsset: Asset;
-  assets?: Asset[];
-  quote?: Quote;
-  visible?: boolean;
-  client?: Client;
+	_id: string;
+	name: string;
+	url?: string;
+	thumbnail: string;
+	subtitle: string;
+	description: string;
+	secondaryDescription?: SecondaryDescription | null;
+	year: number;
+	slug: string;
+	projectType?: string | string[];
+	roles?: ProjectRoles;
+	mainAsset: Asset;
+	secondaryAsset: Asset;
+	assets?: Asset[];
+	quote?: Quote;
+	visible?: boolean;
+	client?: Client;
 }
 
 export interface CarouselItem {
-  _id: string;
-  name: string;
-  slug: string;
-  src: string;
-  type: "img" | "video" | "video-stream";
+	_id: string;
+	name: string;
+	slug: string;
+	src: string;
+	type: "img" | "video" | "video-stream";
 }
 
 export interface HomePage {
-  studioDescriptionDesktop: string;
-  studioDescriptionMobile: string;
-  carouselProjects: CarouselItem[];
-  clientsDescription: any[]; // Using 'any' for PortableText content
-  featuredClients?: Client[];
-  servicesDescription: any[]; // Using 'any' for PortableText content
-  pricingDescription: any[]; // Using 'any' for PortableText content
-  clients?: Client[];
+	title: string;
+	assets?: Asset[];
+	imageDuration?: number;
+}
+
+export type PortableTextValue = PortableTextBlock[];
+
+export interface AboutHero {
+	heading?: string;
+	body?: PortableTextValue;
+	asset?: Asset | null;
+}
+
+export interface AboutCard {
+	_key: string;
+	title?: string;
+	description?: PortableTextValue;
+	asset?: Asset | null;
+}
+
+export interface AboutCapability {
+	_key: string;
+	title?: string;
+	description?: PortableTextValue;
+}
+
+export interface AboutWhatWeDoSection {
+	heading?: string;
+	description?: PortableTextValue;
+	capabilities?: AboutCapability[];
+}
+
+export interface AboutPrefooter {
+	tagline?: string;
+	asset?: Asset | null;
 }
 
 export interface AboutPage {
-  content: any[]; // Using 'any' for PortableText content
+	hero?: AboutHero | null;
+	cards?: AboutCard[];
+	whatWeDo?: AboutWhatWeDoSection | null;
+	prefooter?: AboutPrefooter | null;
 }
 
 export interface SocialLink {
-  platform: string;
-  url: string;
-  label?: string;
+	platform: string;
+	url: string;
+	label?: string;
 }
 
 export interface ContactPage {
-  contactContent: any[]; // Using 'any' for PortableText content
-  collaborateContent: any[]; // Using 'any' for PortableText content
-  followContent: any[]; // Using 'any' for PortableText content
-  email: string;
-  calendarLink?: string;
-  socialLinks?: SocialLink[];
+	contactContent: any[]; // Using 'any' for PortableText content
+	collaborateContent: any[]; // Using 'any' for PortableText content
+	followContent: any[]; // Using 'any' for PortableText content
+	email: string;
+	calendarLink?: string;
+	socialLinks?: SocialLink[];
 }
 
 export interface WorksPage {
-  title: string;
-  subtitle?: string;
-  description: any[]; // Using 'any' for PortableText content
-  featuredProjects: Project[];
+	title: string;
+	subtitle?: string;
+	description: any[]; // Using 'any' for PortableText content
+	featuredProjects: Project[];
 }
 
 // Home page query
 export const HOME_QUERY = defineQuery(`*[_type == "home" && _id == "home"][0] {
-  studioDescriptionDesktop,
-  studioDescriptionMobile,
-  "carouselProjects": carouselProjects[]-> {
-    _id,
-    name,
-    "slug": slug.current,
-    "src": select(
-      mainAsset.filetype == "img" => mainAsset.image.asset->url,
-      mainAsset.filetype == "video" => mainAsset.video.asset->url,
-      mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
+  title,
+  imageDuration,
+  "assets": assets[] {
+    "url": select(
+      filetype == "img" => image.asset->url,
+      filetype == "video" => video.asset->url,
+      filetype == "video-stream" => videoStream.asset->playbackId
     ),
-    "type": mainAsset.filetype
-  },
-  clientsDescription,
-  "featuredClients": featuredClients[]-> {
-    _id,
-    name,
-    website,
-    "logo": logo.asset->url
-  },
-  servicesDescription,
-  pricingDescription,
-  "clients": *[_type == "client" && visible != false] | order(name asc) {
-    _id,
-    name,
-    website,
-    "logo": logo.asset->url
+    filetype,
+    alt
   }
 }`);
 
 // Project queries
 export const PROJECTS_QUERY =
-  defineQuery(`*[_type == "project" && defined(slug.current) && visible == true][0...12] {
+	defineQuery(`*[_type == "project" && defined(slug.current) && visible == true][0...12] {
   _id,
   name,
   url,
@@ -142,11 +173,6 @@ export const PROJECTS_QUERY =
     website,
     "logo": logo.asset->url
   },
-  "skills": skills[]-> {
-    _id,
-    name,
-    category
-  },
   "mainAsset": {
     "url": select(
       mainAsset.filetype == "img" => mainAsset.image.asset->url,
@@ -154,7 +180,7 @@ export const PROJECTS_QUERY =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-    "size": mainAsset.size
+
   },
   "secondaryAsset": {
     "url": select(
@@ -173,6 +199,17 @@ export const PROJECTS_QUERY =
     ),
     filetype,
     size
+  },
+  roles {
+    internal[]{
+      role,
+      people
+    },
+    external[]{
+      role,
+      people
+    },
+    services
   },
   quote {
     text,
@@ -189,8 +226,14 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   name,
   url,
   "thumbnail": thumbnail.asset->url,
-  subtitle,
+  title,
   description,
+  secondaryDescription {
+    sections[] {
+      title,
+      content
+    }
+  },
   year,
   "slug": slug.current,
   visible,
@@ -199,11 +242,6 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     name,
     website,
     "logo": logo.asset->url
-  },
-  "skills": skills[]-> {
-    _id,
-    name,
-    category
   },
   "mainAsset": {
     "url": select(
@@ -232,6 +270,17 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     filetype,
     size
   },
+  roles {
+    internal[]{
+      role,
+      people
+    },
+    external[]{
+      role,
+      people
+    },
+    services
+  },
   quote {
     text,
     author {
@@ -242,23 +291,9 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   }
 }`);
 
-// Skills queries
-export const SKILLS_QUERY = defineQuery(`*[_type == "skill"] | order(name asc) {
-  _id,
-  name,
-  category
-}`);
-
-export const SKILLS_BY_CATEGORY_QUERY =
-  defineQuery(`*[_type == "skill" && category == $category] | order(name asc) {
-  _id,
-  name,
-  category
-}`);
-
 // Clients query
 export const CLIENTS_QUERY =
-  defineQuery(`*[_type == "client" && visible != false] | order(name asc) {
+	defineQuery(`*[_type == "client" && visible != false] | order(name asc) {
   _id,
   name,
   website,
@@ -268,7 +303,53 @@ export const CLIENTS_QUERY =
 
 // About page query
 export const ABOUT_QUERY = defineQuery(`*[_type == "about" && _id == "about"][0] {
-  content
+  hero {
+    heading,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  },
+  "cards": cards[] {
+    _key,
+    title,
+    description,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  },
+  whatWeDo {
+    heading,
+    description,
+    "capabilities": capabilities[] {
+      _key,
+      title,
+      description
+    }
+  },
+  prefooter {
+    tagline,
+    "asset": asset {
+      "url": select(
+        filetype == "img" => image.asset->url,
+        filetype == "video" => video.asset->url,
+        filetype == "video-stream" => videoStream.asset->playbackId
+      ),
+      "filetype": filetype,
+      alt
+    }
+  }
 }`);
 
 // Contact page query
@@ -299,17 +380,13 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
     description,
     year,
     "slug": slug.current,
+    "projectType": projectType[].name,
     visible,
     "client": client-> {
       _id,
       name,
       website,
       "logo": logo.asset->url
-    },
-    "skills": skills[]-> {
-      _id,
-      name,
-      category
     },
     "mainAsset": {
       "url": select(
