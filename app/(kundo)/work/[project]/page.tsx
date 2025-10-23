@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import { Asset } from "~/components/asset";
@@ -23,9 +24,9 @@ export default async function ProjectDetail({ params }: Props) {
 		params: { slug },
 	});
 
-	if (!project) {
-		return null;
-	}
+    if (!project) {
+        notFound();
+    }
 
 	const secondarySections = project.secondaryDescription?.sections ?? [];
 	const leftColumnSections = secondarySections.slice(0, 2);
