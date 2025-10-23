@@ -105,7 +105,7 @@ export function Image({
 				src={src}
 				alt={alt}
 				className={cn(
-					"object-cover opacity-0 transition-opacity duration-300",
+					"object-cover object-center opacity-0 transition-opacity duration-300",
 					!isLoading && "opacity-100",
 					className,
 				)}
