@@ -65,13 +65,13 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 			)}
 
 			{cards.length > 0 ? (
-				<section className="relative flex flex-col gap-10 pt-36 pb-30">
+				<section className="relative flex flex-col gap-10 pt-36 pb-30 overflow-x-hidden">
 					<div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-10" />
 					<div
-						className="flex flex-row gap-8 mx-auto overflow-x-auto px-5 md:px-10"
-						style={{ scrollbarWidth: "none" }}
+						className="w-full overflow-x-auto px-5 md:px-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
 					>
-						{cards.map((card) => {
+						<div className="flex w-max gap-8 mx-auto">
+							{cards.map((card) => {
 							const asset = card.asset;
 
 							return (
@@ -102,6 +102,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 								</article>
 							);
 						})}
+						</div>
 					</div>
 				</section>
 			) : null}
