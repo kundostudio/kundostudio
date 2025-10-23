@@ -45,6 +45,7 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 					<div
 						className="relative w-full overflow-hidden aspect-[1216/760] min-w-full sm:min-w-none sm:min-h-[500px] transition-opacity duration-300"
 						style={{
+							...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
 							maskImage:
 								"linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.6) 64%, rgba(0, 0, 0, 0) 80%)",
 							opacity: isTransitioning ? 0 : 1,
@@ -53,15 +54,13 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 						<Asset
 							filetype={currentAsset.filetype}
 							src={currentAsset.url}
-							variant="card"
-							// variant={isMobile ? "default" : "card"}
+							variant={isMobile ? "default" : "card"}
 							fill
 							sizes="(max-width: 639px) 800px, (max-width: 1208px) 95vw, 1208px"
-						container={{
-							className:
-								"absolute! inset-y-0 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:left-auto w-full sm:w-full",
-							style: isMobile ? { minWidth: "min(500px, 60vmax)" } : undefined,
-						}}
+							container={{
+								className:
+									"absolute! inset-y-0 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:left-auto w-full sm:w-full",
+							}}
 						/>
 					</div>
 				)}
