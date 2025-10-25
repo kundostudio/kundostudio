@@ -42,7 +42,7 @@ export function ContactPage({ contactData }: { contactData: ContactPageType | nu
 				)}
 
 				{contactData?.calendarLink && (
-					<Link href={contactData.calendarLink} target="_blank" showIcon className="text-primary">
+					<Link href={contactData.calendarLink} target="_blank" className="text-primary">
 						<Typography.P>Book a call</Typography.P>
 					</Link>
 				)}
@@ -99,7 +99,7 @@ export function ContactPage({ contactData }: { contactData: ContactPageType | nu
 					<ul className="flex flex-col gap-2 mt-2">
 						{contactData.socialLinks.map((social, index) => (
 							<li key={index}>
-								<Link href={social.url} target="_blank" showIcon className="text-primary">
+								<Link href={social.url} target="_blank" className="text-primary">
 									<Typography.P>
 										{social.label ||
 											social.platform.charAt(0).toUpperCase() + social.platform.slice(1)}

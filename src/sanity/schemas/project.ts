@@ -108,7 +108,11 @@ export default defineType({
 							type: "object",
 							fields: [
 								defineField({ name: "title", title: "Title", type: "string" }),
-								defineField({ name: "content", title: "Content", type: "richText" }),
+								defineField({
+									name: "content",
+									title: "Content",
+									type: "richText",
+								}),
 							],
 							preview: {
 								select: { title: "title" },
@@ -120,7 +124,9 @@ export default defineType({
 			],
 			preview: {
 				select: { title: "sections.0.title" },
-				prepare: ({ title }) => ({ title: title ? `Secondary: ${title}` : "Secondary description" }),
+				prepare: ({ title }) => ({
+					title: title ? `Secondary: ${title}` : "Secondary description",
+				}),
 			},
 		}),
 		defineField({
