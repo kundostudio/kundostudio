@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import { Asset } from "~/components/asset";
 import { Button } from "~/components/button";
@@ -11,6 +11,7 @@ import { PROJECT_QUERY, type SecondaryDescriptionSection } from "~/lib/queries";
 import { cn } from "~/lib/utils";
 import Sign from "~/public/projects/sign.svg";
 import { sanityFetch } from "~/sanity/lib/live";
+import { HeroAsset } from "./hero-asset";
 
 interface Props {
 	params: Promise<{ project: string }>;
@@ -24,9 +25,9 @@ export default async function ProjectDetail({ params }: Props) {
 		params: { slug },
 	});
 
-    if (!project) {
-        notFound();
-    }
+	if (!project) {
+		notFound();
+	}
 
 	const secondarySections = project.secondaryDescription?.sections ?? [];
 	const leftColumnSections = secondarySections.slice(0, 2);
@@ -47,12 +48,11 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Main Asset (using shared Asset) */}
 			{project.mainAsset?.url && (
-				<Asset
+				<HeroAsset
 					filetype={project.mainAsset.filetype}
 					src={project.mainAsset.url}
 					fill
 					className="object-cover"
-					container={{ className: "w-full aspect-[16/9] relative" }}
 				/>
 			)}
 
