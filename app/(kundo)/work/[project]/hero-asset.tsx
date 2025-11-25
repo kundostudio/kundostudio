@@ -63,9 +63,10 @@ export function HeroAsset({ filetype, src, playbackId, fill, className }: HeroAs
 			const endWidth = Math.min(vw, bp.maxWidth) - bp.padding;
 			const currentWidth = vw + (endWidth - vw) * scrollProgress;
 
-			// Calculate border radius (5px mobile, 10px md+)
+			// Calculate border radius (5px mobile, 10px md+) - completes at 2x speed
 			const endRadius = isMd ? 10 : 5;
-			const currentRadius = endRadius * scrollProgress;
+			const radiusProgress = Math.min(scrollProgress * 5, 1);
+			const currentRadius = endRadius * radiusProgress;
 
 			width.set(currentWidth);
 			borderRadius.set(currentRadius);
