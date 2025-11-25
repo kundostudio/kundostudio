@@ -7,6 +7,7 @@ import * as Typography from "~/components/typography";
 import { useMediaQuery } from "~/hooks/use-media-query";
 import type { Asset as QueryAsset } from "~/lib/queries";
 import { cn } from "~/lib/utils";
+import { Frame } from "./frame";
 
 interface HomePageProps {
 	title?: string;
@@ -43,7 +44,7 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 			<div className="relative flex flex-col overflow-x-hidden">
 				{currentAsset && (
 					<div
-						className="relative w-full overflow-hidden aspect-[1216/760] min-w-full sm:min-w-none sm:min-h-[500px] transition-opacity duration-300"
+						className="relative w-full aspect-[1222/766] min-w-full sm:min-w-none sm:min-h-[500px] transition-opacity duration-300"
 						style={{
 							...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
 							maskImage:
@@ -51,17 +52,33 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 							opacity: isTransitioning ? 0 : 1,
 						}}
 					>
-						<Asset
-							filetype={currentAsset.filetype}
-							src={currentAsset.url}
-							variant={isMobile ? "default" : "card"}
-							fill
-							sizes="(max-width: 639px) 800px, (max-width: 1208px) 95vw, 1208px"
-							container={{
-								className:
-									"absolute! inset-y-0 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 sm:left-auto w-full sm:w-full",
-							}}
-						/>
+						{/* Mobile: Asset without frame */}
+						<div className="absolute inset-0 sm:hidden">
+							<Asset
+								filetype={currentAsset.filetype}
+								src={currentAsset.url}
+								variant="default"
+								fill
+								sizes="800px"
+								container={{
+									className: "absolute! inset-y-0 left-1/2 -translate-x-1/2 w-full",
+								}}
+							/>
+						</div>
+
+						{/* Desktop: SVG frame with image inside */}
+						<Frame className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block">
+							<Asset
+								filetype={currentAsset.filetype}
+								src={currentAsset.url}
+								variant="default"
+								fill
+								sizes="(max-width: 1208px) 95vw, 1208px"
+								container={{
+									className: "h-full w-full",
+								}}
+							/>
+						</Frame>
 					</div>
 				)}
 				<div className="px-4 sm:px-0 sm:-translate-y-full">
