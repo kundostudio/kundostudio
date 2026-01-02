@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/public/*": ["./public/*"],
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "sanity.config.ts",
+    "src/**/*"
+  ]
+}
