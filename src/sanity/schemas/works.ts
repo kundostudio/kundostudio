@@ -10,20 +10,6 @@ export default defineType({
     defineField({
       name: "title",
       title: "Page Title",
-      type: "string",
-      initialValue: "Projects",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "subtitle",
-      title: "Page Subtitle",
-      type: "string",
-      initialValue: "EXPLORE THE WORK WE DID WITH AMAZING CLIENTS.",
-    }),
-    defineField({
-      name: "description",
-      title: "Page Description",
-      description: "Rich text content for the Works page description",
       type: "richText",
       validation: (Rule) => Rule.required(),
     }),

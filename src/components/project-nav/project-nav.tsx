@@ -57,14 +57,16 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 					>
 						<ArrowLeft className="size-5" />
 						<span className="font-medium text-[17px] leading-[25px] tracking-[-0.17px] [text-shadow:0px_2px_2px_rgba(0,0,0,0.16)]">
-							Previous Project
+							<span className="md:hidden">Previous</span>
+							<span className="hidden md:inline">Previous Project</span>
 						</span>
 					</Link>
 				) : (
 					<span className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7]/40 cursor-not-allowed">
 						<ArrowLeft className="size-5" />
 						<span className="font-medium text-[17px] leading-[25px] tracking-[-0.17px]">
-							Previous Project
+							<span className="md:hidden">Previous</span>
+							<span className="hidden md:inline">Previous Project</span>
 						</span>
 					</span>
 				)}
@@ -76,14 +78,16 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 						className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7] hover:opacity-80 transition-opacity"
 					>
 						<span className="font-medium text-[17px] leading-[25px] tracking-[-0.17px] [text-shadow:0px_2px_2px_rgba(0,0,0,0.16)]">
-							Next Project
+							<span className="md:hidden">Next</span>
+							<span className="hidden md:inline">Next Project</span>
 						</span>
 						<ArrowRight className="size-5" />
 					</Link>
 				) : (
 					<span className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7]/40 cursor-not-allowed">
 						<span className="font-medium text-[17px] leading-[25px] tracking-[-0.17px]">
-							Next Project
+							<span className="md:hidden">Next</span>
+							<span className="hidden md:inline">Next Project</span>
 						</span>
 						<ArrowRight className="size-5" />
 					</span>

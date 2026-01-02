@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Asset } from "~/components/asset";
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
@@ -22,6 +22,11 @@ function useIsSafari() {
 	return isSafari;
 }
 
+type CarouselMode = "fast" | "slow";
+
+const SLOW_DURATION = 1000; // Slow mode duration (1 second)
+const CYCLES_BEFORE_SLOW = 3; // Number of complete cycles before switching to slow
+
 interface HomePageProps {
 	title?: string;
 	assets?: QueryAsset[];
@@ -31,25 +36,53 @@ interface HomePageProps {
 export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isTransitioning, setIsTransitioning] = useState(false);
+	const [mode, setMode] = useState<CarouselMode>("fast");
+
+	const transitionCountRef = useRef(0);
 
 	const isMobile = useMediaQuery("(max-width: 639px)");
 	const isSafari = useIsSafari();
+
+	const totalAssets = assets?.length ?? 0;
+	const transitionsForTwoCycles = totalAssets * CYCLES_BEFORE_SLOW;
+
+	// Fast mode uses original imageDuration from CMS
+	// Slow mode uses 1 second
+	const currentDuration = mode === "fast" ? imageDuration : SLOW_DURATION;
+
+	const advanceCarousel = useCallback(() => {
+		if (!assets || assets.length <= 1) return;
+
+		setIsTransitioning(true);
+		setTimeout(() => {
+			setCurrentIndex((prev) => {
+				const nextIndex = (prev + 1) % assets.length;
+
+				// Track transitions for mode switching
+				if (mode === "fast") {
+					transitionCountRef.current += 1;
+
+					// Check if we completed the required cycles
+					if (transitionCountRef.current >= transitionsForTwoCycles) {
+						setMode("slow");
+					}
+				}
+
+				return nextIndex;
+			});
+			setIsTransitioning(false);
+		}, 300); // Fade duration
+	}, [assets, mode, transitionsForTwoCycles]);
 
 	// Handle automatic carousel rotation
 	useEffect(() => {
 		// Don't setup interval if there's 0 or 1 asset
 		if (!assets || assets.length <= 1) return;
 
-		const interval = setInterval(() => {
-			setIsTransitioning(true);
-			setTimeout(() => {
-				setCurrentIndex((prev) => (prev + 1) % assets.length);
-				setIsTransitioning(false);
-			}, 300); // Fade duration
-		}, imageDuration);
+		const interval = setInterval(advanceCarousel, currentDuration);
 
 		return () => clearInterval(interval);
-	}, [assets, imageDuration]);
+	}, [assets, currentDuration, advanceCarousel]);
 
 	const currentAsset = assets?.[currentIndex];
 
@@ -58,10 +91,7 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 			<div className="relative flex flex-col overflow-x-hidden">
 				{currentAsset && (
 					<div
-						className={cn(
-							"relative w-full aspect-[1222/766] min-w-full sm:min-w-none sm:min-h-[500px] transition-opacity duration-300",
-							isTransitioning ? "opacity-0" : "opacity-100",
-						)}
+						className="relative w-full aspect-[1222/766] min-w-full sm:min-w-none sm:min-h-[500px]"
 						style={{
 							...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
 							maskImage:

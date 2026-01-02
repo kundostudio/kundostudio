@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Asset } from "~/components/asset";
 
 import { Page } from "~/components/page";
+import { PortableText } from "~/components/portable-text";
 import * as Typography from "~/components/typography";
 import type { WorksPage as WorksPageType } from "~/lib/queries";
 import { cn } from "~/lib/utils";
@@ -14,10 +15,19 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 
 	return (
 		<Page className="flex flex-col gap-28 sm:mt-18 pt-[26px] sm:pt-26 mb-[120px] container">
-			<Typography.H1>
-				Built on trust.
-				<br /> Proven by outcomes
-			</Typography.H1>
+			{worksData?.title ? (
+				<div>
+					<PortableText
+						value={worksData.title}
+						classes={{
+							block: {
+								normal: `mb-0 ${Typography.textStyles.h1}`,
+								h1: "mb-0",
+							},
+						}}
+					/>
+				</div>
+			) : null}
 
 			{/* Projects Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
