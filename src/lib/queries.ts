@@ -134,9 +134,7 @@ export interface ContactPage {
 }
 
 export interface WorksPage {
-	title: string;
-	subtitle?: string;
-	description: any[]; // Using 'any' for PortableText content
+	title: any[]; // Using 'any' for PortableText content
 	featuredProjects: Project[];
 }
 
@@ -369,8 +367,6 @@ export const CONTACT_QUERY = defineQuery(`*[_type == "contact" && _id == "contac
 // Works page query
 export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0] {
   title,
-  subtitle,
-  description,
   "featuredProjects": featuredProjects[]-> {
     _id,
     name,
