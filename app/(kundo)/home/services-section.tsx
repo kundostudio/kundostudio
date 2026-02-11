@@ -36,7 +36,7 @@ type ServicesSectionProps = {
 
 export function ServicesSection({ className }: ServicesSectionProps) {
 	return (
-		<section className={cn("bg-black py-16 sm:py-24 lg:py-32", className)}>
+		<section className={cn("pt-[144px] pb-16 sm:pb-24 lg:pb-32", className)}>
 			<div className="container mx-auto px-6 sm:px-8 lg:px-12">
 				<div className="mx-auto flex max-w-[1008px] flex-col gap-12 lg:flex-row lg:gap-16">
 					{/* Left column — headline */}
