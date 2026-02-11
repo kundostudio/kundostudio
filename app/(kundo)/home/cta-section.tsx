@@ -42,15 +42,13 @@ export default function CTASection() {
 
           <div className="mt-8 sm:mt-10">
             <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:hello@kundo.studio"
               className="inline-flex items-center justify-center rounded-full px-16 sm:px-24 py-4 text-base font-medium text-white/70 transition-all hover:text-white border border-white/10 backdrop-blur-md"
               style={{
                 background: "rgba(255, 255, 255, 0.06)",
               }}
             >
-              Book an intro call
+              Get in touch
             </a>
           </div>
         </div>

@@ -296,7 +296,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 	return (
 		<section
 			className={cn(
-				"relative bg-black py-16 sm:py-24 lg:py-32",
+				"relative bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8",
 				className,
 			)}
 		>

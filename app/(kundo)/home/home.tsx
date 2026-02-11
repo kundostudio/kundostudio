@@ -10,6 +10,8 @@ import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
 import { FAQSection } from "./faq-section";
 import { ServicesSection } from "./services-section";
+import CTASection from "./cta-section";
+import Footer from "./footer";
 
 declare module "react" {
 	namespace JSX {
@@ -172,6 +174,12 @@ export function HomePage() {
 
 			{/* FAQ Section */}
 			<FAQSection />
+
+			{/* CTA Section */}
+			<CTASection />
+
+			{/* Footer */}
+			<Footer />
 		</Page>
 	);
 }
