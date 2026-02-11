@@ -36,44 +36,40 @@ type ServicesSectionProps = {
 
 export function ServicesSection({ className }: ServicesSectionProps) {
 	return (
-		<section className={cn("pt-[144px] pb-16 sm:pb-24 lg:pb-32", className)}>
-			<div className="container mx-auto px-6 sm:px-8 lg:px-12">
-				<div className="mx-auto flex max-w-[1008px] flex-col gap-12 lg:flex-row lg:gap-16">
-					{/* Left column — headline */}
-					<div className="lg:w-1/2 lg:sticky lg:top-32 lg:self-start">
-						<Typography.H2 className="text-primary">
-							We offer outcomes.
-							<br />
-							Not deliverables.
-						</Typography.H2>
-					</div>
+		<section className={cn("grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 container pt-[144px] pb-16 sm:pb-24 lg:pb-32", className)}>
+			{/* Left column — headline */}
+			<div className="md:col-span-5 md:sticky md:top-32 md:self-start">
+				<Typography.H2 className="text-primary">
+					We offer outcomes.
+					<br />
+					Not deliverables.
+				</Typography.H2>
+			</div>
 
-					{/* Right column — service items */}
-					<div className="w-full lg:w-1/2">
-						{SERVICES.map((service, index) => (
-							<div
-								key={service.number}
-								className={cn(
-									index === 0
-										? "pb-6 sm:pb-8"
-										: "py-6 sm:py-8",
-									index > 0 && "border-t border-white/10",
-									index === SERVICES.length - 1 &&
-										"border-b border-white/10",
-								)}
-							>
-								<div className="flex flex-col gap-1">
-									<Typography.P className="text-secondary">
-										{service.number} — {service.title}
-									</Typography.P>
-									<Typography.H4 className="text-primary">
-										{service.description}
-									</Typography.H4>
-								</div>
-							</div>
-						))}
+			{/* Right column — service items */}
+			<div className="md:col-span-7">
+				{SERVICES.map((service, index) => (
+					<div
+						key={service.number}
+						className={cn(
+							index === 0
+								? "pb-6 sm:pb-8"
+								: "py-6 sm:py-8",
+							index > 0 && "border-t border-white/10",
+							index === SERVICES.length - 1 &&
+								"border-b border-white/10",
+						)}
+					>
+						<div className="flex flex-col gap-1">
+							<Typography.P className="text-secondary">
+								{service.number} — {service.title}
+							</Typography.P>
+							<Typography.H4 className="text-primary">
+								{service.description}
+							</Typography.H4>
+						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</section>
 	);

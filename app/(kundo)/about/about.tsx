@@ -54,6 +54,13 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 							}}
 						/>
 					)}
+					<div
+						className="absolute inset-x-0 -bottom-10 h-60 pointer-events-none"
+						style={{
+							background: "linear-gradient(180deg, transparent 0%, #050505 50%)",
+							filter: "blur(30px)",
+						}}
+					/>
 					<div className="relative z-10 container">
 						{hero.heading && (
 							<Typography.H1 className={cn(Typography.textStyles.h1, "text-primary max-w-174")}>

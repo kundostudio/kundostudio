@@ -296,68 +296,64 @@ export function FAQSection({ className }: FAQSectionProps) {
 	return (
 		<section
 			className={cn(
-				"relative bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8",
+				"relative z-10 bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8 container",
 				className,
 			)}
 		>
-			<div className="container mx-auto px-6 sm:px-8 lg:px-12">
-				<div className="mx-auto max-w-[1008px]">
-					{/* Heading — single line, fills width */}
-					<div className="mb-12 text-center sm:mb-16">
-						<Typography.H2 className="text-primary whitespace-pre-line">
-							{"Built to match your stage.\nStructured to deliver results."}
-						</Typography.H2>
-						<Typography.P className="text-secondary mx-auto mt-4 max-w-[440px]">
-							We price based on complexity, scope, and risk—not
-							just hours on a clock. You&apos;ll always get a
-							clear number upfront.
-						</Typography.P>
-					</div>
+			{/* Heading — single line, fills width */}
+			<div className="mb-12 text-center sm:mb-16">
+				<Typography.H2 className="text-primary whitespace-pre-line">
+					{"Built to match your stage.\nStructured to deliver results."}
+				</Typography.H2>
+				<Typography.P className="text-secondary mx-auto mt-4 max-w-[440px]">
+					We price based on complexity, scope, and risk—not
+					just hours on a clock. You&apos;ll always get a
+					clear number upfront.
+				</Typography.P>
+			</div>
 
-					{/* FAQ Container */}
-					<div
-						className="px-6 py-2 sm:px-10 sm:py-4 lg:px-12"
-						style={{
-							borderRadius: "10px",
-							border: "1px solid rgba(255, 255, 255, 0.06)",
-							backgroundColor: "#0C0C0C",
-							backgroundImage: "url('/faq-bg.png')",
-							backgroundSize: "100% 100%",
-							backgroundPosition: "0px 0px",
-							backgroundRepeat: "no-repeat",
-							boxShadow: [
-								// Inner border (16% white stroke)
-								"inset 0 0 0 1px rgba(255, 255, 255, 0.16)",
-								// Drop shadow 1: Y4 Blur4 Black 25%
-								"0 4px 4px 0 rgba(0, 0, 0, 0.25)",
-								// Drop shadow 2: Y284 Blur80 Black 1%
-								"0 284px 80px 0 rgba(0, 0, 0, 0.01)",
-								// Drop shadow 3: Y-53.13 Blur86.69 Black 27%
-								"0 -53.13px 86.69px 0 rgba(0, 0, 0, 0.27)",
-							].join(", "),
-						}}
-					>
-						<Accordion.Root
-							type="single"
-							defaultValue="item-0"
-							value={openItem}
-							onValueChange={(value) => {
-								if (value) setOpenItem(value);
-							}}
-						>
-							{FAQ_ITEMS.map((item, index) => (
-								<FAQItem
-									key={index}
-									value={`item-${index}`}
-									question={item.question}
-									answer={item.answer}
-									isOpen={openItem === `item-${index}`}
-									index={index}
-								/>
-							))}
-						</Accordion.Root>
-					</div>
-				</div>
+			{/* FAQ Container */}
+			<div
+				className="px-6 py-2 sm:px-10 sm:py-4 lg:px-12"
+				style={{
+					borderRadius: "10px",
+					border: "1px solid rgba(255, 255, 255, 0.06)",
+					backgroundColor: "#0C0C0C",
+					backgroundImage: "url('/faq-bg.png')",
+					backgroundSize: "100% 100%",
+					backgroundPosition: "0px 0px",
+					backgroundRepeat: "no-repeat",
+					boxShadow: [
+						// Inner border (16% white stroke)
+						"inset 0 0 0 1px rgba(255, 255, 255, 0.16)",
+						// Drop shadow 1: Y4 Blur4 Black 25%
+						"0 4px 4px 0 rgba(0, 0, 0, 0.25)",
+						// Drop shadow 2: Y284 Blur80 Black 1%
+						"0 284px 80px 0 rgba(0, 0, 0, 0.01)",
+						// Drop shadow 3: Y-53.13 Blur86.69 Black 27%
+						"0 -53.13px 86.69px 0 rgba(0, 0, 0, 0.27)",
+					].join(", "),
+				}}
+			>
+				<Accordion.Root
+					type="single"
+					defaultValue="item-0"
+					value={openItem}
+					onValueChange={(value) => {
+						if (value) setOpenItem(value);
+					}}
+				>
+					{FAQ_ITEMS.map((item, index) => (
+						<FAQItem
+							key={index}
+							value={`item-${index}`}
+							question={item.question}
+							answer={item.answer}
+							isOpen={openItem === `item-${index}`}
+							index={index}
+						/>
+					))}
+				</Accordion.Root>
 			</div>
 		</section>
 	);
