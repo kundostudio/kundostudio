@@ -22,7 +22,7 @@ export default function CTASection() {
 
       {/* Gradient mask overlay — flipped: black top → transparent bottom */}
       <div
-        className="absolute"
+        className="pointer-events-none absolute"
         style={{
           inset: "-36px",
           background:

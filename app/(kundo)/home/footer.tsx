@@ -10,8 +10,8 @@ const NAV_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 w-full bg-black px-6 pt-6 pb-8 sm:pb-10">
-      <div className="max-w-[1008px] mx-auto flex items-center justify-between">
+    <footer className="relative z-10 w-full bg-black px-5 sm:px-0 pt-6 pb-8 sm:pb-10">
+      <div className="flex items-center justify-between">
         {/* Copyright */}
         <p className="text-sm text-white/40">© 2025, Kundo Studio</p>
 

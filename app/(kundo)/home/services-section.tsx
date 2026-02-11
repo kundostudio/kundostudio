@@ -36,7 +36,7 @@ type ServicesSectionProps = {
 
 export function ServicesSection({ className }: ServicesSectionProps) {
 	return (
-		<section className={cn("grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 container pt-[144px] pb-16 sm:pb-24 lg:pb-32", className)}>
+		<section className={cn("grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 pt-[144px] pb-16 sm:pb-24 lg:pb-32", className)}>
 			{/* Left column — headline */}
 			<div className="md:col-span-5 md:sticky md:top-32 md:self-start">
 				<Typography.H2 className="text-primary">

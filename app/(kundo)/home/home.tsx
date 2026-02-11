@@ -56,9 +56,31 @@ const muxPlayerStyle = {
 	outline: "none",
 } as React.CSSProperties;
 
+const videoOverlayStyle = (loaded: boolean): React.CSSProperties => ({
+	backgroundColor: "#0C0C0C",
+	borderRadius: "inherit",
+	opacity: loaded ? 0 : 1,
+	transition: "opacity 0.6s ease-out",
+});
+
 export function HomePage() {
 	const isMobile = useMediaQuery("(max-width: 639px)");
 	const isSafari = useIsSafari();
+	const [videoLoaded, setVideoLoaded] = useState(false);
+
+	useEffect(() => {
+		const handlePlaying = () => setVideoLoaded(true);
+		const players = document.querySelectorAll("mux-player");
+		players.forEach((p) => {
+			p.addEventListener("playing", handlePlaying);
+			if ((p as any).paused === false) setVideoLoaded(true);
+		});
+		return () => {
+			players.forEach((p) =>
+				p.removeEventListener("playing", handlePlaying),
+			);
+		};
+	}, [isSafari]);
 
 	return (
 		<Page className={cn("mt-0 sm:mt-18 sm:pt-14", !isMobile && "container")}>
@@ -79,6 +101,10 @@ export function HomePage() {
 				>
 					{/* Mobile: MUX video without frame */}
 					<div className="absolute inset-0 sm:hidden">
+						<div
+							className="absolute inset-0 z-10 pointer-events-none"
+							style={videoOverlayStyle(videoLoaded)}
+						/>
 						<mux-player
 							playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
 							autoplay="muted"
@@ -95,6 +121,10 @@ export function HomePage() {
 					{isSafari ? (
 						<div className="pointer-events-none absolute inset-0 hidden sm:block">
 							<div className="absolute left-[0.54%] right-[0.6%] top-[0.98%] bottom-0 overflow-hidden rounded-t-[36px]">
+								<div
+									className="absolute inset-0 z-10 pointer-events-none"
+									style={videoOverlayStyle(videoLoaded)}
+								/>
 								<mux-player
 									playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
 									autoplay="muted"
@@ -110,7 +140,11 @@ export function HomePage() {
 						</div>
 					) : (
 						<Frame className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block">
-							<div className="h-full w-full">
+							<div className="relative h-full w-full">
+								<div
+									className="absolute inset-0 z-10 pointer-events-none"
+									style={videoOverlayStyle(videoLoaded)}
+								/>
 								<mux-player
 									playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
 									autoplay="muted"

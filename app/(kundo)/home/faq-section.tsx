@@ -109,7 +109,7 @@ function ToggleIcon({ isOpen, id }: { isOpen: boolean; id: string }) {
 							/>
 						</g>
 
-						{/* Chevron paths — swap direction based on state */}
+						{/* Chevrons — inward when open, outward when closed */}
 						{isOpen ? (
 							<>
 								<path
@@ -296,7 +296,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 	return (
 		<section
 			className={cn(
-				"relative z-10 bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8 container",
+				"relative z-10 bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8",
 				className,
 			)}
 		>
@@ -314,7 +314,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 
 			{/* FAQ Container */}
 			<div
-				className="px-6 py-2 sm:px-10 sm:py-4 lg:px-12"
+				className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 lg:px-12"
 				style={{
 					borderRadius: "10px",
 					border: "1px solid rgba(255, 255, 255, 0.06)",
