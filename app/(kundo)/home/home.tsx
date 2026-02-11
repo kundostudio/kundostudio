@@ -9,6 +9,7 @@ import type { Asset as QueryAsset } from "~/lib/queries";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
+import { ServicesSection } from "./services-section";
 
 function useIsSafari() {
 	const [isSafari, setIsSafari] = useState(false);
@@ -169,6 +170,9 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 					{title && <Typography.H1 className="text-primary">{title}</Typography.H1>}
 				</div>
 			</div>
+
+			{/* Services Section */}
+			<ServicesSection />
 		</Page>
 	);
 }
