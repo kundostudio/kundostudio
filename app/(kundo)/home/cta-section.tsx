@@ -4,7 +4,7 @@ import * as Typography from "~/components/typography";
 
 export default function CTASection() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-black -mt-[120px]">
+    <section className="relative z-[1] w-full min-h-screen overflow-hidden bg-black -mt-[120px]">
       {/* Background image — masked with radial gradient so edges blend into black */}
       <div
         className="absolute inset-0"

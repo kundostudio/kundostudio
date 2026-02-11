@@ -46,7 +46,7 @@ const FAQ_ITEMS = [
 	{
 		question: "Do you work on equity?",
 		answer:
-			"Occasionally. Only with strong alignment and a clear value path.",
+			"Occasionally. Only with strong alignment and a clear value path. If equity is part of the arrangement, the company covers all project costs—we don't absorb them against future upside. We accept direct vesting only, not options or structures that require us to pay in to realize value down the line.",
 	},
 ];
 

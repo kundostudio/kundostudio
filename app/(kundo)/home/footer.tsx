@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="relative z-10 w-full bg-black px-5 sm:px-0 pt-6 pb-8 sm:pb-10">
       <div className="flex items-center justify-between">
         {/* Copyright */}
-        <p className="text-sm text-white/40">© 2025, Kundo Studio</p>
+        <p className="text-sm text-white/40">© {new Date().getFullYear()}, Kundo Studio</p>
 
         {/* Nav links */}
         <nav className="flex items-center gap-8">
