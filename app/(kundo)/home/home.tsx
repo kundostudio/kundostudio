@@ -9,6 +9,7 @@ import type { Asset as QueryAsset } from "~/lib/queries";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
+import { FAQSection } from "./faq-section";
 import { ServicesSection } from "./services-section";
 
 function useIsSafari() {
@@ -173,6 +174,9 @@ export function HomePage({ title, assets, imageDuration = 5000 }: HomePageProps)
 
 			{/* Services Section */}
 			<ServicesSection />
+
+			{/* FAQ Section */}
+			<FAQSection />
 		</Page>
 	);
 }
