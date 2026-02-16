@@ -199,7 +199,6 @@
 		border: 0;
 		/* Half of project-nav blur (24px) for subtle separation from background */
 		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
 		background: linear-gradient(
 			182.51deg,
 			rgba(255, 255, 255, 0.02) 27.09%,
