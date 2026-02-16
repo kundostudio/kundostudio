@@ -3,6 +3,7 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { AnimatePresence, motion } from "motion/react";
 import { forwardRef, useState } from "react";
+import { Button } from "~/components/button";
 import * as Typography from "~/components/typography";
 import { cn } from "~/lib/utils";
 
@@ -50,166 +51,24 @@ const FAQ_ITEMS = [
 	},
 ];
 
-// ─── Glassmorphism Toggle Icon (from Figma) ────────────────
-// 36x36 circle with gradient fill, backdrop blur, and two
-// chevrons that flip direction between open/closed states.
-// Each instance gets a unique `id` prefix to avoid SVG ID collisions.
-function ToggleIcon({ isOpen, id }: { isOpen: boolean; id: string }) {
+// ─── Toggle Icon ────────────────────────────────────────────
+// 36×36 glass-btn circle with chevrons that flip between
+// open (inward) and closed (outward) states.
+function ToggleIcon({ isOpen }: { isOpen: boolean }) {
 	return (
-		<div className="shrink-0">
-			<svg
-				width="36"
-				height="36"
-				viewBox="0 0 36 36"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-				aria-hidden="true"
-			>
-				{/* Backdrop blur via foreignObject */}
-				<foreignObject x="-10" y="-10" width="56" height="56">
-					<div
-						style={{
-							backdropFilter: "blur(5px)",
-							WebkitBackdropFilter: "blur(5px)",
-							clipPath: `url(#${id}_bgclip)`,
-							height: "100%",
-							width: "100%",
-						}}
-					/>
-				</foreignObject>
-
-				<g data-figma-bg-blur-radius="10">
-					<g clipPath={`url(#${id}_clip)`}>
-						{/* Base gradient fill */}
-						<rect
-							width="36"
-							height="36"
-							rx="18"
-							fill={`url(#${id}_grad0)`}
-						/>
-
-						{/* Masked overlay gradient */}
-						<mask
-							id={`${id}_mask`}
-							style={{ maskType: "alpha" }}
-							maskUnits="userSpaceOnUse"
-							x="0"
-							y="0"
-							width="36"
-							height="36"
-						>
-							<rect width="36" height="36" fill="black" />
-						</mask>
-						<g mask={`url(#${id}_mask)`}>
-							<rect
-								width="36"
-								height="36"
-								rx="18"
-								fill={`url(#${id}_grad1)`}
-							/>
-						</g>
-
-						{/* Chevrons — inward when open, outward when closed */}
-						{isOpen ? (
-							<>
-								<path
-									d="M13.75 25.25L18 20.75L22.25 25.25"
-									stroke="#E6E6E6"
-									strokeWidth="1.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-								<path
-									d="M13.75 10.75L18 15.25L22.25 10.75"
-									stroke="#E6E6E6"
-									strokeWidth="1.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-							</>
-						) : (
-							<>
-								<path
-									d="M22.25 20.75L18 25.25L13.75 20.75"
-									stroke="#E6E6E6"
-									strokeWidth="1.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-								<path
-									d="M22.25 15.25L18 10.75L13.75 15.25"
-									stroke="#E6E6E6"
-									strokeWidth="1.5"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-							</>
-						)}
-					</g>
-				</g>
-
-				<defs>
-					<clipPath
-						id={`${id}_bgclip`}
-						transform="translate(10 10)"
-					>
-						<rect width="36" height="36" rx="18" />
-					</clipPath>
-					<linearGradient
-						id={`${id}_grad0`}
-						x1="18.8221"
-						y1="-0.753009"
-						x2="17.1779"
-						y2="36.753"
-						gradientUnits="userSpaceOnUse"
-					>
-						<stop
-							offset="0.2709"
-							stopColor="white"
-							stopOpacity="0.04"
-						/>
-						<stop
-							offset="0.5859"
-							stopColor="#5A5A5A"
-							stopOpacity="0.04"
-						/>
-						<stop offset="0.9275" stopOpacity="0.04" />
-					</linearGradient>
-					<linearGradient
-						id={`${id}_grad1`}
-						x1="17.6152"
-						y1="-0.368986"
-						x2="18.3848"
-						y2="36.369"
-						gradientUnits="userSpaceOnUse"
-					>
-						<stop
-							offset="0.1085"
-							stopColor="white"
-							stopOpacity="0.247"
-						/>
-						<stop
-							offset="0.2436"
-							stopColor="#141414"
-							stopOpacity="0.46"
-						/>
-						<stop
-							offset="0.7367"
-							stopColor="#323232"
-							stopOpacity="0.46"
-						/>
-						<stop
-							offset="0.9068"
-							stopColor="white"
-							stopOpacity="0.46"
-						/>
-					</linearGradient>
-					<clipPath id={`${id}_clip`}>
-						<rect width="36" height="36" rx="18" fill="white" />
-					</clipPath>
-				</defs>
-			</svg>
-		</div>
+		<Button className="w-9 h-9 min-w-0 p-0 shrink-0" tabIndex={-1} aria-hidden>
+			{isOpen ? (
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
+					<path d="M13.75 25.25L18 20.75L22.25 25.25" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+					<path d="M13.75 10.75L18 15.25L22.25 10.75" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+				</svg>
+			) : (
+				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
+					<path d="M22.25 20.75L18 25.25L13.75 20.75" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+					<path d="M22.25 15.25L18 10.75L13.75 15.25" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+				</svg>
+			)}
+		</Button>
 	);
 }
 
@@ -219,11 +78,10 @@ interface FAQItemProps {
 	answer: string;
 	value: string;
 	isOpen: boolean;
-	index: number;
 }
 
 const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
-	({ question, answer, value, isOpen, index }, ref) => {
+	({ question, answer, value, isOpen }, ref) => {
 		return (
 			<Accordion.Item
 				ref={ref}
@@ -240,10 +98,7 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
 						>
 							{question}
 						</Typography.H4>
-						<ToggleIcon
-							isOpen={isOpen}
-							id={`faq-icon-${index}`}
-						/>
+						<ToggleIcon isOpen={isOpen} />
 					</Accordion.Trigger>
 				</Accordion.Header>
 
@@ -350,7 +205,6 @@ export function FAQSection({ className }: FAQSectionProps) {
 							question={item.question}
 							answer={item.answer}
 							isOpen={openItem === `item-${index}`}
-							index={index}
 						/>
 					))}
 				</Accordion.Root>

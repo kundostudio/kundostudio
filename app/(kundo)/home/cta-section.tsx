@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { Button } from "~/components/button";
 import * as Typography from "~/components/typography";
 
 export default function CTASection() {
@@ -40,16 +42,10 @@ export default function CTASection() {
             {"together."}
           </Typography.H1>
 
-          <div className="mt-8 sm:mt-10">
-            <a
-              href="mailto:hello@kundo.studio"
-              className="inline-flex items-center justify-center rounded-full px-16 sm:px-24 py-4 text-base font-medium text-white/70 transition-all hover:text-white border border-white/10 backdrop-blur-md"
-              style={{
-                background: "rgba(255, 255, 255, 0.06)",
-              }}
-            >
-              Get in touch
-            </a>
+          <div className="mt-8 sm:mt-10 flex justify-center">
+            <Link href="mailto:hello@kundo.studio">
+              <Button className="w-[168px] h-12">Get in touch</Button>
+            </Link>
           </div>
         </div>
       </div>
