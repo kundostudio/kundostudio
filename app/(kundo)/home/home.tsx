@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
 import { useMediaQuery } from "~/hooks/use-media-query";
@@ -12,6 +12,7 @@ import { FAQSection } from "./faq-section";
 import { ServicesSection } from "./services-section";
 import CTASection from "./cta-section";
 import Footer from "./footer";
+import { LensFlare } from "./lens-flare";
 
 declare module "react" {
 	namespace JSX {
@@ -67,6 +68,7 @@ export function HomePage() {
 	const isMobile = useMediaQuery("(max-width: 639px)");
 	const isSafari = useIsSafari();
 	const [videoLoaded, setVideoLoaded] = useState(false);
+	const frameContainerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const handlePlaying = () => setVideoLoaded(true);
@@ -90,8 +92,10 @@ export function HomePage() {
 				strategy="lazyOnload"
 			/>
 
+			<div className="relative">
 			<div className="relative flex flex-col overflow-x-hidden">
 				<div
+					ref={frameContainerRef}
 					className="relative w-full aspect-[1222/766] min-w-full sm:min-w-none sm:min-h-[500px]"
 					style={{
 						...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
@@ -136,11 +140,11 @@ export function HomePage() {
 									style={muxPlayerStyle}
 								/>
 							</div>
-							<FrameBorder className="absolute inset-0 h-full w-full" />
+							<FrameBorder className="absolute inset-0 h-full w-full" style={{ transform: "scaleX(-1)" }} />
 						</div>
 					) : (
-						<Frame className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block">
-							<div className="relative h-full w-full">
+						<Frame className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block" style={{ transform: "scaleX(-1)" }}>
+							<div className="relative h-full w-full" style={{ transform: "scaleX(-1)" }}>
 								<div
 									className="absolute inset-0 z-10 pointer-events-none"
 									style={videoOverlayStyle(videoLoaded)}
@@ -166,6 +170,8 @@ export function HomePage() {
 						Design that moves you forward
 					</Typography.H1>
 				</div>
+			</div>
+			<LensFlare targetRef={frameContainerRef} />
 			</div>
 
 			{/* Decorative line + glow (between hero and services) */}
