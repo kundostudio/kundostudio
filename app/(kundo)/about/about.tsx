@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment } from "react";
 import { Asset } from "~/components/asset";
 import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
@@ -101,10 +100,10 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 												}}
 											/>
 										) : null}
-										<div className="mx-[3px] sm:mx-[5px]">
+										<div className="mx-[3px] sm:mx-[5px] text-balance">
 											{card.title && (
 												<Typography.H4 className="text-primary inline mr-1">
-													{card.title}
+													{card.title.replace(/ (?=\S+$)/, "\u00A0")}
 												</Typography.H4>
 											)}
 											{renderCardDescription(card)}
@@ -119,43 +118,47 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 
 			{whatWeDo ? (
 				<section className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 container pt-20">
-					<div className="md:col-span-5">
+					<div className="md:col-span-5 md:sticky md:top-32 md:self-start">
 						{whatWeDo.heading ? (
-							<Typography.H2 className={cn("text-primary", Typography.textStyles.h1)}>
+							<Typography.H2 className="text-primary">
 								{whatWeDo.heading}
 							</Typography.H2>
 						) : null}
 					</div>
-					<div className="md:col-span-7 flex flex-col gap-10">
+					<div className="md:col-span-7">
 						{whatWeDo.description ? (
 							<PortableText
 								value={whatWeDo.description}
-								classes={{ block: { normal: cn("text-primary", Typography.textStyles.h3) } }}
+								classes={{ block: { normal: cn("text-primary", Typography.textStyles.h4) } }}
 							/>
 						) : null}
 						{whatWeDo.capabilities?.length ? (
-							<div className="flex flex-col gap-8 pt-8">
+							<div className="mt-16">
 								{whatWeDo.capabilities.map((capability, index) => (
-									<Fragment key={capability._key}>
-										<div className="flex flex-col gap-2">
+									<div
+										key={capability._key}
+										className={cn(
+											index === 0 ? "pb-6 sm:pb-8" : "py-6 sm:py-8",
+											index > 0 && "border-t border-white/10",
+											index === (whatWeDo.capabilities?.length ?? 0) - 1 && "border-b border-white/10",
+										)}
+									>
+										<div className="flex flex-col gap-1">
 											{capability.title ? (
-												<Typography.P className="text-primary">{capability.title}</Typography.P>
+												<Typography.P className="text-secondary">
+													{capability.title.replace(/[\[\]]/g, "").toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}
+												</Typography.P>
 											) : null}
 											{capability.description ? (
-												<div className="text-secondary">
-													<PortableText
-														value={capability.description}
-														classes={{
-															block: { normal: cn("text-secondary", Typography.textStyles.h4) },
-														}}
-													/>
-												</div>
+												<PortableText
+													value={capability.description}
+													classes={{
+														block: { normal: cn("text-primary", Typography.textStyles.h4) },
+													}}
+												/>
 											) : null}
 										</div>
-										{index !== (whatWeDo.capabilities?.length ?? 0) - 1 && (
-											<div className="bg-[#1F1F1F] h-px"></div>
-										)}
-									</Fragment>
+									</div>
 								))}
 							</div>
 						) : null}

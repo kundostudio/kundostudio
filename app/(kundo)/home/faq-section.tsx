@@ -3,7 +3,6 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { AnimatePresence, motion } from "motion/react";
 import { forwardRef, useState } from "react";
-import { Button } from "~/components/button";
 import * as Typography from "~/components/typography";
 import { cn } from "~/lib/utils";
 
@@ -56,7 +55,7 @@ const FAQ_ITEMS = [
 // open (inward) and closed (outward) states.
 function ToggleIcon({ isOpen }: { isOpen: boolean }) {
 	return (
-		<Button className="w-9 h-9 min-w-0 p-0 shrink-0" tabIndex={-1} aria-hidden>
+		<div className="glass-btn rounded-full w-9 h-9 min-w-0 p-0 shrink-0" tabIndex={-1} aria-hidden>
 			{isOpen ? (
 				<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10">
 					<path d="M13.75 25.25L18 20.75L22.25 25.25" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -68,7 +67,7 @@ function ToggleIcon({ isOpen }: { isOpen: boolean }) {
 					<path d="M22.25 15.25L18 10.75L13.75 15.25" stroke="#E6E6E6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 				</svg>
 			)}
-		</Button>
+		</div>
 	);
 }
 
@@ -160,7 +159,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 				<Typography.H2 className="text-primary whitespace-pre-line">
 					{"Built to match your stage.\nStructured to deliver results."}
 				</Typography.H2>
-				<Typography.P className="text-secondary mx-auto mt-4 max-w-[440px]">
+				<Typography.P className="text-secondary mx-auto mt-4 max-w-2xl">
 					We price based on complexity, scope, and risk—not
 					just hours on a clock. You&apos;ll always get a
 					clear number upfront.

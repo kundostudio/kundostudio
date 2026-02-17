@@ -16,7 +16,7 @@ export function Button({ className, children, isExternal, ...props }: ButtonProp
 			)}
 			{...props}
 		>
-			<span className={cn(textStyles.button, "text-white relative z-10")}>{children}</span>
+			<span className={cn(textStyles.button, "text-primary relative z-10")}>{children}</span>
 			{isExternal && <ArrowLink className="ml-2 size-[14px] relative z-10" />}
 		</button>
 	);

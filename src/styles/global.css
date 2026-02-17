@@ -4,7 +4,7 @@
 @theme {
 	/* Color primitives */
 	--background: 0 0 0; /* #000000 */
-	--primary: 255 255 255; /* #FFFFFF */
+	--primary: 247 247 247; /* #F7F7F7 */
 	--secondary: 128 128 128; /* #808080 */
 	--accent: 0 0 255; /* #0000FF */
 
@@ -166,7 +166,7 @@
 
 	*::selection {
 		background-color: var(--color-accent);
-		color: #fff;
+		color: #F7F7F7;
 	}
 }
 
