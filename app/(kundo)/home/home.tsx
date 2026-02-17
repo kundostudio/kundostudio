@@ -171,7 +171,7 @@ export function HomePage() {
 					</Typography.H1>
 				</div>
 			</div>
-			<LensFlare targetRef={frameContainerRef} />
+			<LensFlare targetRef={frameContainerRef} play={videoLoaded} />
 			</div>
 
 			{/* Decorative line + glow (between hero and services) */}

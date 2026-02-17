@@ -155,15 +155,16 @@ const BOKEH_CIRCLES = generateBokehCircles();
 // ─── Component ───
 type LensFlareProps = {
 	targetRef: React.RefObject<HTMLDivElement | null>;
+	play?: boolean;
 };
 
-export function LensFlare({ targetRef }: LensFlareProps) {
+export function LensFlare({ targetRef, play = false }: LensFlareProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const target = targetRef.current;
-		if (!canvas || !target) return;
+		if (!canvas || !target || !play) return;
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
 
@@ -572,7 +573,7 @@ export function LensFlare({ targetRef }: LensFlareProps) {
 			cancelAnimationFrame(raf);
 			observer.disconnect();
 		};
-	}, [targetRef]);
+	}, [targetRef, play]);
 
 	return (
 		<canvas
