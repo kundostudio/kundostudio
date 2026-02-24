@@ -16,7 +16,7 @@ const FAQ_ITEMS = [
 	{
 		question: "Can I get a clear price before starting?",
 		answer:
-			"Always. We scope the engagement with you, then quote a clear structure\u2014either a fixed project fee or a structured monthly phase. No vague estimates or padded buffers. We price by outcomes, not inputs. Who works on what stays behind the scenes.",
+			"Always. We scope the engagement with you, then quote a clear structure\u2014either a fixed project fee or a structured monthly phase. No vague estimaded buffers. We price by outcomes, not inputs. Who works on what stays behind the scenes.",
 	},
 	{
 		question: "What\u2019s included in the price?",
@@ -31,12 +31,12 @@ const FAQ_ITEMS = [
 	{
 		question: "How is work typically structured?",
 		answer:
-			"We work by company stage, not isolated projects. Every engagement begins with a foundational phase and is often followed by a structured period of iteration or growth\u2014so the work doesn\u2019t just launch, but holds up over time.",
+			"We work by company stage, not isolated projects. Every engagement begins with a foundational phase\u2014the core build\u2014and is often followed by a structured period of refinement or expansion, so the work doesn\u2019t just launch but holds up over time.",
 	},
 	{
 		question: "How are payments structured?",
 		answer:
-			"Payment structure depends on the type of engagement.\nProject-based phases are paid upfront. Ongoing work is paid monthly, in advance.",
+			"Most project work is paid upfront. For larger builds, we sos structure payments in phases. Ongoing work is billed monthly, in advance.",
 	},
 	{
 		question: "Do you work with early-stage companies?",
@@ -44,9 +44,9 @@ const FAQ_ITEMS = [
 			"Yes\u2014if you\u2019re serious about quality. We adjust scope and approach to fit your context without compromising the outcome.",
 	},
 	{
-		question: "Do you work on equity?",
+		question: "Do you offer alternative fee structures?",
 		answer:
-			"Occasionally. Only with strong alignment and a clear value path. If equity is part of the arrangement, the company covers all project costs\u2014we don\u2019t absorb them against future upside. We accept direct vesting only, not options or structures that require us to pay in to realize value down the line.",
+			"For the right partnership, yes. We offer two paths on every proposal: a standard project fee, or a reduced fee combined with a stake in the outcome\u2014equity with vesting and a capped share of revenue. Both are defined clearly upfront. We don\u2019t absorb costs against future upside; the economics work for both sides from day one.",
 	},
 ];
 
@@ -122,7 +122,7 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
 							>
 								<div className="pb-6 sm:pb-8 max-w-[800px] w-full">
 									<Typography.Small
-										className="whitespace-pre-line text-pretty text-[#808080]"
+										className="whitespace-pre-line text-pretty text-secondary"
 									>
 										{answer}
 									</Typography.Small>
@@ -149,7 +149,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 	return (
 		<section
 			className={cn(
-				"relative z-10 bg-black pt-16 pb-4 sm:pt-24 sm:pb-6 lg:pt-32 lg:pb-8",
+				"relative z-10 bg-black pt-32 pb-4 sm:pt-48 sm:pb-6 lg:pt-64 lg:pb-8",
 				className,
 			)}
 		>
@@ -167,7 +167,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 
 			{/* FAQ Container */}
 			<div
-				className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 lg:px-12"
+				className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 lg:px-12 max-w-[1062px] mx-auto"
 				style={{
 					borderRadius: "10px",
 					border: "1px solid rgba(255, 255, 255, 0.06)",

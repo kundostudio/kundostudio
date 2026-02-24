@@ -120,7 +120,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 				<section className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:gap-12 container pt-20">
 					<div className="md:col-span-5 md:sticky md:top-32 md:self-start">
 						{whatWeDo.heading ? (
-							<Typography.H2 className="text-primary">
+							<Typography.H2>
 								{whatWeDo.heading}
 							</Typography.H2>
 						) : null}

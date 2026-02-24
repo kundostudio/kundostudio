@@ -95,7 +95,7 @@ export const textStyles = {
 	// Overline LG — Hero label, prominent overlines
 	// 24→22→20→18→16 | weight 600 | uppercase | lh: 29→26→24→22→19 | ls: 1.2→0.8
 	overlineLg: [
-		"font-inter text-[16px] font-semibold leading-[19px] tracking-[0.8px] uppercase",
+		"font-inter text-[16px] font-semibold leading-[19px] tracking-[0.8px]",
 		"min-[640px]:text-[18px] min-[640px]:leading-[22px] min-[640px]:tracking-[0.9px]",
 		"md:text-[20px] md:leading-[24px] md:tracking-[1px]",
 		"lg:text-[22px] lg:leading-[26px] lg:tracking-[1.1px]",

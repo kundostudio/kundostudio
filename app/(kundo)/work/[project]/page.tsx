@@ -79,7 +79,7 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Description */}
 			<div className="container mt-26 mb-32">
-				<p className={cn(Typography.textStyles.body, "max-w-96")}>{project.description}</p>
+				<p className={cn(Typography.textStyles.pLg, "max-w-96")}>{project.description}</p>
 			</div>
 
 			{/* Secondary Asset (using shared Asset) */}
@@ -146,7 +146,7 @@ export default async function ProjectDetail({ params }: Props) {
 								{/* Quote block */}
 								{project.quote?.text && project.quote.author && (
 									<div className="self-end max-w-122 my-26 flex flex-col gap-6">
-										<p className={cn(Typography.textStyles.h2, "text-start")}>
+										<p className={cn(Typography.textStyles.h3, "text-start")}>
 											&ldquo;{project.quote.text}&rdquo;
 										</p>
 										<div className="flex items-center gap-2 w-fit">
@@ -159,7 +159,7 @@ export default async function ProjectDetail({ params }: Props) {
 													className="rounded-full"
 												/>
 											)}
-											<span className={cn(Typography.textStyles.caption, "text-secondary uppercase")}>
+											<span className={cn(Typography.textStyles.overline, "text-secondary")}>
 												&mdash; {project.quote.author.name}, {project.quote.author.role}
 											</span>
 										</div>
@@ -199,16 +199,16 @@ export default async function ProjectDetail({ params }: Props) {
 									{project.roles.internal.map(
 										(item: { role?: string; people?: string }, idx: number) => (
 											<Fragment key={`int-${idx}`}>
-												<Typography.Caption className="text-secondary text-end">{item.role}</Typography.Caption>
+												<Typography.Small className="text-secondary text-end">{item.role}</Typography.Small>
 												<div className="flex flex-col gap-1">
 													{(item.people || "")
 														.split(/\r?\n/)
 														.map((s) => s.trim())
 														.filter(Boolean)
 														.map((person, i) => (
-															<Typography.Small key={i} className="text-primary">
+															<Typography.P key={i} className="text-primary">
 																{person}
-															</Typography.Small>
+															</Typography.P>
 														))}
 												</div>
 											</Fragment>
@@ -227,16 +227,16 @@ export default async function ProjectDetail({ params }: Props) {
 									{project.roles.external.map(
 										(item: { role?: string; people?: string }, idx: number) => (
 											<Fragment key={`ext-${idx}`}>
-												<Typography.Caption className="text-secondary text-end">{item.role}</Typography.Caption>
+												<Typography.Small className="text-secondary text-end">{item.role}</Typography.Small>
 												<div className="flex flex-col gap-1">
 													{(item.people || "")
 														.split(/\r?\n/)
 														.map((s) => s.trim())
 														.filter(Boolean)
 														.map((person, i) => (
-															<Typography.Small key={i} className="text-primary">
+															<Typography.P key={i} className="text-primary">
 																{person}
-															</Typography.Small>
+															</Typography.P>
 														))}
 												</div>
 											</Fragment>
@@ -250,13 +250,13 @@ export default async function ProjectDetail({ params }: Props) {
 											{project.roles.services.map((service: string, i: number) => (
 												<Fragment key={`svc-${i}`}>
 													{i === 0 ? (
-														<Typography.Caption className="text-secondary text-end">
+														<Typography.Small className="text-secondary text-end">
 															Services
-														</Typography.Caption>
+														</Typography.Small>
 													) : (
 														<div />
 													)}
-													<Typography.Small className="text-primary">{service}</Typography.Small>
+													<Typography.Caption className="text-primary uppercase">{service}</Typography.Caption>
 												</Fragment>
 											))}
 										</>
@@ -301,7 +301,7 @@ function SectionBlock({ section }: SectionBlockProps) {
 		<div className="w-full max-w-[383px]">
 			{section.title && section.content ? (
 				<div className="inline">
-					<span className={cn(Typography.textStyles.caption, "text-secondary inline")}>
+					<span className={cn(Typography.textStyles.h5, "text-secondary uppercase inline")}>
 						{section.title}{" "}
 					</span>
 					<PortableText
@@ -313,7 +313,7 @@ function SectionBlock({ section }: SectionBlockProps) {
 					/>
 				</div>
 			) : section.title ? (
-				<Typography.Caption className="text-secondary">{section.title}</Typography.Caption>
+				<Typography.H5 className="text-secondary uppercase">{section.title}</Typography.H5>
 			) : section.content ? (
 				<PortableText
 					value={section.content}

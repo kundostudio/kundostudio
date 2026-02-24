@@ -115,53 +115,59 @@ export function Header({ className, ...props }: HeaderProps) {
 
 	return (
 		<header
-			className={cn("flex justify-between items-center h-8 relative container", className)}
+			className={cn("h-[72px] flex items-center relative", className)}
 			{...props}
 		>
-			<nav className="flex justify-between items-center gap-4">
-				{NAVIGATION_ITEMS.map((item) => {
-					const isActive =
-						item.href === "/"
-							? pathname === "/"
-							: pathname === item.href || pathname.startsWith(`${item.href}/`);
+			<div className="container flex items-center justify-between relative h-full">
+				{/* Left — Nav links */}
+				<nav className="flex items-center gap-2">
+					{NAVIGATION_ITEMS.map((item) => {
+						const isActive =
+							item.href === "/"
+								? pathname === "/"
+								: pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-					return (
-						<Link
-							href={item.href}
-							key={item.href}
-							className={cn("h-full px-4 -ml-4 flex items-center justify-center relative")}
-						>
-							<span
+						return (
+							<Link
+								href={item.href}
 								key={item.href}
-								className={cn("text-primary w-fit relative", textStyles.buttonNav)}
+								className="flex items-center justify-center h-8 px-3 py-[9px] relative"
 							>
-								{item.label}
-								{/* Active underline container */}
-								<span className="pointer-events-none absolute bottom-[-2px] left-0 w-full h-px overflow-hidden rounded-full">
-									<AnimatePresence initial={false}>
-										{isActive ? (
-											<motion.span
-												key="active-bar"
-												className="block w-full h-full bg-primary"
-												initial={{ x: "-100%" }}
-												animate={{ x: "0%" }}
-												exit={{ x: "100%" }}
-												transition={{ duration: 0.15, ease: "easeInOut" }}
-											/>
-										) : null}
-									</AnimatePresence>
+								<span
+									className={cn("text-primary w-fit relative", textStyles.buttonNav)}
+								>
+									{item.label}
+									{/* Active underline */}
+									<span className="pointer-events-none absolute bottom-[-2px] left-0 w-full h-px overflow-hidden rounded-full">
+										<AnimatePresence initial={false}>
+											{isActive ? (
+												<motion.span
+													key="active-bar"
+													className="block w-full h-full bg-primary"
+													initial={{ x: "-100%" }}
+													animate={{ x: "0%" }}
+													exit={{ x: "100%" }}
+													transition={{ duration: 0.15, ease: "easeInOut" }}
+												/>
+											) : null}
+										</AnimatePresence>
+									</span>
 								</span>
-							</span>
-						</Link>
-					);
-				})}
-			</nav>
-			<Link href="/" className="absolute inset-0 m-auto size-fit" onClick={handleLogoClick}>
-				<Logo className="h-8 w-12 p-2" />
-			</Link>
-			<Link href="mailto:hello@kundo.studio">
-				<Button>Get in touch</Button>
-			</Link>
+							</Link>
+						);
+					})}
+				</nav>
+
+				{/* Center — Logo */}
+				<Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" onClick={handleLogoClick}>
+					<Logo className="h-[18px] w-auto" />
+				</Link>
+
+				{/* Right — CTA button */}
+				<Link href="mailto:hello@kundo.studio">
+					<Button>Get in touch</Button>
+				</Link>
+			</div>
 		</header>
 	);
 }

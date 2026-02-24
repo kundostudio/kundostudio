@@ -4,8 +4,8 @@
 @theme {
 	/* Color primitives */
 	--background: 0 0 0; /* #000000 */
-	--primary: 247 247 247; /* #F7F7F7 */
-	--secondary: 128 128 128; /* #808080 */
+	--primary: 255 255 255; /* #FFFFFF */
+	--secondary: 157 161 169; /* #9DA1A9 */
 	--accent: 0 0 255; /* #0000FF */
 
 	/* Color palette */
@@ -22,8 +22,6 @@
 
 	/* Fonts */
 	--font-inter: var(--font-inter);
-	/* Keep neue as alias pointing to Inter for any missed references */
-	--font-neue: var(--font-inter);
 
 	/* Easings */
 	--ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
@@ -168,7 +166,7 @@
 
 	*::selection {
 		background-color: var(--color-accent);
-		color: #F7F7F7;
+		color: #FFFFFF;
 	}
 }
 
@@ -264,6 +262,6 @@
 
 @layer utilities {
 	.container {
-		@apply px-5 md:px-10 max-w-[578px] md:max-w-[1130px] xl:max-w-[1220px] w-full mx-auto;
+		@apply px-6 md:px-8 xl:px-0 max-w-[1280px] w-full mx-auto;
 	}
 }

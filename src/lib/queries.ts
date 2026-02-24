@@ -422,6 +422,21 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
   }
 }`);
 
+// Query to get all project testimonials for homepage
+export const TESTIMONIALS_QUERY = defineQuery(`*[_type == "project" && defined(quote.text) && visible == true] {
+  "quote": quote.text,
+  "name": quote.author.name,
+  "role": quote.author.role,
+  "company": name
+}`);
+
+export interface Testimonial {
+	quote: string;
+	name: string;
+	role: string;
+	company: string;
+}
+
 // Query to get all project slugs for navigation (uses same order as /work page)
 export const PROJECT_SLUGS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0].featuredProjects[]-> {
   "slug": slug.current,

@@ -10,6 +10,7 @@ import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
 import { FAQSection } from "./faq-section";
 import { ServicesSection } from "./services-section";
+import { TestimonialsSection } from "./testimonials-section";
 import CTASection from "./cta-section";
 import Footer from "./footer";
 import { LensFlare } from "./lens-flare";
@@ -64,7 +65,16 @@ const videoOverlayStyle = (loaded: boolean): React.CSSProperties => ({
 	transition: "opacity 0.6s ease-out",
 });
 
-export function HomePage() {
+interface HomePageProps {
+	testimonials: Array<{
+		quote: string;
+		name: string;
+		role: string;
+		company: string;
+	}>;
+}
+
+export function HomePage({ testimonials }: HomePageProps) {
 	const isMobile = useMediaQuery("(max-width: 639px)");
 	const isSafari = useIsSafari();
 	const [videoLoaded, setVideoLoaded] = useState(false);
@@ -85,18 +95,19 @@ export function HomePage() {
 	}, [isSafari]);
 
 	return (
-		<Page className={cn("mt-0 sm:mt-18 sm:pt-14", !isMobile && "container")}>
+		<Page className="mt-0 overflow-x-hidden">
 			<Script
 				src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs"
 				type="module"
 				strategy="lazyOnload"
 			/>
 
-			<div className="relative">
-			<div className="relative flex flex-col overflow-x-hidden">
+			{/* Hero — full viewport height, frame centered, H1 anchored near bottom */}
+			<div className="relative min-h-screen">
+				{/* Frame — centered in the hero area */}
 				<div
 					ref={frameContainerRef}
-					className="relative w-full aspect-[1222/766] min-w-full sm:min-w-none sm:min-h-[500px]"
+					className="absolute inset-x-0 top-[112px] w-full max-w-[1312px] mx-auto aspect-[1222/766] sm:min-h-[500px]"
 					style={{
 						...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
 						maskImage:
@@ -164,21 +175,22 @@ export function HomePage() {
 					)}
 				</div>
 
-				<div className="px-4 sm:px-0 sm:-translate-y-full">
+				{/* H1 — anchored near bottom of viewport */}
+				<div className="absolute bottom-[40px] md:bottom-[60px] xl:bottom-[80px] left-0 right-0 container">
 					<Typography.OverlineLg className="text-secondary">Kundo Studio</Typography.OverlineLg>
 					<Typography.H1 className="text-primary">
 						Design that moves you forward
 					</Typography.H1>
 				</div>
-			</div>
-			<LensFlare targetRef={frameContainerRef} play={videoLoaded} />
+
+				<LensFlare targetRef={frameContainerRef} play={videoLoaded} />
 			</div>
 
 			{/* Decorative line + glow (between hero and services) */}
 			<div className="relative mt-16" style={{ height: 0 }}>
 				<div
 					aria-hidden="true"
-					className="pointer-events-none absolute top-0 -left-[50vw] -right-[50vw] ml-[50%] mr-[50%] w-screen"
+					className="pointer-events-none absolute top-0 left-0 right-0 w-full"
 					style={{ height: 400 }}
 				>
 					{/* Horizontal gradient line */}
@@ -210,16 +222,19 @@ export function HomePage() {
 			</div>
 
 			{/* Services Section */}
-			<ServicesSection />
+			<ServicesSection className="container" />
+
+			{/* Testimonials Section */}
+			<TestimonialsSection testimonials={testimonials} className="px-6 md:px-8 xl:px-0" />
 
 			{/* FAQ Section */}
-			<FAQSection />
+			<FAQSection className="container" />
 
 			{/* CTA Section */}
 			<CTASection />
 
 			{/* Footer */}
-			<Footer />
+			<Footer className="container" />
 		</Page>
 	);
 }

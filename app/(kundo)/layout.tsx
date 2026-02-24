@@ -70,7 +70,7 @@ export default async function RootLayout({
 	const isDraftMode = await (await draftMode()).isEnabled;
 	return (
 		<div className="relative flex flex-col min-h-svh">
-			<Header className="absolute top-10 left-0 right-0 z-100" />
+			<Header className="absolute top-0 left-0 right-0 z-100" />
 			{children}
 			<SanityLive />
 			{isDraftMode && (
