@@ -79,7 +79,7 @@ export default async function ProjectDetail({ params }: Props) {
 
 			{/* Description */}
 			<div className="container mt-26 mb-32">
-				<p className={cn(Typography.textStyles.h3, "max-w-96")}>{project.description}</p>
+				<p className={cn(Typography.textStyles.body, "max-w-96")}>{project.description}</p>
 			</div>
 
 			{/* Secondary Asset (using shared Asset) */}
@@ -159,8 +159,8 @@ export default async function ProjectDetail({ params }: Props) {
 													className="rounded-full"
 												/>
 											)}
-											<span className={cn(Typography.textStyles.h4, "text-secondary uppercase")}>
-												— {project.quote.author.name}, {project.quote.author.role}
+											<span className={cn(Typography.textStyles.caption, "text-secondary uppercase")}>
+												&mdash; {project.quote.author.name}, {project.quote.author.role}
 											</span>
 										</div>
 									</div>
@@ -195,20 +195,20 @@ export default async function ProjectDetail({ params }: Props) {
 							{project.roles?.internal?.length && (
 								<>
 									<div />
-									<Typography.P className={cn("uppercase text-primary")}>KUNDO STUDIO</Typography.P>
+									<Typography.Caption className={cn("uppercase text-primary")}> KUNDO STUDIO</Typography.Caption>
 									{project.roles.internal.map(
 										(item: { role?: string; people?: string }, idx: number) => (
 											<Fragment key={`int-${idx}`}>
-												<Typography.P className="text-secondary text-end">{item.role}</Typography.P>
+												<Typography.Caption className="text-secondary text-end">{item.role}</Typography.Caption>
 												<div className="flex flex-col gap-1">
 													{(item.people || "")
 														.split(/\r?\n/)
 														.map((s) => s.trim())
 														.filter(Boolean)
 														.map((person, i) => (
-															<Typography.P key={i} className="text-primary">
+															<Typography.Small key={i} className="text-primary">
 																{person}
-															</Typography.P>
+															</Typography.Small>
 														))}
 												</div>
 											</Fragment>
@@ -221,22 +221,22 @@ export default async function ProjectDetail({ params }: Props) {
 								<>
 									<div className="col-span-2 h-8" />
 									<div />
-									<Typography.P className={cn("uppercase text-primary")}>
+									<Typography.Caption className={cn("uppercase text-primary")}>
 										{project.name}
-									</Typography.P>
+									</Typography.Caption>
 									{project.roles.external.map(
 										(item: { role?: string; people?: string }, idx: number) => (
 											<Fragment key={`ext-${idx}`}>
-												<Typography.P className="text-secondary text-end">{item.role}</Typography.P>
+												<Typography.Caption className="text-secondary text-end">{item.role}</Typography.Caption>
 												<div className="flex flex-col gap-1">
 													{(item.people || "")
 														.split(/\r?\n/)
 														.map((s) => s.trim())
 														.filter(Boolean)
 														.map((person, i) => (
-															<Typography.P key={i} className="text-primary">
+															<Typography.Small key={i} className="text-primary">
 																{person}
-															</Typography.P>
+															</Typography.Small>
 														))}
 												</div>
 											</Fragment>
@@ -250,13 +250,13 @@ export default async function ProjectDetail({ params }: Props) {
 											{project.roles.services.map((service: string, i: number) => (
 												<Fragment key={`svc-${i}`}>
 													{i === 0 ? (
-														<Typography.P className="text-secondary text-end">
+														<Typography.Caption className="text-secondary text-end">
 															Services
-														</Typography.P>
+														</Typography.Caption>
 													) : (
 														<div />
 													)}
-													<Typography.P className="text-primary">{service}</Typography.P>
+													<Typography.Small className="text-primary">{service}</Typography.Small>
 												</Fragment>
 											))}
 										</>
@@ -301,9 +301,9 @@ function SectionBlock({ section }: SectionBlockProps) {
 		<div className="w-full max-w-[383px]">
 			{section.title && section.content ? (
 				<div className="inline">
-					<h4 className={cn(Typography.textStyles.body, "text-secondary inline")}>
+					<span className={cn(Typography.textStyles.caption, "text-secondary inline")}>
 						{section.title}{" "}
-					</h4>
+					</span>
 					<PortableText
 						value={section.content}
 						classes={{
@@ -313,7 +313,7 @@ function SectionBlock({ section }: SectionBlockProps) {
 					/>
 				</div>
 			) : section.title ? (
-				<Typography.H4 className="text-secondary">{section.title}</Typography.H4>
+				<Typography.Caption className="text-secondary">{section.title}</Typography.Caption>
 			) : section.content ? (
 				<PortableText
 					value={section.content}

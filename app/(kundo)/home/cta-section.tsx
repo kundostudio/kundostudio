@@ -36,11 +36,11 @@ export default function CTASection() {
       {/* Content — centered */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6">
         <div className="max-w-[1008px] mx-auto text-center">
-          <Typography.H1>
+          <Typography.H2>
             {"Let\u2019s build what\u2019s next,"}
             <br />
             {"together."}
-          </Typography.H1>
+          </Typography.H2>
 
           <div className="mt-8 sm:mt-10 flex justify-center">
             <Link href="mailto:hello@kundo.studio">

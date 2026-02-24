@@ -165,7 +165,7 @@ export function HomePage() {
 				</div>
 
 				<div className="px-4 sm:px-0 sm:-translate-y-full">
-					<Typography.H3 className="text-secondary">Kundo Studio</Typography.H3>
+					<Typography.OverlineLg className="text-secondary">Kundo Studio</Typography.OverlineLg>
 					<Typography.H1 className="text-primary">
 						Design that moves you forward
 					</Typography.H1>

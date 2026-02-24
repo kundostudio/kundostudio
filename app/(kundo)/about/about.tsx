@@ -15,7 +15,7 @@ function renderCardDescription(card: AboutCard) {
 	return (
 		<PortableText
 			value={card.description}
-			classes={{ block: { normal: cn("text-secondary inline", Typography.textStyles.h4) } }}
+			classes={{ block: { normal: cn("text-secondary inline", Typography.textStyles.body) } }}
 		/>
 	);
 }
@@ -129,7 +129,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 						{whatWeDo.description ? (
 							<PortableText
 								value={whatWeDo.description}
-								classes={{ block: { normal: cn("text-primary", Typography.textStyles.h4) } }}
+								classes={{ block: { normal: cn("text-primary", Typography.textStyles.body) } }}
 							/>
 						) : null}
 						{whatWeDo.capabilities?.length ? (
@@ -153,7 +153,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 												<PortableText
 													value={capability.description}
 													classes={{
-														block: { normal: cn("text-primary", Typography.textStyles.h4) },
+														block: { normal: cn("text-primary", Typography.textStyles.body) },
 													}}
 												/>
 											) : null}

@@ -58,14 +58,14 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 								/>
 							</div>
 							<div className="mt-4 flex flex-col gap-1 px-[5px]">
-								<Typography.H4 className="text-primary">
+								<Typography.H3 className="text-primary">
 									{project.name}
 									{project.year ? <span> &mdash; {project.year}</span> : null}
-								</Typography.H4>
+								</Typography.H3>
 								{projectTypes.length > 0 ? (
-									<h4 className={cn(Typography.textStyles.body, "text-secondary")}>
+									<span className={cn(Typography.textStyles.caption, "text-secondary")}>
 										{projectTypes.join(", ")}
-									</h4>
+									</span>
 								) : null}
 							</div>
 						</Link>

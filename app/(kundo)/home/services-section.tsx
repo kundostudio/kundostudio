@@ -8,13 +8,13 @@ const SERVICES = [
 		number: "01",
 		title: "Identity that compounds over time.",
 		description:
-			"For teams ready to be seen as established, not early-stage. Built to grow with you—cohesive, confident, and built to last.",
+			"For teams ready to be seen as established, not early-stage. Built to grow with you\u2014cohesive, confident, and built to last.",
 	},
 	{
 		number: "02",
-		title: "Websites that win trust—and deals.",
+		title: "Websites that win trust\u2014and deals.",
 		description:
-			"Made for complex products and high-stakes buyers. Fast to understand, simple to manage, and made to support sales—not just show off.",
+			"Made for complex products and high-stakes buyers. Fast to understand, simple to manage, and made to support sales\u2014not just show off.",
 	},
 	{
 		number: "03",
@@ -26,7 +26,7 @@ const SERVICES = [
 		number: "04",
 		title: "Motion design, built for clarity.",
 		description:
-			"Launch videos, interface motion, and branded animations that tell your story at a glance—and stay in people's heads.",
+			"Launch videos, interface motion, and branded animations that tell your story at a glance\u2014and stay in people\u2019s heads.",
 	},
 ];
 
@@ -61,12 +61,12 @@ export function ServicesSection({ className }: ServicesSectionProps) {
 						)}
 					>
 						<div className="flex flex-col gap-1">
-							<Typography.P className="text-secondary">
+							<Typography.H5 className="text-secondary">
 								{service.number} — {service.title}
-							</Typography.P>
-							<Typography.H4 className="text-primary">
+							</Typography.H5>
+							<Typography.P className="text-primary">
 								{service.description}
-							</Typography.H4>
+							</Typography.P>
 						</div>
 					</div>
 				))}

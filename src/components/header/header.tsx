@@ -80,7 +80,7 @@ export function Header({ className, ...props }: HeaderProps) {
 								<Link href={item.href}>
 									<span
 										className={cn(
-											"uppercase font-neue font-bold text-[54px] leading-[1.1] tracking-[-0.02em]",
+											"uppercase font-inter font-bold text-[54px] leading-[1.1] tracking-[-0.02em]",
 											"transition-colors duration-300 ease-out-quad",
 											"text-primary [-webkit-text-stroke:2px_rgb(var(--primary))]",
 											"hover:text-transparent",

@@ -11,27 +11,27 @@ const FAQ_ITEMS = [
 	{
 		question: "How much does a project usually cost?",
 		answer:
-			"We tailor pricing based on your company stage, complexity, and what success looks like. Most projects start around $8,000, with larger initiatives ranging up to six figures. You'll always get a clear number before we begin—no vague estimates, no surprises.",
+			"We tailor pricing based on your company stage, complexity, and what success looks like. Most projects start around $8,000, with larger initiatives ranging up to six figures. You\u2019ll always get a clear number before we begin\u2014no vague estimates, no surprises.",
 	},
 	{
 		question: "Can I get a clear price before starting?",
 		answer:
-			"Always. We scope the engagement with you, then quote a clear structure—either a fixed project fee or a structured monthly phase. No vague estimates or padded buffers. We price by outcomes, not inputs. Who works on what stays behind the scenes.",
+			"Always. We scope the engagement with you, then quote a clear structure\u2014either a fixed project fee or a structured monthly phase. No vague estimates or padded buffers. We price by outcomes, not inputs. Who works on what stays behind the scenes.",
 	},
 	{
-		question: "What's included in the price?",
+		question: "What\u2019s included in the price?",
 		answer:
-			"Everything needed to deliver the result—no add-ons unless the scope changes. We include brand, design, motion, development, or strategy based on the project's needs.",
+			"Everything needed to deliver the result\u2014no add-ons unless the scope changes. We include brand, design, motion, development, or strategy based on the project\u2019s needs.",
 	},
 	{
 		question: "Do you offer standalone landing pages?",
 		answer:
-			"Yes. We design single-page sites starting at $10k. Most engagements are structured to continue beyond launch, ensuring the work performs once it's in the real world.",
+			"Yes. We design single-page sites starting at $10k. Most engagements are structured to continue beyond launch, ensuring the work performs once it\u2019s in the real world.",
 	},
 	{
 		question: "How is work typically structured?",
 		answer:
-			"We work by company stage, not isolated projects. Every engagement begins with a foundational phase and is often followed by a structured period of iteration or growth—so the work doesn't just launch, but holds up over time.",
+			"We work by company stage, not isolated projects. Every engagement begins with a foundational phase and is often followed by a structured period of iteration or growth\u2014so the work doesn\u2019t just launch, but holds up over time.",
 	},
 	{
 		question: "How are payments structured?",
@@ -41,12 +41,12 @@ const FAQ_ITEMS = [
 	{
 		question: "Do you work with early-stage companies?",
 		answer:
-			"Yes—if you're serious about quality. We adjust scope and approach to fit your context without compromising the outcome.",
+			"Yes\u2014if you\u2019re serious about quality. We adjust scope and approach to fit your context without compromising the outcome.",
 	},
 	{
 		question: "Do you work on equity?",
 		answer:
-			"Occasionally. Only with strong alignment and a clear value path. If equity is part of the arrangement, the company covers all project costs—we don't absorb them against future upside. We accept direct vesting only, not options or structures that require us to pay in to realize value down the line.",
+			"Occasionally. Only with strong alignment and a clear value path. If equity is part of the arrangement, the company covers all project costs\u2014we don\u2019t absorb them against future upside. We accept direct vesting only, not options or structures that require us to pay in to realize value down the line.",
 	},
 ];
 
@@ -89,14 +89,14 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
 			>
 				<Accordion.Header asChild>
 					<Accordion.Trigger className="flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-left sm:py-8">
-						<Typography.H4
+						<Typography.P
 							className={cn(
-								"text-primary transition-opacity duration-300",
+								"font-medium text-primary transition-opacity duration-300",
 								!isOpen && "group-hover:opacity-80",
 							)}
 						>
 							{question}
-						</Typography.H4>
+						</Typography.P>
 						<ToggleIcon isOpen={isOpen} />
 					</Accordion.Trigger>
 				</Accordion.Header>
@@ -121,12 +121,11 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
 								className="overflow-hidden"
 							>
 								<div className="pb-6 sm:pb-8 max-w-[800px] w-full">
-									<p
-										className="whitespace-pre-line text-pretty"
-										style={{ color: "#808080" }}
+									<Typography.Small
+										className="whitespace-pre-line text-pretty text-[#808080]"
 									>
 										{answer}
-									</p>
+									</Typography.Small>
 								</div>
 							</motion.div>
 						</Accordion.Content>
