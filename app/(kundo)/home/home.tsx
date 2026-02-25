@@ -4,7 +4,6 @@ import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
-import { useMediaQuery } from "~/hooks/use-media-query";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
@@ -75,7 +74,6 @@ interface HomePageProps {
 }
 
 export function HomePage({ testimonials }: HomePageProps) {
-	const isMobile = useMediaQuery("(max-width: 639px)");
 	const isSafari = useIsSafari();
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const frameContainerRef = useRef<HTMLDivElement>(null);
@@ -107,9 +105,8 @@ export function HomePage({ testimonials }: HomePageProps) {
 				{/* Frame — centered in the hero area */}
 				<div
 					ref={frameContainerRef}
-					className="absolute inset-x-0 top-[112px] w-full max-w-[1312px] mx-auto aspect-[1222/766] sm:min-h-[500px]"
+					className="absolute inset-x-0 top-[112px] w-full max-w-[1312px] mx-auto min-h-[min(500px,60vmax)] sm:min-h-[500px] sm:aspect-[1222/766]"
 					style={{
-						...(isMobile ? { minHeight: "min(500px, 60vmax)" } : {}),
 						maskImage:
 							"linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.6) 64%, rgba(0, 0, 0, 0) 80%)",
 					}}

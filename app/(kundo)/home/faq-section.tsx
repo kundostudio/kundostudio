@@ -167,15 +167,10 @@ export function FAQSection({ className }: FAQSectionProps) {
 
 			{/* FAQ Container */}
 			<div
-				className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 lg:px-12 max-w-[1062px] mx-auto"
+				className="relative z-10 overflow-hidden rounded-[10px] px-6 py-2 sm:px-10 sm:py-4 lg:px-12 max-w-[1062px] mx-auto"
 				style={{
-					borderRadius: "10px",
 					border: "1px solid rgba(255, 255, 255, 0.06)",
 					backgroundColor: "#0C0C0C",
-					backgroundImage: "url('/faq-bg.png')",
-					backgroundSize: "100% 100%",
-					backgroundPosition: "0px 0px",
-					backgroundRepeat: "no-repeat",
 					boxShadow: [
 						// Inner border (16% white stroke)
 						"inset 0 0 0 1px rgba(255, 255, 255, 0.16)",
@@ -188,6 +183,14 @@ export function FAQSection({ className }: FAQSectionProps) {
 					].join(", "),
 				}}
 			>
+				{/* CSS gradient glow — replaces faq-bg.png */}
+				<div
+					className="absolute inset-0 pointer-events-none"
+					style={{
+						background:
+							"radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
+					}}
+				/>
 				<Accordion.Root
 					type="single"
 					defaultValue="item-0"
