@@ -17,12 +17,12 @@ type FooterProps = {
 export default function Footer({ className }: FooterProps) {
   return (
     <footer className={cn("relative z-10 w-full bg-black pt-6 pb-8 sm:pb-10", className)}>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:justify-between">
         {/* Copyright */}
         <p className={cn(textStyles.caption, "text-primary/40")}>&copy; {new Date().getFullYear()}, Kundo Studio</p>
 
         {/* Nav links */}
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-6 sm:gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

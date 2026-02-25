@@ -44,21 +44,21 @@ export const textStyles = {
 	// H5 — List title / changelog title
 	// 16→16→15→15→15 | weight 500 | lh: 22→22→20→20→20
 	h5: [
-		"font-inter text-[15px] font-medium leading-[20px] tracking-[0px]",
+		"font-inter text-[15px] font-medium leading-[20px] tracking-[0px] text-balance",
 		"lg:text-[16px] lg:leading-[22px]",
 	].join(" "),
 
 	// H6 — Footer heading / nav group
 	// 14→14→14→13→13 | weight 500 | lh: 19→19→19→18→18
 	h6: [
-		"font-inter text-[13px] font-medium leading-[18px] tracking-[0px]",
+		"font-inter text-[13px] font-medium leading-[18px] tracking-[0px] text-balance",
 		"md:text-[14px] md:leading-[19px]",
 	].join(" "),
 
 	// P-LG — Lead paragraph / subtitle
 	// 20→18→17→16→16 | weight 400 | lh: 30→27→26→24→24
 	pLg: [
-		"font-inter text-[16px] font-normal leading-[24px] tracking-[0px]",
+		"font-inter text-[16px] font-normal leading-[24px] tracking-[0px] text-pretty",
 		"md:text-[17px] md:leading-[26px]",
 		"lg:text-[18px] lg:leading-[27px]",
 		"xl:text-[20px] xl:leading-[30px]",
@@ -67,21 +67,21 @@ export const textStyles = {
 	// P / Body — Default paragraph
 	// 16→16→15→15→15 | weight 400 | lh: 25→25→23→23→23
 	body: [
-		"font-inter text-[15px] font-normal leading-[23px] tracking-[0px] text-balance",
+		"font-inter text-[15px] font-normal leading-[23px] tracking-[0px] text-pretty",
 		"lg:text-[16px] lg:leading-[25px]",
 	].join(" "),
 
 	// Small — Secondary body / nav links
 	// 14→14→13→13→13 | weight 400 | lh: 21→21→20→20→20
 	small: [
-		"font-inter text-[13px] font-normal leading-[20px] tracking-[0px]",
+		"font-inter text-[13px] font-normal leading-[20px] tracking-[0px] text-pretty",
 		"lg:text-[14px] lg:leading-[21px]",
 	].join(" "),
 
 	// Caption — Captions, badges, metadata
 	// 13→13→12→12→12 | weight 500 | lh: 19→19→17→17→17
 	caption: [
-		"font-inter text-[12px] font-medium leading-[17px] tracking-[0px]",
+		"font-inter text-[12px] font-medium leading-[17px] tracking-[0px] text-pretty",
 		"lg:text-[13px] lg:leading-[19px]",
 	].join(" "),
 

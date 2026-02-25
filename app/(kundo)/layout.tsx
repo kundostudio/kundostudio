@@ -6,21 +6,39 @@ import { Columns } from "~/components/columns";
 import { DisableDraftMode } from "~/components/disable-draft-mode";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
+import { OrganizationSchema } from "~/components/seo/structured-data";
 
 import { SanityLive } from "~/sanity/lib/live";
 
 import "~/styles/global.css";
 
 export const metadata: Metadata = {
-	title: "Kundo Studio",
-	description: "Creative studio from Argentina",
-
-	// Open Graph
+	metadataBase: new URL("https://kundo.studio"),
+	title: {
+		default: "Kundo Studio — Design that moves you forward",
+		template: "%s — Kundo Studio",
+	},
+	description:
+		"Independent design studio specializing in branding, websites, product design, and motion. We build with intent, precision, and care for teams ready to grow.",
+	keywords: [
+		"design studio",
+		"branding",
+		"web design",
+		"product design",
+		"motion design",
+		"UI/UX",
+		"design agency",
+	],
+	authors: [{ name: "Kundo Studio" }],
+	creator: "Kundo Studio",
 	openGraph: {
-		title: "Kundo Studio",
-		description: "Creative studio from Argentina",
+		type: "website",
+		locale: "en_US",
 		url: "https://kundo.studio",
 		siteName: "Kundo Studio",
+		title: "Kundo Studio — Design that moves you forward",
+		description:
+			"Independent design studio specializing in branding, websites, product design, and motion for growing teams.",
 		images: [
 			{
 				url: "/OG.png",
@@ -29,18 +47,25 @@ export const metadata: Metadata = {
 				alt: "Kundo Studio",
 			},
 		],
-		type: "website",
 	},
-
-	// Twitter Card
 	twitter: {
 		card: "summary_large_image",
-		title: "Kundo Studio",
-		description: "Creative studio from Argentina",
+		title: "Kundo Studio — Design that moves you forward",
+		description:
+			"Independent design studio. Branding, websites, product design, and motion.",
 		images: ["/OG.png"],
 	},
-
-	// Manifest
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
 	manifest: "/manifest.json",
 };
 
@@ -70,6 +95,7 @@ export default async function RootLayout({
 	const isDraftMode = await (await draftMode()).isEnabled;
 	return (
 		<div className="relative flex flex-col min-h-svh">
+			<OrganizationSchema />
 			<Header className="absolute top-0 left-0 right-0 z-100" />
 			{children}
 			<SanityLive />

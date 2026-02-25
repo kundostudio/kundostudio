@@ -8,8 +8,9 @@ import { cn } from "~/lib/utils";
 export function Footer() {
 	const pathname = usePathname();
 	const isHome = pathname === "/";
+	const isAbout = pathname === "/about";
 
-	if (isHome) {
+	if (isHome || isAbout) {
 		return null;
 	}
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +8,7 @@ import { Button } from "~/components/button";
 import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
 import { ProjectNav } from "~/components/project-nav";
+import { ProjectSchema } from "~/components/seo/structured-data";
 import * as Typography from "~/components/typography";
 import {
 	PROJECT_QUERY,
@@ -20,6 +22,33 @@ import { HeroAsset } from "./hero-asset";
 
 interface Props {
 	params: Promise<{ project: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const slug = (await params).project;
+	const { data: project } = await sanityFetch({
+		query: PROJECT_QUERY,
+		params: { slug },
+	});
+
+	if (!project) {
+		return { title: "Project Not Found" };
+	}
+
+	return {
+		title: project.title || project.name,
+		description:
+			project.description ||
+			`${project.title || project.name} — A Kundo Studio project`,
+		openGraph: {
+			title: `${project.title || project.name} — Kundo Studio`,
+			description: project.description || undefined,
+			images: project.mainAsset?.url ? [{ url: project.mainAsset.url }] : [],
+		},
+		alternates: {
+			canonical: `https://kundo.studio/work/${slug}`,
+		},
+	};
 }
 
 export default async function ProjectDetail({ params }: Props) {
@@ -56,6 +85,12 @@ export default async function ProjectDetail({ params }: Props) {
 
 	return (
 		<Page className="sm:mt-18 pb-23">
+			<ProjectSchema
+				title={project.title || project.name}
+				description={project.description}
+				slug={slug}
+				coverImage={project.mainAsset?.url}
+			/>
 			{/* Header */}
 			<div className="container flex flex-col items-start gap-12 mt-[54px] sm:mt-22 mb-12">
 				<Typography.H1 className="mb-8 max-w-146">{project.title}</Typography.H1>
@@ -292,6 +327,10 @@ interface SectionBlockProps {
 	section: SecondaryDescriptionSection;
 }
 
+function formatSectionTitle(title: string) {
+	return title.replace(/^\[/, "").replace(/\]$/, "") + ":";
+}
+
 function SectionBlock({ section }: SectionBlockProps) {
 	if (!section) {
 		return null;
@@ -299,30 +338,20 @@ function SectionBlock({ section }: SectionBlockProps) {
 
 	return (
 		<div className="w-full max-w-[383px]">
-			{section.title && section.content ? (
-				<div className="inline">
-					<span className={cn(Typography.textStyles.h5, "text-secondary uppercase inline")}>
-						{section.title}{" "}
-					</span>
-					<PortableText
-						value={section.content}
-						classes={{
-							block: { normal: cn(Typography.textStyles.body, "md:mb-0 inline") },
-							marks: { strong: "text-secondary" },
-						}}
-					/>
-				</div>
-			) : section.title ? (
-				<Typography.H5 className="text-secondary uppercase">{section.title}</Typography.H5>
-			) : section.content ? (
+			{section.title && (
+				<Typography.H5 className="text-secondary uppercase mb-2">
+					{formatSectionTitle(section.title)}
+				</Typography.H5>
+			)}
+			{section.content && (
 				<PortableText
 					value={section.content}
 					classes={{
-						block: { normal: cn(Typography.textStyles.body, "md:mb-0") },
+						block: { normal: cn(Typography.textStyles.body, "mb-4 last:mb-0") },
 						marks: { strong: "text-secondary" },
 					}}
 				/>
-			) : null}
+			)}
 		</div>
 	);
 }

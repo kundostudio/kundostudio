@@ -46,7 +46,7 @@ export function Header({ className, ...props }: HeaderProps) {
 	if (isMobile) {
 		return (
 			<>
-				<header className="fixed inset-x-0 z-100 h-[71px] flex justify-between items-center px-5">
+				<header className="fixed inset-x-0 z-100 h-16 flex justify-between items-center px-6">
 					<Link href="/" onClick={handleLogoClick}>
 						{isMenuOpen ? <LogoOutline className="h-4" /> : <Logo className="h-4" />}
 					</Link>
@@ -62,7 +62,7 @@ export function Header({ className, ...props }: HeaderProps) {
 				</header>
 				<Menu isOpen={isMenuOpen}>
 					{/* Header spacer */}
-					<div className="h-[71px] shrink-0" />
+					<div className="h-16 shrink-0" />
 
 					{/* Navigation - centered */}
 					<nav className="flex-1 flex flex-col items-center justify-center gap-8">
@@ -95,7 +95,7 @@ export function Header({ className, ...props }: HeaderProps) {
 
 					{/* Get in touch button */}
 					<motion.div
-						className="px-5 pb-20"
+						className="px-6 pb-20"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{
@@ -115,7 +115,7 @@ export function Header({ className, ...props }: HeaderProps) {
 
 	return (
 		<header
-			className={cn("h-[72px] flex items-center relative", className)}
+			className={cn("h-16 lg:h-[72px] flex items-center relative", className)}
 			{...props}
 		>
 			<div className="container flex items-center justify-between relative h-full">

@@ -53,7 +53,7 @@ type ServicesSectionProps = {
 
 export function ServicesSection({ className }: ServicesSectionProps) {
 	return (
-		<section className={cn("pt-[144px] pb-16 sm:pb-24 lg:pb-[144px]", className)}>
+		<section className={cn("pt-20 sm:pt-28 lg:pt-[144px] pb-16 sm:pb-24 lg:pb-[144px]", className)}>
 			<div className="flex flex-col lg:flex-row">
 				{/* Left column — H2 headline, takes space up to 672px offset */}
 				<div className="lg:w-[672px] lg:shrink-0">
@@ -73,7 +73,7 @@ export function ServicesSection({ className }: ServicesSectionProps) {
 					</Typography.P>
 
 					{/* 2×2 Service grid */}
-					<div className="mt-[92px] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+					<div className="mt-12 sm:mt-16 lg:mt-[92px] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
 						{SERVICE_BLOCKS.map((block) => (
 							<div key={block.title} className="flex flex-col gap-3">
 								<div className="flex items-center gap-3">

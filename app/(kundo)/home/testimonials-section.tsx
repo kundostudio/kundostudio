@@ -102,16 +102,34 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 	const safeIndex = count > 0 ? current % count : 0;
 	const duration = count > 0 ? getReadingTime(testimonials[safeIndex].quote) : 5;
 
-	// Measure tallest quote on mount
+	// Measure tallest quote on mount + resize
 	useEffect(() => {
 		if (!measureRef.current || count === 0) return;
-		const children = measureRef.current.children;
-		let tallest = 0;
-		for (let i = 0; i < children.length; i++) {
-			const h = (children[i] as HTMLElement).scrollHeight;
-			if (h > tallest) tallest = h;
-		}
-		setMaxHeight(tallest);
+
+		const measure = () => {
+			if (!measureRef.current) return;
+			const children = measureRef.current.children;
+			let tallest = 0;
+			for (let i = 0; i < children.length; i++) {
+				const h = (children[i] as HTMLElement).scrollHeight;
+				if (h > tallest) tallest = h;
+			}
+			setMaxHeight(tallest);
+		};
+
+		measure();
+
+		let timeoutId: ReturnType<typeof setTimeout>;
+		const handleResize = () => {
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(measure, 200);
+		};
+
+		window.addEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+			clearTimeout(timeoutId);
+		};
 	}, [count, testimonials]);
 
 	const goTo = useCallback(
@@ -155,25 +173,6 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 				}
 			`}</style>
 
-			{/* Hidden measurement container — renders all quotes to find tallest */}
-			<div
-				ref={measureRef}
-				aria-hidden="true"
-				className="absolute overflow-hidden pointer-events-none"
-				style={{ position: "absolute", visibility: "hidden", width: "720px" }}
-			>
-				{testimonials.map((t, i) => (
-					<div key={i}>
-						<Typography.Overline className="text-secondary">
-							{t.name} — {t.role} {t.company}
-						</Typography.Overline>
-						<Typography.H3 className="text-primary mt-4">
-							&ldquo;{t.quote}&rdquo;
-						</Typography.H3>
-					</div>
-				))}
-			</div>
-
 			<div
 				className="relative w-full max-w-[1312px] mx-auto overflow-hidden rounded-[10px]"
 			>
@@ -190,16 +189,35 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 						}}
 					/>
 				</div>
+
 				{/* Layout: prev button | content | next button */}
 				<div className="relative z-10 flex items-center">
-					{/* Prev button — far left */}
-					<div className="hidden sm:flex items-center pl-6 lg:pl-10 shrink-0">
+					{/* Prev button — far left (desktop only) */}
+					<div className="hidden lg:flex items-center pl-10 shrink-0">
 						<NavButton direction="prev" onClick={goPrev} />
 					</div>
 
 					{/* Quote content — centered block, left-aligned text */}
-					<div className="flex-1 flex flex-col items-center px-8 py-[144px] sm:px-10 lg:px-16">
-						<div className="w-full max-w-[720px] text-left">
+					<div className="flex-1 flex flex-col items-center px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-[144px]">
+						<div className="w-full lg:max-w-[720px] text-left relative">
+							{/* Hidden measurement — inherits parent width for accurate height calc */}
+							<div
+								ref={measureRef}
+								aria-hidden="true"
+								className="absolute top-0 left-0 right-0 invisible pointer-events-none"
+							>
+								{testimonials.map((t, i) => (
+									<div key={i}>
+										<Typography.Overline className="text-secondary">
+											{t.name} — {t.role} {t.company}
+										</Typography.Overline>
+										<Typography.H3 className="text-primary mt-4">
+											&ldquo;{t.quote}&rdquo;
+										</Typography.H3>
+									</div>
+								))}
+							</div>
+
 							{/* Fixed-height quote area — top-aligned */}
 							<div
 								className="flex flex-col items-start"
@@ -216,30 +234,28 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 								</Typography.H3>
 							</div>
 
-							{/* Progress bars + mobile nav — BOTTOM */}
-							<div className="flex items-center gap-3 mt-12 w-full">
-								{/* Mobile-only nav buttons */}
-								<div className="flex sm:hidden items-center gap-2 shrink-0">
-									<NavButton direction="prev" onClick={goPrev} />
-									<NavButton direction="next" onClick={goNext} />
-								</div>
+							{/* Progress bars — full width */}
+							<div className="flex items-center gap-2 mt-12 w-full">
+								{testimonials.map((_, index) => (
+									<ProgressBar
+										key={`${index}-${key}`}
+										isActive={index === current}
+										isCompleted={index < current}
+										duration={duration}
+									/>
+								))}
+							</div>
 
-								<div className="flex items-center gap-2 flex-1">
-									{testimonials.map((_, index) => (
-										<ProgressBar
-											key={`${index}-${key}`}
-											isActive={index === current}
-											isCompleted={index < current}
-											duration={duration}
-										/>
-									))}
-								</div>
+							{/* Mobile nav buttons — below progress bars, centered */}
+							<div className="flex justify-center gap-4 mt-6 lg:hidden">
+								<NavButton direction="prev" onClick={goPrev} />
+								<NavButton direction="next" onClick={goNext} />
 							</div>
 						</div>
 					</div>
 
-					{/* Next button — far right */}
-					<div className="hidden sm:flex items-center pr-6 lg:pr-10 shrink-0">
+					{/* Next button — far right (desktop only) */}
+					<div className="hidden lg:flex items-center pr-10 shrink-0">
 						<NavButton direction="next" onClick={goNext} />
 					</div>
 				</div>
