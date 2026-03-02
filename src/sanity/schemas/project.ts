@@ -67,6 +67,21 @@ export default defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			name: "metaTitle",
+			title: "Meta Title (SEO)",
+			description:
+				'Custom title for search engines and social sharing. Defaults to "[Title] — [Service type] | Kundo Studio" if left empty.',
+			type: "string",
+		}),
+		defineField({
+			name: "metaDescription",
+			title: "Meta Description (SEO)",
+			description:
+				"Custom description for search engines and social sharing. Defaults to the project description if left empty.",
+			type: "text",
+			rows: 3,
+		}),
+		defineField({
 			name: "mainAsset",
 			title: "MAIN ASSET",
 			description: "The asset from the top fold.",

@@ -43,7 +43,7 @@ export default function CTASection() {
           </Typography.H2>
 
           <div className="mt-8 sm:mt-10 flex justify-center">
-            <Link href="mailto:hello@kundo.studio">
+            <Link href="/contact">
               <Button className="w-[168px] h-12">Get in touch</Button>
             </Link>
           </div>

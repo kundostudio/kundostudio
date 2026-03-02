@@ -29,6 +29,9 @@ export function Footer() {
 				<Link href="/about">
 					<span className={cn("text-secondary", textStyles.buttonNav)}>About</span>
 				</Link>
+				<Link href="/contact">
+					<span className={cn("text-secondary", textStyles.buttonNav)}>Contact</span>
+				</Link>
 			</nav>
 		</footer>
 	);

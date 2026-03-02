@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { Page } from "~/components/page";
 import * as Typography from "~/components/typography";
+import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
 import { FrameBorder } from "./frame-border";
@@ -94,6 +95,7 @@ export function HomePage({ testimonials }: HomePageProps) {
 
 	return (
 		<Page className="mt-0 overflow-x-hidden">
+			<h1 className="sr-only">Branding &amp; Website Design for Startups and Growing Companies | Kundo Studio</h1>
 			<Script
 				src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs"
 				type="module"
@@ -172,12 +174,12 @@ export function HomePage({ testimonials }: HomePageProps) {
 					)}
 				</div>
 
-				{/* H1 — anchored near bottom of viewport */}
+				{/* Hero headline — anchored near bottom of viewport */}
 				<div className="absolute bottom-[40px] md:bottom-[60px] xl:bottom-[80px] left-0 right-0 container">
 					<Typography.OverlineLg className="text-secondary">Kundo Studio</Typography.OverlineLg>
-					<Typography.H1 className="text-primary">
+					<p className={cn(textStyles.h1, "text-primary")}>
 						Design that moves you forward
-					</Typography.H1>
+					</p>
 				</div>
 
 				<LensFlare targetRef={frameContainerRef} play={videoLoaded} />

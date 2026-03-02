@@ -12,6 +12,7 @@ type HeroAssetProps = {
 	playbackId?: string;
 	fill?: boolean;
 	className?: string;
+	alt?: string;
 };
 
 // Container breakpoint config
@@ -31,7 +32,7 @@ const SCROLL_DISTANCE = {
 // Ease-in-out cubic function for smooth scroll animation
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-export function HeroAsset({ filetype, src, playbackId, fill, className }: HeroAssetProps) {
+export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: HeroAssetProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [isMounted, setIsMounted] = useState(false);
 	const isMd = useMediaQuery("(min-width: 768px)");
@@ -114,6 +115,7 @@ export function HeroAsset({ filetype, src, playbackId, fill, className }: HeroAs
 				<Asset
 					filetype="img"
 					src={src}
+					alt={alt}
 					fill={fill}
 					className="object-cover"
 					container={{ className: containerClassName }}

@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	);
 
 	const projectUrls = slugs.map((slug) => ({
-		url: `https://kundo.studio/work/${slug}`,
+		url: `https://www.kundo.studio/work/${slug}`,
 		lastModified: new Date(),
 		changeFrequency: "monthly" as const,
 		priority: 0.7,
@@ -15,25 +15,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 	return [
 		{
-			url: "https://kundo.studio",
+			url: "https://www.kundo.studio",
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 1.0,
 		},
 		{
-			url: "https://kundo.studio/about",
+			url: "https://www.kundo.studio/about",
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.8,
 		},
 		{
-			url: "https://kundo.studio/work",
+			url: "https://www.kundo.studio/work",
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.9,
 		},
 		{
-			url: "https://kundo.studio/contact",
+			url: "https://www.kundo.studio/contact",
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.6,

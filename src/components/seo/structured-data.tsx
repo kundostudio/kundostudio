@@ -3,25 +3,24 @@ export function OrganizationSchema() {
 		"@context": "https://schema.org",
 		"@type": "Organization",
 		name: "Kundo Studio",
-		url: "https://kundo.studio",
-		logo: "https://kundo.studio/logo.png",
+		url: "https://www.kundo.studio",
+		logo: "https://www.kundo.studio/og.png",
 		description:
-			"Independent design studio specializing in branding, websites, product design, and motion.",
-		foundingDate: "2024",
-		contactPoint: {
-			"@type": "ContactPoint",
-			email: "hello@kundo.studio",
-			contactType: "sales",
+			"Branding, website design, product design and motion for startups and growing companies.",
+		foundingDate: "2021",
+		founder: {
+			"@type": "Person",
+			name: "Facundo Montanaro",
 		},
-		sameAs: [],
-		knowsAbout: [
-			"Brand Identity Design",
-			"Web Design",
-			"Product Design",
-			"UI/UX Design",
-			"Motion Design",
-			"Design Systems",
-			"Frontend Development",
+		address: {
+			"@type": "PostalAddress",
+			addressCountry: "AR",
+		},
+		sameAs: [
+			"https://twitter.com/kundostudio",
+			"https://www.instagram.com/kundo.studio",
+			"https://dribbble.com/kundostudio",
+			"https://www.linkedin.com/company/kundostio",
 		],
 	};
 
@@ -38,7 +37,7 @@ export function WebSiteSchema() {
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		name: "Kundo Studio",
-		url: "https://kundo.studio",
+		url: "https://www.kundo.studio",
 		description:
 			"Design that moves you forward. Independent studio for branding, websites, product design, and motion.",
 	};
@@ -136,6 +135,7 @@ interface ProjectSchemaProps {
 	description?: string;
 	slug: string;
 	coverImage?: string;
+	keywords?: string[];
 }
 
 export function ProjectSchema({
@@ -143,18 +143,39 @@ export function ProjectSchema({
 	description,
 	slug,
 	coverImage,
+	keywords,
 }: ProjectSchemaProps) {
 	const data = {
 		"@context": "https://schema.org",
 		"@type": "CreativeWork",
 		name: title,
 		description: description || `${title} — A Kundo Studio project`,
+		url: `https://www.kundo.studio/work/${slug}`,
+		...(coverImage ? { image: coverImage } : {}),
 		creator: {
 			"@type": "Organization",
 			name: "Kundo Studio",
+			url: "https://www.kundo.studio",
 		},
-		...(coverImage ? { image: coverImage } : {}),
-		url: `https://kundo.studio/work/${slug}`,
+		...(keywords?.length ? { keywords: keywords.join(", ") } : {}),
+	};
+
+	return (
+		<script
+			type="application/ld+json"
+			dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+		/>
+	);
+}
+
+export function ContactPageSchema() {
+	const data = {
+		"@context": "https://schema.org",
+		"@type": "ContactPage",
+		name: "Contact Kundo Studio",
+		description:
+			"Get in touch with Kundo Studio for branding, website design, and product design projects for startups and companies.",
+		url: "https://www.kundo.studio/contact",
 	};
 
 	return (

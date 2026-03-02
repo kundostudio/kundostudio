@@ -225,7 +225,10 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
   url,
   "thumbnail": thumbnail.asset->url,
   title,
+  metaTitle,
+  metaDescription,
   description,
+  "projectType": projectType[].name,
   secondaryDescription {
     sections[] {
       title,
@@ -248,7 +251,8 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-    "size": mainAsset.size
+    "size": mainAsset.size,
+    "alt": mainAsset.alt
   },
   "secondaryAsset": {
     "url": select(
@@ -257,7 +261,8 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-    "size": secondaryAsset.size
+    "size": secondaryAsset.size,
+    "alt": secondaryAsset.alt
   },
   "assets": assets[] {
     "url": select(
@@ -266,7 +271,8 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-    size
+    size,
+    alt
   },
   roles {
     internal[]{

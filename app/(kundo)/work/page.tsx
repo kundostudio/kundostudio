@@ -5,11 +5,35 @@ import { sanityFetch } from "~/sanity/lib/live";
 import { WorksPage } from "./works";
 
 export const metadata: Metadata = {
-	title: "Work",
+	title: {
+		absolute: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+	},
 	description:
-		"Selected projects across branding, websites, product design, and motion. See how we help teams look established and sell with confidence.",
+		"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+	openGraph: {
+		title: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+		description:
+			"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+		url: "https://www.kundo.studio/work",
+		type: "website",
+		images: [
+			{
+				url: "https://www.kundo.studio/og.png",
+				width: 1200,
+				height: 630,
+				alt: "Kundo Studio",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+		description:
+			"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+		images: ["https://www.kundo.studio/og.png"],
+	},
 	alternates: {
-		canonical: "https://kundo.studio/work",
+		canonical: "https://www.kundo.studio/work",
 	},
 };
 

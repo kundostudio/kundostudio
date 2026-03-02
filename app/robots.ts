@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
 			userAgent: "*",
 			allow: "/",
 		},
-		sitemap: "https://kundo.studio/sitemap.xml",
+		sitemap: "https://www.kundo.studio/sitemap.xml",
 	};
 }

@@ -35,18 +35,45 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		return { title: "Project Not Found" };
 	}
 
+	const projectName = project.title || project.name;
+	const serviceType = Array.isArray(project.projectType)
+		? project.projectType.join(" & ")
+		: "";
+	const fallbackTitle = serviceType
+		? `${projectName} — ${serviceType}`
+		: projectName;
+	const title = project.metaTitle || fallbackTitle;
+	const description =
+		project.metaDescription ||
+		project.description ||
+		`${projectName} — A Kundo Studio project`;
+	const ogImage = project.mainAsset?.url || "https://www.kundo.studio/og.png";
+
 	return {
-		title: project.title || project.name,
-		description:
-			project.description ||
-			`${project.title || project.name} — A Kundo Studio project`,
+		title,
+		description,
 		openGraph: {
-			title: `${project.title || project.name} — Kundo Studio`,
-			description: project.description || undefined,
-			images: project.mainAsset?.url ? [{ url: project.mainAsset.url }] : [],
+			title: `${title} | Kundo Studio`,
+			description,
+			url: `https://www.kundo.studio/work/${slug}`,
+			type: "article",
+			images: [
+				{
+					url: ogImage,
+					width: 1200,
+					height: 630,
+					alt: projectName,
+				},
+			],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: `${title} | Kundo Studio`,
+			description,
+			images: [ogImage],
 		},
 		alternates: {
-			canonical: `https://kundo.studio/work/${slug}`,
+			canonical: `https://www.kundo.studio/work/${slug}`,
 		},
 	};
 }
@@ -87,9 +114,10 @@ export default async function ProjectDetail({ params }: Props) {
 		<Page className="sm:mt-18 pb-23">
 			<ProjectSchema
 				title={project.title || project.name}
-				description={project.description}
+				description={project.metaDescription || project.description}
 				slug={slug}
 				coverImage={project.mainAsset?.url}
+				keywords={project.roles?.services ?? []}
 			/>
 			{/* Header */}
 			<div className="container flex flex-col items-start gap-12 mt-[54px] sm:mt-22 mb-12">
@@ -107,6 +135,7 @@ export default async function ProjectDetail({ params }: Props) {
 				<HeroAsset
 					filetype={project.mainAsset.filetype}
 					src={project.mainAsset.url}
+					alt={project.mainAsset.alt || `${project.name} — Hero | Kundo Studio`}
 					fill
 					className="object-cover"
 				/>
@@ -123,6 +152,7 @@ export default async function ProjectDetail({ params }: Props) {
 					<Asset
 						filetype={project.secondaryAsset.filetype}
 						src={project.secondaryAsset.url}
+						alt={project.secondaryAsset.alt || `${project.name} — 2 | Kundo Studio`}
 						fill
 						variant="card"
 						container={{ className: "aspect-video" }}
@@ -171,6 +201,7 @@ export default async function ProjectDetail({ params }: Props) {
 												key={`asset-first-${index}`}
 												filetype={asset.filetype}
 												src={asset.url}
+												alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
 												fill
 												variant="card"
 												container={{ className: "aspect-video" }}
@@ -210,6 +241,7 @@ export default async function ProjectDetail({ params }: Props) {
 												key={`asset-second-${index}`}
 												filetype={asset.filetype}
 												src={asset.url}
+												alt={asset.alt || `${project.name} — ${index + 3} | Kundo Studio`}
 												fill
 												variant="card"
 												container={{ className: "aspect-video relative" }}
