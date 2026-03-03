@@ -100,7 +100,7 @@ function TextInput({
 					"h-8 w-full md:w-[340px] rounded-lg border border-white/20 bg-transparent px-4",
 					"font-inter text-[14px] font-normal text-primary placeholder:text-secondary",
 					"outline-none transition-all duration-200",
-					"focus:border-transparent focus:backdrop-blur-[12px] focus:bg-[linear-gradient(182.51deg,rgba(255,255,255,0.02)_27.09%,rgba(90,90,90,0.02)_58.59%,rgba(0,0,0,0.02)_92.75%)]",
+					"focus:border-white focus:backdrop-blur-[12px] focus:bg-[linear-gradient(182.51deg,rgba(255,255,255,0.02)_27.09%,rgba(90,90,90,0.02)_58.59%,rgba(0,0,0,0.02)_92.75%)]",
 					"focus:shadow-[0px_4.12px_9.21px_0px_rgba(0,0,0,0.1),0px_16.73px_16.73px_0px_rgba(0,0,0,0.09),0px_37.82px_22.79px_0px_rgba(0,0,0,0.05),0px_67.15px_26.91px_0px_rgba(0,0,0,0)]",
 				)}
 			/>
@@ -130,7 +130,7 @@ function TextArea({
 				onChange={(e) => onChange(e.target.value)}
 				className={cn(
 					"min-h-[64px] rounded-lg px-4 py-3 resize-y",
-					"border border-white/20 backdrop-blur-[12px]",
+					"border border-white/20 backdrop-blur-[12px] focus:border-white",
 					"bg-[linear-gradient(182.51deg,rgba(255,255,255,0.02)_27.09%,rgba(90,90,90,0.02)_58.59%,rgba(0,0,0,0.02)_92.75%)]",
 					"shadow-[0px_4.12px_9.21px_0px_rgba(0,0,0,0.1),0px_16.73px_16.73px_0px_rgba(0,0,0,0.09),0px_37.82px_22.79px_0px_rgba(0,0,0,0.05),0px_67.15px_26.91px_0px_rgba(0,0,0,0)]",
 					"font-inter text-[14px] font-normal text-primary placeholder:text-secondary",
