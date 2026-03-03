@@ -165,8 +165,8 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 						Built with intent.
 					</Typography.H2>
 					<div className="mt-8 sm:mt-10">
-						<Link href="mailto:hello@kundo.studio">
-							<Button className="w-[320px] h-12">Book an intro call</Button>
+						<Link href="/contact">
+							<Button className="w-[320px] h-12">Get in touch</Button>
 						</Link>
 					</div>
 				</div>

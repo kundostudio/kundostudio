@@ -178,7 +178,7 @@ export const PROJECTS_QUERY =
       mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
     ),
     "filetype": mainAsset.filetype,
-
+    "alt": mainAsset.alt
   },
   "secondaryAsset": {
     "url": select(
@@ -187,7 +187,8 @@ export const PROJECTS_QUERY =
       secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
     ),
     "filetype": secondaryAsset.filetype,
-    "size": secondaryAsset.size
+    "size": secondaryAsset.size,
+    "alt": secondaryAsset.alt
   },
   "assets": assets[] {
     "url": select(
@@ -196,7 +197,8 @@ export const PROJECTS_QUERY =
       filetype == "video-stream" => videoStream.asset->playbackId
     ),
     filetype,
-    size
+    size,
+    alt
   },
   roles {
     internal[]{
@@ -397,7 +399,8 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         mainAsset.filetype == "video-stream" => mainAsset.videoStream.asset->playbackId
       ),
       "filetype": mainAsset.filetype,
-      "size": mainAsset.size
+      "size": mainAsset.size,
+      "alt": mainAsset.alt
     },
     "secondaryAsset": {
       "url": select(
@@ -406,7 +409,8 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         secondaryAsset.filetype == "video-stream" => secondaryAsset.videoStream.asset->playbackId
       ),
       "filetype": secondaryAsset.filetype,
-      "size": secondaryAsset.size
+      "size": secondaryAsset.size,
+      "alt": secondaryAsset.alt
     },
     "assets": assets[] {
       "url": select(
@@ -415,7 +419,8 @@ export const WORKS_QUERY = defineQuery(`*[_type == "works" && _id == "works"][0]
         filetype == "video-stream" => videoStream.asset->playbackId
       ),
       filetype,
-      size
+      size,
+      alt
     },
     quote {
       text,

@@ -77,7 +77,7 @@ export function Image({
 	src,
 	className,
 	style,
-	alt = "Asset",
+	alt = "",
 	container = {},
 	variant = "default",
 	width,
