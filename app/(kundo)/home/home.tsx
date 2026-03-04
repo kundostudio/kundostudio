@@ -65,6 +65,9 @@ const videoOverlayStyle = (loaded: boolean): React.CSSProperties => ({
 	transition: "opacity 0.6s ease-out",
 });
 
+const HERO_POSTER_URL =
+	"https://image.mux.com/HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00/thumbnail.webp?width=1920&height=1080&time=0";
+
 interface HomePageProps {
 	testimonials: Array<{
 		quote: string;
@@ -119,6 +122,17 @@ export function HomePage({ testimonials }: HomePageProps) {
 							className="absolute inset-0 z-10 pointer-events-none"
 							style={videoOverlayStyle(videoLoaded)}
 						/>
+						<img
+							src={HERO_POSTER_URL}
+							alt=""
+							fetchPriority="high"
+							className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
+							style={{
+								borderRadius: "inherit",
+								opacity: videoLoaded ? 0 : 1,
+								transition: "opacity 0.6s ease-out",
+							}}
+						/>
 						<mux-player
 							playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
 							autoplay="muted"
@@ -139,6 +153,17 @@ export function HomePage({ testimonials }: HomePageProps) {
 									className="absolute inset-0 z-10 pointer-events-none"
 									style={videoOverlayStyle(videoLoaded)}
 								/>
+								<img
+									src={HERO_POSTER_URL}
+									alt=""
+									fetchPriority="high"
+									className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
+									style={{
+										borderRadius: "inherit",
+										opacity: videoLoaded ? 0 : 1,
+										transition: "opacity 0.6s ease-out",
+									}}
+								/>
 								<mux-player
 									playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
 									autoplay="muted"
@@ -158,6 +183,17 @@ export function HomePage({ testimonials }: HomePageProps) {
 								<div
 									className="absolute inset-0 z-10 pointer-events-none"
 									style={videoOverlayStyle(videoLoaded)}
+								/>
+								<img
+									src={HERO_POSTER_URL}
+									alt=""
+									fetchPriority="high"
+									className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
+									style={{
+										borderRadius: "inherit",
+										opacity: videoLoaded ? 0 : 1,
+										transition: "opacity 0.6s ease-out",
+									}}
 								/>
 								<mux-player
 									playback-id="HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00"
