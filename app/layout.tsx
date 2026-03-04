@@ -11,6 +11,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<head>
+				<link rel="preconnect" href="https://image.mux.com" />
+				<link rel="preconnect" href="https://stream.mux.com" />
 				<link rel="icon" href="/favicon-light.svg" media="(prefers-color-scheme: light)" />
 				<link rel="icon" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
 			</head>
