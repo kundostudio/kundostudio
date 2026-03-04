@@ -92,7 +92,7 @@ function HeroLogoPlaceholder({ visible }: { visible: boolean }) {
 }
 
 const HERO_POSTER_URL =
-	"https://image.mux.com/HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00/thumbnail.webp?width=1920&height=1080&time=0";
+	"https://image.mux.com/HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00/thumbnail.webp?width=960&height=540&time=0&fit_mode=smartcrop";
 
 interface HomePageProps {
 	testimonials: Array<{
