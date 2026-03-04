@@ -5,7 +5,7 @@ export const textStyles = {
 	// H1 — Page hero heading
 	// 56px → 48 → 40 → 36 → 32 | weight 600 | line-height: 62→53→44→40→35 | ls: -1.5→-0.5
 	h1: [
-		"font-inter text-[32px] font-bold leading-[35px] tracking-[-0.5px] text-balance",
+		"font-inter text-[32px] font-semibold leading-[35px] tracking-[-0.5px] text-balance",
 		"min-[640px]:text-[36px] min-[640px]:leading-[40px] min-[640px]:tracking-[-0.8px]",
 		"md:text-[40px] md:leading-[44px] md:tracking-[-1px]",
 		"lg:text-[48px] lg:leading-[53px] lg:tracking-[-1.3px]",

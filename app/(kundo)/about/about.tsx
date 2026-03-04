@@ -150,6 +150,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 							src={prefooterAsset.url}
 							className="object-contain mt-[114px]"
 							variant="default"
+							lazy
 							width={306.6}
 							height={460}
 						/>
@@ -157,7 +158,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 				)}
 				<div className="relative z-10 flex flex-col items-center">
 					<Typography.H2
-						className="font-bold text-primary"
+						className="font-semibold text-primary"
 						style={{
 							textShadow: "0 4px 16px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6)",
 						}}

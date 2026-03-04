@@ -154,6 +154,7 @@ export default async function ProjectDetail({ params }: Props) {
 						src={project.secondaryAsset.url}
 						alt={project.secondaryAsset.alt || `${project.name} — 2 | Kundo Studio`}
 						fill
+						lazy
 						variant="card"
 						container={{ className: "aspect-video" }}
 					/>
@@ -203,6 +204,7 @@ export default async function ProjectDetail({ params }: Props) {
 												src={asset.url}
 												alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
 												fill
+												lazy
 												variant="card"
 												container={{ className: "aspect-video" }}
 											/>
@@ -243,6 +245,7 @@ export default async function ProjectDetail({ params }: Props) {
 												src={asset.url}
 												alt={asset.alt || `${project.name} — ${index + 3} | Kundo Studio`}
 												fill
+												lazy
 												variant="card"
 												container={{ className: "aspect-video relative" }}
 											/>

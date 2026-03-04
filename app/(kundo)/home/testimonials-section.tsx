@@ -180,7 +180,7 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 				<div className="absolute inset-0">
 					<div
 						className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-						style={{ backgroundImage: "url('/testimonials-bg.png')" }}
+						style={{ backgroundImage: "url('/testimonials-bg.avif')" }}
 					/>
 					<div
 						className="absolute inset-0"

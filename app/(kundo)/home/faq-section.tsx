@@ -160,8 +160,9 @@ export function FAQSection({ className }: FAQSectionProps) {
 				</Typography.H2>
 				<Typography.P className="text-secondary mx-auto mt-4 max-w-2xl">
 					We price based on complexity, scope, and risk—not
-					just hours on a clock. You&apos;ll always get a
-					clear number upfront.
+					just hours on a clock.
+					<br />
+					You&apos;ll always get a clear number upfront.
 				</Typography.P>
 			</div>
 
@@ -183,7 +184,7 @@ export function FAQSection({ className }: FAQSectionProps) {
 					].join(", "),
 				}}
 			>
-				{/* CSS gradient glow — replaces faq-bg.png */}
+				{/* CSS gradient glow */}
 				<div
 					className="absolute inset-0 pointer-events-none"
 					style={{

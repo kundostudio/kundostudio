@@ -11,7 +11,7 @@ export default function CTASection() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/cta-bg.png')",
+          backgroundImage: "url('/cta-bg.avif')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

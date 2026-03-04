@@ -6,11 +6,14 @@ import dynamic from "next/dynamic";
 // Lazy-load Mux player only on client to avoid SSR hydration mismatch
 const ClientMuxPlayer = dynamic(() => import("@mux/mux-player-react"), {
 	ssr: false,
+	loading: () => (
+		<div className="w-full aspect-video bg-neutral-950 animate-pulse rounded-[inherit]" />
+	),
 });
 
 import NextImage, { type ImageProps as NextImageProps } from "next/image";
 import type * as React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "~/lib/utils";
 
 /* =========================
@@ -20,6 +23,7 @@ import { cn } from "~/lib/utils";
 type BaseContainer = {
 	container?: React.HTMLAttributes<HTMLDivElement>;
 	variant?: "default" | "card";
+	lazy?: boolean;
 };
 
 type ImgAsset = {
@@ -49,22 +53,61 @@ export type AssetProps = ImgAsset | VideoStreamAsset | VideoAsset;
 
 export function Asset(props: AssetProps) {
 	switch (props.filetype) {
-		case "img":
-			return <Image {...props} />;
+		case "img": {
+			const { lazy: _, ...rest } = props;
+			return <Image {...rest} />;
+		}
 
 		case "video-stream": {
-			const { playbackId, src, ...rest } = props;
+			const { playbackId, src, lazy, ...rest } = props;
 			const id = playbackId ?? (typeof src === "string" ? src : undefined);
 			if (!id) return null;
-			return <MUXPlayer playbackId={id} {...rest} />;
+			const player = <MUXPlayer playbackId={id} {...rest} />;
+			return lazy ? <LazyViewport>{player}</LazyViewport> : player;
 		}
 
 		case "video": {
-			// Evitamos pasar filetype/container al <video>
-			const { container, ...rest } = props;
-			return <Video container={container} {...rest} />;
+			const { container, lazy, ...rest } = props;
+			const video = <Video container={container} {...rest} />;
+			return lazy ? <LazyViewport>{video}</LazyViewport> : video;
 		}
 	}
+}
+
+/* =========================
+ * Lazy viewport wrapper
+ * ========================= */
+
+function LazyViewport({ children }: { children: React.ReactNode }) {
+	const ref = useRef<HTMLDivElement>(null);
+	const [isVisible, setIsVisible] = useState(false);
+
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) return;
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setIsVisible(true);
+					observer.disconnect();
+				}
+			},
+			{ rootMargin: "200px" },
+		);
+
+		observer.observe(el);
+		return () => observer.disconnect();
+	}, []);
+
+	if (isVisible) return <>{children}</>;
+
+	return (
+		<div
+			ref={ref}
+			className="w-full aspect-video bg-neutral-950 rounded-[inherit]"
+		/>
+	);
 }
 
 /* =========================
