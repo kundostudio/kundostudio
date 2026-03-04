@@ -29,6 +29,7 @@ declare module "react" {
 				playsinline?: boolean;
 				"stream-type"?: string;
 				"default-hidden-captions"?: boolean;
+				title?: string;
 			};
 		}
 	}
@@ -141,6 +142,7 @@ export function HomePage({ testimonials }: HomePageProps) {
 							playsinline
 							stream-type="on-demand"
 							default-hidden-captions
+							title="Kundo Studio showreel"
 							style={muxPlayerStyle}
 						/>
 					</div>
@@ -242,15 +244,6 @@ export function HomePage({ testimonials }: HomePageProps) {
 						style={{
 							background:
 								"radial-gradient(ellipse 525px 270px at 50% 0%, rgba(159,159,159,0.12), transparent 100%)",
-						}}
-					/>
-					{/* Noise texture */}
-					<div
-						className="absolute inset-x-0 top-0 h-[375px] opacity-[0.16]"
-						style={{
-							backgroundImage: "url('/noise.png')",
-							backgroundSize: "100% 100%",
-							backgroundRepeat: "no-repeat",
 						}}
 					/>
 				</div>

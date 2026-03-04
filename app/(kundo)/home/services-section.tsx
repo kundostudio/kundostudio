@@ -1,6 +1,7 @@
 "use client";
 
 import * as Typography from "~/components/typography";
+import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
 const SERVICE_BLOCKS = [
@@ -78,9 +79,9 @@ export function ServicesSection({ className }: ServicesSectionProps) {
 							<div key={block.title} className="flex flex-col gap-3">
 								<div className="flex items-center gap-3">
 									<span className="text-secondary shrink-0">{block.icon}</span>
-									<Typography.H5 className="text-primary">
+									<h3 className={cn(textStyles.h5, "text-primary")}>
 										{block.title}
-									</Typography.H5>
+									</h3>
 								</div>
 								<Typography.Small className="text-secondary">
 									{block.description}

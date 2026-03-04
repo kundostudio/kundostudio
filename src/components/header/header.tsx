@@ -48,7 +48,7 @@ export function Header({ className, ...props }: HeaderProps) {
 		return (
 			<>
 				<header className="fixed inset-x-0 z-100 h-16 flex justify-between items-center px-6">
-					<Link href="/" onClick={handleLogoClick}>
+					<Link href="/" onClick={handleLogoClick} aria-label="Kundo Studio Home">
 						{isMenuOpen ? <LogoOutline className="h-4" /> : <Logo className="h-4" />}
 					</Link>
 					<button
@@ -160,7 +160,7 @@ export function Header({ className, ...props }: HeaderProps) {
 				</nav>
 
 				{/* Center — Logo */}
-				<Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" onClick={handleLogoClick}>
+				<Link href="/" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" onClick={handleLogoClick} aria-label="Kundo Studio Home">
 					<Logo className="h-[18px] w-auto" />
 				</Link>
 
