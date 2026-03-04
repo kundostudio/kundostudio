@@ -4,7 +4,7 @@
 const nextConfig = {
 	reactStrictMode: true,
 	experimental: {
-		optimizeCss: true,
+		inlineCss: true,
 	},
 	compiler: {
 		removeConsole: process.env.NODE_ENV !== "development",
