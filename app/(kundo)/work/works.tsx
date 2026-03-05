@@ -60,7 +60,6 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 							<div className="mt-4 flex flex-col gap-1 px-[5px]">
 								<Typography.H3 className="text-primary">
 									{project.name}
-									{project.year ? <span> &mdash; {project.year}</span> : null}
 								</Typography.H3>
 								{projectTypes.length > 0 ? (
 									<span className={cn(Typography.textStyles.caption, "text-secondary")}>
