@@ -71,7 +71,7 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 							alt="Finger touching water surface creating ripples"
 							fill
 							unoptimized
-							className="rotate-90 scale-[1.35] object-cover"
+							className="rotate-180 scale-[1.35] object-cover"
 							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
 					</div>
