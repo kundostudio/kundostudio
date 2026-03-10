@@ -13,7 +13,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Branding that compounds",
 		description:
-			"For teams ready to look established, not early stage. Cohesive brand systems built for confidence now, and consistency as you grow.",
+			"For teams ready to look established, not early stage. Cohesive brand systems built for confidence now, and consistency as you grow. From $20,000.",
 	},
 	{
 		icon: (
@@ -23,7 +23,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Websites that earn trust",
 		description:
-			"For complex products and high stakes buyers. Clear, fast websites that are easy to manage, built to support sales teams daily.",
+			"For complex products and high stakes buyers. Clear, fast websites that are easy to manage, built to support sales teams daily. From $12,000.",
 	},
 	{
 		icon: (
@@ -33,7 +33,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Product design that works",
 		description:
-			"UI and UX for real growth: smoother onboarding, faster releases, stronger retention. Designed to reduce friction and help teams scale confidently.",
+			"UI and UX for real growth: smoother onboarding, faster releases, stronger retention. Designed to reduce friction and help teams scale confidently. From $10,000.",
 	},
 	{
 		icon: (
@@ -44,7 +44,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Motion built for clarity",
 		description:
-			"Launch videos, interface motion, and brand animation that explain value at a glance. Built to sharpen your story and guide attention.",
+			"Launch videos, interface motion, and brand animation that explain value at a glance. Built to sharpen your story and guide attention. From $5,000.",
 	},
 ];
 
