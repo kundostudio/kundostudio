@@ -45,6 +45,7 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 							src="/continuity-foundation.avif"
 							alt="Paper crane floating above an open hand in the dark"
 							fill
+							unoptimized
 							className="object-cover"
 							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
@@ -69,6 +70,7 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 							src="/continuity-cycle.avif"
 							alt="Finger touching water surface creating ripples"
 							fill
+							unoptimized
 							className="-rotate-90 scale-[1.35] object-cover"
 							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
