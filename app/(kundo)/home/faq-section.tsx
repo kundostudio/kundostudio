@@ -11,7 +11,7 @@ const FAQ_ITEMS = [
 	{
 		question: "How much does a project usually cost?",
 		answer:
-			"We tailor pricing based on your company stage, complexity, and what success looks like. Most projects start around $8,000, with larger initiatives ranging up to six figures. You\u2019ll always get a clear number before we begin\u2014no vague estimates, no surprises.",
+			"We tailor pricing based on your company stage, complexity, and what success looks like. Branding starts at $20,000, websites at $12,000, product design at $10,000, and landing pages at $10,000. Larger initiatives can range up to six figures. You\u2019ll always get a clear number before we begin \u2014 no vague estimates, no surprises.",
 	},
 	{
 		question: "Can I get a clear price before starting?",
@@ -31,7 +31,7 @@ const FAQ_ITEMS = [
 	{
 		question: "How is work typically structured?",
 		answer:
-			"We work by company stage, not isolated projects. Every engagement begins with a foundational phase\u2014the core build\u2014and is often followed by a structured period of refinement or expansion, so the work doesn\u2019t just launch but holds up over time.",
+			"Every engagement has two phases. The foundation is where we define the scope, align on goals, and build the work that sets the standard. Once it launches, we move into a cycle \u2014 ongoing monthly design where we refine based on real feedback, real users, and real results. Typically 3 to 6 months.",
 	},
 	{
 		question: "How are payments structured?",
@@ -41,7 +41,12 @@ const FAQ_ITEMS = [
 	{
 		question: "Do you work with early-stage companies?",
 		answer:
-			"Yes\u2014if you\u2019re serious about quality. We adjust scope and approach to fit your context without compromising the outcome.",
+			"Yes. We offer flexible structures for early-stage founders. Not every great company starts with a big budget \u2014 we\u2019ll find a way to work together if the project is right.",
+	},
+	{
+		question: "What is the Cycle?",
+		answer:
+			"The cycle is what comes after the foundation. Once your brand, site, or product meets the real world, we stay to refine it \u2014 adjusting based on real feedback and real usage. It\u2019s built into every engagement from the start, typically running 3 to 6 months.",
 	},
 	{
 		question: "Do you offer alternative fee structures?",
