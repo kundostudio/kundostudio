@@ -274,7 +274,7 @@ export function HomePage({ testimonials }: HomePageProps) {
 				<div className="absolute bottom-[40px] md:bottom-[60px] xl:bottom-[80px] left-0 right-0 container">
 					<Typography.OverlineLg className="text-secondary">Kundo Studio</Typography.OverlineLg>
 					<p className={cn(textStyles.h1, "text-primary")}>
-						Design that moves you forward
+						Design the company you're becoming
 					</p>
 				</div>
 

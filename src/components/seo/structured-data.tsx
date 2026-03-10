@@ -39,7 +39,7 @@ export function WebSiteSchema() {
 		name: "Kundo Studio",
 		url: "https://www.kundo.studio",
 		description:
-			"Design that moves you forward. Independent studio for branding, websites, product design, and motion.",
+			"Design the company you're becoming. Independent studio for branding, websites, product design, and motion.",
 	};
 
 	return (
