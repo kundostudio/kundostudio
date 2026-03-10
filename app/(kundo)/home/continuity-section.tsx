@@ -42,7 +42,7 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 						style={{ boxShadow: cardShadow }}
 					>
 						<Image
-							src="/continuity-foundation.png"
+							src="/continuity-foundation.avif"
 							alt="Paper crane floating above an open hand in the dark"
 							fill
 							className="object-cover"
@@ -66,7 +66,7 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 						style={{ boxShadow: cardShadow }}
 					>
 						<Image
-							src="/continuity-cycle.png"
+							src="/continuity-cycle.avif"
 							alt="Finger touching water surface creating ripples"
 							fill
 							className="-rotate-90 scale-[1.35] object-cover"
