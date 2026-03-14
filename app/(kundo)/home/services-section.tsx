@@ -23,7 +23,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Websites that earn trust",
 		description:
-			"For complex products and high stakes buyers. Clear, fast websites that are easy to manage, built to support sales teams daily. From $12,000.",
+			"For complex products and high stakes buyers. Clear, fast websites that are easy to manage, built to support sales teams daily. From $15,000.",
 	},
 	{
 		icon: (
@@ -33,7 +33,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Product design that works",
 		description:
-			"UI and UX for real growth: smoother onboarding, faster releases, stronger retention. Designed to reduce friction and help teams scale confidently. From $10,000.",
+			"UI and UX for real growth: smoother onboarding, faster releases, stronger retention. Designed to reduce friction and help teams scale confidently. From $13,000/mo.",
 	},
 	{
 		icon: (

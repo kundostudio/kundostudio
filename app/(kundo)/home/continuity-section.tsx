@@ -80,8 +80,9 @@ export function ContinuitySection({ className }: ContinuitySectionProps) {
 							Cycle.
 						</span>{" "}
 						Design doesn&apos;t end at launch — it sharpens after
-						it. We refine based on real feedback, real users, and
-						real results. Typically 3 to 6 months.
+						it. We refine and evolve based on real feedback, real
+						users, and real results. Billed monthly, typically 3 to
+						6 months.
 					</p>
 				</div>
 			</div>

@@ -60,7 +60,7 @@ export function FAQSchema() {
 				name: "How much does a project usually cost?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "We tailor pricing based on your company stage, complexity, and what success looks like. Most projects start around $8,000, with larger initiatives ranging up to six figures. You\u2019ll always get a clear number before we begin\u2014no vague estimates, no surprises.",
+					text: "We tailor pricing based on your company stage, complexity, and what success looks like. Branding starts at $20,000, websites at $15,000, product design at $13,000/month, and landing pages at $12,000. Larger initiatives \u2014 especially for growth-stage and enterprise companies \u2014 can range up to six figures. You\u2019ll always get a clear number before we begin\u2014no vague estimates, no surprises.",
 				},
 			},
 			{
@@ -100,7 +100,7 @@ export function FAQSchema() {
 				name: "How are payments structured?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "Most project work is paid upfront. For larger builds, we sometimes structure payments in phases. Ongoing work is billed monthly, in advance.",
+					text: "Foundation projects are 100% upfront. Cycle engagements are billed monthly after project delivery. Product design retainers require a 3-month minimum commitment, billed monthly.",
 				},
 			},
 			{

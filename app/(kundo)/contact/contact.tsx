@@ -18,11 +18,10 @@ const SERVICE_OPTIONS = [
 ] as const;
 
 const BUDGET_OPTIONS = [
-	"Under $8K",
-	"$8-25K",
-	"$25-50K",
-	"$50k\u2013100k",
-	"$100k+",
+	"$10K\u2013$25K",
+	"$25K\u2013$50K",
+	"$50K\u2013$100K",
+	"$100K+",
 ] as const;
 
 const STAGE_OPTIONS = [

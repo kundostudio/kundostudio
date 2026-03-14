@@ -115,7 +115,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 					<div className="flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12 xl:pl-[219px]">
 						<div className="lg:w-[40%] xl:w-[405px] lg:shrink-0">
 							<Typography.H3 className="text-primary max-w-[373px]">
-								Creativity and execution in careful balance for those who value quality over speed.
+								Creativity and execution in careful balance for those who value precision and clarity.
 							</Typography.H3>
 						</div>
 						<div className="lg:flex-1 flex flex-col gap-12">

@@ -11,7 +11,7 @@ const FAQ_ITEMS = [
 	{
 		question: "How much does a project usually cost?",
 		answer:
-			"We tailor pricing based on your company stage, complexity, and what success looks like. Branding starts at $20,000, websites at $12,000, product design at $10,000, and landing pages at $10,000. Larger initiatives can range up to six figures. You\u2019ll always get a clear number before we begin \u2014 no vague estimates, no surprises.",
+			"We tailor pricing based on your company stage, complexity, and what success looks like. Branding starts at $20,000, websites at $15,000, product design at $13,000/month, and landing pages at $12,000. Larger initiatives \u2014 especially for growth-stage and enterprise companies \u2014 can range up to six figures. You\u2019ll always get a clear number before we begin \u2014 no vague estimates, no surprises.",
 	},
 	{
 		question: "Can I get a clear price before starting?",
@@ -31,12 +31,12 @@ const FAQ_ITEMS = [
 	{
 		question: "How is work typically structured?",
 		answer:
-			"Every engagement has two phases. The foundation is where we define the scope, align on goals, and build the work that sets the standard. Once it launches, we move into a cycle \u2014 ongoing monthly design where we refine based on real feedback, real users, and real results. Typically 3 to 6 months.",
+			"Every engagement has two phases. The Foundation is where we define the scope, align on goals, and build the work that sets the standard. Once it launches, we move into a Cycle \u2014 ongoing monthly design where we refine and evolve based on real feedback, real users, and real results. Billed monthly, typically 3 to 6 months.",
 	},
 	{
 		question: "How are payments structured?",
 		answer:
-			"Most project work is paid upfront. For larger builds, we sos structure payments in phases. Ongoing work is billed monthly, in advance.",
+			"Foundation projects are 100% upfront. Cycle engagements are billed monthly after project delivery. Product design retainers require a 3-month minimum commitment, billed monthly.",
 	},
 	{
 		question: "Do you work with early-stage companies?",
@@ -46,7 +46,7 @@ const FAQ_ITEMS = [
 	{
 		question: "What is the Cycle?",
 		answer:
-			"The cycle is what comes after the foundation. Once your brand, site, or product meets the real world, we stay to refine it \u2014 adjusting based on real feedback and real usage. It\u2019s built into every engagement from the start, typically running 3 to 6 months.",
+			"The Cycle is our ongoing engagement model. After your Foundation project is delivered, we continue working together on a monthly basis \u2014 refining, iterating, and evolving based on real results. Refine cycles are typically 3 months, Evolve cycles 6 months. Billed monthly after project delivery, not upfront.",
 	},
 	{
 		question: "Do you offer alternative fee structures?",
