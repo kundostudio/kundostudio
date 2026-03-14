@@ -13,7 +13,7 @@ const SERVICE_BLOCKS = [
 		),
 		title: "Branding that compounds",
 		description:
-			"For teams ready to look established, not early stage. Cohesive brand systems built for confidence now, and consistency as you grow. From $20,000.",
+			"For teams ready to look established — whether you're launching or leveling up. Cohesive brand systems built for confidence now, and consistency as you grow. From $20,000.",
 	},
 	{
 		icon: (
