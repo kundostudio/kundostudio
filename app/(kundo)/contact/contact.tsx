@@ -10,6 +10,7 @@ import { cn } from "~/lib/utils";
 
 const SERVICE_OPTIONS = [
 	"All",
+	"Branding",
 	"Landing Page",
 	"Website",
 	"Product Design",
