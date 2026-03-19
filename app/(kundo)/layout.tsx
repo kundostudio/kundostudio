@@ -54,6 +54,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
+		site: "@kundostudio",
 		title: "Kundo Studio — Branding & Website Design for Startups & Companies",
 		description:
 			"Branding, website design, product design and motion for startups and growing companies. From strategy to launch — cohesive systems built to scale.",

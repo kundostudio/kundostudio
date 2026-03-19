@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 		description:
 			"Founded by Facu Montanaro. A design studio helping startups and companies with branding, web design, product design and motion. Based in Argentina, working globally.",
 		url: "https://www.kundo.studio/about",
+		siteName: "Kundo Studio",
+		locale: "en_US",
 		type: "website",
 		images: [
 			{

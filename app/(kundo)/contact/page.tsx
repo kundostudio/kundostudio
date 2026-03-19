@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 		description:
 			"Tell us about your project. Branding, website design, product design and motion for startups and growing companies.",
 		url: "https://www.kundo.studio/contact",
+		siteName: "Kundo Studio",
+		locale: "en_US",
 		type: "website",
 		images: [
 			{

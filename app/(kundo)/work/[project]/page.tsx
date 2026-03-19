@@ -56,6 +56,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			title: `${title} | Kundo Studio`,
 			description,
 			url: `https://www.kundo.studio/work/${slug}`,
+			siteName: "Kundo Studio",
+			locale: "en_US",
 			type: "article",
 			images: [
 				{

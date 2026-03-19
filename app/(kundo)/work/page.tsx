@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 		description:
 			"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
 		url: "https://www.kundo.studio/work",
+		siteName: "Kundo Studio",
+		locale: "en_US",
 		type: "website",
 		images: [
 			{
