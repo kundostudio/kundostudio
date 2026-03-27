@@ -10,7 +10,7 @@ import { FrameBorder } from "./frame-border";
 import { FAQSection } from "./faq-section";
 import { ServicesSection } from "./services-section";
 import { TestimonialsSection } from "./testimonials-section";
-import { ContinuitySection } from "./continuity-section";
+
 import CTASection from "./cta-section";
 import Footer from "./footer";
 import { LensFlare } from "./lens-flare";
@@ -310,9 +310,6 @@ export function HomePage({ testimonials }: HomePageProps) {
 
 			{/* Services Section */}
 			<ServicesSection className="container" />
-
-			{/* Continuity Section */}
-			<ContinuitySection className="container" />
 
 			{/* Testimonials Section */}
 			<TestimonialsSection testimonials={testimonials} className="px-6 md:px-8 xl:px-0" />
