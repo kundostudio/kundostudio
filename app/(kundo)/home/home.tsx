@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Page } from "~/components/page";
+import type { Testimonial } from "~/lib/queries";
 import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
@@ -95,12 +96,7 @@ const HERO_POSTER_URL =
 	"https://image.mux.com/HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00/thumbnail.webp?width=960&height=540&time=0&fit_mode=smartcrop";
 
 interface HomePageProps {
-	testimonials: Array<{
-		quote: string;
-		name: string;
-		role: string;
-		company: string;
-	}>;
+	testimonials: Testimonial[];
 }
 
 export function HomePage({ testimonials }: HomePageProps) {

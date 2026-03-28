@@ -438,7 +438,8 @@ export const TESTIMONIALS_QUERY = defineQuery(`*[_type == "project" && defined(q
   "quote": quote.text,
   "name": quote.author.name,
   "role": quote.author.role,
-  "company": name
+  "company": name,
+  "avatar": quote.author.image
 }`);
 
 export interface Testimonial {
@@ -446,6 +447,10 @@ export interface Testimonial {
 	name: string;
 	role: string;
 	company: string;
+	avatar?: {
+		asset?: { _ref: string; _type: string };
+		hotspot?: { x: number; y: number; width: number; height: number };
+	};
 }
 
 // Query to get all project slugs for navigation (uses same order as /work page)

@@ -1,15 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Testimonial } from "~/lib/queries";
 import * as Typography from "~/components/typography";
 import { cn } from "~/lib/utils";
-
-interface Testimonial {
-	quote: string;
-	name: string;
-	role: string;
-	company: string;
-}
+import { urlFor } from "~/sanity/lib/image";
 
 function getReadingTime(text: string): number {
 	const words = text.split(" ").length;
@@ -208,9 +203,18 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 							>
 								{testimonials.map((t, i) => (
 									<div key={i}>
-										<Typography.Overline className="text-secondary">
-											{t.name} — {t.role} {t.company}
-										</Typography.Overline>
+										<div className="flex items-center gap-2">
+											{t.avatar?.asset && (
+												<img
+													src={urlFor(t.avatar).width(64).height(64).fit("crop").url()}
+													alt=""
+													className="w-8 h-8 rounded-lg object-cover"
+												/>
+											)}
+											<Typography.Overline className="text-secondary">
+												{t.name} — {t.role} {t.company}
+											</Typography.Overline>
+										</div>
 										<Typography.H3 className="text-primary mt-4">
 											&ldquo;{t.quote}&rdquo;
 										</Typography.H3>
@@ -224,9 +228,18 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 								style={maxHeight > 0 ? { minHeight: maxHeight } : undefined}
 							>
 								{/* Client attribution — TOP */}
-								<Typography.Overline className="text-secondary">
-									{testimonial.name} — {testimonial.role} {testimonial.company}
-								</Typography.Overline>
+								<div className="flex items-center gap-2">
+									{testimonial.avatar?.asset && (
+										<img
+											src={urlFor(testimonial.avatar).width(64).height(64).fit("crop").url()}
+											alt=""
+											className="w-8 h-8 rounded-lg object-cover"
+										/>
+									)}
+									<Typography.Overline className="text-secondary">
+										{testimonial.name} — {testimonial.role} {testimonial.company}
+									</Typography.Overline>
+								</div>
 
 								{/* Quote — BELOW attribution */}
 								<Typography.H3 className="text-primary mt-4">
