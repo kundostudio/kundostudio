@@ -13,16 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<head>
 				<link rel="preconnect" href="https://image.mux.com" />
 				<link rel="preload" as="image" href="https://image.mux.com/HloZlUniR6E5700REH01hfoPdy57D9g02tLo7UU100ctsS00/thumbnail.webp?width=960&height=540&time=0&fit_mode=smartcrop" fetchPriority="high" />
-				<link rel="icon" href="/favicon-light.svg" media="(prefers-color-scheme: light)" />
-				<link rel="icon" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
+				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 			</head>
 			<body className={`${inter.variable} antialiased relative flex flex-col min-h-svh`}>
-				<svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
-					<filter id="glassNoiseFilter">
-						<feTurbulence type="fractalNoise" baseFrequency="6.29" numOctaves="2" stitchTiles="stitch" />
-						<feColorMatrix type="saturate" values="0" />
-					</filter>
-				</svg>
 				{children}
 			</body>
 		</html>

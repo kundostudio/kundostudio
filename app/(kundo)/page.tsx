@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { TESTIMONIALS_QUERY } from "~/lib/queries";
-import { sanityFetch } from "~/sanity/lib/live";
-import { FAQSchema, OrganizationSchema, WebSiteSchema } from "~/components/seo/structured-data";
+import { OrganizationSchema, WebSiteSchema } from "~/components/seo/structured-data";
 import { HomePage } from "./home/home";
 
 export const metadata: Metadata = {
@@ -39,17 +37,12 @@ export const metadata: Metadata = {
 	},
 };
 
-export default async function Home() {
-	const { data: testimonials } = await sanityFetch({
-		query: TESTIMONIALS_QUERY,
-	});
-
+export default function Home() {
 	return (
 		<>
 			<OrganizationSchema />
 			<WebSiteSchema />
-			<FAQSchema />
-			<HomePage testimonials={testimonials ?? []} />
+			<HomePage />
 		</>
 	);
 }

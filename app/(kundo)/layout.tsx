@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 
-import { Columns } from "~/components/columns";
 import { DisableDraftMode } from "~/components/disable-draft-mode";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
@@ -74,24 +73,6 @@ export const metadata: Metadata = {
 	manifest: "/manifest.json",
 };
 
-const COLUMNS_DIMENSIONS = {
-	mobile: 4,
-	mobileXL: 4,
-	tablet: 8,
-	laptop: 12,
-	desktop: 12,
-	desktopXL: 12,
-} as const;
-
-const COLUMNS_GAP = {
-	mobile: 20,
-	mobileXL: 20,
-	tablet: 24,
-	laptop: 32,
-	desktop: 32,
-	desktopXL: 32,
-} as const;
-
 export default async function RootLayout({
 	children,
 }: Readonly<{
@@ -101,8 +82,11 @@ export default async function RootLayout({
 	return (
 		<div className="relative flex flex-col min-h-svh">
 			<OrganizationSchema />
-			<Header className="absolute top-0 left-0 right-0 z-100" />
-			{children}
+			<Header />
+			<main className="flex-1 flex flex-col">
+				{children}
+			</main>
+			<Footer />
 			<SanityLive />
 			{isDraftMode && (
 				<>
@@ -110,8 +94,6 @@ export default async function RootLayout({
 					<VisualEditing />
 				</>
 			)}
-			<Footer />
-			<Columns dimensions={COLUMNS_DIMENSIONS} gap={COLUMNS_GAP} color="rgba(255, 0, 0, 0.2)" />
 		</div>
 	);
 }

@@ -1,27 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import { type FormEvent, useState } from "react";
-
-import { Button } from "~/components/button";
-import { Page } from "~/components/page";
-import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
 const SERVICE_OPTIONS = [
 	"All",
-	"Branding",
-	"Landing Page",
-	"Website",
+	"Visual Identity",
+	"Landing Page / Website",
 	"Product Design",
-	"Motion",
-	"Not sure yet",
+	"Motion Design",
 ] as const;
 
 const BUDGET_OPTIONS = [
-	"$10K\u2013$25K",
-	"$25K\u2013$50K",
-	"$50K\u2013$100K",
+	"Under $10K",
+	"$10-25K",
+	"$25-50K",
+	"$50-100K",
 	"$100K+",
 ] as const;
 
@@ -44,6 +38,8 @@ type FormData = {
 	stage: string;
 };
 
+const text = "font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px]";
+
 function PillButton({
 	selected,
 	onClick,
@@ -58,13 +54,14 @@ function PillButton({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"h-8 rounded-full px-5 py-[5px] font-inter text-[14px] font-normal tabular-nums transition-all duration-200",
+				text,
+				"rounded-[5px] px-4 py-[10px] tabular-nums transition-colors duration-150",
 				selected
-					? "bg-white text-black"
-					: "glass-btn text-secondary hover:text-primary",
+					? "bg-primary text-[#fafafa]"
+					: "bg-[#ebebeb] text-[#808080]",
 			)}
 		>
-			<span className="relative z-10">{children}</span>
+			{children}
 		</button>
 	);
 }
@@ -85,8 +82,8 @@ function TextInput({
 	type?: string;
 }) {
 	return (
-		<div className="flex flex-col gap-[10px]">
-			<label className="font-inter text-[14px] font-medium leading-[19px] text-primary">
+		<div className="flex flex-col gap-2">
+			<label className={cn(text, "text-primary")}>
 				{label}
 				{required && "*"}
 			</label>
@@ -97,11 +94,10 @@ function TextInput({
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				className={cn(
-					"h-8 w-full md:w-[340px] rounded-lg border border-white/20 bg-transparent px-4",
-					"font-inter text-[14px] font-normal text-primary placeholder:text-secondary",
-					"outline-none transition-all duration-200",
-					"focus:border-white focus:backdrop-blur-[12px] focus:bg-[linear-gradient(182.51deg,rgba(255,255,255,0.02)_27.09%,rgba(90,90,90,0.02)_58.59%,rgba(0,0,0,0.02)_92.75%)]",
-					"focus:shadow-[0px_4.12px_9.21px_0px_rgba(0,0,0,0.1),0px_16.73px_16.73px_0px_rgba(0,0,0,0.09),0px_37.82px_22.79px_0px_rgba(0,0,0,0.05),0px_67.15px_26.91px_0px_rgba(0,0,0,0)]",
+					text,
+					"w-full max-w-[320px] rounded-[5px] bg-[#ebebeb] px-4 py-[10px]",
+					"text-primary placeholder:text-[#808080]",
+					"border-none outline-none",
 				)}
 			/>
 		</div>
@@ -120,8 +116,8 @@ function TextArea({
 	onChange: (value: string) => void;
 }) {
 	return (
-		<div className="flex flex-col gap-[10px]">
-			<label className="font-inter text-[14px] font-medium leading-[19px] text-primary">
+		<div className="flex flex-col gap-2">
+			<label className={cn(text, "text-primary")}>
 				{label}
 			</label>
 			<textarea
@@ -129,12 +125,10 @@ function TextArea({
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
 				className={cn(
-					"min-h-[64px] rounded-lg px-4 py-3 resize-y",
-					"border border-white/20 backdrop-blur-[12px] focus:border-white",
-					"bg-[linear-gradient(182.51deg,rgba(255,255,255,0.02)_27.09%,rgba(90,90,90,0.02)_58.59%,rgba(0,0,0,0.02)_92.75%)]",
-					"shadow-[0px_4.12px_9.21px_0px_rgba(0,0,0,0.1),0px_16.73px_16.73px_0px_rgba(0,0,0,0.09),0px_37.82px_22.79px_0px_rgba(0,0,0,0.05),0px_67.15px_26.91px_0px_rgba(0,0,0,0)]",
-					"font-inter text-[14px] font-normal text-primary placeholder:text-secondary",
-					"outline-none transition-all duration-200",
+					text,
+					"w-full max-w-[352px] min-h-[80px] rounded-[5px] bg-[#ebebeb] px-4 py-[10px] resize-y",
+					"text-primary placeholder:text-[#808080]",
+					"border-none outline-none",
 				)}
 			/>
 		</div>
@@ -180,12 +174,12 @@ function PillGroup({
 	};
 
 	return (
-		<div className="flex flex-col gap-[10px]">
-			<label className="font-inter text-[14px] font-medium leading-[19px] text-primary">
+		<div className="flex flex-col gap-2">
+			<label className={cn(text, "text-primary")}>
 				{label}
 				{required && "*"}
 			</label>
-			<div className="flex flex-wrap gap-2">
+			<div className="flex flex-wrap gap-1">
 				{options.map((option) => (
 					<PillButton
 						key={option}
@@ -195,26 +189,6 @@ function PillGroup({
 						{option}
 					</PillButton>
 				))}
-			</div>
-		</div>
-	);
-}
-
-function SuccessState() {
-	return (
-		<div className="flex min-h-[calc(100vh-72px)] items-center justify-center px-6">
-			<div className="flex flex-col items-center gap-4 text-center">
-				<h1 className={cn(textStyles.h1, "text-primary")}>
-					Thanks for reaching out.
-				</h1>
-				<p className="font-inter text-[16px] font-normal leading-[25px] text-secondary">
-					We&apos;ll follow up within 48 hours, or as soon as we can.
-				</p>
-				<div className="mt-4">
-					<Link href="/">
-						<Button>Back to Homepage</Button>
-					</Link>
-				</div>
 			</div>
 		</div>
 	);
@@ -274,129 +248,106 @@ export function ContactPage() {
 
 	if (submitted) {
 		return (
-			<Page>
-				<SuccessState />
-			</Page>
+			<div className="pt-[56px] px-6">
+				<p className={cn(text, "leading-[18px] text-primary max-w-[400px] text-balance animate-enter")}>
+					Thanks for reaching out. We&apos;ll follow up within 48 hours, or as soon as we can.
+				</p>
+			</div>
 		);
 	}
 
 	return (
-		<Page className="pb-24 lg:pb-32">
-			<div className="container">
-				<form
-					onSubmit={handleSubmit}
-					className="flex flex-col lg:flex-row gap-12 lg:gap-20 pt-28 sm:pt-32 lg:pt-40"
+		<div className="pt-[56px] px-6 pb-24">
+			<p
+				className={cn(text, "leading-[18px] text-primary max-w-[400px] mb-16 text-balance animate-enter")}
+				style={{ "--stagger": 0 } as React.CSSProperties}
+			>
+				Let&apos;s talk about what&apos;s next. A few details to help us understand where you are and what you need.
+			</p>
+
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col gap-6 animate-enter"
+				style={{ "--stagger": 1 } as React.CSSProperties}
+			>
+				<TextInput
+					label="Your name"
+					required
+					value={form.name}
+					onChange={(v) => setForm({ ...form, name: v })}
+				/>
+
+				<TextInput
+					label="Your email"
+					required
+					type="email"
+					value={form.email}
+					onChange={(v) => setForm({ ...form, email: v })}
+				/>
+
+				<TextInput
+					label="Company name"
+					required
+					value={form.company}
+					onChange={(v) => setForm({ ...form, company: v })}
+				/>
+
+				<TextInput
+					label="Website"
+					placeholder="Feel free to skip this..."
+					value={form.website}
+					onChange={(v) => setForm({ ...form, website: v })}
+				/>
+
+				<PillGroup
+					label="What are you looking for?"
+					required
+					options={SERVICE_OPTIONS}
+					selected={form.services}
+					onSelect={(v) => setForm({ ...form, services: v as string[] })}
+					multi
+				/>
+
+				<TextArea
+					label="Tell us a bit more about your project:"
+					placeholder="Type your answer here..."
+					value={form.details}
+					onChange={(v) => setForm({ ...form, details: v })}
+				/>
+
+				<PillGroup
+					label="Budget range"
+					required
+					options={BUDGET_OPTIONS}
+					selected={form.budget}
+					onSelect={(v) => setForm({ ...form, budget: v as string })}
+				/>
+
+				<PillGroup
+					label="Company stage"
+					required
+					options={STAGE_OPTIONS}
+					selected={form.stage}
+					onSelect={(v) => setForm({ ...form, stage: v as string })}
+				/>
+
+				{error && (
+					<p className={cn(text, "text-[#dc2626]")}>{error}</p>
+				)}
+
+				<button
+					type="submit"
+					disabled={!isValid || sending}
+					className={cn(
+						text,
+						"w-fit rounded-[5px] bg-[#ebebeb] px-4 py-[10px] text-[#808080]",
+						"transition-opacity duration-150",
+						(!isValid || sending) && "opacity-40 cursor-not-allowed",
+					)}
 				>
-					{/* Left column — heading + subtitle */}
-					<div className="lg:w-[440px] xl:w-[480px] shrink-0 lg:sticky lg:top-40 lg:self-start">
-						<h1 className={cn(textStyles.h1, "text-primary")}>
-							Let&apos;s talk about what&apos;s next.
-						</h1>
-						<p className="font-inter text-[16px] font-normal leading-[25px] text-secondary mt-4">
-							A few details to help us understand where you are
-							and what you need. We&apos;ll get back to you as
-							soon as we can.
-						</p>
-					</div>
-
-					{/* Right column — form fields */}
-					<div className="flex flex-col gap-6 flex-1 min-w-0">
-						<TextInput
-							label="Your name"
-							required
-							value={form.name}
-							onChange={(v) => setForm({ ...form, name: v })}
-						/>
-
-						<TextInput
-							label="Your email"
-							required
-							type="email"
-							value={form.email}
-							onChange={(v) => setForm({ ...form, email: v })}
-						/>
-
-						<TextInput
-							label="Company name"
-							required
-							value={form.company}
-							onChange={(v) => setForm({ ...form, company: v })}
-						/>
-
-						<TextInput
-							label="Website"
-							placeholder="Feel free to skip this..."
-							value={form.website}
-							onChange={(v) => setForm({ ...form, website: v })}
-						/>
-
-						<PillGroup
-							label="What are you looking for?"
-							required
-							options={SERVICE_OPTIONS}
-							selected={form.services}
-							onSelect={(v) =>
-								setForm({ ...form, services: v as string[] })
-							}
-							multi
-						/>
-
-						<TextArea
-							label="Tell us a bit more about your project:"
-							placeholder="Goals, timeline, and anything else we should know."
-							value={form.details}
-							onChange={(v) => setForm({ ...form, details: v })}
-						/>
-
-						<PillGroup
-							label="Budget range"
-							required
-							options={BUDGET_OPTIONS}
-							selected={form.budget}
-							onSelect={(v) =>
-								setForm({ ...form, budget: v as string })
-							}
-						/>
-
-						<PillGroup
-							label="Company stage"
-							required
-							options={STAGE_OPTIONS}
-							selected={form.stage}
-							onSelect={(v) =>
-								setForm({ ...form, stage: v as string })
-							}
-						/>
-
-						{error && (
-							<p className="font-inter text-[14px] text-red-400">
-								{error}
-							</p>
-						)}
-
-						<div className="mt-4">
-							<button
-								type="submit"
-								disabled={!isValid || sending}
-								className={cn(
-									"glass-btn rounded-full h-12 px-8 min-w-[160px]",
-									"transition-opacity duration-200",
-									(!isValid || sending) && "opacity-40 cursor-not-allowed",
-								)}
-							>
-								<span
-									className={cn(
-										textStyles.button,
-										"text-primary relative z-10",
-									)}
-								>
-									{sending ? "Sending..." : "Submit"}
-								</span>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</Page>
+					{sending ? "Sending..." : "Submit"}
+				</button>
+			</form>
+		</div>
 	);
 }

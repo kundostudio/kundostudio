@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { ABOUT_QUERY } from "~/lib/queries";
+import { ABOUT_V2_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
-
 import { AboutPage } from "./about";
 
 export const metadata: Metadata = {
@@ -40,10 +39,6 @@ export const metadata: Metadata = {
 };
 
 export default async function About() {
-  const { data: aboutData } = await sanityFetch({ query: ABOUT_QUERY });
-
-  return (
-    <AboutPage aboutData={aboutData} />
-  );
+	const { data: aboutData } = await sanityFetch({ query: ABOUT_V2_QUERY });
+	return <AboutPage aboutData={aboutData} />;
 }
- 

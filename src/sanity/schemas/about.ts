@@ -124,6 +124,43 @@ export default defineType({
 				}),
 			],
 		}),
+		defineField({
+			name: "descriptionV2",
+			title: "V2 — Description",
+			description:
+				"Intro paragraphs for the v2027 About page. Separate paragraphs with blank lines.",
+			type: "text",
+			rows: 10,
+		}),
+		defineField({
+			name: "servicesV2",
+			title: "V2 — Services",
+			description: "Service categories for the v2027 About page",
+			type: "array",
+			of: [
+				{
+					type: "object",
+					name: "serviceCategory",
+					title: "Service Category",
+					fields: [
+						defineField({
+							name: "category",
+							title: "Category Name",
+							type: "string",
+						}),
+						defineField({
+							name: "items",
+							title: "Services",
+							type: "array",
+							of: [{ type: "string" }],
+						}),
+					],
+					preview: {
+						select: { title: "category" },
+					},
+				},
+			],
+		}),
 	],
 	preview: {
 		prepare() {

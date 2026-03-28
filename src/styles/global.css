@@ -3,16 +3,14 @@
 /* biome-ignore lint/suspicious/noUnknownAtRules: <explanation> */
 @theme {
 	/* Color primitives */
-	--background: 0 0 0; /* #000000 */
-	--primary: 250 250 250; /* #FAFAFA */
-	--secondary: 157 161 169; /* #9DA1A9 */
-	--accent: 0 0 255; /* #0000FF */
+	--background: 255 255 255; /* #FFFFFF */
+	--primary: 42 42 42; /* #2A2A2A */
+	--secondary: 128 128 128; /* #808080 */
 
 	/* Color palette */
 	--color-background: rgb(var(--background));
 	--color-primary: rgb(var(--primary));
 	--color-secondary: rgb(var(--secondary));
-	--color-accent: rgb(var(--accent));
 
 	/* Breakpoints */
 	--breakpoint-sm: 640px;
@@ -165,8 +163,8 @@
 	}
 
 	*::selection {
-		background-color: var(--color-accent);
-		color: #FFFFFF;
+		background-color: rgb(var(--primary));
+		color: rgb(var(--background));
 	}
 }
 
@@ -191,78 +189,38 @@
 	pointer-events: none;
 }
 
+@keyframes fade-in-up {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+		filter: blur(4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+		filter: blur(0px);
+	}
+}
+
+.animate-enter {
+	animation: fade-in-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation-delay: calc(var(--stagger, 0) * 100ms);
+}
+
 @layer components {
-	.glass-btn {
-		position: relative;
-		overflow: hidden;
-		border-radius: 9999px;
-		border: 0;
-		/* Half of project-nav blur (24px) for subtle separation from background */
-		backdrop-filter: blur(12px);
-		background: linear-gradient(
-			182.51deg,
-			rgba(255, 255, 255, 0.02) 27.09%,
-			rgba(90, 90, 90, 0.02) 58.59%,
-			rgba(0, 0, 0, 0.02) 92.75%
-		);
-		box-shadow:
-			0px 4.12px 9.21px 0px rgba(0, 0, 0, 0.1),
-			0px 16.73px 16.73px 0px rgba(0, 0, 0, 0.09),
-			0px 37.82px 22.79px 0px rgba(0, 0, 0, 0.05),
-			0px 67.15px 26.91px 0px rgba(0, 0, 0, 0.01),
-			0px 104.97px 29.33px 0px rgba(0, 0, 0, 0);
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-	}
-
-	.glass-btn::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border-radius: 9999px;
-		padding: 1px;
-		background: linear-gradient(
-			178.8deg,
-			rgba(255, 255, 255, 0.247) 10.85%,
-			rgba(20, 20, 20, 0.46) 24.36%,
-			rgba(50, 50, 50, 0.46) 73.67%,
-			rgba(255, 255, 255, 0.46) 90.68%
-		);
-		mask:
-			linear-gradient(black, black) content-box exclude,
-			linear-gradient(black, black);
-		-webkit-mask:
-			linear-gradient(black, black) content-box exclude,
-			linear-gradient(black, black);
-		pointer-events: none;
-	}
-
-	.glass-btn::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border-radius: 9999px;
-		opacity: 0.1;
-		filter: url(#glassNoiseFilter);
-		pointer-events: none;
-	}
-
-	.glass-btn:hover {
-		background: linear-gradient(
-			182.51deg,
-			rgba(255, 255, 255, 0.05) 27.09%,
-			rgba(90, 90, 90, 0.05) 58.59%,
-			rgba(0, 0, 0, 0.02) 92.75%
-		);
-	}
-
 }
 
 @layer utilities {
 	.container {
 		@apply px-6 md:px-8 xl:px-0 max-w-[1280px] w-full mx-auto;
+	}
+
+	.no-scrollbar {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
 	}
 }

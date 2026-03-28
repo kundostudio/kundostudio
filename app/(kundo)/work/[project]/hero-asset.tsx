@@ -15,12 +15,8 @@ type HeroAssetProps = {
 	alt?: string;
 };
 
-// Container breakpoint config
-const BREAKPOINTS = {
-	mobile: { maxWidth: 578, padding: 40 },
-	md: { maxWidth: 1130, padding: 80 },
-	xl: { maxWidth: 1220, padding: 80 },
-} as const;
+// 24px padding on each side at all breakpoints
+const SIDE_PADDING = 48;
 
 // Scroll distance required to complete the animation per breakpoint
 const SCROLL_DISTANCE = {
@@ -40,16 +36,11 @@ export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: H
 
 	const { scrollY } = useScroll();
 
-	// Store breakpoint config in ref to avoid stale closures in callback
 	const configRef = useRef({ isMd, isXl });
 	configRef.current = { isMd, isXl };
 
-	// Motion values - initialized to 0, will be set on mount
 	const width = useMotionValue(0);
-	const borderRadius = useMotionValue(0);
-	const opacity = useMotionValue(0);
 
-	// Stable calculation function - reads from configRef to get current breakpoint
 	const updateAnimation = useCallback(
 		(scrollValue: number) => {
 			const { isMd, isXl } = configRef.current;
@@ -59,27 +50,16 @@ export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: H
 			const linearProgress = Math.min(Math.max(scrollValue / scrollDistance, 0), 1);
 			const scrollProgress = easeInOutCubic(linearProgress);
 
-			// Calculate target width based on current breakpoint
-			const bp = BREAKPOINTS[breakpoint];
-			const endWidth = Math.min(vw, bp.maxWidth) - bp.padding;
+			const endWidth = vw - SIDE_PADDING;
 			const currentWidth = vw + (endWidth - vw) * scrollProgress;
 
-			// Calculate border radius (5px mobile, 10px md+) - completes at 2x speed
-			const endRadius = isMd ? 10 : 5;
-			const radiusProgress = Math.min(scrollProgress * 5, 1);
-			const currentRadius = endRadius * radiusProgress;
-
 			width.set(currentWidth);
-			borderRadius.set(currentRadius);
-			opacity.set(scrollProgress);
 		},
-		[width, borderRadius, opacity],
+		[width],
 	);
 
-	// Listen to scroll changes using motion's optimized event system
 	useMotionValueEvent(scrollY, "change", updateAnimation);
 
-	// Handle mount, resize and initial update
 	useEffect(() => {
 		setIsMounted(true);
 
@@ -102,7 +82,6 @@ export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: H
 		};
 	}, [updateAnimation]);
 
-	// Re-run animation when breakpoint changes
 	useEffect(() => {
 		updateAnimation(window.scrollY);
 	}, [isMd, isXl, updateAnimation]);
@@ -141,14 +120,9 @@ export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: H
 		<div ref={containerRef} className="w-full flex justify-center">
 			<motion.div
 				className="relative aspect-[16/9] overflow-hidden w-full"
-				style={isMounted ? { width, borderRadius } : undefined}
+				style={isMounted ? { width } : undefined}
 			>
 				{renderAsset()}
-				{/* Card border overlay - fades in as we scroll */}
-				<motion.div
-					className="absolute inset-0 pointer-events-none border border-white/16"
-					style={isMounted ? { borderRadius, opacity } : { opacity: 0 }}
-				/>
 			</motion.div>
 		</div>
 	);

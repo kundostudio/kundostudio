@@ -2,23 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Fragment } from "react";
 import { Asset } from "~/components/asset";
-import { Button } from "~/components/button";
-import { Page } from "~/components/page";
 import { PortableText } from "~/components/portable-text";
-import { ProjectNav } from "~/components/project-nav";
 import { ProjectSchema } from "~/components/seo/structured-data";
-import * as Typography from "~/components/typography";
-import {
-	PROJECT_QUERY,
-	PROJECT_SLUGS_QUERY,
-	type SecondaryDescriptionSection,
-} from "~/lib/queries";
+import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "~/lib/queries";
 import { cn } from "~/lib/utils";
-import Sign from "~/public/projects/sign.svg";
 import { sanityFetch } from "~/sanity/lib/live";
 import { HeroAsset } from "./hero-asset";
+
+const text = "font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] text-primary";
+const prose = "font-inter text-[12px] font-normal leading-[18px] tracking-[0.2px] text-primary";
 
 interface Props {
 	params: Promise<{ project: string }>;
@@ -97,297 +90,226 @@ export default async function ProjectDetail({ params }: Props) {
 		notFound();
 	}
 
-	// Find current project index and determine prev/next (circular loop)
 	const projectCount = allProjects?.length ?? 0;
 	const currentIndex = allProjects?.findIndex((p) => p.slug === slug) ?? -1;
-
-	// Circular navigation: prev goes to last if at first, next goes to first if at last
 	const prevIndex = currentIndex > 0 ? currentIndex - 1 : projectCount - 1;
 	const nextIndex = currentIndex < projectCount - 1 ? currentIndex + 1 : 0;
-
 	const prevProject = projectCount > 1 ? allProjects?.[prevIndex] : null;
 	const nextProject = projectCount > 1 ? allProjects?.[nextIndex] : null;
 
 	const secondarySections = project.secondaryDescription?.sections ?? [];
-	const leftColumnSections = secondarySections.slice(0, 2);
-	const rightColumnSections = secondarySections.slice(2);
+	const allCredits = [
+		...(project.roles?.internal ?? []),
+		...(project.roles?.external ?? []),
+	];
+	const services = project.roles?.services ?? [];
 
 	return (
-		<Page className="sm:mt-18 pb-23">
+		<div className="pb-24">
 			<ProjectSchema
 				title={project.title || project.name}
 				description={project.metaDescription || project.description}
 				slug={slug}
 				coverImage={project.mainAsset?.url}
-				keywords={project.roles?.services ?? []}
+				keywords={services}
 			/>
-			{/* Header */}
-			<div className="container flex flex-col items-start gap-12 mt-[54px] sm:mt-22 mb-12">
-				<Typography.H1 className="mb-8 max-w-146">{project.title}</Typography.H1>
-				{/* Visit Button */}
-				{project.url && (
-					<Link href={project.url} target="_blank" rel="noopener noreferrer">
-						<Button isExternal>Visit</Button>
-					</Link>
+
+			{/* 1. QUOTE */}
+			{project.quote?.text && project.quote.author && (
+				<div
+					className="px-6 pt-[56px] max-w-[400px] animate-enter"
+					style={{ "--stagger": 0 } as React.CSSProperties}
+				>
+					<p className={cn(prose, "text-balance")}>
+						&ldquo;{project.quote.text}&rdquo;
+					</p>
+					<div className="flex items-center gap-2 mt-3">
+						{project.quote.author.image && (
+							<Image
+								src={project.quote.author.image}
+								alt={project.quote.author.name || "Quote author"}
+								width={32}
+								height={32}
+								className="rounded-none object-cover"
+							/>
+						)}
+						<span className={cn(text, "uppercase whitespace-nowrap")}>
+							{project.quote.author.name} — {project.quote.author.role}, {project.name}
+						</span>
+					</div>
+				</div>
+			)}
+
+			{/* 2. MAIN ASSET — video gets shrink-on-scroll, image is static */}
+			{project.mainAsset?.url && (
+				project.mainAsset.filetype === "img" ? (
+					<div
+						className="px-6 mt-8 animate-enter"
+						style={{ "--stagger": 1 } as React.CSSProperties}
+					>
+						<Asset
+							filetype="img"
+							src={project.mainAsset.url}
+							alt={project.mainAsset.alt || `${project.name} — Hero | Kundo Studio`}
+							fill
+							className="object-cover"
+							container={{ className: "aspect-video relative" }}
+						/>
+					</div>
+				) : (
+					<div
+						className="mt-12 animate-enter"
+						style={{ "--stagger": 1 } as React.CSSProperties}
+					>
+						<HeroAsset
+							filetype={project.mainAsset.filetype}
+							src={project.mainAsset.url}
+							alt={project.mainAsset.alt || `${project.name} — Hero | Kundo Studio`}
+							fill
+							className="object-cover"
+						/>
+					</div>
+				)
+			)}
+
+			{/* 3. ALL ASSETS stacked */}
+			{project.assets && project.assets.length > 0 && (
+				<div className="flex flex-col gap-2 px-6 mt-6">
+					{project.assets.map(
+						(asset, index) =>
+							asset?.url &&
+							asset?.filetype && (
+								<Asset
+									key={`asset-${index}`}
+									filetype={asset.filetype}
+									src={asset.url}
+									alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
+									fill
+									lazy
+									variant="default"
+									container={{ className: "aspect-video" }}
+								/>
+							),
+					)}
+				</div>
+			)}
+
+			{/* 4. TEXT CONTENT */}
+			<div
+				className="px-6 mt-20 max-w-[400px] flex flex-col gap-6 animate-enter"
+				style={{ "--stagger": 2 } as React.CSSProperties}
+			>
+				{/* Title + subtitle */}
+				<p className={text}>
+					<span className="font-semibold">{project.name}</span>
+					{project.title ? ` · ${project.title}` : ""}
+				</p>
+
+				{/* Description */}
+				{project.description && (
+					<p className={cn(prose, "text-balance")}>{project.description}</p>
+				)}
+
+				{/* Secondary description — all sections under "Process:" */}
+				{secondarySections.length > 0 && (
+					<div>
+						<p className={cn(text, "mb-2 text-secondary")}>Process:</p>
+						{secondarySections.map((section, index) => (
+							<div key={`section-${index}`} className={index > 0 ? "mt-4" : ""}>
+								{section.content && (
+									<PortableText
+										value={section.content}
+										classes={{
+											block: { normal: cn(prose, "mb-2 last:mb-0") },
+										}}
+									/>
+								)}
+							</div>
+						))}
+					</div>
+				)}
+
+				{/* Services */}
+				{services.length > 0 && (
+					<div>
+						<p className={cn(text, "text-secondary")}>Services:</p>
+						{services.map((service: string, i: number) => (
+							<p key={`svc-${i}`} className={text}>{service}</p>
+						))}
+					</div>
+				)}
+
+				{/* Credits */}
+				{allCredits.length > 0 && (
+					<div>
+						<p className={cn(text, "text-secondary")}>Credits:</p>
+						{allCredits.map(
+							(item: { role?: string; people?: string }, idx: number) =>
+								item.role && item.people && (
+									<p key={`credit-${idx}`} className={text}>
+										- {item.role}: {item.people}
+									</p>
+								),
+						)}
+					</div>
 				)}
 			</div>
 
-			{/* Main Asset (using shared Asset) */}
-			{project.mainAsset?.url && (
-				<HeroAsset
-					filetype={project.mainAsset.filetype}
-					src={project.mainAsset.url}
-					alt={project.mainAsset.alt || `${project.name} — Hero | Kundo Studio`}
-					fill
-					className="object-cover"
-				/>
-			)}
-
-			{/* Description */}
-			<div className="container mt-26 mb-32">
-				<p className={cn(Typography.textStyles.pLg, "max-w-96")}>{project.description}</p>
-			</div>
-
-			{/* Secondary Asset (using shared Asset) */}
-			{project.secondaryAsset?.url && (
-				<div className="container">
-					<Asset
-						filetype={project.secondaryAsset.filetype}
-						src={project.secondaryAsset.url}
-						alt={project.secondaryAsset.alt || `${project.name} — 2 | Kundo Studio`}
-						fill
-						lazy
-						variant="card"
-						container={{ className: "aspect-video" }}
-					/>
-				</div>
-			)}
-
-			{/* Secondary Description (sections) */}
-			{secondarySections.length > 0 ? (
-				<div className="container my-26">
-					<div className="flex flex-row gap-8 flex-wrap">
-						<div className="flex flex-col gap-6 w-full md:w-auto md:flex-[0_0_383px] md:max-w-[383px]">
-							{leftColumnSections.map((section, index) => (
-								<SectionBlock key={`secondary-section-${index}`} section={section} />
-							))}
-						</div>
-						{rightColumnSections.length > 0 && (
-							<div className="flex flex-col gap-6 w-full md:w-auto md:flex-[0_0_383px] md:max-w-[383px] md:mt-0">
-								{rightColumnSections.map((section, index) => (
-									<SectionBlock
-										key={`secondary-section-${index + leftColumnSections.length}`}
-										section={section}
-									/>
-								))}
+			{/* 5. PROJECT NAVIGATION */}
+			{(prevProject || nextProject) && (
+				<div
+					className={cn(
+						"px-6 mt-20 mb-20 flex",
+						prevProject && nextProject
+							? "justify-between"
+							: nextProject
+								? "justify-end"
+								: "justify-start",
+					)}
+				>
+					{prevProject?.thumbnail && (
+						<Link
+							href={`/work/${prevProject.slug}`}
+							className="flex flex-col gap-2 transition-opacity duration-300 hover:opacity-75"
+						>
+							<div
+								className="w-[200px] aspect-video relative overflow-hidden"
+								style={{ border: "0.5px solid rgba(0,0,0,0.1)" }}
+							>
+								<Image
+									src={prevProject.thumbnail}
+									alt={prevProject.title}
+									fill
+									className="object-cover"
+									sizes="200px"
+									loading="eager"
+								/>
 							</div>
-						)}
-					</div>
+							<span className={text}>{prevProject.title}</span>
+						</Link>
+					)}
+					{nextProject?.thumbnail && (
+						<Link
+							href={`/work/${nextProject.slug}`}
+							className="flex flex-col gap-2 items-end transition-opacity duration-300 hover:opacity-75"
+						>
+							<div
+								className="w-[200px] aspect-video relative overflow-hidden"
+								style={{ border: "0.5px solid rgba(0,0,0,0.1)" }}
+							>
+								<Image
+									src={nextProject.thumbnail}
+									alt={nextProject.title}
+									fill
+									className="object-cover"
+									sizes="200px"
+									loading="eager"
+								/>
+							</div>
+							<span className={text}>{nextProject.title}</span>
+						</Link>
+					)}
 				</div>
-			) : null}
-
-			{/* Project Assets with inline Quote after first two */}
-			{project.assets && project.assets.length > 0 && (
-				<div className="container mt-20 flex flex-col gap-8">
-					{(() => {
-						const firstHalf = project.assets.slice(0, 2) ?? [];
-						const secondHalf = project.assets.slice(2) ?? [];
-
-						return (
-							<>
-								{/* First half of assets */}
-								{firstHalf.map(
-									(asset, index) =>
-										asset?.url &&
-										asset?.filetype && (
-											<Asset
-												key={`asset-first-${index}`}
-												filetype={asset.filetype}
-												src={asset.url}
-												alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
-												fill
-												lazy
-												variant="card"
-												container={{ className: "aspect-video" }}
-											/>
-										),
-								)}
-
-								{/* Quote block */}
-								{project.quote?.text && project.quote.author && (
-									<div className="self-end max-w-122 my-26 flex flex-col gap-6">
-										<p className={cn(Typography.textStyles.h3, "text-start")}>
-											&ldquo;{project.quote.text}&rdquo;
-										</p>
-										<div className="flex items-center gap-2 w-fit">
-											{project.quote.author.image && (
-												<Image
-													src={project.quote.author.image}
-													alt={project.quote.author.name || "Quote author"}
-													width={32}
-													height={32}
-													className="rounded-lg object-cover"
-												/>
-											)}
-											<Typography.Overline className="text-secondary">
-												{project.quote.author.name} — {project.quote.author.role}, {project.name}
-											</Typography.Overline>
-										</div>
-									</div>
-								)}
-
-								{/* Second half of assets */}
-								{secondHalf.map(
-									(asset, index) =>
-										asset?.url &&
-										asset?.filetype && (
-											<Asset
-												key={`asset-second-${index}`}
-												filetype={asset.filetype}
-												src={asset.url}
-												alt={asset.alt || `${project.name} — ${index + 3} | Kundo Studio`}
-												fill
-												lazy
-												variant="card"
-												container={{ className: "aspect-video relative" }}
-											/>
-										),
-								)}
-							</>
-						);
-					})()}
-				</div>
-			)}
-
-			{/* Roles (below assets) */}
-			{(project.roles?.internal?.length || project.roles?.external?.length) && (
-				<div className="container mt-26 mb-24">
-					<div className="mx-auto w-fit">
-						<div className="grid grid-cols-[auto_auto] gap-x-8 gap-y-2 items-start">
-							{project.roles?.internal?.length && (
-								<>
-									<div />
-									<Typography.Caption className={cn("uppercase text-primary")}> KUNDO STUDIO</Typography.Caption>
-									{project.roles.internal.map(
-										(item: { role?: string; people?: string }, idx: number) => (
-											<Fragment key={`int-${idx}`}>
-												<Typography.Small className="text-secondary text-end">{item.role}</Typography.Small>
-												<div className="flex flex-col gap-1">
-													{(item.people || "")
-														.split(/\r?\n/)
-														.map((s) => s.trim())
-														.filter(Boolean)
-														.map((person, i) => (
-															<Typography.P key={i} className="text-primary">
-																{person}
-															</Typography.P>
-														))}
-												</div>
-											</Fragment>
-										),
-									)}
-								</>
-							)}
-
-							{project.roles?.external?.length && (
-								<>
-									<div className="col-span-2 h-8" />
-									<div />
-									<Typography.Caption className={cn("uppercase text-primary")}>
-										{project.name}
-									</Typography.Caption>
-									{project.roles.external.map(
-										(item: { role?: string; people?: string }, idx: number) => (
-											<Fragment key={`ext-${idx}`}>
-												<Typography.Small className="text-secondary text-end">{item.role}</Typography.Small>
-												<div className="flex flex-col gap-1">
-													{(item.people || "")
-														.split(/\r?\n/)
-														.map((s) => s.trim())
-														.filter(Boolean)
-														.map((person, i) => (
-															<Typography.P key={i} className="text-primary">
-																{person}
-															</Typography.P>
-														))}
-												</div>
-											</Fragment>
-										),
-									)}
-
-									{/* Services */}
-									{(project.roles?.services?.length ?? 0) > 0 && (
-										<>
-											<div className="col-span-2 h-8" />
-											{project.roles.services.map((service: string, i: number) => (
-												<Fragment key={`svc-${i}`}>
-													{i === 0 ? (
-														<Typography.Small className="text-secondary text-end">
-															Services
-														</Typography.Small>
-													) : (
-														<div />
-													)}
-													<Typography.Caption className="text-primary uppercase">{service}</Typography.Caption>
-												</Fragment>
-											))}
-										</>
-									)}
-								</>
-							)}
-						</div>
-					</div>
-				</div>
-			)}
-
-			<div className="container flex flex-col items-center gap-4 mt-42">
-				<Sign className="w-[50px]" />
-				<Image
-					src="/projects/seal.png"
-					alt="Kundo Quality Seal"
-					quality={100}
-					width={80}
-					height={80}
-				/>
-			</div>
-
-			{/* Project Navigation */}
-			<ProjectNav
-				prevProject={prevProject ? { slug: prevProject.slug, title: prevProject.title } : null}
-				nextProject={nextProject ? { slug: nextProject.slug, title: nextProject.title } : null}
-			/>
-		</Page>
-	);
-}
-
-interface SectionBlockProps {
-	section: SecondaryDescriptionSection;
-}
-
-function formatSectionTitle(title: string) {
-	return title.replace(/^\[/, "").replace(/\]$/, "") + ":";
-}
-
-function SectionBlock({ section }: SectionBlockProps) {
-	if (!section) {
-		return null;
-	}
-
-	return (
-		<div className="w-full max-w-[383px]">
-			{section.title && (
-				<Typography.H5 className="text-secondary uppercase mb-2">
-					{formatSectionTitle(section.title)}
-				</Typography.H5>
-			)}
-			{section.content && (
-				<PortableText
-					value={section.content}
-					classes={{
-						block: { normal: cn(Typography.textStyles.body, "mb-4 last:mb-0") },
-						marks: { strong: "text-secondary" },
-					}}
-				/>
 			)}
 		</div>
 	);

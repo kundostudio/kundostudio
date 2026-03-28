@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { WORKS_QUERY } from "~/lib/queries";
 import { sanityFetch } from "~/sanity/lib/live";
-
 import { WorksPage } from "./works";
 
 export const metadata: Metadata = {
@@ -40,9 +39,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Work() {
-  const { data: worksData } = await sanityFetch({ query: WORKS_QUERY });
-
-  return (
-    <WorksPage worksData={worksData} />
-  );
+	const { data: worksData } = await sanityFetch({ query: WORKS_QUERY });
+	return <WorksPage worksData={worksData} />;
 }
