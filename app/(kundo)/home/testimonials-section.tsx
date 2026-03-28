@@ -4,7 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Testimonial } from "~/lib/queries";
 import * as Typography from "~/components/typography";
 import { cn } from "~/lib/utils";
-import { urlFor } from "~/sanity/lib/image";
+
+function getAvatarUrl(avatar: Testimonial["avatar"]): string | null {
+	const ref = avatar?.asset?._ref;
+	if (!ref) return null;
+	const [, id, dimensions, format] = ref.split("-");
+	if (!id || !dimensions || !format) return null;
+	return `https://cdn.sanity.io/images/89bxjizj/production/${id}-${dimensions}.${format}?w=64&h=64&fit=crop`;
+}
 
 function getReadingTime(text: string): number {
 	const words = text.split(" ").length;
@@ -204,13 +211,9 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 								{testimonials.map((t, i) => (
 									<div key={i}>
 										<div className="flex items-center gap-2">
-											{t.avatar?.asset && (
-												<img
-													src={urlFor(t.avatar).width(64).height(64).fit("crop").url()}
-													alt=""
-													className="w-8 h-8 rounded-lg object-cover"
-												/>
-											)}
+											{(() => { const src = getAvatarUrl(t.avatar); return src ? (
+												<img src={src} alt="" className="w-8 h-8 rounded-lg object-cover" />
+											) : null; })()}
 											<Typography.Overline className="text-secondary">
 												{t.name} — {t.role} {t.company}
 											</Typography.Overline>
@@ -229,13 +232,9 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 							>
 								{/* Client attribution — TOP */}
 								<div className="flex items-center gap-2">
-									{testimonial.avatar?.asset && (
-										<img
-											src={urlFor(testimonial.avatar).width(64).height(64).fit("crop").url()}
-											alt=""
-											className="w-8 h-8 rounded-lg object-cover"
-										/>
-									)}
+									{(() => { const src = getAvatarUrl(testimonial.avatar); return src ? (
+										<img src={src} alt="" className="w-8 h-8 rounded-lg object-cover" />
+									) : null; })()}
 									<Typography.Overline className="text-secondary">
 										{testimonial.name} — {testimonial.role} {testimonial.company}
 									</Typography.Overline>
