@@ -21,7 +21,7 @@ const FAQ_ITEMS = [
 	{
 		question: "How long does a project take?",
 		answer:
-			"Branding tak0 weeks. Websites take 6\u201316 weeks depending on whether it\u2019s design only or design and development. Landing pages take 5\u201310 weeks. Product design runs as a monthly retainer with a 3-month minimum.",
+			"Branding takes 6\u201310 weeks. Websites take 6\u201316 weeks depending on whether it\u2019s design only or design and development. Landing pages take 5\u201310 weeks. Product design runs as a monthly retainer with a 3-month minimum.",
 	},
 	{
 		question: "Do you work with early-stage startups?",
