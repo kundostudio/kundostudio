@@ -140,6 +140,8 @@ export function HomePage() {
 					width={80}
 					height={80}
 					className="select-none"
+					loading="eager"
+					priority
 				/>
 			</div>
 		</main>
