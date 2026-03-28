@@ -224,9 +224,9 @@ export default async function ProjectDetail({ params }: Props) {
 												<Image
 													src={project.quote.author.image}
 													alt={project.quote.author.name || "Quote author"}
-													width={24}
-													height={24}
-													className="rounded-full"
+													width={32}
+													height={32}
+													className="rounded-lg object-cover"
 												/>
 											)}
 											<span className={cn(Typography.textStyles.overline, "text-secondary")}>
