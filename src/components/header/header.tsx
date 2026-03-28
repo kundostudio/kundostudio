@@ -19,7 +19,6 @@ export const NAVIGATION_ITEMS = [
 	{ href: "/", label: "Home" },
 	{ href: "/work", label: "Work" },
 	{ href: "/about", label: "About" },
-	{ href: "/contact", label: "Contact" },
 ] as const;
 
 type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
@@ -94,7 +93,7 @@ export function Header({ className, ...props }: HeaderProps) {
 						))}
 					</nav>
 
-					{/* Book a call button */}
+					{/* Contact button */}
 					<motion.div
 						className="px-6 pb-20"
 						initial={{ opacity: 0, y: 20 }}
@@ -105,9 +104,9 @@ export function Header({ className, ...props }: HeaderProps) {
 							ease: [0.25, 0.46, 0.45, 0.94],
 						}}
 					>
-						<a href="https://cal.com/kundostudio/30-min-meeting" target="_blank" rel="noopener noreferrer" className="block w-full">
-							<Button className="w-full h-14">Book a call</Button>
-						</a>
+						<Link href="/contact" className="block w-full">
+							<Button className="w-full h-14">Contact</Button>
+						</Link>
 					</motion.div>
 				</Menu>
 			</>
@@ -120,9 +119,9 @@ export function Header({ className, ...props }: HeaderProps) {
 			{...props}
 		>
 			<div className="container flex items-center justify-between relative h-full">
-				{/* Left — Nav links (excludes Contact, which goes on the right) */}
+				{/* Left — Nav links */}
 				<nav className="flex items-center gap-2">
-					{NAVIGATION_ITEMS.filter((item) => item.href !== "/contact").map((item) => {
+					{NAVIGATION_ITEMS.map((item) => {
 						const isActive =
 							item.href === "/"
 								? pathname === "/"
@@ -164,35 +163,11 @@ export function Header({ className, ...props }: HeaderProps) {
 					<Logo className="h-[18px] w-auto" />
 				</Link>
 
-				{/* Right — Contact link + CTA button */}
+				{/* Right — CTA button */}
 				<div className="flex items-center gap-2">
-					<Link
-						href="/contact"
-						className="flex items-center justify-center h-8 px-3 py-[9px] relative"
-					>
-						<span
-							className={cn("text-primary w-fit relative", textStyles.buttonNav)}
-						>
-							Contact
-							<span className="pointer-events-none absolute bottom-[-2px] left-0 w-full h-px overflow-hidden rounded-full">
-								<AnimatePresence initial={false}>
-									{pathname === "/contact" ? (
-										<motion.span
-											key="active-bar"
-											className="block w-full h-full bg-primary"
-											initial={{ x: "-100%" }}
-											animate={{ x: "0%" }}
-											exit={{ x: "100%" }}
-											transition={{ duration: 0.15, ease: "easeInOut" }}
-										/>
-									) : null}
-								</AnimatePresence>
-							</span>
-						</span>
+					<Link href="/contact">
+						<Button>Contact</Button>
 					</Link>
-					<a href="https://cal.com/kundostudio/30-min-meeting" target="_blank" rel="noopener noreferrer">
-						<Button>Book a call</Button>
-					</a>
 				</div>
 			</div>
 		</header>

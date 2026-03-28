@@ -57,18 +57,10 @@ export function FAQSchema() {
 		mainEntity: [
 			{
 				"@type": "Question",
-				name: "How much does a project usually cost?",
+				name: "How much does a project cost?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "We tailor pricing based on your company stage, complexity, and what success looks like. Branding starts at $20,000, websites at $15,000, product design at $13,000/month, and landing pages at $12,000. Larger initiatives \u2014 especially for growth-stage and enterprise companies \u2014 can range up to six figures. You\u2019ll always get a clear number before we begin\u2014no vague estimates, no surprises.",
-				},
-			},
-			{
-				"@type": "Question",
-				name: "Can I get a clear price before starting?",
-				acceptedAnswer: {
-					"@type": "Answer",
-					text: "Always. We scope the engagement with you, then quote a clear structure\u2014either a fixed project fee or a structured monthly phase. No vague estimates, padded buffers. We price by outcomes, not inputs. Who works on what stays behind the scenes.",
+					text: "Branding starts at $20,000, websites at $15,000, landing pages at $12,000, and product design at $13,000 per month. Pricing scales with your company stage and project scope \u2014 growth-stage and enterprise projects can range up to six figures. Every project gets a fixed price upfront before work begins.",
 				},
 			},
 			{
@@ -76,23 +68,23 @@ export function FAQSchema() {
 				name: "What\u2019s included in the price?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "Everything needed to deliver the result\u2014no add-ons unless the scope changes. We include brand, design, motion, development, or strategy based on the project\u2019s needs.",
+					text: "Everything needed to deliver the result \u2014 strategy, design, development, and motion based on the project\u2019s needs. No add-ons unless the scope changes. Branding projects include logo design, visual identity systems, brand guidelines, and brand applications. Website projects include design, frontend development, CMS integration, and performance optimization.",
 				},
 			},
 			{
 				"@type": "Question",
-				name: "Do you offer standalone landing pages?",
+				name: "How long does a project take?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "Yes. We design single-page sites starting at $10k. Most engagements are structured to continue beyond launch, ensuring the work performs once it\u2019s in the real world.",
+					text: "Branding tak0 weeks. Websites take 6\u201316 weeks depending on whether it\u2019s design only or design and development. Landing pages take 5\u201310 weeks. Product design runs as a monthly retainer with a 3-month minimum.",
 				},
 			},
 			{
 				"@type": "Question",
-				name: "How is work typically structured?",
+				name: "Do you work with early-stage startups?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "We work by company stage, not isolated projects. Every engagement begins with a foundational phase\u2014the core build\u2014and is often followed by a structured period of refinement or expansion, so the work doesn\u2019t just launch but holds up over time.",
+					text: "Yes. Pricing is tiered by company stage \u2014 early-stage startups get competitive rates while the same quality of work scales for larger companies. We also offer an alternative fee structure: a reduced project fee combined with equity, with vesting tied to delivery milestones.",
 				},
 			},
 			{
@@ -100,23 +92,7 @@ export function FAQSchema() {
 				name: "How are payments structured?",
 				acceptedAnswer: {
 					"@type": "Answer",
-					text: "Foundation projects are 100% upfront. Cycle engagements are billed monthly after project delivery. Product design retainers require a 3-month minimum commitment, billed monthly.",
-				},
-			},
-			{
-				"@type": "Question",
-				name: "Do you work with early-stage companies?",
-				acceptedAnswer: {
-					"@type": "Answer",
-					text: "Yes\u2014if you\u2019re serious about quality. We adjust scope and approach to fit your context without compromising the outcome.",
-				},
-			},
-			{
-				"@type": "Question",
-				name: "Do you offer alternative fee structures?",
-				acceptedAnswer: {
-					"@type": "Answer",
-					text: "For the right partnership, yes. We offer two paths on every proposal: a standard project fee, or a reduced fee combined with a stake in the outcome\u2014equity with vesting and a capped share of revenue. Both are defined clearly upfront. We don\u2019t absorb costs against future upside; the economics work for both sides from day one.",
+					text: "Landing pages and branding projects under $25,000 are paid upfront. Branding over $25,000 and all website projects are split 50/50 \u2014 half upfront, half upon project completion. Product design is billed monthly with a 3-month minimum.",
 				},
 			},
 		],
@@ -149,7 +125,7 @@ export function ProjectSchema({
 		"@context": "https://schema.org",
 		"@type": "CreativeWork",
 		name: title,
-		description: description || `${title} — A Kundo Studio project`,
+		description: description || `${title} \u2014 A Kundo Studio project`,
 		url: `https://www.kundo.studio/work/${slug}`,
 		...(coverImage ? { image: coverImage } : {}),
 		creator: {
