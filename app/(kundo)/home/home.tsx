@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Page } from "~/components/page";
-import * as Typography from "~/components/typography";
 import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 import { Frame } from "./frame";
@@ -163,7 +162,7 @@ export function HomePage({ testimonials }: HomePageProps) {
 		<Page className="mt-0 overflow-x-hidden">
 			<h1 className="sr-only">Branding &amp; Website Design for Startups and Growing Companies | Kundo Studio</h1>
 			{/* Hero — full viewport height, frame centered, H1 anchored near bottom */}
-			<div className="relative min-h-screen">
+			<div className="relative flex flex-col min-h-screen">
 				{/* Frame — centered in the hero area */}
 				<div
 					ref={frameContainerRef}
@@ -271,11 +270,13 @@ export function HomePage({ testimonials }: HomePageProps) {
 					)}
 				</div>
 
-				{/* Hero headline — anchored near bottom of viewport */}
-				<div className="absolute bottom-[40px] md:bottom-[60px] xl:bottom-[80px] left-0 right-0 container">
-					<Typography.OverlineLg className="text-secondary">Kundo Studio</Typography.OverlineLg>
+				{/* Spacer to push headline toward bottom */}
+				<div className="flex-1" />
+
+				{/* Hero headline — in normal flow so longer text grows naturally */}
+				<div className="relative z-10 pb-10 md:pb-[60px] xl:pb-20 container">
 					<p className={cn(textStyles.h1, "text-primary")}>
-						Design the company you're becoming
+						Kundo is a design and development studio that partners with founders, startups, and companies to build the brands, websites, and products they need to become the company they envision.
 					</p>
 				</div>
 
