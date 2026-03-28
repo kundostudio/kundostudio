@@ -151,6 +151,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 							src={prefooterAsset.url}
 							className="object-contain mt-[114px]"
 							variant="default"
+							noOutline
 							lazy
 							width={306.6}
 							height={460}
@@ -168,7 +169,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 					</Typography.H2>
 					<div className="mt-8 sm:mt-10">
 						<Link href="/contact">
-							<Button className="w-[320px] h-12">Get in touch</Button>
+							<Button className="w-[320px] h-12">Contact</Button>
 						</Link>
 					</div>
 				</div>

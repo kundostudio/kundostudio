@@ -44,7 +44,7 @@ export default function CTASection() {
 
           <div className="mt-8 sm:mt-10 flex justify-center">
             <Link href="/contact">
-              <Button className="w-[168px] h-12">Get in touch</Button>
+              <Button className="w-[168px] h-12">Contact</Button>
             </Link>
           </div>
         </div>

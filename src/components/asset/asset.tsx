@@ -24,6 +24,7 @@ type BaseContainer = {
 	container?: React.HTMLAttributes<HTMLDivElement>;
 	variant?: "default" | "card";
 	lazy?: boolean;
+	noOutline?: boolean;
 };
 
 type ImgAsset = {
@@ -59,7 +60,7 @@ export function Asset(props: AssetProps) {
 		}
 
 		case "video-stream": {
-			const { playbackId, src, lazy, ...rest } = props;
+			const { playbackId, src, lazy, noOutline: _, ...rest } = props;
 			const id = playbackId ?? (typeof src === "string" ? src : undefined);
 			if (!id) return null;
 			const player = <MUXPlayer playbackId={id} {...rest} />;
@@ -67,7 +68,7 @@ export function Asset(props: AssetProps) {
 		}
 
 		case "video": {
-			const { container, lazy, ...rest } = props;
+			const { container, lazy, noOutline: _, ...rest } = props;
 			const video = <Video container={container} {...rest} />;
 			return lazy ? <LazyViewport>{video}</LazyViewport> : video;
 		}
@@ -123,6 +124,7 @@ export function Image({
 	alt = "",
 	container = {},
 	variant = "default",
+	noOutline = false,
 	width,
 	height,
 	quality = 100,
@@ -164,12 +166,12 @@ export function Image({
 						containerClassName,
 					)}
 				/>
-			) : (
+			) : !noOutline ? (
 				<div
 					className="absolute inset-0 rounded-[inherit] pointer-events-none"
 					style={{ outline: "1px solid rgba(255,255,255,0.06)", outlineOffset: "-1px" }}
 				/>
-			)}
+			) : null}
 		</div>
 	);
 }
