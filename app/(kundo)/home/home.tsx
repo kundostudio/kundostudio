@@ -276,7 +276,7 @@ export function HomePage({ testimonials }: HomePageProps) {
 				{/* Hero headline — in normal flow so longer text grows naturally */}
 				<div className="relative z-10 pb-10 md:pb-[60px] xl:pb-20 container">
 					<p className={cn(textStyles.h1, "text-primary")}>
-						Kundo is a design and development studio that partners with founders, startups, and companies to build the brands, websites, and products they need to become the company they envision.
+						Kundo is a design and development studio that partners with founders, startups, and companies to build the company they want to become.
 					</p>
 				</div>
 
