@@ -54,7 +54,7 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 				{prevProject ? (
 					<Link
 						href={`/work/${prevProject.slug}`}
-						className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7] hover:opacity-80 transition-opacity"
+						className="relative z-10 flex items-center gap-1.5 text-primary hover:opacity-80 transition-opacity"
 					>
 						<ArrowLeft className="size-5" />
 						<span className={cn(textStyles.buttonNav, "[text-shadow:0px_2px_2px_rgba(0,0,0,0.16)]")}>
@@ -63,7 +63,7 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 						</span>
 					</Link>
 				) : (
-					<span className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7]/40 cursor-not-allowed">
+					<span className="relative z-10 flex items-center gap-1.5 text-primary/40 cursor-not-allowed">
 						<ArrowLeft className="size-5" />
 						<span className={textStyles.buttonNav}>
 							<span className="md:hidden">Previous</span>
@@ -76,7 +76,7 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 				{nextProject ? (
 					<Link
 						href={`/work/${nextProject.slug}`}
-						className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7] hover:opacity-80 transition-opacity"
+						className="relative z-10 flex items-center gap-1.5 text-primary hover:opacity-80 transition-opacity"
 					>
 						<span className={cn(textStyles.buttonNav, "[text-shadow:0px_2px_2px_rgba(0,0,0,0.16)]")}>
 							<span className="md:hidden">Next</span>
@@ -85,7 +85,7 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 						<ArrowRight className="size-5" />
 					</Link>
 				) : (
-					<span className="relative z-10 flex items-center gap-1.5 text-[#f5f5f7]/40 cursor-not-allowed">
+					<span className="relative z-10 flex items-center gap-1.5 text-primary/40 cursor-not-allowed">
 						<span className={textStyles.buttonNav}>
 							<span className="md:hidden">Next</span>
 							<span className="hidden md:inline">Next Project</span>
@@ -99,7 +99,7 @@ export function ProjectNav({ prevProject, nextProject, className }: ProjectNavPr
 			<button
 				type="button"
 				onClick={handleScrollToTop}
-				className="group relative size-11 flex items-center justify-center text-[#f5f5f7] cursor-pointer"
+				className="group relative size-11 flex items-center justify-center text-primary cursor-pointer"
 				aria-label="Scroll to top"
 			>
 				{/* Blur background layer */}

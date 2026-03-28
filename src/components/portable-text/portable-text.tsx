@@ -7,6 +7,7 @@ import NextImage from "next/image";
 
 import { Link } from "~/components/link";
 import * as Typography from "~/components/typography";
+import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 
 type PortableTextClassNames = {
@@ -78,7 +79,7 @@ function createPortableTextComponents(
 						</div>
 						{caption && (
 							<figcaption
-								className={cn("mt-2 text-sm text-secondary", classes?.types?.image?.figcaption)}
+								className={cn("mt-2 text-secondary", textStyles.small, classes?.types?.image?.figcaption)}
 							>
 								{caption}
 							</figcaption>

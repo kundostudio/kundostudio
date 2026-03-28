@@ -157,12 +157,17 @@ export function Image({
 				{...("fill" in props ? { fill: true } : { width, height })}
 				{...props}
 			/>
-			{variant === "card" && (
+			{variant === "card" ? (
 				<div
 					className={cn(
 						"absolute! inset-0 rounded-[5px] sm:rounded-[10px] border border-white/16",
 						containerClassName,
 					)}
+				/>
+			) : (
+				<div
+					className="absolute inset-0 rounded-[inherit] pointer-events-none"
+					style={{ outline: "1px solid rgba(255,255,255,0.06)", outlineOffset: "-1px" }}
 				/>
 			)}
 		</div>

@@ -58,7 +58,7 @@ function PillButton({
 			type="button"
 			onClick={onClick}
 			className={cn(
-				"h-8 rounded-full px-5 py-[5px] font-inter text-[14px] font-normal transition-all duration-200",
+				"h-8 rounded-full px-5 py-[5px] font-inter text-[14px] font-normal tabular-nums transition-all duration-200",
 				selected
 					? "bg-white text-black"
 					: "glass-btn text-secondary hover:text-primary",
@@ -207,7 +207,7 @@ function SuccessState() {
 				<h1 className={cn(textStyles.h1, "text-primary")}>
 					Thanks for reaching out.
 				</h1>
-				<p className="font-inter text-[16px] font-semibold leading-[25px] text-secondary">
+				<p className="font-inter text-[16px] font-normal leading-[25px] text-secondary">
 					We&apos;ll follow up within 48 hours, or as soon as we can.
 				</p>
 				<div className="mt-4">
@@ -292,7 +292,7 @@ export function ContactPage() {
 						<h1 className={cn(textStyles.h1, "text-primary")}>
 							Let&apos;s talk about what&apos;s next.
 						</h1>
-						<p className="font-inter text-[16px] font-semibold leading-[25px] text-secondary mt-4">
+						<p className="font-inter text-[16px] font-normal leading-[25px] text-secondary mt-4">
 							A few details to help us understand where you are
 							and what you need. We&apos;ll get back to you as
 							soon as we can.

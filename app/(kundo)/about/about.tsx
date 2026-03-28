@@ -8,7 +8,6 @@ import * as Typography from "~/components/typography";
 import { textStyles } from "~/components/typography";
 import { cn } from "~/lib/utils";
 import type { AboutPage as AboutPageType } from "~/lib/queries";
-import Footer from "../home/footer";
 
 const ABOUT_SERVICES = [
 	{
@@ -123,7 +122,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 								<div key={service.title} className="flex flex-col gap-[10px] max-w-[460px]">
 									<div className="flex items-center gap-2">
 										{service.icon}
-										<h4 className={cn(textStyles.h5, "text-primary")}>{service.title}</h4>
+										<h3 className={cn(textStyles.h5, "text-primary")}>{service.title}</h3>
 									</div>
 									<Typography.Small className="text-secondary">
 										{service.description}
@@ -160,7 +159,7 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 				)}
 				<div className="relative z-10 flex flex-col items-center">
 					<Typography.H2
-						className="font-semibold text-primary"
+						className="text-primary"
 						style={{
 							textShadow: "0 4px 16px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6)",
 						}}
@@ -175,8 +174,6 @@ export function AboutPage({ aboutData }: { aboutData: AboutPageType | null }) {
 				</div>
 			</section>
 
-			{/* Section 5: Footer */}
-			<Footer className="container" />
 		</Page>
 	);
 }

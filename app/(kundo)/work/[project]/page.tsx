@@ -229,9 +229,9 @@ export default async function ProjectDetail({ params }: Props) {
 													className="rounded-lg object-cover"
 												/>
 											)}
-											<span className={cn(Typography.textStyles.overline, "text-secondary")}>
-												&mdash; {project.quote.author.name}, {project.quote.author.role}
-											</span>
+											<Typography.Overline className="text-secondary">
+												{project.quote.author.name} — {project.quote.author.role}, {project.name}
+											</Typography.Overline>
 										</div>
 									</div>
 								)}

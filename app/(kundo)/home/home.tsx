@@ -12,7 +12,6 @@ import { ServicesSection } from "./services-section";
 import { TestimonialsSection } from "./testimonials-section";
 
 import CTASection from "./cta-section";
-import Footer from "./footer";
 import { LensFlare } from "./lens-flare";
 
 declare module "react" {
@@ -316,9 +315,6 @@ export function HomePage({ testimonials }: HomePageProps) {
 
 			{/* CTA Section */}
 			<CTASection />
-
-			{/* Footer */}
-			<Footer className="container" />
 		</Page>
 	);
 }

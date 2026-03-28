@@ -107,7 +107,7 @@ const FAQItem = forwardRef<HTMLDivElement, FAQItemProps>(
 							>
 								<div className="pb-6 sm:pb-8 max-w-[800px] w-full">
 									<Typography.Small
-										className="whitespace-pre-line text-pretty text-secondary"
+										className="whitespace-pre-line text-pretty text-secondary tabular-nums"
 									>
 										{answer}
 									</Typography.Small>

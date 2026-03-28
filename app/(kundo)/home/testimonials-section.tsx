@@ -215,7 +215,7 @@ export function TestimonialsSection({ testimonials, className }: TestimonialsSec
 												<img src={src} alt="" className="w-8 h-8 rounded-lg object-cover" />
 											) : null; })()}
 											<Typography.Overline className="text-secondary">
-												{t.name} — {t.role} {t.company}
+												{t.name} — {t.role}, {t.company}
 											</Typography.Overline>
 										</div>
 										<Typography.H3 className="text-primary mt-4">
