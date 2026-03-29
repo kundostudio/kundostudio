@@ -42,7 +42,7 @@ export function Header({ className, ...props }: HeaderProps) {
 								"font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] transition-colors duration-200",
 								isActive
 									? "text-[#808080]"
-									: "text-primary hover:opacity-50 transition-opacity duration-200",
+									: "text-primary hover:opacity-50 transition-opacity duration-200 will-change-[opacity]",
 							)}
 						>
 							{link.label}

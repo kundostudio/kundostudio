@@ -93,6 +93,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 			<div
 				ref={containerRef}
 				className="animate-enter flex gap-2 pl-6 overflow-x-auto no-scrollbar"
+					style={{ willChange: "scroll-position" }}
 			>
 				{tripled.map((project, i) => (
 					<Link
@@ -100,7 +101,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 						href={`/work/${project.slug}` as Route}
 						className="flex-shrink-0 flex flex-col gap-2 w-[280px] md:w-[418px]"
 					>
-						<div className="relative aspect-[418/235] transition-opacity duration-300 hover:opacity-85">
+						<div className="relative aspect-[418/235] transition-opacity duration-300 hover:opacity-85 will-change-[opacity]">
 							<Image
 								src={project.thumbnail}
 								alt={project.name}

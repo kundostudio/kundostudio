@@ -120,7 +120,7 @@ export function HeroAsset({ filetype, src, playbackId, fill, className, alt }: H
 		<div ref={containerRef} className="w-full flex justify-center">
 			<motion.div
 				className="relative aspect-[16/9] overflow-hidden w-full"
-				style={isMounted ? { width } : undefined}
+				style={isMounted ? { width, willChange: "transform, width" } : undefined}
 			>
 				{renderAsset()}
 			</motion.div>
