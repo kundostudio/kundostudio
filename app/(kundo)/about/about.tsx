@@ -2,7 +2,7 @@ import type { AboutV2Page } from "~/lib/queries";
 
 const FALLBACK_DESCRIPTION = `Kundo is a design and development studio that partners with founders, startups, and companies to build the brands, websites, and products they need to become the company they envision.
 
-Shaped by intent, precision, simplicity and care. We work with intention\u2014tuning every element to reflect clarity, utility, and strength. No filler, no fluff. Just the right foundations to help you grow.
+Shaped by precision, simplicity and care we work with intention\u2014tuning every element to reflect clarity, utility, and strength. No filler, no fluff. Just the right foundations to help you grow.
 
 We adapt to context, but we always move with precision. Early-stage, late-stage, or in transition\u2014we shape what\u2019s next without losing sight of what matters.
 
