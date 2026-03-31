@@ -247,7 +247,7 @@ export default async function ProjectDetail({ params }: Props) {
 							(item: { role?: string; people?: string }, idx: number) =>
 								item.role && item.people && (
 									<p key={`credit-${idx}`} className={text}>
-										- {item.role}: {item.people}
+										- {item.role}: {item.people.split("\n").join(", ")}
 									</p>
 								),
 						)}
