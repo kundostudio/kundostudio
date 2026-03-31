@@ -41,6 +41,7 @@ export function HomePage() {
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const [muxReady, setMuxReady] = useState(false);
 	const [isFading, setIsFading] = useState(false);
+	const [isHidden, setIsHidden] = useState(false);
 	const [isReturningVisit, setIsReturningVisit] = useState(false);
 
 	// Detect returning visit via sessionStorage
@@ -51,37 +52,23 @@ export function HomePage() {
 		}
 	}, []);
 
-	// Load mux-player script on first user interaction
+	// Load mux-player script immediately
 	useEffect(() => {
-		let loaded = false;
-
-		const loadMux = () => {
-			if (loaded) return;
-			loaded = true;
-
-			const script = document.createElement("script");
-			script.src =
-				"https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs";
-			script.type = "module";
-			script.onload = () => setMuxReady(true);
-			document.head.appendChild(script);
-
-			for (const evt of events) {
-				window.removeEventListener(evt, loadMux);
-			}
-		};
-
-		const events = ["scroll", "click", "touchstart", "mousemove", "keydown"];
-		for (const evt of events) {
-			window.addEventListener(evt, loadMux, { passive: true });
-		}
-
-		return () => {
-			for (const evt of events) {
-				window.removeEventListener(evt, loadMux);
-			}
-		};
+		const script = document.createElement("script");
+		script.src =
+			"https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs";
+		script.type = "module";
+		script.onload = () => setMuxReady(true);
+		document.head.appendChild(script);
 	}, []);
+
+	// Hide content after fade-out completes to prevent video flash
+	useEffect(() => {
+		if (isFading) {
+			const timer = setTimeout(() => setIsHidden(true), 1000);
+			return () => clearTimeout(timer);
+		}
+	}, [isFading]);
 
 	// Detect when video starts playing to fade out poster
 	useEffect(() => {
@@ -139,6 +126,7 @@ export function HomePage() {
 					opacity: isFading ? 0 : 1,
 					filter: isFading ? "blur(12px)" : "blur(0px)",
 					transform: isFading ? "scale(0.98)" : "scale(1)",
+					...(isHidden && { display: "none" }),
 				}}
 			>
 			{/* Video */}
