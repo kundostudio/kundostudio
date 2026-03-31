@@ -18,14 +18,14 @@ export function Header({ className, ...props }: HeaderProps) {
 	return (
 		<header
 			className={cn(
-				"fixed top-0 left-0 right-0 z-100 flex items-center justify-between px-6 pt-[22px]",
+				"fixed top-0 left-0 right-0 z-100 flex items-center justify-between px-6 pt-[22px] mix-blend-difference",
 				className,
 			)}
 			{...props}
 		>
 			<Link
 				href="/"
-				className="font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] text-primary"
+				className="pointer-events-auto font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] text-white"
 			>
 				Kundo Studio
 			</Link>
@@ -39,10 +39,10 @@ export function Header({ className, ...props }: HeaderProps) {
 							key={link.href}
 							href={link.href}
 							className={cn(
-								"font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] transition-colors duration-200",
+								"pointer-events-auto font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] transition-colors duration-200",
 								isActive
-									? "text-[#808080]"
-									: "text-primary hover:opacity-50 transition-opacity duration-200 will-change-[opacity]",
+									? "text-white/50"
+									: "text-white hover:opacity-50 transition-opacity duration-200 will-change-[opacity]",
 							)}
 						>
 							{link.label}

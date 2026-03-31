@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Sign from "~/public/projects/sign.svg";
 
@@ -36,8 +37,10 @@ const muxPlayerStyle = {
 } as React.CSSProperties;
 
 export function HomePage() {
+	const router = useRouter();
 	const [videoLoaded, setVideoLoaded] = useState(false);
 	const [muxReady, setMuxReady] = useState(false);
+	const [isFading, setIsFading] = useState(false);
 
 	// Load mux-player script on first user interaction
 	useEffect(() => {
@@ -89,6 +92,28 @@ export function HomePage() {
 		};
 	}, [muxReady]);
 
+	// Redirect to /work when video ends
+	useEffect(() => {
+		if (!muxReady) return;
+
+		const handleEnded = () => {
+			setIsFading(true);
+			setTimeout(() => {
+				router.push("/work");
+			}, 1200);
+		};
+
+		const players = document.querySelectorAll("mux-player");
+		for (const p of players) {
+			p.addEventListener("ended", handleEnded);
+		}
+		return () => {
+			for (const p of players) {
+				p.removeEventListener("ended", handleEnded);
+			}
+		};
+	}, [muxReady, router]);
+
 	return (
 		<main className="flex flex-col min-h-screen">
 			<h1 className="sr-only text-balance">
@@ -96,6 +121,14 @@ export function HomePage() {
 				Kundo Studio
 			</h1>
 
+			<div
+				className="transition-all duration-1000 ease-out"
+				style={{
+					opacity: isFading ? 0 : 1,
+					filter: isFading ? "blur(12px)" : "blur(0px)",
+					transform: isFading ? "scale(0.98)" : "scale(1)",
+				}}
+			>
 			{/* Video */}
 			<div
 				className="animate-enter relative mx-auto mt-[144px] w-[1120px] max-w-[calc(100%-48px)] aspect-video overflow-hidden"
@@ -117,7 +150,6 @@ export function HomePage() {
 				<mux-player
 					playback-id={PLAYBACK_ID}
 					autoplay="muted"
-					loop
 					muted
 					playsinline
 					stream-type="on-demand"
@@ -143,6 +175,7 @@ export function HomePage() {
 					loading="eager"
 					priority
 				/>
+			</div>
 			</div>
 		</main>
 	);
