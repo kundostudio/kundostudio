@@ -149,6 +149,13 @@ export default defineType({
 							type: "string",
 						}),
 						defineField({
+							name: "description",
+							title: "Description",
+							description:
+								"Short description displayed below the category heading",
+							type: "string",
+						}),
+						defineField({
 							name: "items",
 							title: "Services",
 							type: "array",

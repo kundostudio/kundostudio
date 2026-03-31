@@ -161,13 +161,16 @@ export const ABOUT_V2_QUERY = defineQuery(`*[_type == "about" && _id == "about"]
   descriptionV2,
   servicesV2[] {
     category,
+    description,
     items
   }
 }`);
 
 export interface AboutV2Page {
 	descriptionV2?: string | null;
-	servicesV2?: { category: string; items: string[] }[] | null;
+	servicesV2?:
+		| { category: string; description?: string; items: string[] }[]
+		| null;
 }
 
 // Contact page query

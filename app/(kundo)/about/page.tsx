@@ -5,14 +5,16 @@ import { AboutPage } from "./about";
 
 export const metadata: Metadata = {
 	title: {
-		absolute: "About Kundo Studio — Design Studio for Startups & Companies",
+		absolute:
+			"Kundo Studio — Design & Development Studio for Brands, Websites & Products | Buenos Aires",
 	},
 	description:
-		"Founded by Facu Montanaro. A design studio helping startups and companies with branding, web design, product design and motion. Based in Argentina, working globally.",
+		"Kundo is a design and development studio based in Buenos Aires. We work with founders, startups, and growing companies to build brands, websites, and products shaped by intention and craft.",
 	openGraph: {
-		title: "About Kundo Studio — Design Studio for Startups & Companies",
+		title:
+			"Kundo Studio — Design & Development Studio for Brands, Websites & Products | Buenos Aires",
 		description:
-			"Founded by Facu Montanaro. A design studio helping startups and companies with branding, web design, product design and motion. Based in Argentina, working globally.",
+			"Kundo is a design and development studio based in Buenos Aires. We work with founders, startups, and growing companies to build brands, websites, and products shaped by intention and craft.",
 		url: "https://www.kundo.studio/about",
 		siteName: "Kundo Studio",
 		locale: "en_US",
@@ -28,9 +30,10 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "About Kundo Studio — Design Studio for Startups & Companies",
+		title:
+			"Kundo Studio — Design & Development Studio for Brands, Websites & Products | Buenos Aires",
 		description:
-			"Founded by Facu Montanaro. A design studio helping startups and companies with branding, web design, product design and motion. Based in Argentina, working globally.",
+			"Kundo is a design and development studio based in Buenos Aires. We work with founders, startups, and growing companies to build brands, websites, and products shaped by intention and craft.",
 		images: ["https://www.kundo.studio/og.png"],
 	},
 	alternates: {

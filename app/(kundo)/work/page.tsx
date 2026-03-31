@@ -5,14 +5,16 @@ import { WorksPage } from "./works";
 
 export const metadata: Metadata = {
 	title: {
-		absolute: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+		absolute:
+			"Our Work — Branding, Web & Product Design Case Studies | Kundo Studio",
 	},
 	description:
-		"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+		"Selected projects by Kundo Studio. Branding, website design, product design, and development for startups and growing companies.",
 	openGraph: {
-		title: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+		title:
+			"Our Work — Branding, Web & Product Design Case Studies | Kundo Studio",
 		description:
-			"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+			"Selected projects by Kundo Studio. Branding, website design, product design, and development for startups and growing companies.",
 		url: "https://www.kundo.studio/work",
 		siteName: "Kundo Studio",
 		locale: "en_US",
@@ -28,9 +30,10 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Our Work — Branding & Web Design Case Studies | Kundo Studio",
+		title:
+			"Our Work — Branding, Web & Product Design Case Studies | Kundo Studio",
 		description:
-			"See how we help startups and companies build brands, websites, and products that scale. Detailed case studies with real outcomes.",
+			"Selected projects by Kundo Studio. Branding, website design, product design, and development for startups and growing companies.",
 		images: ["https://www.kundo.studio/og.png"],
 	},
 	alternates: {

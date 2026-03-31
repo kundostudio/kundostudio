@@ -210,24 +210,24 @@ export default async function ProjectDetail({ params }: Props) {
 					<p className={cn(prose, "text-balance")}>{project.description}</p>
 				)}
 
-				{/* Secondary description — all sections under "Process:" */}
-				{secondarySections.length > 0 && (
-					<div>
-						<p className={cn(text, "mb-2 text-secondary")}>Process:</p>
-						{secondarySections.map((section, index) => (
-							<div key={`section-${index}`} className={index > 0 ? "mt-4" : ""}>
-								{section.content && (
-									<PortableText
-										value={section.content}
-										classes={{
-											block: { normal: cn(prose, "mb-2 last:mb-0") },
-										}}
-									/>
-								)}
-							</div>
-						))}
+				{/* Secondary description — each section with its own title */}
+				{secondarySections.map((section, index) => (
+					<div key={`section-${index}`}>
+						{section.title && (
+							<p className={cn(text, "mb-2 text-secondary")}>
+								{section.title}
+							</p>
+						)}
+						{section.content && (
+							<PortableText
+								value={section.content}
+								classes={{
+									block: { normal: cn(prose, "mb-2 last:mb-0") },
+								}}
+							/>
+						)}
 					</div>
-				)}
+				))}
 
 				{/* Services */}
 				{services.length > 0 && (

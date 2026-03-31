@@ -89,12 +89,20 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 	const tripled = [...projects, ...projects, ...projects];
 
 	return (
-		<div className="min-h-screen flex items-center">
-			<div
-				ref={containerRef}
-				className="animate-enter flex gap-2 pl-6 overflow-x-auto no-scrollbar"
-					style={{ willChange: "scroll-position" }}
-			>
+		<div className="min-h-screen flex flex-col">
+			<div className="px-6 pt-[56px]">
+				<p className="font-inter text-[12px] font-normal leading-[18px] tracking-[0.2px] text-primary text-balance max-w-[400px] animate-enter">
+					Every project carries an invisible signature — the result of
+					intention, precision, and close collaboration.
+				</p>
+			</div>
+
+			<div className="flex-1 flex items-center">
+				<div
+					ref={containerRef}
+					className="animate-enter flex gap-2 pl-6 overflow-x-auto no-scrollbar"
+					style={{ willChange: "scroll-position", "--stagger": 1 } as React.CSSProperties}
+				>
 				{tripled.map((project, i) => (
 					<Link
 						key={`${project._id}-${i}`}
@@ -115,6 +123,7 @@ export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 						</p>
 					</Link>
 				))}
+				</div>
 			</div>
 		</div>
 	);
