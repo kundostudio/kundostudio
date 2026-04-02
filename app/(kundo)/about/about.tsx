@@ -1,6 +1,6 @@
 import type { AboutV2Page } from "~/lib/queries";
 
-const FALLBACK_DESCRIPTION = `Kundo is a design and development studio based in Buenos Aires, working with founders, startups, and growing companies worldwide. We build brands, websites, and products \u2014 each one shaped by intention, clarity, and craft.
+const FALLBACK_DESCRIPTION = `Kundo is a creative practice \u2014 a tight-knit, remote team of designers, developers, and creators working with founders and growing companies worldwide. We build brands, websites, and products shaped by intention, clarity, and craft.
 
 We treat every project as a practice: precise in structure, adaptive in process, purposeful in every detail. The work isn\u2019t about embellishment \u2014 it\u2019s about finding the essential form that lets your company grow with confidence.
 
