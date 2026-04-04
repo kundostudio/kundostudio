@@ -38,17 +38,11 @@ export default function Manifesto() {
 	return (
 		<div className="flex flex-col min-h-screen px-6 pt-[56px]">
 			<div className="flex flex-col gap-[14px] max-w-[400px]">
-				<h1
-					className={`${textClass} text-balance animate-enter`}
-					style={{ "--stagger": 0 } as React.CSSProperties}
-				>
-					The Way of the Ninja Generalist
-				</h1>
 				{paragraphs.map((paragraph, i) => (
 					<p
 						key={i}
 						className={`${textClass} text-balance animate-enter`}
-						style={{ "--stagger": i + 1 } as React.CSSProperties}
+						style={{ "--stagger": i } as React.CSSProperties}
 					>
 						{paragraph}
 					</p>

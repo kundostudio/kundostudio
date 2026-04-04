@@ -206,6 +206,25 @@
 	will-change: transform, opacity;
 }
 
+@keyframes scroll-dot {
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	50% {
+		transform: translateY(12px);
+		opacity: 0.3;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.animate-scroll-dot {
+	animation: scroll-dot 2s ease-in-out infinite;
+}
+
 @layer components {
 }
 

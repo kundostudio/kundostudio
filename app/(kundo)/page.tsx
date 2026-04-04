@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { OrganizationSchema, WebSiteSchema } from "~/components/seo/structured-data";
+import { WORKS_QUERY } from "~/lib/queries";
+import { sanityFetch } from "~/sanity/lib/live";
 import { HomePage } from "./home/home";
 
 export const metadata: Metadata = {
@@ -37,12 +39,14 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function Home() {
+export default async function Home() {
+	const { data: worksData } = await sanityFetch({ query: WORKS_QUERY });
+
 	return (
 		<>
 			<OrganizationSchema />
 			<WebSiteSchema />
-			<HomePage />
+			<HomePage projects={worksData?.featuredProjects || []} />
 		</>
 	);
 }
