@@ -9,7 +9,7 @@ const SHORT_LINES: string[][] = [
 		"Show up with intention or don\u2019t show up.",
 	],
 	[
-		"Mastery begins where impressive ends and honest begins.",
+		"Mastery begins where impressive ends and honesty begins.",
 		"The tenth iteration no one asked for \u2014 that is your signature.",
 		"Details matter.",
 		"We don\u2019t chase perfection. We chase the feeling of knowing the work is right.",
@@ -25,7 +25,7 @@ const SHORT_LINES: string[][] = [
 	[
 		"Disciplines are lenses, not departments.",
 		"Never work alone.",
-		"Breadth is mastery most people quit before reaching.",
+		"Breadth is a mastery most people quit before reaching.",
 	],
 	[
 		"Craft, when it\u2019s real, compounds over time.",
