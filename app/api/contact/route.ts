@@ -109,6 +109,28 @@ export async function POST(request: Request) {
 			);
 		}
 
+		try {
+			await fetch(`${process.env.FORMA_WEBHOOK_URL}/api/webhooks/inquiry`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-webhook-secret": process.env.FORMA_WEBHOOK_SECRET!,
+				},
+				body: JSON.stringify({
+					name: body.name,
+					email: body.email,
+					company: body.company,
+					website: body.website ?? null,
+					lookingFor: body.services,
+					notes: body.details ?? null,
+					budget: body.budget,
+					stage: body.stage,
+				}),
+			});
+		} catch (err) {
+			console.error("Forma webhook failed:", err);
+		}
+
 		return NextResponse.json({ success: true });
 	} catch (err) {
 		console.error("Contact API error:", err);
