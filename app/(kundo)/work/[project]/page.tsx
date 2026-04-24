@@ -105,7 +105,7 @@ export default async function ProjectDetail({ params }: Props) {
 	const services = project.roles?.services ?? [];
 
 	return (
-		<div className="pb-24">
+		<div className="pt-14 pb-24">
 			<ProjectSchema
 				title={project.title || project.name}
 				description={project.metaDescription || project.description}
@@ -114,38 +114,12 @@ export default async function ProjectDetail({ params }: Props) {
 				keywords={services}
 			/>
 
-			{/* 1. QUOTE */}
-			{project.quote?.text && project.quote.author && (
-				<div
-					className="px-6 pt-[56px] max-w-[400px] animate-enter"
-					style={{ "--stagger": 0 } as React.CSSProperties}
-				>
-					<p className={cn(prose, "text-balance")}>
-						&ldquo;{project.quote.text}&rdquo;
-					</p>
-					<div className="flex items-center gap-2 mt-3">
-						{project.quote.author.image && (
-							<Image
-								src={project.quote.author.image}
-								alt={project.quote.author.name || "Quote author"}
-								width={32}
-								height={32}
-								className="rounded-none object-cover"
-							/>
-						)}
-						<span className={cn(text, "uppercase whitespace-nowrap")}>
-							{project.quote.author.name} — {project.quote.author.role}, {project.name}
-						</span>
-					</div>
-				</div>
-			)}
-
-			{/* 2. MAIN ASSET — video gets shrink-on-scroll, image is static */}
+			{/* 1. MAIN ASSET — video gets shrink-on-scroll, image is static */}
 			{project.mainAsset?.url && (
 				project.mainAsset.filetype === "img" ? (
 					<div
-						className="px-6 mt-8 animate-enter"
-						style={{ "--stagger": 1 } as React.CSSProperties}
+						className="px-6 animate-enter"
+						style={{ "--stagger": 0 } as React.CSSProperties}
 					>
 						<Asset
 							filetype="img"
@@ -158,8 +132,8 @@ export default async function ProjectDetail({ params }: Props) {
 					</div>
 				) : (
 					<div
-						className="mt-12 animate-enter"
-						style={{ "--stagger": 1 } as React.CSSProperties}
+						className="animate-enter"
+						style={{ "--stagger": 0 } as React.CSSProperties}
 					>
 						<HeroAsset
 							filetype={project.mainAsset.filetype}
@@ -172,33 +146,41 @@ export default async function ProjectDetail({ params }: Props) {
 				)
 			)}
 
-			{/* 3. ALL ASSETS stacked */}
+			{/* 2. ALL ASSETS — 1 column, full-width */}
+			{/*
+				TODO: Si el proyecto tiene assets con distintos aspect ratios,
+				considerar activar masonry (CSS column-count) automáticamente.
+				Por ahora, layout 1 columna full-width.
+			*/}
 			{project.assets && project.assets.length > 0 && (
-				<div className="flex flex-col gap-2 px-6 mt-6">
-					{project.assets.map(
-						(asset, index) =>
-							asset?.url &&
-							asset?.filetype && (
-								<Asset
-									key={`asset-${index}`}
-									filetype={asset.filetype}
-									src={asset.url}
-									alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
-									fill
-									lazy
-									variant="default"
-									container={{ className: "aspect-video" }}
-								/>
-							),
-					)}
+				<div className="flex flex-col gap-2 px-6 mt-20">
+					{project.assets.map((asset, index) => {
+						if (!asset?.url || !asset?.filetype) return null;
+						const aspectRatio =
+							asset.dimensions?.width && asset.dimensions?.height
+								? `${asset.dimensions.width} / ${asset.dimensions.height}`
+								: "16 / 9";
+						return (
+							<Asset
+								key={`asset-${index}`}
+								filetype={asset.filetype}
+								src={asset.url}
+								alt={asset.alt || `${project.name} — ${index + 1} | Kundo Studio`}
+								fill
+								lazy
+								variant="default"
+								container={{
+									className: "w-full",
+									style: { aspectRatio },
+								}}
+							/>
+						);
+					})}
 				</div>
 			)}
 
-			{/* 4. TEXT CONTENT */}
-			<div
-				className="px-6 mt-20 max-w-[400px] flex flex-col gap-6 animate-enter"
-				style={{ "--stagger": 2 } as React.CSSProperties}
-			>
+			{/* 3. INFORMATION — title + overview + secondary sections + services + credits */}
+			<div className="px-6 mt-[160px] max-w-[400px] flex flex-col gap-6">
 				{/* Title + subtitle */}
 				<p className={text}>
 					<span className="font-semibold">{project.name}</span>
@@ -254,6 +236,32 @@ export default async function ProjectDetail({ params }: Props) {
 					</div>
 				)}
 			</div>
+
+			{/* 4. QUOTE */}
+			{project.quote?.text && project.quote.author && (
+				<div
+					className="px-6 mt-[160px] max-w-[400px] animate-enter"
+					style={{ "--stagger": 2 } as React.CSSProperties}
+				>
+					<p className={cn(prose, "text-balance")}>
+						&ldquo;{project.quote.text}&rdquo;
+					</p>
+					<div className="flex items-center gap-2 mt-3">
+						{project.quote.author.image && (
+							<Image
+								src={project.quote.author.image}
+								alt={project.quote.author.name || "Quote author"}
+								width={32}
+								height={32}
+								className="rounded-none object-cover"
+							/>
+						)}
+						<span className={cn(text, "uppercase whitespace-nowrap")}>
+							{project.quote.author.name} — {project.quote.author.role}, {project.name}
+						</span>
+					</div>
+				</div>
+			)}
 
 			{/* 5. PROJECT NAVIGATION */}
 			{(prevProject || nextProject) && (

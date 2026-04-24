@@ -12,10 +12,17 @@ export interface Quote {
 	};
 }
 
+export interface AssetDimensions {
+	width: number;
+	height: number;
+	aspectRatio: number;
+}
+
 export interface Asset {
 	url: string;
 	filetype: "img" | "video" | "video-stream";
 	alt?: string | null;
+	dimensions?: AssetDimensions | null;
 }
 
 export interface RoleItem {
@@ -133,7 +140,8 @@ export const PROJECT_QUERY = defineQuery(`*[_type == "project" && slug.current =
     ),
     filetype,
     size,
-    alt
+    alt,
+    "dimensions": image.asset->metadata.dimensions
   },
   roles {
     internal[]{
