@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 
+import { AppShell } from "~/components/app-shell";
 import { DisableDraftMode } from "~/components/disable-draft-mode";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
@@ -80,7 +81,7 @@ export default async function RootLayout({
 }>) {
 	const isDraftMode = await (await draftMode()).isEnabled;
 	return (
-		<div className="relative flex flex-col min-h-svh">
+		<AppShell>
 			<OrganizationSchema />
 			<Header />
 			<main className="flex-1 flex flex-col">
@@ -94,6 +95,6 @@ export default async function RootLayout({
 					<VisualEditing />
 				</>
 			)}
-		</div>
+		</AppShell>
 	);
 }

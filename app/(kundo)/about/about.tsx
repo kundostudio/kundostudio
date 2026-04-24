@@ -68,7 +68,7 @@ export function AboutPage({
 	const paragraphs = description.split("\n\n");
 
 	return (
-		<div className="flex flex-col min-h-screen px-6 pt-[56px]">
+		<div className="flex flex-col flex-1 px-6 pt-[56px]">
 			{/* Description */}
 			<div className="flex flex-col gap-[14px] max-w-[400px]">
 				{paragraphs.map((paragraph, i) => (

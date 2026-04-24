@@ -2,127 +2,231 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Route } from "next";
 import type { WorksPage as WorksPageType } from "~/lib/queries";
 
+const MINI_WIDTH = 170;
+const MINI_HEIGHT = 96;
+const FULL_WIDTH = 418;
+const FULL_HEIGHT = 235;
+const MINI_GAP = 2;
+const FULL_GAP = 8;
+const MASK_MINI_WIDTH = 800;
+const TRANSITION = "900ms cubic-bezier(0.22, 1, 0.36, 1)";
+const SHUFFLE_DURATION = 1500;
+const EXPAND_DURATION = 900;
+
+type Phase = "entering" | "shuffling" | "expanding" | "zoomed";
+
 export function WorksPage({ worksData }: { worksData: WorksPageType | null }) {
 	const projects = worksData?.featuredProjects || [];
-	const containerRef = useRef<HTMLDivElement>(null);
-
-	// Width of one full set of projects (calculated after mount)
+	const [phase, setPhase] = useState<Phase>("entering");
+	const maskRef = useRef<HTMLDivElement>(null);
+	const trackRef = useRef<HTMLDivElement>(null);
 	const setWidthRef = useRef(0);
+	const trackXRef = useRef(0);
 
-	// Measure one set width and jump to set2 on mount
+	const initialTrackX =
+		projects.length === 0
+			? 0
+			: (projects.length * MINI_WIDTH +
+					(projects.length - 1) * MINI_GAP -
+					MASK_MINI_WIDTH) /
+				2;
+
 	useEffect(() => {
-		const el = containerRef.current;
-		if (!el || projects.length === 0) return;
+		if (projects.length === 0) return;
+		setWidthRef.current = projects.length * (MINI_WIDTH + MINI_GAP);
+		trackXRef.current = initialTrackX;
+	}, [projects.length, initialTrackX]);
 
-		// Each card: width + gap. Last card in a set has no trailing gap.
-		// We measure programmatically by looking at the children.
-		const cards = el.children;
-		const cardsPerSet = projects.length;
-		if (cards.length < cardsPerSet * 2) return;
-
-		// setWidth = distance from start of card[0] to start of card[cardsPerSet]
-		const firstCard = cards[0] as HTMLElement;
-		const secondSetFirst = cards[cardsPerSet] as HTMLElement;
-		setWidthRef.current = secondSetFirst.offsetLeft - firstCard.offsetLeft;
-
-		// Jump to start of set2 (no animation)
-		el.scrollLeft = setWidthRef.current;
-	}, [projects.length]);
-
-	// Loop logic: when scroll crosses boundaries, jump
 	useEffect(() => {
-		const el = containerRef.current;
-		if (!el || projects.length === 0) return;
+		if (phase !== "entering" || projects.length === 0) return;
+		const lastCardDelay = (projects.length - 1) * 80;
+		const entryDuration = 700;
+		const pause = 400;
+		const total = lastCardDelay + entryDuration + pause;
+		const id = setTimeout(() => setPhase("shuffling"), total);
+		return () => clearTimeout(id);
+	}, [phase, projects.length]);
+
+	useEffect(() => {
+		if (phase !== "shuffling") return;
+		const track = trackRef.current;
+		if (!track) return;
+
+		const setWidth = setWidthRef.current;
+		const startX = trackXRef.current;
+		const targetX = startX + 2 * setWidth;
+		const startTime = performance.now();
+
+		const easeOutExpo = (t: number) =>
+			t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+		let rafId = 0;
+		const tick = (now: number) => {
+			const elapsed = now - startTime;
+			const t = Math.min(elapsed / SHUFFLE_DURATION, 1);
+			const eased = easeOutExpo(t);
+			const x = startX + (targetX - startX) * eased;
+			trackXRef.current = x;
+			track.style.transform = `translateX(-${x}px)`;
+			if (t < 1) {
+				rafId = requestAnimationFrame(tick);
+			} else {
+				setPhase("expanding");
+			}
+		};
+		rafId = requestAnimationFrame(tick);
+		return () => cancelAnimationFrame(rafId);
+	}, [phase]);
+
+	useEffect(() => {
+		if (phase !== "expanding") return;
+		const id = setTimeout(() => setPhase("zoomed"), EXPAND_DURATION);
+		return () => clearTimeout(id);
+	}, [phase]);
+
+	useLayoutEffect(() => {
+		if (phase !== "expanding") return;
+		const mask = maskRef.current;
+		const track = trackRef.current;
+		if (!mask || !track) return;
+		const trackWidth = track.scrollWidth;
+		const maskWidth = mask.clientWidth;
+		mask.scrollLeft = (trackWidth - maskWidth) / 2;
+		setWidthRef.current = projects.length * (FULL_WIDTH + FULL_GAP);
+	}, [phase, projects.length]);
+
+	useEffect(() => {
+		if (phase !== "zoomed") return;
+		const mask = maskRef.current;
+		if (!mask) return;
 
 		let ticking = false;
-
 		const onScroll = () => {
 			if (ticking) return;
 			ticking = true;
-
 			requestAnimationFrame(() => {
-				const setWidth = setWidthRef.current;
-				if (setWidth === 0) {
-					ticking = false;
-					return;
+				const sw = setWidthRef.current;
+				if (sw > 0) {
+					if (mask.scrollLeft >= sw * 2) mask.scrollLeft -= sw;
+					else if (mask.scrollLeft < sw) mask.scrollLeft += sw;
 				}
-
-				// If scrolled past start of set3, jump back to same position in set2
-				if (el.scrollLeft >= setWidth * 2) {
-					el.scrollLeft -= setWidth;
-				}
-				// If scrolled before start of set2, jump forward to same position in set2
-				else if (el.scrollLeft < setWidth) {
-					el.scrollLeft += setWidth;
-				}
-
 				ticking = false;
 			});
 		};
 
-		el.addEventListener("scroll", onScroll, { passive: true });
-		return () => el.removeEventListener("scroll", onScroll);
-	}, [projects.length]);
-
-	// Convert vertical wheel to horizontal scroll
-	const handleWheel = useCallback((e: WheelEvent) => {
-		e.preventDefault();
-		if (containerRef.current) {
-			containerRef.current.scrollLeft += e.deltaY + e.deltaX;
-		}
-	}, []);
+		mask.addEventListener("scroll", onScroll, { passive: true });
+		return () => mask.removeEventListener("scroll", onScroll);
+	}, [phase]);
 
 	useEffect(() => {
-		const el = containerRef.current;
-		if (!el) return;
-		el.addEventListener("wheel", handleWheel, { passive: false });
-		return () => el.removeEventListener("wheel", handleWheel);
-	}, [handleWheel]);
+		if (phase !== "zoomed") return;
+		const mask = maskRef.current;
+		if (!mask) return;
+
+		const onWheel = (e: WheelEvent) => {
+			e.preventDefault();
+			mask.scrollLeft += e.deltaY + e.deltaX;
+		};
+
+		mask.addEventListener("wheel", onWheel, { passive: false });
+		return () => mask.removeEventListener("wheel", onWheel);
+	}, [phase]);
 
 	if (projects.length === 0) return null;
 
-	// Triple the projects for infinite loop: [set1] [set2] [set3]
-	const tripled = [...projects, ...projects, ...projects];
+	const isZoomed = phase === "zoomed";
+	const isTranslatePhase = phase === "entering" || phase === "shuffling";
+	const isFullSize = phase === "expanding" || phase === "zoomed";
+
+	const cardsToRender = [...projects, ...projects, ...projects];
+	const cardWidth = isFullSize ? `${FULL_WIDTH}px` : `${MINI_WIDTH}px`;
+	const cardHeight = isFullSize ? `${FULL_HEIGHT}px` : `${MINI_HEIGHT}px`;
 
 	return (
-		<div className="min-h-screen flex flex-col">
-			<div className="px-6 pt-[56px]">
-				<p className="font-inter text-[12px] font-normal leading-[18px] tracking-[0.2px] text-primary text-balance max-w-[400px] animate-enter">
+		<div className="flex-1 flex flex-col">
+			<div
+				className="px-6 pt-[56px]"
+				style={{
+					opacity: isZoomed ? 1 : 0,
+					transition: "opacity 400ms ease 200ms",
+					pointerEvents: isZoomed ? "auto" : "none",
+				}}
+			>
+				<p className="font-inter text-[12px] font-normal leading-[18px] tracking-[0.2px] text-primary text-balance max-w-[400px]">
 					Every project carries an invisible signature — the result of
 					intention, precision, and close collaboration.
 				</p>
 			</div>
 
-			<div className="flex-1 flex items-center">
+			<div className="flex-1 flex items-center justify-center">
 				<div
-					ref={containerRef}
-					className="animate-enter flex gap-2 pl-6 overflow-x-auto no-scrollbar"
-					style={{ willChange: "scroll-position", "--stagger": 1 } as React.CSSProperties}
+					ref={maskRef}
+					data-mask
+					className="no-scrollbar relative"
+					style={{
+						width: isTranslatePhase
+							? `${MASK_MINI_WIDTH}px`
+							: "100vw",
+						overflowX: isZoomed ? "auto" : "clip",
+						overflowY: isZoomed ? "hidden" : "visible",
+						transition: `width ${TRANSITION}`,
+					}}
 				>
-				{tripled.map((project, i) => (
-					<Link
-						key={`${project._id}-${i}`}
-						href={`/work/${project.slug}` as Route}
-						className="flex-shrink-0 flex flex-col gap-2 w-[280px] md:w-[418px]"
+					<div
+						ref={trackRef}
+						data-track
+						className="flex items-center"
+						style={{
+							gap: isFullSize ? `${FULL_GAP}px` : `${MINI_GAP}px`,
+							transform: isTranslatePhase
+								? `translateX(-${initialTrackX}px)`
+								: "none",
+							transition: `gap ${TRANSITION}`,
+							willChange: "transform",
+						}}
 					>
-						<div className="relative aspect-[418/235] transition-opacity duration-300 hover:opacity-85 will-change-[opacity]">
-							<Image
-								src={project.thumbnail}
-								alt={project.name}
-								fill
-								sizes="(max-width: 768px) 280px, 418px"
-								className="object-cover"
-							/>
-						</div>
-						<p className="font-inter text-[12px] font-normal leading-[14px] tracking-[0.2px] text-primary">
-							{project.name}
-						</p>
-					</Link>
-				))}
+						{cardsToRender.map((project, i) => {
+							const isFirstSet = i < projects.length;
+							const cardIndex = i % projects.length;
+							return (
+								<Link
+									key={`${project._id}-${i}`}
+									href={`/work/${project.slug}` as Route}
+									data-card
+									className={`shrink-0 ${
+										isFirstSet ? "flow-card-enter" : ""
+									}`}
+									style={
+										{
+											"--card-index": cardIndex,
+										} as React.CSSProperties
+									}
+								>
+									<div
+										className="relative overflow-hidden transition-opacity duration-300 hover:opacity-85"
+										style={{
+											width: cardWidth,
+											height: cardHeight,
+											transition: `width ${TRANSITION}, height ${TRANSITION}`,
+										}}
+									>
+										<Image
+											src={project.thumbnail}
+											alt={project.name}
+											width={FULL_WIDTH}
+											height={FULL_HEIGHT}
+											className="w-full h-full object-cover"
+											priority={isFirstSet}
+										/>
+									</div>
+								</Link>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</div>

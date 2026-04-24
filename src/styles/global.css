@@ -225,6 +225,24 @@
 	animation: scroll-dot 2s ease-in-out infinite;
 }
 
+@keyframes flow-card-enter {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.flow-card-enter {
+	opacity: 0;
+	animation: flow-card-enter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+	animation-delay: calc(var(--card-index, 0) * 80ms);
+	will-change: transform, opacity;
+}
+
 @layer components {
 }
 
