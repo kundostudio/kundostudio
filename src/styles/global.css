@@ -141,13 +141,8 @@
 		font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
-		/* Hide native scrollbar */
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* IE and Edge */
-	}
-
-	html::-webkit-scrollbar {
-		display: none; /* Chrome, Safari and Opera */
+		scrollbar-width: thin;
+		scrollbar-color: gray transparent;
 	}
 
 	html,
